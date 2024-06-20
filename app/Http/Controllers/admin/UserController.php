@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+
     use Message_Trait;
     use Slug_Trait;
     use Upload_Images;
