@@ -162,6 +162,7 @@
                                                                                 <span class="far fa-trash-alt"></span>
                                                                             </a>
                                                                         </li>
+
                                                                     </ul>
                                                                 </div>
                                                             </td>
