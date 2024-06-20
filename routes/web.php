@@ -36,6 +36,7 @@ Route::controller(CompanyController::class)->group(function () {
     Route::get('company/chat', 'chat');
     Route::get('company/job-users', 'job_users'); // رابط المتقدمين للوظيفة
     Route::get('company/logout', 'logout');
+
 });
 
 Route::controller(AdvertisementController::class)->group(function () {
