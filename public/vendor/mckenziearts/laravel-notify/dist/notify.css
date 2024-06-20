@@ -404,7 +404,8 @@ img, video {
 }
 
 .items-start {
-    align-items: flex-start
+    /*align-items: flex-start;*/
+    align-items: center;
 }
 
 .items-end {
@@ -745,7 +746,7 @@ img, video {
     }
 
     .sm\:justify-end {
-        justify-content: flex-start;
+        justify-content: center;
         z-index:999999;
     }
 

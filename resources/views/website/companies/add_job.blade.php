@@ -1,29 +1,42 @@
 @extends('website.layouts.master')
 @section('title')
-     اضف وظيفة جديدة
+    اضف وظيفة جديدة
 @endsection
 @section('content')
-
 
     <!-- CONTENT START -->
     <div class="page-content">
 
+        @if (Session::has('Success_message'))
+            @php
+                emotify('success', \Illuminate\Support\Facades\Session::get('Success_message'));
+            @endphp
+        @endif
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                @php
+                    emotify('error', $error);
+                @endphp
+            @endforeach
+        @endif
+
         <!-- INNER PAGE BANNER -->
-        <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url({{asset('assets/website/images/banner/1.jpg')}});">
+        <div class="wt-bnr-inr overlay-wraper bg-center"
+             style="background-image:url({{asset('assets/website/images/banner/1.jpg')}});">
             <div class="overlay-main site-bg-white opacity-01"></div>
             <div class="container">
                 <div class="wt-bnr-inr-entry">
                     <div class="banner-title-outer">
                         <div class="banner-title-name">
-                            <h2 class="wt-title">الشركة تنشر وظيفة</h2>
+                            <h2 class="wt-title"> اضافة وظيفة جديدة </h2>
                         </div>
                     </div>
                     <!-- BREADCRUMB ROW -->
 
                     <div>
                         <ul class="wt-breadcrumb breadcrumb-style-2">
-                            <li><a href="{{url('/')}}"> الرئيسية  </a></li>
-                            <li> اضافة وظيفة  </li>
+                            <li><a href="{{url('/')}}"> الرئيسية </a></li>
+                            <li> اضافة وظيفة جديدة</li>
                         </ul>
                     </div>
 
@@ -46,33 +59,38 @@
                         <div class="side-bar-st-1">
 
                             <div class="twm-candidate-profile-pic">
-
-                                <img src="{{asset('assets/website/images/jobs-company/pic1.jpg')}}" alt="">
-                                <div class="upload-btn-wrapper">
-
-                                    <div id="upload-image-grid"></div>
-                                    <button class="site-button button-sm">حمل الصورة</button>
-                                    <input type="file" name="myfile" id="file-uploader" accept=".jpg, .jpeg, .png">
-                                </div>
+                                @if(\Illuminate\Support\Facades\Auth::guard('company')->user()->logo !='')
+                                    <img
+                                        src="{{asset('assets/uploads/companies/'.Auth::guard('company')->user()->logo)}}"
+                                        alt="">
+                                @else
+                                    <img src="{{asset('assets/website/images/jobs-company/pic1.jpg')}}" alt="">
+                                @endif
 
                             </div>
 
-                            <div class="twm-mid-content text-center">
+                            <div class="twm-mid-content text-center" style="margin-bottom: 15px">
                                 <a href="{{url('company/dashboard')}}" class="twm-job-title">
-                                    <h4>استوديو الفنان </h4>
+                                    <h4 style="margin-bottom: 10px">  {{Auth::guard('company')->user()->name}} </h4>
                                 </a>
-                                <p>مقاول تكنولوجيا المعلومات</p>
+                                <p> {{Auth::guard('company')->user()->email}} </p>
                             </div>
-
                             <div class="twm-nav-list-1">
                                 <ul>
-                                    <li><a href="{{url('company/dashboard')}}"><i class="fa fa-user"></i>ملف الشركة</a></li>
-                                    <li><a href="{{url('company/jobs')}}"><i class="fa fa-suitcase"></i> إدارة الوظائف</a></li>
-                                    <li class="active"><a href="{{url('company/add-job')}}"><i class="fa fa-user"></i> اضف وظيفة جديدة  </a></li>
-                                    <li><a href="{{url('company/chat')}}"><i class="fa fa-credit-card"></i> المحادثات   </a></li>
-                                    <li><a href="{{url('company/plan')}}"><i class="fa fa-credit-card"></i> ادارة الخطة  </a></li>
-                                    <li><a href="{{url('company/change-password')}}"><i class="fa fa-fingerprint"></i> تغيير كلمة المرور</a></li>
-                                    <li><a href="{{url('company/logout')}}"><i class="fa fa-share-square"></i> تسجيل خروج</a></li>
+                                    <li><a href="{{url('company/dashboard')}}"><i class="fa fa-user"></i>ملف الشركة</a>
+                                    </li>
+                                    <li><a href="{{url('company/jobs')}}"><i class="fa fa-suitcase"></i> إدارة
+                                            الوظائف</a></li>
+                                    <li class="active"><a href="{{url('company/add-job')}}"><i class="fa fa-user"></i>
+                                            اضف وظيفة جديدة </a></li>
+                                    <li><a href="{{url('company/chat')}}"><i class="fa fa-credit-card"></i> المحادثات
+                                        </a></li>
+                                    <li><a href="{{url('company/plan')}}"><i class="fa fa-credit-card"></i> ادارة الخطة
+                                        </a></li>
+                                    <li><a href="{{url('company/change-password')}}"><i class="fa fa-fingerprint"></i>
+                                            تغيير كلمة المرور</a></li>
+                                    <li><a href="{{url('company/logout')}}"><i class="fa fa-share-square"></i> تسجيل
+                                            خروج</a></li>
                                 </ul>
                             </div>
 
@@ -83,7 +101,8 @@
                     <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
                         <!--Filter Short By-->
                         <div class="twm-right-section-panel site-bg-gray">
-                            <form>
+                            <form method="post" action="{{url('company/add-job')}}">
+                                @csrf
                                 <!--Basic Information-->
                                 <div class="panel panel-default">
                                     <div class="panel-heading wt-panel-heading p-a20">
@@ -92,276 +111,224 @@
                                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
 
                                         <div class="row">
-                                            <!--Job title-->
+
                                             <div class="col-xl-4 col-lg-6 col-md-12">
-                                                <div class="form-group">
-                                                    <label>مسمى وظيفي</label>
+                                                <input type="hidden" name="company_id"
+                                                       value="{{\Illuminate\Support\Facades\Auth::guard('company')->user()->id}}">
+                                                <div class="form-group city-outer-bx has-feedback">
+                                                    <label> حدد الجنسية </label>
                                                     <div class="ls-inputicon-box">
-                                                        <input class="form-control" name="company_name" type="text" placeholder="ديفيد سميث">
-                                                        <i class="fs-input-icon fa fa-address-card"></i>
+                                                        <select required class="wt-select-box selectpicker" name="nationality"
+                                                                data-live-search="true" title="" id="j-category"
+                                                                data-bv-field="size">
+                                                            <option disabled selected value=""> حدد الجنسية</option>
+                                                            <option value="مصري"> مصري</option>
+                                                            <option value="سعودي"> سعودي</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <!--Job Category-->
                                             <div class="col-xl-4 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label>تصنيف الوظيفة</label>
+                                                    <label> حدد الجنس </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select class="wt-select-box selectpicker"  data-live-search="true" title="" id="j-category" data-bv-field="size">
-                                                            <option disabled selected value="">اختر الفئة</option>
-                                                            <option>المحاسبة والتمويل</option>
-                                                            <option> كتابي &amp;ادخال بيانات</option>
-                                                            <option>تقديم المشورة</option>
-                                                            <option>إدارة المحكمة</option>
-                                                            <option>الموارد البشرية</option>
-                                                            <option>التحقيق</option>
-                                                            <option>وأجهزة الكمبيوتر</option>
-                                                            <option>تطبيق القانون</option>
-                                                            <option>إدارة</option>
-                                                            <option>متنوع</option>
-                                                            <option>العلاقات العامة</option>
+                                                        <select required class="wt-select-box selectpicker" name="sex"
+                                                                data-live-search="true" title="" id="j-category"
+                                                                data-bv-field="size">
+                                                            <option disabled selected value=""> حدد الجنس</option>
+                                                            <option value="ذكر"> ذكر</option>
+                                                            <option value="انثي"> انثي</option>
                                                         </select>
-                                                        <i class="fs-input-icon fa fa-border-all"></i>
                                                     </div>
-
                                                 </div>
                                             </div>
 
-                                            <!--Job Type-->
                                             <div class="col-xl-4 col-lg-6 col-md-12">
-                                                <div class="form-group">
-                                                    <label>نوع الوظيفة</label>
+                                                <div class="form-group city-outer-bx has-feedback">
+                                                    <label> المدينة </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select class="wt-select-box selectpicker"  data-live-search="true" title="" id="s-category" data-bv-field="size">
-                                                            <option class="bs-title-option" value="">اختر الفئة</option>
-                                                            <option>بدوام كامل </option>
-                                                            <option>مستقل </option>
-                                                            <option>دوام جزئى</option>
-                                                            <option>التدريب الداخلي</option>
-                                                            <option>مؤقت</option>
+                                                        <select required class="wt-select-box selectpicker" name="city"
+                                                                data-live-search="true" title="" id="j-category"
+                                                                data-bv-field="size">
+                                                            <option disabled selected value=""> حدد المدينة</option>
+                                                            @foreach($citizen as $city)
+
+                                                                <option
+                                                                    value="{{$city['id']}}"> {{$city['name']}} </option>
+
+                                                            @endforeach
                                                         </select>
-                                                        <i class="fs-input-icon fa fa-file-alt"></i>
                                                     </div>
                                                 </div>
                                             </div>
 
 
-                                            <!--Offered Salary-->
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                                <div class="form-group">
-                                                    <label>عرض الراتب</label>
+
+                                            <div class="col-xl-8 col-lg-6 col-md-12">
+                                                <div class="form-group city-outer-bx has-feedback">
+                                                    <label> هل ترغب في من يسكن في منطقة اخرى وليس لدية مانع
+                                                        بالعمل في مدينتك ؟  </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select class="wt-select-box selectpicker"  data-live-search="true" title="" id="salary" data-bv-field="size">
-                                                            <option class="bs-title-option" value=""> الراتب</option>
-                                                            <option>$500</option>
-                                                            <option>$1000</option>
-                                                            <option>$1500</option>
-                                                            <option>$2000</option>
-                                                            <option>$2500</option>
+                                                        <select  required class="wt-select-box selectpicker" name="available_work_from_another_place"
+                                                                data-live-search="true" title="" id="j-category"
+                                                                data-bv-field="size">
+                                                            <option disabled selected value=""> حدد  </option>
+                                                            <option value="1">نعم</option>
+                                                            <option value="2">لا</option>
                                                         </select>
-                                                        <i class="fs-input-icon fa fa-dollar-sign"></i>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <!--Experience-->
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                                <div class="form-group">
-                                                    <label>خبرة</label>
-                                                    <div class="ls-inputicon-box">
-                                                        <input class="form-control" name="company_Email" type="email" placeholder="على سبيل المثال الحد الأدنى 3 سنوات">
-                                                        <i class="fs-input-icon fa fa-user-edit"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                            <!--Qualification-->
                                             <div class="col-xl-4 col-lg-6 col-md-12">
-                                                <div class="form-group">
-                                                    <label>مؤهل</label>
+                                                <div class="form-group city-outer-bx has-feedback">
+                                                    <label>  مسمى الوظيفي للمبيعات </label>
                                                     <div class="ls-inputicon-box">
-                                                        <input class="form-control" name="company_Email" type="email" placeholder="المؤهل / العنوان">
-                                                        <i class="fs-input-icon fa fa-user-graduate"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!--Gender-->
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                                <div class="form-group">
-                                                    <label> الجنس</label>
-                                                    <div class="ls-inputicon-box">
-                                                        <select class="wt-select-box selectpicker"  data-live-search="true" title="" id="gender" data-bv-field="size">
-                                                            <option class="bs-title-option" value=""> الجنس</option>
-                                                            <option>ذكر</option>
-                                                            <option>أنثى</option>
-                                                            <option>آخر</option>
+                                                        <select required class="wt-select-box selectpicker" name="job_name"
+                                                                data-live-search="true" title="" id="j-category"
+                                                                data-bv-field="size">
+                                                            <option disabled selected value=""> حدد  </option>
+                                                            <option value="١">١</option>
+                                                            <option value="٢">٢</option>
+                                                            <option value="٣">٣</option>
                                                         </select>
-                                                        <i class="fs-input-icon fa fa-venus-mars"></i>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <!--Country-->
+
                                             <div class="col-xl-4 col-lg-6 col-md-12">
-                                                <div class="form-group">
-                                                    <label> البلد</label>
+                                                <div class="form-group city-outer-bx has-feedback">
+                                                    <label>  مسمى الوظيفي للمبيعات </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select class="wt-select-box selectpicker"  data-live-search="true" title="" id="country" data-bv-field="size">
-                                                            <option class="bs-title-option" value=""> البلد </option>
-                                                            <option>أفغانستان</option>
-                                                            <option>ألبانيا</option>
-                                                            <option>الجزائر</option>
-                                                            <option>أندورا</option>
-                                                            <option>أنغولا</option>
-                                                            <option>أنتيغوا وبربودا</option>
-                                                            <option>الأرجنتين</option>
-                                                            <option>أرمينيا</option>
-                                                            <option>أستراليا</option>
-                                                            <option>النمسا</option>
-                                                            <option>أذربيجان </option>
-                                                            <option> جزر البهاما</option>
-                                                            <option>البحرين</option>
-                                                            <option>بنغلاديش</option>
-                                                            <option>بربادوس</option>
+                                                        <select required multiple class="wt-select-box selectpicker" name="work_type[]"
+                                                                data-live-search="true" title="" id="j-category"
+                                                                data-bv-field="size">
+
+                                                            <option value="هاتفي">هاتفي</option>
+                                                            <option value="ميداني">ميداني</option>
+                                                            <option value="مكتبي">مكتبي</option>
                                                         </select>
-                                                        <i class="fs-input-icon fa fa-globe-americas"></i>
                                                     </div>
                                                 </div>
                                             </div>
 
-
-                                            <!--City-->
                                             <div class="col-xl-4 col-lg-6 col-md-12">
                                                 <div class="form-group">
-                                                    <label>مدينة</label>
+                                                    <label>  عدد سنوات الخبرة </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select class="wt-select-box selectpicker"  data-live-search="true" title="" id="city" data-bv-field="size">
-                                                            <option class="bs-title-option" value="">مدينة</option>
-                                                            <option>سيدني</option>
-                                                            <option>ملبورن</option>
-                                                            <option>بريسبان</option>
-                                                            <option>بيرث</option>
-                                                            <option>أدليد</option>
-                                                            <option>الساحل الذهبي</option>
-                                                            <option>كرانبورن</option>
-                                                            <option>نيوكاسل</option>
-                                                            <option> ولونجونج</option>
-                                                            <option> جيلونج</option>
-                                                            <option>هوبارت</option>
-                                                            <option>تاونزفيل</option>
-                                                            <option>إبسويتش</option>
+                                                        <input  required class="form-control" min="1" name="experience" type="number">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                                <div class="form-group city-outer-bx has-feedback">
+                                                    <label> اللغة المطلوبة </label>
+                                                    <div class="ls-inputicon-box">
+                                                        <select required class="wt-select-box selectpicker" multiple name="language[]"
+                                                                data-live-search="true" title="" id="j-category"
+                                                                data-bv-field="size">
+                                                            <option value="عربي">عربي</option>
+                                                            <option value="انجليزي">انجليزي</option>
                                                         </select>
-                                                        <i class="fs-input-icon fa fa-map-marker-alt"></i>
                                                     </div>
                                                 </div>
                                             </div>
 
 
-                                            <!--Location-->
+
+                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                                <div class="form-group city-outer-bx has-feedback">
+                                                    <label> مستوي اللغة </label>
+                                                    <div class="ls-inputicon-box">
+                                                        <select required class="wt-select-box selectpicker" name="language_level"
+                                                                data-live-search="true" title="" id="j-category"
+                                                                data-bv-field="size">
+                                                            <option disabled selected value=""> حدد  </option>
+                                                            <option value="مبتدأ">مبتدأ</option>
+                                                            <option value="متوسط">متوسط</option>
+                                                            <option value="متقدم">متقدم</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                                <div class="form-group city-outer-bx has-feedback">
+                                                    <label> ماهو التخصص المهني المطلوب ؟ </label>
+                                                    <div class="ls-inputicon-box">
+                                                        <select required class="wt-select-box selectpicker" name="profession_specialist"
+                                                                data-live-search="true" title="" id="j-category"
+                                                                data-bv-field="size">
+                                                            <option disabled selected value=""> حدد  </option>
+                                                            <option value="التخصص الاول"> التخصص الاول</option>
+                                                            <option value="التخصص الاول"> التخصص الاول</option>
+                                                            <option value="التخصص الاول"> التخصص الاول</option>
+                                                            <option value="التخصص الاول"> التخصص الاول</option>
+                                                            <option value="التخصص الاول"> التخصص الاول</option>
+                                                            <option value="التخصص الاول"> التخصص الاول</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
                                             <div class="col-xl-4 col-lg-6 col-md-12">
                                                 <div class="form-group">
-                                                    <label>موقع</label>
+                                                    <label> الراتب المحدد </label>
                                                     <div class="ls-inputicon-box">
-                                                        <input class="form-control" name="company_Email" type="email" placeholder="اكتب العنوان">
-                                                        <i class="fs-input-icon fa fa-map-marker-alt"></i>
+                                                        <input required class="form-control" min="1" name="salary" type="number">
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <!--Latitude-->
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                                <div class="form-group">
-                                                    <label>خط العرض</label>
+
+
+                                            <div class="col-xl-12 col-lg-12 col-md-12">
+                                                <div class="form-group city-outer-bx has-feedback">
+                                                    <label>  يوجد لدينا مرشحين على رأس العمل ويملكون فترة
+                                                        اشعار
+                                                        محدده , أختر الفترة المناسبة لك </label>
                                                     <div class="ls-inputicon-box">
-                                                        <input class="form-control" name="company_Email" type="email" placeholder="الملائكة">
-                                                        <i class="fs-input-icon fa fa-map-pin"></i>
+                                                        <select required class="wt-select-box selectpicker" name="notification_timeslot"
+                                                                data-live-search="true" title="" id="j-category"
+                                                                data-bv-field="size">
+                                                            <option disabled selected value=""> حدد  </option>
+                                                            <option value="فوري"> فوري</option>
+                                                            <option value="خلال شهر">خلال شهر</option>
+                                                            <option value="خلال شهرين">خلال شهرين</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <!--longitude-->
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                                <div class="form-group">
-                                                    <label>خط الطول</label>
-                                                    <div class="ls-inputicon-box">
-                                                        <input class="form-control" name="company_Email" type="email" placeholder="الملائكة">
-                                                        <i class="fs-input-icon fa fa-map-pin"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!--Email Address-->
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                                <div class="form-group">
-                                                    <label>عنوان البريد الإلكتروني</label>
-                                                    <div class="ls-inputicon-box">
-                                                        <input class="form-control" name="company_Email" type="email" placeholder="Devid@example.com">
-                                                        <i class="fs-input-icon fas fa-at"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!--Website-->
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                                <div class="form-group">
-                                                    <label>الموقع </label>
-                                                    <div class="ls-inputicon-box">
-                                                        <input class="form-control" name="company_website" type="text" placeholder="https://.../">
-                                                        <i class="fs-input-icon fa fa-globe-americas"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!--Est. Since-->
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                                <div class="form-group">
-                                                    <label>شرق. قديم الطراز</label>
-                                                    <div class="ls-inputicon-box">
-                                                        <input class="form-control" name="company_since" type="text" placeholder="منذ...">
-                                                        <i class="fs-input-icon fa fa-clock"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!--Complete Address-->
-                                            <div class="col-xl-12 col-lg-6 col-md-12">
-                                                <div class="form-group">
-                                                    <label>عنوان كامل</label>
-                                                    <div class="ls-inputicon-box">
-                                                        <input class="form-control" name="company_since" type="text" placeholder="1363-1385 غروب الشمس الجادة لوس أنجلوس, كاليفورنيا 90026 ، الولايات المتحدة الأمريكية">
-                                                        <i class="fs-input-icon fa fa-home"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!--Description-->
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>وصف</label>
-                                                    <textarea class="form-control" rows="3" placeholder="تحيات! نحن شركة Galaxy التنمية التنمية. نأمل أن تستمتع بخدماتنا وجودةنا."></textarea>
+                                                    <label> الوصف الوظيفي </label>
+                                                    <textarea required class="form-control" rows="3" name="description"></textarea>
                                                 </div>
                                             </div>
 
-                                            <!--Start Date-->
-                                            <div class="col-md-6">
+
+                                            <div class="col-xl-4 col-lg-6 col-md-12">
                                                 <div class="form-group">
-                                                    <label>تاريخ البدء</label>
+                                                    <label>  العنوان </label>
                                                     <div class="ls-inputicon-box">
-                                                        <input class="form-control datepicker" data-provide="datepicker" name="company_since" type="text" placeholder="mm/dd/yyyy">
-                                                        <i class="fs-input-icon far fa-calendar"></i>
+                                                        <input required class="form-control" name="title" type="text">
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <!--End Date-->
-                                            <div class="col-md-6">
+
+                                            <div class="col-xl-4 col-lg-6 col-md-12">
                                                 <div class="form-group">
-                                                    <label>تاريخ الانتهاء</label>
+                                                    <label> اسم المنشور </label>
                                                     <div class="ls-inputicon-box">
-                                                        <input class="form-control datepicker" data-provide="datepicker" name="company_since" type="text" placeholder="mm/dd/yyyy">
-                                                        <i class="fs-input-icon far fa-calendar"></i>
+                                                        <input required class="form-control" name="title_name" type="text">
                                                     </div>
                                                 </div>
                                             </div>
@@ -369,12 +336,11 @@
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="text-left">
                                                     <button type="submit" class="site-button m-r5">نشر الوظيفة</button>
-                                                    <button type="submit" class="site-button outline-primary">حفظ المسودة</button>
+{{--                                                    <button type="submit" class="site-button outline-primary">حفظ--}}
+{{--                                                        المسودة--}}
+{{--                                                    </button>--}}
                                                 </div>
                                             </div>
-
-
-
 
                                         </div>
 
@@ -388,7 +354,6 @@
             </div>
         </div>
         <!-- OUR BLOG END -->
-
 
 
     </div>

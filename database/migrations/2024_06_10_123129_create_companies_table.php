@@ -25,6 +25,7 @@ return new class extends Migration
             $table->tinyInteger('plan_status')->nullable();
             $table->string('start_plan_time')->nullable();
             $table->tinyInteger('end_plan_time')->nullable();
+            $table->tinyInteger('email_confirm')->default('0');
             $table->timestamps();
         });
     }
