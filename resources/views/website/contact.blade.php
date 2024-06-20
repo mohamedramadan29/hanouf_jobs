@@ -1,0 +1,152 @@
+@extends('website.layouts.master')
+@section('title')
+    اتصل بنا
+@endsection
+@section('content')
+
+    <!-- CONTENT START -->
+    <div class="page-content">
+
+        <!-- INNER PAGE BANNER -->
+        <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url({{asset('assets/website/images/banner/1.jpg')}});">
+            <div class="overlay-main site-bg-white opacity-01"></div>
+            <div class="container">
+                <div class="wt-bnr-inr-entry">
+                    <div class="banner-title-outer">
+                        <div class="banner-title-name">
+                            <h2 class="wt-title">اتصل بنا</h2>
+                        </div>
+                    </div>
+                    <!-- BREADCRUMB ROW -->
+
+                    <div>
+                        <ul class="wt-breadcrumb breadcrumb-style-2">
+                            <li><a href="{{url('/')}}">  الرئيسية    </a></li>
+                            <li>اتصل بنا</li>
+                        </ul>
+                    </div>
+
+                    <!-- BREADCRUMB ROW END -->
+                </div>
+            </div>
+        </div>
+        <!-- INNER PAGE BANNER END -->
+
+        <!-- CONTACT FORM -->
+        <div class="section-full twm-contact-one">
+            <div class="section-content">
+                <div class="container">
+                    @if (Session::has('Success_message'))
+                        <div class="alert alert-success"> {{ Session::get('Success_message') }} </div>
+                    @endif
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <!-- CONTACT FORM-->
+                    <div class="contact-one-inner">
+                        <div class="row">
+
+                            <div class="col-lg-6 col-md-12">
+                                <div class="contact-form-outer">
+
+                                    <!-- TITLE START-->
+                                    <div class="section-head left wt-small-separator-outer">
+                                        <h2 class="wt-title">أرسل لنا رسالة</h2>
+                                        <p>لا تتردد في الاتصال بنا وسنعود إليك في أقرب وقت ممكن.</p>
+                                    </div>
+                                    <!-- TITLE END-->
+
+                                    <form class="cons-contact-form" method="post"
+                                          action="{{url('add_contact_message')}}">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="form-group mb-3">
+                                                    <input name="name" type="text" required class="form-control"
+                                                           placeholder="اسم" value="{{old('name')}}">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="form-group mb-3">
+                                                    <input name="email" type="email" class="form-control" required
+                                                           placeholder="بريد إلكتروني"  value="{{old('email')}}">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="form-group mb-3">
+                                                    <input name="phone" type="text" class="form-control" required
+                                                           placeholder="هاتف"  value="{{old('phone')}}">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="form-group mb-3">
+                                                    <input name="subject" type="text" class="form-control" required
+                                                           placeholder="موضوع"  value="{{old('subject')}}">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group mb-3">
+                                                    <textarea name="message" class="form-control" rows="3"
+                                                              placeholder="رسالة">{{old('message')}}</textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <button type="submit" class="site-button">أرسل الآن</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-12">
+                                <div class="contact-info-wrap">
+
+                                    <div class="contact-info">
+                                        <div class="contact-info-section">
+
+                                            <div class="c-info-column">
+                                                <div class="c-info-icon"><i class=" fas fa-map-marker-alt"></i></div>
+                                                <h3 class="twm-title">في منطقة الخليج؟</h3>
+                                                <p>1363-1385 غروب الشمس الجادة لوس أنجلوس, كاليفورنيا 90026 ، الولايات
+                                                    المتحدة الأمريكية</p>
+                                            </div>
+
+                                            <div class="c-info-column">
+                                                <div class="c-info-icon custome-size"><i class="fas fa-mobile-alt"></i>
+                                                </div>
+                                                <h3 class="twm-title">لا تتردد في الاتصال بنا</h3>
+                                                <p><a href="tel:+216-761-8331">+2 900 234 4241</a></p>
+                                                <p><a href="tel:+216-761-8331">+2 900 234 3219</a></p>
+                                            </div>
+
+                                            <div class="c-info-column">
+                                                <div class="c-info-icon"><i class="fas fa-envelope"></i></div>
+                                                <h3 class="twm-title">يدعم</h3>
+                                                <p>infohelp@gmail.com</p>
+                                                <p>support12@gmail.com</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- CONTENT END -->
+@endsection
