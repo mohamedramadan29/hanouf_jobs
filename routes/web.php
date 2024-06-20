@@ -20,6 +20,7 @@ Route::controller(UserController::class)->group(function () {
 /////////////////////// Company Controller //////////////////////
 ///
 Route::controller(CompanyController::class)->group(function () {
+
     Route::post('company/register', 'register');
     Route::get('company/confirm/{code}', 'CompanyConfirm');
     Route::post('company/login', 'login')->name('company_login');
