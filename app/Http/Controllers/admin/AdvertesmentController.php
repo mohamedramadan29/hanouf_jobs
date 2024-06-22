@@ -147,6 +147,9 @@ class AdvertesmentController extends Controller
                     'title_name' => $data['title_name'],
                     'status' => $data['status'],
                 ]);
+
+                /////////////////////// Send Status Confirmation Email ///////////
+                ///
                 return $this->success_message(' تم تعديل الاعلان بنجاح  ');
 
             }

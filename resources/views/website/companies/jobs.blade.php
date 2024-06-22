@@ -146,7 +146,7 @@
                                                                 <div class="twm-table-controls">
                                                                     <ul class="twm-DT-controls-icon list-unstyled">
                                                                         <li>
-                                                                            <a href="#" title=" مشاهدة الوظيفة  "
+                                                                            <a href="{{url('company/job/'.$job['id'])}}" title=" مشاهدة الوظيفة  "
                                                                                type="button"
                                                                                data-bs-toggle="tooltip"
                                                                                data-bs-placement="top"> <span
@@ -155,8 +155,8 @@
 
                                                                         <li>
                                                                             <a href="{{url('company/job/delete/'.$job['id'])}}"
-                                                                               onclick="confirm(' هل انت متاكد من حذف الوظيفة !!!! ')"
-                                                                               title="حذف الوظيفة "
+                                                                               onclick="return confirm('هل انت متاكد من حذف الوظيفة !!!!')"
+                                                                               title="حذف الوظيفة"
                                                                                data-bs-toggle="tooltip"
                                                                                data-bs-placement="top">
                                                                                 <span class="far fa-trash-alt"></span>

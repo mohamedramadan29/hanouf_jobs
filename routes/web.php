@@ -29,9 +29,11 @@ Route::controller(CompanyController::class)->group(function () {
         Route::post('company/update_info', 'update_info');
         Route::match(['post', 'get'], 'company/add-job', 'add_job');
         Route::get('company/jobs', 'jobs');
+        Route::match(['get','post'],'company/job/{id}','update_job');
         Route::get('company/job/delete/{id}','delete_job');
+        Route::match(['post', 'get'], 'company/change-password', 'change_password');
     });
-    Route::match(['post', 'get'], 'company/change-password', 'change_password');
+
     Route::get('company/plan', 'plans');
     Route::get('company/chat', 'chat');
     Route::get('company/job-users', 'job_users'); // رابط المتقدمين للوظيفة
@@ -51,5 +53,7 @@ Route::controller(FrontController::class)->group(function () {
     Route::get('faqs', 'faqs');
     Route::post('add_contact_message', 'add_contact_message');
 });
+
+Route::view('404','website.404');
 
 include 'admin.php';

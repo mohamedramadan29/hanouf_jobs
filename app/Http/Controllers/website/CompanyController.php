@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 class CompanyController extends Controller
 {
@@ -279,7 +280,7 @@ class CompanyController extends Controller
                     'title' => $data['title'],
                     'title_name' => $data['title_name'],
                 ]);
-                return $this->success_message('  تم اضافة الاعلان بنجاح   ');
+                return $this->success_message('  تم اضافة الاعلان بنجاح من فضلك انتظر التفعيل من الادارة !!  ');
             }
         } catch (\Exception $e) {
             return $this->exception_message($e);
@@ -293,6 +294,70 @@ class CompanyController extends Controller
         $jobs = Advertisment::where('company_id',Auth::guard('company')->user()->id)->get();
 
         return view('website.companies.jobs',compact('jobs'));
+    }
+
+    public function update_job(Request $request,$id)
+    {
+        $adv = Advertisment::findOrFail($id);
+        if($adv['company_id'] != Auth::guard('company')->user()->id){
+           return \redirect('404');
+        }
+        $citizen = City::all();
+        try {
+            if ($request->isMethod('post')) {
+                $data = $request->all();
+                // dd($data);
+                $work_type = implode(',', $data['work_type']);
+                $language = implode(',', $data['language']);
+                $rules = [
+                    'company_id' => 'required',
+                    'nationality' => 'required',
+                    'sex' => 'required',
+                    'city' => 'required',
+                    'available_work_from_another_place' => 'required',
+                    'job_name' => 'required',
+                    'work_type' => 'required',
+                    'experience' => 'required',
+                    'language' => 'required',
+                    'language_level' => 'required',
+                    'profession_specialist' => 'required',
+                    'notification_timeslot' => 'required',
+                    'salary' => 'required',
+                    'description' => 'required',
+                    'title' => 'required',
+                    'title_name' => 'required',
+                ];
+                $messages = [
+                    'nationality.required' => ' من فضلك حدد الجنسية  ',
+                ];
+                $validator = Validator::make($data, $rules, $messages);
+                if ($validator->fails()) {
+                    return Redirect::back()->withErrors($validator)->withInput();
+                }
+                $adv->update([
+                    'nationality' => $data['nationality'],
+                    'sex' => $data['sex'],
+                    'city' => $data['city'],
+                    'available_work_from_another_place' => $data['available_work_from_another_place'],
+                    'job_name' => $data['job_name'],
+                    'work_type' => $work_type,
+                    'experience' => $data['experience'],
+                    'language' => $language,
+                    'language_level' => $data['language_level'],
+                    'profession_specialist' => $data['profession_specialist'],
+                    'notification_timeslot' => $data['notification_timeslot'],
+                    'salary' => $data['salary'],
+                    'description' => $data['description'],
+                    'title' => $data['title'],
+                    'title_name' => $data['title_name'],
+                    'status'=>0,
+                ]);
+                return $this->success_message('  تم تعديل الاعلان بنجاح من فضلك انتظر التفعيل من الادارة !!  ');
+            }
+        }catch (\Exception $e){
+            return $this->exception_message($e);
+        }
+        return view('website.companies.update-job',compact('adv','citizen'));
     }
 
     public function delete_job($id)
@@ -329,14 +394,47 @@ class CompanyController extends Controller
         return view('website.companies.plan');
     }
 
-    public function change_password()
+    public function change_password(Request $request)
     {
+
+        try {
+            if ($request->isMethod('post')){
+                $data = $request->all();
+                $rules = [
+                    'old_password'=>'required',
+                    'new_password'=>'required|min:8',
+                    'confirm_password'=>'required|same:new_password'
+                ];
+                $messages = [
+                    'old_password.required'=>' من فضلك ادخل كلمة المرور القديمة ',
+                    'new_password.min' => ' من فضلك ادخل كلمة مرور قوية اكثر من 8 احرف وارقام ',
+                    'confirm_password.same' => 'من فضلك اكد كلمة المرور بشكل صحيح ',
+                ];
+                $validator = Validator::make($data,$rules,$messages);
+                if ($validator->fails()){
+                    return Redirect::back()->withInput()->withErrors($validator);
+                }
+
+                if (Hash::check($data['old_password'], Auth::guard('company')->user()->password)){
+                    $company = Company::where('id',Auth::guard('company')->id())->first();
+                    $company->update([
+                        'password'=>Hash::make($data['new_password'])
+                    ]);
+                    return $this->success_message(' رائع !! تم تعديل كلمة المرور بنجاح  ');
+                }else{
+                    return Redirect::back()->withInput()->withErrors(['  كلمة المرور القديمة غير صحيحة !!!!!  ']);
+                }
+
+            }
+        }catch (\Exception $e){
+            return $this->exception_message($e);
+        }
         return view('website.companies.change-password');
     }
 
     public function logout()
     {
-        Auth::logout();
+        Auth::guard('company')->logout();
         return Redirect::to('/');
     }
 }

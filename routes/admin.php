@@ -6,6 +6,8 @@ use \App\Http\Controllers\admin\PlanController;
 use \App\Http\Controllers\admin\CompanyController;
 use \App\Http\Controllers\admin\AdvertesmentController;
 use \App\Http\Controllers\admin\UserController;
+use \App\Http\Controllers\admin\FaqController;
+
 Route::group(['prefix' => 'admin'], function () {
     // Admin Login
     Route::match(['post', 'get'], '/', [AdminController::class, 'login'])->name('admin_login');
@@ -26,35 +28,43 @@ Route::group(['prefix' => 'admin'], function () {
 
         //////////////////////////// Start Plans /////////////////
         ///
-        Route::controller(PlanController::class)->group(function (){
-            Route::get('plans','index');
-            Route::match(['post','get'],'plan/store','store');
-            Route::match(['post','get'],'plan/update/{id}','update');
-            Route::post('plan/delete/{id}','delete');
+        Route::controller(PlanController::class)->group(function () {
+            Route::get('plans', 'index');
+            Route::match(['post', 'get'], 'plan/store', 'store');
+            Route::match(['post', 'get'], 'plan/update/{id}', 'update');
+            Route::post('plan/delete/{id}', 'delete');
         });
         ///////////////////////////////// start companies ///////////
         ///
-        Route::controller(CompanyController::class)->group(function (){
-            Route::get('companies','index');
-            Route::match(['post','get'],'company/store','store');
-            Route::match(['post','get'],'company/update/{id}','update');
-            Route::post('company/delete/{id}','delete');
+        Route::controller(CompanyController::class)->group(function () {
+            Route::get('companies', 'index');
+            Route::match(['post', 'get'], 'company/store', 'store');
+            Route::match(['post', 'get'], 'company/update/{id}', 'update');
+            Route::post('company/delete/{id}', 'delete');
         });
         //////////////////////////////// Start Advertesment //////////
         ///
-        Route::controller(AdvertesmentController::class)->group(function (){
-            Route::get('advertisements','index');
-            Route::match(['post','get'],'advertisement/store','store');
-            Route::match(['post','get'],'advertisement/update/{id}','update');
-            Route::post('advertisement/delete/{id}','delete');
+        Route::controller(AdvertesmentController::class)->group(function () {
+            Route::get('advertisements', 'index');
+            Route::match(['post', 'get'], 'advertisement/store', 'store');
+            Route::match(['post', 'get'], 'advertisement/update/{id}', 'update');
+            Route::post('advertisement/delete/{id}', 'delete');
         });
         /////////////////////////////// Start Users ////////////////
         ///
-        Route::controller(UserController::class)->group(function (){
-           Route::get('users','index');
-            Route::match(['post','get'],'user/store','store');
-            Route::match(['post','get'],'user/update/{id}','update');
-            Route::post('user/delete/{id}','delete');
+        Route::controller(UserController::class)->group(function () {
+            Route::get('users', 'index');
+            Route::match(['post', 'get'], 'user/store', 'store');
+            Route::match(['post', 'get'], 'user/update/{id}', 'update');
+            Route::post('user/delete/{id}', 'delete');
+        });
+        //////////////////////////// Start Faqs /////////////////
+        ///
+        Route::controller(FaqController::class)->group(function () {
+            Route::get('faqs', 'index');
+            Route::match(['post', 'get'], 'faq/store', 'store');
+            Route::match(['post', 'get'], 'faq/update/{id}', 'update');
+            Route::post('faq/delete/{id}', 'delete');
         });
     });
 });
