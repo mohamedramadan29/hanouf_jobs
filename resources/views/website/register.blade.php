@@ -54,85 +54,7 @@
                                     <div class="tab-content" id="myTab2Content">
                                         <!--Login Candidate Content-->
                                         <div class="tab-pane fade show active" id="twm-login-candidate">
-                                            <div class="row">
-
-                                                <div class="col-lg-12">
-                                                    <div class="form-group mb-3">
-                                                        <input name="username" type="text" required=""
-                                                               class="form-control" placeholder="اسم المستخدم*">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-12">
-                                                    <div class="form-group mb-3">
-                                                        <input name="email" type="text" class="form-control" required=""
-                                                               placeholder="كلمة المرور*">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-12">
-                                                    <div class="twm-forgot-wrap">
-                                                        <div class="form-group mb-3">
-                                                            <div class="form-check">
-                                                                <input type="checkbox" class="form-check-input"
-                                                                       id="Password4">
-                                                                <label class="form-check-label rem-forgot"
-                                                                       for="Password4">تذكرنى <a href="javascript:;"
-                                                                                                 class="site-text-primary">هل
-                                                                        نسيت كلمة السر</a></label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <button type="submit" class="site-button">تسجيل الدخول</button>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <span class="center-text-or">أو</span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <button type="submit" class="log_with_facebook">
-                                                            <i class="fab fa-facebook"></i>
-                                                            تابع مع فيسبوك
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <button type="submit" class="log_with_google">
-                                                            <img src="images/google-icon.png" alt="">
-                                                            تابع مع جوجل
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                        <!--Login Employer Content-->
-                                        <div class="tab-pane fade" id="twm-login-Employer">
-                                            @if (Session::has('Success_message'))
-                                                @php
-                                                    emotify('success', \Illuminate\Support\Facades\Session::get('Success_message'));
-                                                @endphp
-                                            @endif
-                                            @if ($errors->any())
-                                                @foreach ($errors->all() as $error)
-                                                    @php
-                                                        emotify('error', $error);
-                                                    @endphp
-                                                @endforeach
-                                            @endif
-                                            <form action="{{url('company/register')}}" method="post">
+                                            <form action="{{url('user/register')}}" method="post">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-lg-12">
@@ -198,8 +120,8 @@
                                                                         @endif value="يوتيوب">يوتيوب
                                                                 </option>
                                                                 <option
-                                                                        @if(old('wherelisting') == 'من الاصدقاء') selected
-                                                                        @endif value="من الاصدقاء">من الاصدقاء
+                                                                    @if(old('wherelisting') == 'من الاصدقاء') selected
+                                                                    @endif value="من الاصدقاء">من الاصدقاء
                                                                 </option>
                                                             </select>
                                                         </div>
@@ -227,6 +149,122 @@
                                                     </div>
                                                 </div>
                                             </form>
+                                        </div>
+                                        <!--Login Employer Content-->
+                                        <div class="tab-pane fade" id="twm-login-Employer">
+                                            @if (Session::has('Success_message'))
+                                                @php
+                                                    emotify('success', \Illuminate\Support\Facades\Session::get('Success_message'));
+                                                @endphp
+                                            @endif
+                                            @if ($errors->any())
+                                                @foreach ($errors->all() as $error)
+                                                    @php
+                                                        emotify('error', $error);
+                                                    @endphp
+                                                @endforeach
+                                            @endif
+                                                <form action="{{url('company/register')}}" method="post">
+                                                    @csrf
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group mb-3">
+                                                                <input name="name" type="text" required=""
+                                                                       class="form-control" placeholder=" الاسم  *"
+                                                                       value="{{old('name')}}">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group mb-3">
+                                                                <input name="email" type="email" required=""
+                                                                       class="form-control"
+                                                                       placeholder=" البريد الالكتروني   *"
+                                                                       value="{{old('email')}}">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group mb-3">
+                                                                <input name="mobile" type="text" required=""
+                                                                       class="form-control" placeholder=" رقم الهاتف  *"
+                                                                       value="{{old('mobile')}}">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group mb-3">
+                                                                <input name="password" type="password"
+                                                                       class="form-control"
+                                                                       required="" placeholder="كلمة المرور*">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group mb-3">
+                                                                <input name="confirm_password" type="password"
+                                                                       class="form-control"
+                                                                       required="" placeholder=" تاكيد كلمة المرور  *">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group mb-3">
+                                                                <select class="wt-select-box selectpicker"
+                                                                        name="wherelisting" data-live-search="true"
+                                                                        title=""
+                                                                        id="j-category" data-bv-field="size">
+                                                                    <option disabled selected value=""> حدد مصدر المعرفة
+                                                                    </option>
+                                                                    <option value="تلجرام">تلجرام</option>
+                                                                    <option
+                                                                        @if(old('wherelisting') == 'لينكدان') selected
+                                                                        @endif value="لينكدان">لينكدان
+                                                                    </option>
+                                                                    <option @if(old('wherelisting') == 'تويتر') selected
+                                                                            @endif value="تويتر">تويتر
+                                                                    </option>
+                                                                    <option
+                                                                        @if(old('wherelisting') == 'فيسبوك') selected
+                                                                        @endif value="فيسبوك">فيسبوك
+                                                                    </option>
+                                                                    <option
+                                                                        @if(old('wherelisting') == 'انستجرام') selected
+                                                                        @endif value="انستجرام">انستجرام
+                                                                    </option>
+                                                                    <option
+                                                                        @if(old('wherelisting') == 'يوتيوب') selected
+                                                                        @endif value="يوتيوب">يوتيوب
+                                                                    </option>
+                                                                    <option
+                                                                        @if(old('wherelisting') == 'من الاصدقاء') selected
+                                                                        @endif value="من الاصدقاء">من الاصدقاء
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <button type="submit" class="site-button"> حساب جديد
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <span class="center-text-or">أو</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <button type="submit" class="log_with_google">
+                                                                    <i class="fab fa-google"></i>
+                                                                    تابع مع جوجل
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                         </div>
 
                                     </div>

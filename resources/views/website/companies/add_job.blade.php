@@ -201,7 +201,7 @@
 
                                             <div class="col-xl-4 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label>  مسمى الوظيفي للمبيعات </label>
+                                                    <label>  طبيعة العمل  </label>
                                                     <div class="ls-inputicon-box">
                                                         <select required multiple class="wt-select-box selectpicker" name="work_type[]"
                                                                 data-live-search="true" title="" id="j-category"

@@ -66,69 +66,57 @@
                                     <div class="tab-content" id="myTab2Content">
                                         <!--Login Candidate Content-->
                                         <div class="tab-pane fade show active" id="twm-login-candidate">
-                                            <div class="row">
-
-                                                <div class="col-lg-12">
-                                                    <div class="form-group mb-3">
-                                                        <input name="username" type="text" required=""
-                                                               class="form-control" placeholder="اسم المستخدم*">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-12">
-                                                    <div class="form-group mb-3">
-                                                        <input name="email" type="text" class="form-control" required=""
-                                                               placeholder="كلمة المرور*">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-12">
-                                                    <div class="twm-forgot-wrap">
+                                            <form action="{{route('login')}}" method="post">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="col-lg-12">
                                                         <div class="form-group mb-3">
-                                                            <div class="form-check">
-                                                                <input type="checkbox" class="form-check-input"
-                                                                       id="Password4">
-                                                                <label class="form-check-label rem-forgot"
-                                                                       for="Password4">تذكرنى <a href="javascript:;"
-                                                                                                 class="site-text-primary">هل
-                                                                        نسيت كلمة السر</a></label>
+                                                            <input name="email" type="email" required="" value="{{old('email')}}"
+                                                                   class="form-control" placeholder=" البريد الالكتروني  *">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group mb-3">
+                                                            <input name="password" type="password" class="form-control"
+                                                                   required=""
+                                                                   placeholder="كلمة المرور*">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="twm-forgot-wrap">
+                                                            <div class="form-group mb-3">
+                                                                <div class="form-check">
+                                                                    <input type="checkbox" class="form-check-input"
+                                                                           id="Password4">
+                                                                    <label class="form-check-label rem-forgot"
+                                                                           for="Password4">تذكرنى <a href="javascript:;"
+                                                                                                     class="site-text-primary">هل
+                                                                            نسيت كلمة السر</a></label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <button type="submit" class="site-button">تسجيل الدخول</button>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <button type="submit" class="site-button">تسجيل الدخول
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <button type="submit" class="log_with_google">
+                                                                <img
+                                                                    src="{{asset('assets/website/images/google-icon.png')}}"
+                                                                    alt="">
+                                                                تابع مع جوجل
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <span class="center-text-or">أو</span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <button type="submit" class="log_with_facebook">
-                                                            <i class="fab fa-facebook"></i>
-                                                            تابع مع فيسبوك
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <button type="submit" class="log_with_google">
-                                                            <img src="images/google-icon.png" alt="">
-                                                            تابع مع جوجل
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
+                                            </form>
                                         </div>
                                         <!--Login Employer Content-->
                                         <div class="tab-pane fade" id="twm-login-Employer">

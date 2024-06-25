@@ -14,7 +14,17 @@ Route::get('/', function () {
 ///
 Route::controller(UserController::class)->group(function () {
     Route::match(['post', 'get'], 'login', 'login')->name('login');
-    Route::match(['post', 'get'], 'register', 'register');
+    Route::get('register','register');
+    Route::post('user/register','register');
+    Route::get('user/confirm/{code}', 'UserConfirm');
+    Route::group(['middleware'=>'auth'],function (){
+        Route::get('user/dashboard','index');
+        Route::post('user/update_info','update_info');
+        Route::match(['get','post'],'user/update','update_data');
+        Route::get('user/alerts','alerts');
+        Route::match(['post','get'],'user/change-password','change_password');
+    });
+
     Route::match(['post', 'get'], 'forget-password', 'forget_password');
 });
 /////////////////////// Company Controller //////////////////////
@@ -32,12 +42,12 @@ Route::controller(CompanyController::class)->group(function () {
         Route::match(['get','post'],'company/job/{id}','update_job');
         Route::get('company/job/delete/{id}','delete_job');
         Route::match(['post', 'get'], 'company/change-password', 'change_password');
+        Route::get('company/logout', 'logout');
     });
-
     Route::get('company/plan', 'plans');
     Route::get('company/chat', 'chat');
     Route::get('company/job-users', 'job_users'); // رابط المتقدمين للوظيفة
-    Route::get('company/logout', 'logout');
+
 
 });
 

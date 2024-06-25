@@ -29,13 +29,12 @@
 
                         <ul class=" nav navbar-nav">
                             <li class="has-mega-menu"><a href="{{url('/')}}"> الرئيسية </a></li>
-                            <li class="has-child"><a href="{{url('jobs')}}"> الوظائف </a></li>
+                            <li class="has-child"><a href="{{url('user/update')}}">  تعديل الملف الشخصي  </a></li>
                             <li class="has-child"><a href="{{url('job')}}"> تفاصيل الوظيفة </a></li>
                             <li class="has-child"><a href="{{url('talents')}}"> الخبراء </a></li>
                             <li class="has-child"><a href="{{url('talent-details')}}"> تفاصيل الخبير </a></li>
                             <li class="has-child"><a href="{{url('contact')}}"> اتصل بنا </a></li>
                             <li class="has-child"><a href="{{url('faqs')}}"> الاسئلة الشائعة </a></li>
-                            <li class="has-child"><a href="{{url('company/dashboard')}}"> حساب الشركة </a></li>
                         </ul>
 
                     </div>
@@ -64,7 +63,7 @@
                                     <!--------------------------------- Login As Employer ------------------->
                                 @elseif(Auth::user())
                                     <div class="twm-nav-btn-left">
-                                        <a class="twm-nav-sign-up" data-bs-toggle="modal" href="#sign_up_popup"
+                                        <a class="twm-nav-sign-up" href="{{url('user/dashboard')}}"
                                            role="button">
                                             <i class="feather-log-in"></i> حسابي
                                         </a>
