@@ -63,7 +63,7 @@ class AdvertesmentController extends Controller
                 }
 
                 $advertiesment = new Advertisment();
-
+                $adv_slug = $this->CustomeSlug($data['title']);
                 $advertiesment->create([
                     'company_id' => $data['company_id'],
                     'nationality' => $data['nationality'],
@@ -80,6 +80,7 @@ class AdvertesmentController extends Controller
                     'salary' => $data['salary'],
                     'description' => $data['description'],
                     'title' => $data['title'],
+                    'slug' => $adv_slug,
                     'title_name' => $data['title_name'],
                     'status' => $data['status'],
                 ]);

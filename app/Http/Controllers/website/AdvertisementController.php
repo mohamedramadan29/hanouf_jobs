@@ -9,13 +9,15 @@ class AdvertisementController extends Controller
 {
     public function index()
     {
-        $advs = Advertisment::all();
+        $advs = Advertisment::with('company')->get();
+
         return view('website.jobs', compact('advs'));
     }
 
-    public function job_details()
+    public function job_details($id,$slug)
     {
-        return view('website.job-detail');
+        $adv = Advertisment::with('company')->where('id',$id)->first();
+        return view('website.job-detail',compact('adv'));
     }
 
     public function talents()

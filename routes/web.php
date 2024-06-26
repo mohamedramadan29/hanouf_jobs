@@ -23,6 +23,7 @@ Route::controller(UserController::class)->group(function () {
         Route::match(['get','post'],'user/update','update_data');
         Route::get('user/alerts','alerts');
         Route::match(['post','get'],'user/change-password','change_password');
+        Route::get('user/logout', 'logout');
     });
 
     Route::match(['post', 'get'], 'forget-password', 'forget_password');
@@ -53,7 +54,7 @@ Route::controller(CompanyController::class)->group(function () {
 
 Route::controller(AdvertisementController::class)->group(function () {
     Route::get('jobs', 'index');
-    Route::get('job', 'job_details');
+    Route::get('job/{id}-{slug}', 'job_details');
     Route::get('talents', 'talents');
     Route::get('talent-details', 'talent_details');
 });

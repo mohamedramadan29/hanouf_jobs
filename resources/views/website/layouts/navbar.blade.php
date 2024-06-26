@@ -29,9 +29,8 @@
 
                         <ul class=" nav navbar-nav">
                             <li class="has-mega-menu"><a href="{{url('/')}}"> الرئيسية </a></li>
-                            <li class="has-child"><a href="{{url('user/update')}}">  تعديل الملف الشخصي  </a></li>
-                            <li class="has-child"><a href="{{url('job')}}"> تفاصيل الوظيفة </a></li>
-                            <li class="has-child"><a href="{{url('talents')}}"> الخبراء </a></li>
+                            <li class="has-mega-menu"><a href="{{url('jobs')}}"> الوظائف </a></li>
+                            <li class="has-child"><a href="{{url('talents')}}"> الموظفين  </a></li>
                             <li class="has-child"><a href="{{url('talent-details')}}"> تفاصيل الخبير </a></li>
                             <li class="has-child"><a href="{{url('contact')}}"> اتصل بنا </a></li>
                             <li class="has-child"><a href="{{url('faqs')}}"> الاسئلة الشائعة </a></li>

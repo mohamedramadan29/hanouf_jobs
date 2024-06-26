@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers\admin;
+
 use App\Http\Controllers\Controller;
 use App\Http\Traits\Message_Trait;
 use App\Models\admin\Faq;
@@ -24,7 +26,7 @@ class FaqController extends Controller
                 $data = $request->all();
                 $rules = [
                     'title' => 'required|min:10',
-                    'desc' => 'required|min|10',
+                    'desc' => 'required|min:10',
                     'type' => 'required'
                 ];
                 $messages = [
@@ -53,10 +55,53 @@ class FaqController extends Controller
     }
 
 
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $faq = Faq::findOrFail($id);
 
-        return view('admin.faqs.update',compact('faq'));
+        try {
+            if ($request->isMethod('post')) {
+                $data = $request->all();
+                $rules = [
+                    'title' => 'required|min:10',
+                    'desc' => 'required|min:10',
+                    'type' => 'required'
+                ];
+                $messages = [
+                    'title.required' => ' من فضلك ادخل العنوان  ',
+                    'title.min' => ' العنوان يجب ان يكون اكثر من 10 احرف  ',
+                    'desc.required' => ' من فضلك ادخل اجابة السوال  ',
+                    'desc.min' => ' يجب ان يكون اجابة السوال اكبر من 10 احرف  ',
+                    'type.required' => ' من فضلك حدد نوع السوال  ',
+                ];
+                $validator = Validator::make($data, $rules, $messages);
+                if ($validator->fails()) {
+                    return Redirect::back()->withInput()->withErrors($validator);
+                }
+
+                $faq->update([
+                    'title' => $data['title'],
+                    'desc' => $data['desc'],
+                    'type' => $data['type']
+                ]);
+                return $this->success_message('  تم تعديل السوال بنجاح   ');
+            }
+        } catch (\Exception $e) {
+            return $this->exception_message($e);
+        }
+
+        return view('admin.faqs.update', compact('faq'));
+    }
+
+    public function delete($id)
+    {
+        try {
+            $faq = Faq::findOrFail($id);
+            $faq->delete();
+            return $this->success_message(' تم حذف السوال بنجاح   ');
+        } catch (\Exception $e) {
+            return $this->exception_message($e);
+        }
+
     }
 }

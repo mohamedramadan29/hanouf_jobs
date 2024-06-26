@@ -66,13 +66,6 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group mb-4">
-                                    <h4 class="section-head-small mb-4">موقع</h4>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="موقع البحث">
-                                        <button class="btn" type="button"><i class="feather-map-pin"></i></button>
-                                    </div>
-                                </div>
                                 <div class="twm-sidebar-ele-filter">
                                     <h4 class="section-head-small mb-4"> تاريخ نشر الاعلان </h4>
                                     <ul>
@@ -128,7 +121,7 @@
                 <div class="col-lg-8 col-md-12">
                     <!--Filter Short By-->
                     <div class="product-filter-wrap d-flex justify-content-between align-items-center m-b30">
-                        <span class="woocommerce-result-count-left">عرض 2150 وظيفة</span>
+                        <span class="woocommerce-result-count-left">عرض {{ $advs->count()  }} وظيفة</span>
 
                         <form class="woocommerce-ordering twm-filter-select" method="get">
                             <span class="woocommerce-result-count"> رتب حسب </span>
@@ -143,137 +136,31 @@
 
                     <div class="twm-jobs-list-wrap">
                         <ul>
-                            <li>
-                                <div class="twm-jobs-list-style1 mb-5">
-                                    <div class="twm-media">
-                                        <img src="{{asset('assets/website/images/jobs-company/pic1.jpg')}}" alt="#">
-                                    </div>
-                                    <div class="twm-mid-content">
-                                        <a href="job-detail.html" class="twm-job-title">
-                                            <h4>مصمم ويب كبير<span class="twm-job-post-duration">/ منذ يوم واحد</span></h4>
-                                        </a>
-                                        <p class="twm-job-address">1363-1385 غروب الشمس الجادة لوس أنجلوس ، كاليفورنيا 90026 ، الولايات المتحدة الأمريكية</p>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        <div class="twm-jobs-category green"><span class="twm-bg-green">جديد</span></div>
-                                        <br>
-                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary"> تقدم للوظيفة </a>
-                                    </div>
-                                </div>
-                            </li>
+                            @foreach($advs as $adv)
+                                <li>
+                                    <div class="twm-jobs-list-style1 mb-5">
+                                        <div class="twm-media">
+                                            @if($adv['company']['logo'] !='')
+                                                <img src="{{asset('assets/uploads/companies/'.$adv['company']['logo'])}}" alt="#">
+                                            @else
+                                                <img src="{{asset('assets/website/images/jobs-company/pic1.jpg')}}" alt="#">
+                                            @endif
 
-                            <li>
-                                <div class="twm-jobs-list-style1 mb-5">
-                                    <div class="twm-media">
-                                        <img src="{{asset('assets/website/images/jobs-company/pic1.jpg')}}" alt="#">
+                                        </div>
+                                        <div class="twm-mid-content">
+                                            <a href="{{url('job/'.$adv['id'].'-'.$adv['slug'])}}" class="twm-job-title">
+                                                <h4> {{$adv['title']}} <span class="twm-job-post-duration">/  {{$adv->created_at}}   </span></h4>
+                                            </a>
+                                            <p class="twm-job-address"> {{$adv['description']}} </p>
+                                        </div>
+                                        <div class="twm-right-content">
+                                            <div class="twm-jobs-category green"><span class="twm-bg-green">جديد</span></div>
+                                            <br>
+                                            <a href="{{url('job/'.$adv['slug'].'-'.$adv['id'])}}" class="twm-jobs-browse site-text-primary"> تقدم للوظيفة </a>
+                                        </div>
                                     </div>
-                                    <div class="twm-mid-content">
-                                        <a href="job-detail.html" class="twm-job-title">
-                                            <h4>مصمم ويب كبير<span class="twm-job-post-duration">/ منذ يوم واحد</span></h4>
-                                        </a>
-                                        <p class="twm-job-address">1363-1385 غروب الشمس الجادة لوس أنجلوس ، كاليفورنيا 90026 ، الولايات المتحدة الأمريكية</p>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        <div class="twm-jobs-category green"><span class="twm-bg-green">جديد</span></div>
-                                        <br>
-                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary"> تقدم للوظيفة </a>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="twm-jobs-list-style1 mb-5">
-                                    <div class="twm-media">
-                                        <img src="{{asset('assets/website/images/jobs-company/pic1.jpg')}}" alt="#">
-                                    </div>
-                                    <div class="twm-mid-content">
-                                        <a href="job-detail.html" class="twm-job-title">
-                                            <h4>مصمم ويب كبير<span class="twm-job-post-duration">/ منذ يوم واحد</span></h4>
-                                        </a>
-                                        <p class="twm-job-address">1363-1385 غروب الشمس الجادة لوس أنجلوس ، كاليفورنيا 90026 ، الولايات المتحدة الأمريكية</p>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        <div class="twm-jobs-category green"><span class="twm-bg-green">جديد</span></div>
-                                        <br>
-                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary"> تقدم للوظيفة </a>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="twm-jobs-list-style1 mb-5">
-                                    <div class="twm-media">
-                                        <img src="{{asset('assets/website/images/jobs-company/pic1.jpg')}}" alt="#">
-                                    </div>
-                                    <div class="twm-mid-content">
-                                        <a href="job-detail.html" class="twm-job-title">
-                                            <h4>مصمم ويب كبير<span class="twm-job-post-duration">/ منذ يوم واحد</span></h4>
-                                        </a>
-                                        <p class="twm-job-address">1363-1385 غروب الشمس الجادة لوس أنجلوس ، كاليفورنيا 90026 ، الولايات المتحدة الأمريكية</p>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        <div class="twm-jobs-category green"><span class="twm-bg-green">جديد</span></div>
-                                        <br>
-                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary"> تقدم للوظيفة </a>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="twm-jobs-list-style1 mb-5">
-                                    <div class="twm-media">
-                                        <img src="{{asset('assets/website/images/jobs-company/pic1.jpg')}}" alt="#">
-                                    </div>
-                                    <div class="twm-mid-content">
-                                        <a href="job-detail.html" class="twm-job-title">
-                                            <h4>مصمم ويب كبير<span class="twm-job-post-duration">/ منذ يوم واحد</span></h4>
-                                        </a>
-                                        <p class="twm-job-address">1363-1385 غروب الشمس الجادة لوس أنجلوس ، كاليفورنيا 90026 ، الولايات المتحدة الأمريكية</p>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        <div class="twm-jobs-category green"><span class="twm-bg-green">جديد</span></div>
-                                        <br>
-                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary"> تقدم للوظيفة </a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="twm-jobs-list-style1 mb-5">
-                                    <div class="twm-media">
-                                        <img src="{{asset('assets/website/images/jobs-company/pic1.jpg')}}" alt="#">
-                                    </div>
-                                    <div class="twm-mid-content">
-                                        <a href="job-detail.html" class="twm-job-title">
-                                            <h4>مصمم ويب كبير<span class="twm-job-post-duration">/ منذ يوم واحد</span></h4>
-                                        </a>
-                                        <p class="twm-job-address">1363-1385 غروب الشمس الجادة لوس أنجلوس ، كاليفورنيا 90026 ، الولايات المتحدة الأمريكية</p>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        <div class="twm-jobs-category green"><span class="twm-bg-green">جديد</span></div>
-                                        <br>
-                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary"> تقدم للوظيفة </a>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="twm-jobs-list-style1 mb-5">
-                                    <div class="twm-media">
-                                        <img src="{{asset('assets/website/images/jobs-company/pic1.jpg')}}" alt="#">
-                                    </div>
-                                    <div class="twm-mid-content">
-                                        <a href="job-detail.html" class="twm-job-title">
-                                            <h4>مصمم ويب كبير<span class="twm-job-post-duration">/ منذ يوم واحد</span></h4>
-                                        </a>
-                                        <p class="twm-job-address">1363-1385 غروب الشمس الجادة لوس أنجلوس ، كاليفورنيا 90026 ، الولايات المتحدة الأمريكية</p>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        <div class="twm-jobs-category green"><span class="twm-bg-green">جديد</span></div>
-                                        <br>
-                                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary"> تقدم للوظيفة </a>
-                                    </div>
-                                </div>
-                            </li>
+                                </li>
+                            @endforeach
 
                         </ul>
                     </div>

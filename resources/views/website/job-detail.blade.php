@@ -1,6 +1,6 @@
 @extends('website.layouts.master')
 @section('title')
-   تفاصيل الوظيفة
+   {{$adv['title']}}
 @endsection
 @section('content')
 
@@ -14,7 +14,7 @@
                 <div class="wt-bnr-inr-entry">
                     <div class="banner-title-outer">
                         <div class="banner-title-name">
-                            <h2 class="wt-title"> اسم الوظيفة </h2>
+                            <h2 class="wt-title"> {{$adv['title']}} </h2>
                         </div>
                     </div>
                     <!-- BREADCRUMB ROW -->
@@ -22,7 +22,8 @@
                     <div>
                         <ul class="wt-breadcrumb breadcrumb-style-2">
                             <li><a href="{{url('/')}}"> الرئيسية </a></li>
-                            <li> اسم الوظيفة</li>
+                            <li><a href="{{url('jobs')}}">  الوظائف </a></li>
+                            <li> {{$adv['title']}}</li>
                         </ul>
                     </div>
 
@@ -49,16 +50,19 @@
                                         <div class="twm-job-self-top">
                                             <div class="twm-mid-content">
                                                 <div class="twm-media">
-                                                    <img src="{{asset('assets/website/images/jobs-company/pic1.jpg')}}" alt="#">
+                                                    @if($adv['company']['logo'] !='')
+                                                        <img src="{{asset('assets/uploads/companies/'.$adv['company']['logo'])}}" alt="#">
+                                                    @else
+                                                        <img src="{{asset('assets/website/images/jobs-company/pic1.jpg')}}" alt="#">
+                                                    @endif
+
                                                 </div>
-                                                <h4 class="twm-job-title">مصمم ويب كبير ، مطور <span
-                                                        class="twm-job-post-duration">/ منذ يوم واحد</span></h4>
-                                                <p class="twm-job-address"><i class="feather-map-pin"></i>1363-1385 غروب
-                                                    الشمس الجادة لوس أنجلوس, كاليفورنيا 90026 ، الولايات المتحدة
-                                                    الأمريكية</p>
+                                                <h4 class="twm-job-title"> {{$adv['title']}}  <span
+                                                        class="twm-job-post-duration">/  {{$adv['created_at']}}</span></h4>
+
                                                 <div class="twm-job-self-mid">
                                                     <div class="twm-job-self-mid-left">
-                                                        <div class="twm-jobs-amount">$2000 - $2500 <span>/ شهر</span>
+                                                        <div class="twm-jobs-amount">$ {{$adv['salary']}} <span>/ شهر</span>
                                                         </div>
                                                     </div>
                                                     <div class="twm-job-apllication-area">ينتهي التطبيق:

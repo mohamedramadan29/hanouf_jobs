@@ -4,6 +4,7 @@ namespace App\Http\Controllers\website;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\Message_Trait;
+use App\Models\admin\Faq;
 use App\Models\website\ContactMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,7 +23,10 @@ class FrontController extends Controller
 
     function faqs()
     {
-        return view('website.faqs');
+        $faqs = Faq::all();
+        $companyfaqs = Faq::where('type','شركة')->get();
+        $employesfaqs = Faq::where('type','موظف')->get();
+        return view('website.faqs',compact('employesfaqs','companyfaqs'));
     }
 
     public function add_contact_message(Request $request)

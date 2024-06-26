@@ -87,7 +87,7 @@
 
                                     <li><a href="{{url('user/change-password')}}"><i class="fa fa-fingerprint"></i>
                                             تغيير كلمة المرور</a></li>
-                                    <li><a href="{{url('company/logout')}}"><i class="fa fa-share-square"></i> تسجيل
+                                    <li><a href="{{url('user/logout')}}"><i class="fa fa-share-square"></i> تسجيل
                                             خروج</a></li>
                                 </ul>
                             </div>

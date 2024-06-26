@@ -261,7 +261,7 @@ class CompanyController extends Controller
                     return Redirect::back()->withErrors($validator)->withInput();
                 }
                 $advertiesment = new Advertisment();
-
+                $adv_slug = $this->CustomeSlug($data['title']);
                 $advertiesment->create([
                     'company_id' => $data['company_id'],
                     'nationality' => $data['nationality'],
@@ -278,6 +278,7 @@ class CompanyController extends Controller
                     'salary' => $data['salary'],
                     'description' => $data['description'],
                     'title' => $data['title'],
+                    'slug'=>$adv_slug,
                     'title_name' => $data['title_name'],
                 ]);
                 return $this->success_message('  تم اضافة الاعلان بنجاح من فضلك انتظر التفعيل من الادارة !!  ');
