@@ -21,6 +21,7 @@ class FrontController extends Controller
         return view('website.contact');
     }
 
+
     function faqs()
     {
         $faqs = Faq::all();

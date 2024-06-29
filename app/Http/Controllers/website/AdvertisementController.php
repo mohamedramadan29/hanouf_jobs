@@ -17,6 +17,7 @@ class AdvertisementController extends Controller
     public function job_details($id,$slug)
     {
         $adv = Advertisment::with('company')->where('id',$id)->first();
+       // dd($adv);
         return view('website.job-detail',compact('adv'));
     }
 
