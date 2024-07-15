@@ -158,7 +158,6 @@ class CompanyController extends Controller
                         $filename = $this->saveImage($request->file('logo'), public_path('assets/uploads/companies'));
                         /// Delete old image
                         unlink($company['logo'], public_path('assets/uploads/companies/' . $company['logo']));
-
                         $company->update([
                             'logo' => $filename,
                         ]);
