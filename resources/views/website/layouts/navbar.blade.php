@@ -10,7 +10,7 @@
                     <div class="logo-header">
                         <div class="logo-header-inner logo-header-one">
                             <a href="{{url('/')}}">
-                                <img width="115px" src="{{asset('assets/website/images/main_logo.png')}}" alt="">
+                                <img width="85px" src="{{asset('assets/website/images/logo.png')}}" alt="">
                             </a>
                         </div>
                     </div>
@@ -31,9 +31,9 @@
                             <li class="has-mega-menu"><a href="{{url('/')}}"> الرئيسية </a></li>
                             <li class="has-mega-menu"><a href="{{url('jobs')}}"> الوظائف </a></li>
                             <li class="has-child"><a href="{{url('talents')}}"> الموظفين  </a></li>
+                            <li class="has-child"><a href="{{url('employers')}}"> لاصحاب الوظائف  </a></li>
                             <li class="has-child"><a href="{{url('talent-details')}}"> تفاصيل الخبير </a></li>
                             <li class="has-child"><a href="{{url('contact')}}"> اتصل بنا </a></li>
-                            <li class="has-child"><a href="{{url('faqs')}}"> الاسئلة الشائعة </a></li>
                         </ul>
 
                     </div>

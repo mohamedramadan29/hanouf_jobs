@@ -9,6 +9,9 @@ use App\Http\Traits\Upload_Images;
 use App\Models\admin\Advertisment;
 use App\Models\admin\City;
 use App\Models\admin\Company;
+use App\Models\admin\Jobsname;
+use App\Models\admin\Specialist;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -157,6 +160,76 @@ class CompanyController extends Controller
 
     }
 
+
+    public function forget_password(Request $request)
+    {
+        if
+        ($request->isMethod('post')) {
+            $data = $request->all();
+            // dd($data);
+            $email = $data['email'];
+            $company = Company::where('email', $email)->count();
+            if ($company > 0) {
+                ////////////////////// Send Forget Mail To Company  ///////////////////////////////
+                ///
+                DB::beginTransaction();
+                $email = $data['email'];
+                $MessageDate = [
+                    'code' => base64_encode($email)
+                ];
+                Mail::send('website.mails.CompanyChangePasswordMail', $MessageDate, function ($message) use ($email) {
+                    $message->to($email)->subject(' رابط تغير كلمة المرور ');
+                });
+                DB::commit();
+                return $this->success_message(' تم ارسال رابط تغير كلمة المرور علي البريد الالكتروني  ');
+            } else {
+                return Redirect::back()->withErrors(['للاسف لا يوجد حساب بهذة البيانات ']);
+                // return $this->Error_message(' للاسف لا يوجد حساب بهذة البيانات  ');
+            }
+        }
+        return view('website.forget-password');
+    }
+
+    public function change_forget_password(Request $request, $email)
+    {
+        $email = base64_decode($email);
+        return view('website.company-change-password', compact('email'));
+    }
+
+    public function update_forget_password(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            // dd($data);
+            $email = $data['email'];
+            //dd($data);
+            $companycount = Company::where('email', $email)->count();
+            if ($companycount > 0) {
+                ////////// Start Change Password
+                $company =Company::where('email', $email)->first();
+                $rules = [
+                    'password' => 'required',
+                    'confirm_password' => 'required|same:password'
+                ];
+                $messages = [
+                    'password.required' => ' من فضلك ادخل كلمة المرور  ',
+                    'confirm_password.required' => ' من فضلك اكد كلمة المرور ',
+                    'confirm_password.same' => ' من فضلك يجب تاكيد كلمة المرور بنجاح '
+                ];
+                $validator = Validator::make($data, $rules, $messages);
+                if ($validator->fails()) {
+                    return Redirect::back()->withInput()->withErrors($validator);
+                }
+                $company->update([
+                    'password'=>Hash::make($data['password']),
+                ]);
+                return redirect()->to('login')->with('Success_message', '   تم تعديل كلمة المرور بنجاح سجل ذخولك الان ');
+            } else {
+                return Redirect::back()->withErrors(['للاسف لا يوجد حساب بهذة البيانات ']);
+            }
+        }
+    }
+
     public function index()
     {
         return view('website.companies.dashboard');
@@ -229,6 +302,8 @@ class CompanyController extends Controller
     public function add_job(Request $request)
     {
         $citizen = City::all();
+        $JobsNames = Jobsname::all();
+        $specialists = Specialist::all();
         try {
             if ($request->isMethod('post')) {
                 $data = $request->all();
@@ -251,7 +326,6 @@ class CompanyController extends Controller
                     'salary' => 'required',
                     'description' => 'required',
                     'title' => 'required',
-                    'title_name' => 'required',
                 ];
                 $messages = [
                     'nationality.required' => ' من فضلك حدد الجنسية  ',
@@ -279,7 +353,6 @@ class CompanyController extends Controller
                     'description' => $data['description'],
                     'title' => $data['title'],
                     'slug'=>$adv_slug,
-                    'title_name' => $data['title_name'],
                 ]);
                 return $this->success_message('  تم اضافة الاعلان بنجاح من فضلك انتظر التفعيل من الادارة !!  ');
             }
@@ -287,7 +360,7 @@ class CompanyController extends Controller
             return $this->exception_message($e);
         }
 
-        return view('website.companies.add_job', compact('citizen'));
+        return view('website.companies.add_job', compact('citizen','specialists','JobsNames'));
     }
 
     public function jobs()
@@ -299,6 +372,8 @@ class CompanyController extends Controller
 
     public function update_job(Request $request,$id)
     {
+        $JobsNames = Jobsname::all();
+        $specialists = Specialist::all();
         $adv = Advertisment::findOrFail($id);
         if($adv['company_id'] != Auth::guard('company')->user()->id){
            return \redirect('404');
@@ -326,7 +401,6 @@ class CompanyController extends Controller
                     'salary' => 'required',
                     'description' => 'required',
                     'title' => 'required',
-                    'title_name' => 'required',
                 ];
                 $messages = [
                     'nationality.required' => ' من فضلك حدد الجنسية  ',
@@ -350,7 +424,6 @@ class CompanyController extends Controller
                     'salary' => $data['salary'],
                     'description' => $data['description'],
                     'title' => $data['title'],
-                    'title_name' => $data['title_name'],
                     'status'=>0,
                 ]);
                 return $this->success_message('  تم تعديل الاعلان بنجاح من فضلك انتظر التفعيل من الادارة !!  ');
@@ -358,7 +431,7 @@ class CompanyController extends Controller
         }catch (\Exception $e){
             return $this->exception_message($e);
         }
-        return view('website.companies.update-job',compact('adv','citizen'));
+        return view('website.companies.update-job',compact('adv','citizen','specialists','JobsNames'));
     }
 
     public function delete_job($id)

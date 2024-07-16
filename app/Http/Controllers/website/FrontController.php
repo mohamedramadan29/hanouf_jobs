@@ -5,6 +5,7 @@ namespace App\Http\Controllers\website;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\Message_Trait;
 use App\Models\admin\Faq;
+use App\Models\admin\Terms;
 use App\Models\website\ContactMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,6 +31,16 @@ class FrontController extends Controller
         return view('website.faqs',compact('employesfaqs','companyfaqs'));
     }
 
+    public function terms()
+    {
+        $term_data = Terms::orderby('id','desc')->first();
+        return view('website.terms',compact('term_data'));
+    }
+
+    public function employers()
+    {
+        return view('website.employers');
+    }
     public function add_contact_message(Request $request)
     {
         try {

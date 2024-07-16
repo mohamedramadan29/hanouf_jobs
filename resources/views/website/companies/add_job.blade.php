@@ -112,6 +112,15 @@
 
                                         <div class="row">
 
+                                            <div class="col-xl-12 col-lg-12 col-12">
+                                                <div class="form-group">
+                                                    <label>  العنوان </label>
+                                                    <div class="ls-inputicon-box">
+                                                        <input required class="form-control" name="title" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="col-xl-4 col-lg-6 col-md-12">
                                                 <input type="hidden" name="company_id"
                                                        value="{{\Illuminate\Support\Facades\Auth::guard('company')->user()->id}}">
@@ -190,9 +199,9 @@
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد  </option>
-                                                            <option value="١">١</option>
-                                                            <option value="٢">٢</option>
-                                                            <option value="٣">٣</option>
+                                                            @foreach($JobsNames as $jobname)
+                                                                <option value="{{$jobname['id']}}"> {{$jobname['title']}} </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -265,12 +274,9 @@
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد  </option>
-                                                            <option value="التخصص الاول"> التخصص الاول</option>
-                                                            <option value="التخصص الاول"> التخصص الاول</option>
-                                                            <option value="التخصص الاول"> التخصص الاول</option>
-                                                            <option value="التخصص الاول"> التخصص الاول</option>
-                                                            <option value="التخصص الاول"> التخصص الاول</option>
-                                                            <option value="التخصص الاول"> التخصص الاول</option>
+                                                            @foreach($specialists as $special)
+                                                                <option value="{{$special['id']}}"> {{$special['name']}} </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -310,26 +316,6 @@
                                                 <div class="form-group">
                                                     <label> الوصف الوظيفي </label>
                                                     <textarea required class="form-control" rows="3" name="description"></textarea>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                                <div class="form-group">
-                                                    <label>  العنوان </label>
-                                                    <div class="ls-inputicon-box">
-                                                        <input required class="form-control" name="title" type="text">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                                <div class="form-group">
-                                                    <label> اسم المنشور </label>
-                                                    <div class="ls-inputicon-box">
-                                                        <input required class="form-control" name="title_name" type="text">
-                                                    </div>
                                                 </div>
                                             </div>
 

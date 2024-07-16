@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-   ادارة الاعلانات
+   المسميات الوظيفية
 @endsection
 @section('css')
     <link href="{{ URL::asset('assets/admin/plugins/datatable/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet"/>
@@ -16,7 +16,7 @@
         <div class="my-auto">
             <div class="d-flex">
                 <h4 class="content-title mb-0 my-auto">الرئيسية </h4><span
-                    class="text-muted mt-1 tx-13 mr-2 mb-0">/  ادارة الاعلانات   </span>
+                    class="text-muted mt-1 tx-13 mr-2 mb-0">/المسميات الوظيفية     </span>
             </div>
         </div>
     </div>
@@ -28,7 +28,11 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{url('admin/advertisement/store')}}" class="btn btn-primary btn-sm">  اضف اعلان جديد  <i class="fa fa-plus"></i> </a>
+                    <button data-target="#add_job_name_model"
+                            data-toggle="modal" class="btn btn-primary btn-sm"> اضافة مسمي وظيفي   <i
+                            class="fa fa-plus"></i>
+                    </button>
+                    @include('admin.other_settings.JobsNames.add')
                 </div>
 
                 <div class="card-body">
@@ -52,11 +56,8 @@
                                 <thead>
                                 <tr>
                                     <th class="wd-15p border-bottom-0"> #</th>
-                                    <th class="wd-15p border-bottom-0"> العنوان</th>
-                                    <th class="wd-15p border-bottom-0">  الشركة   </th>
                                     <th class="wd-15p border-bottom-0">  المسمي الوظيفي  </th>
-                                    <th class="wd-15p border-bottom-0"> الحالة</th>
-                                    <th class="wd-15p border-bottom-0"> إشعار للمتخصصين  </th>
+                                    <th class="wd-15p border-bottom-0">  الحالة  </th>
                                     <th class="wd-15p border-bottom-0"> العمليات</th>
                                 </tr>
                                 </thead>
@@ -64,37 +65,30 @@
                                 @php
                                     $i = 1;
                                 @endphp
-                                @foreach($advertisements as $adv)
+                                @foreach($alljobs as $job)
                                     <tr>
                                         <td> {{$i++}} </td>
-                                        <td> {{$adv['title']}} </td>
-                                        <td> <a href="{{url('admin/company/update/'.$adv['company']['id'])}}"> {{$adv['company']['name']}}  </a> </td>
-                                        <td> {{$adv['jobs_names']['title']}} </td>
+                                        <td> {{$job['title']}} </td>
+                                        <td> @if($job['status'] == 1)
+                                                 <span class="badge badge-success"> مفعل  </span>
+                                            @else
+                                                 <span class="badge badge-danger"> غير مفعل  </span>
+                                        @endif  </td>
                                         <td>
-                                            @if($adv['status'] == 1)
-                                                <span class="badge badge-success"> نشط  </span>
-                                            @elseif($adv['status'] == 0)
-                                                <span class="badge badge-danger"> غير نشط </span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if($adv['send_notifications'] == 1)
-                                                <span class="badge badge-success"> تم ارسال اشعار وظيفي  </span>
-                                            @elseif($adv['send_notifications'] == 0)
-                                                <a href="{{url('admin/send_notification_new_job/'.$adv['id'])}}" class="btn btn-warning btn-sm">  ارسال اشعار للموظفين <i class="fa fa-bell"></i> </a>
-
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{url('admin/advertisement/update/'.$adv['id'])}}" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>
-                                            <button data-target="#delete_model_{{$adv['id']}}"
+                                            <button data-target="#edit_model_{{$job['id']}}"
+                                                    data-toggle="modal" class="btn btn-primary btn-sm">  <i
+                                                    class="fa fa-edit"></i>
+                                            </button>
+                                            <button data-target="#delete_model_{{$job['id']}}"
                                                     data-toggle="modal" class="btn btn-danger btn-sm">  <i
                                                     class="fa fa-trash"></i>
                                             </button>
                                         </td>
                                     </tr>
                                     <!-- Delete Section Model  -->
-                                    @include('admin.advertisements.delete')
+
+                                    @include('admin.other_settings.JobsNames.edit')
+                                    @include('admin.other_settings.JobsNames.delete')
                                 @endforeach
                                 </tbody>
                             </table>
@@ -127,3 +121,4 @@
     <script src="{{ URL::asset('assets/admin/js/table-data.js') }}"></script>
     <script src="{{URL::asset('assets/admin/js/modal.js')}}"></script>
 @endsection
+

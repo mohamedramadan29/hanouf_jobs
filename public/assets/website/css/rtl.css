@@ -3324,13 +3324,13 @@
   left: auto;
 }
 .ls-inputicon-box .form-control {
-  padding-left: 15px;
-  padding-right: 35px;
+  padding-left: 10px;
+  padding-right: 10px;
   text-align: right;
 }
 .ls-inputicon-box .bootstrap-select .dropdown-toggle {
   padding-left: 0px;
-  padding-right: 35px;
+  padding-right: 12px;
 }
 .ls-inputicon-box .remove_field {
   left: 4px;

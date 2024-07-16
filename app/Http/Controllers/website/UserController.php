@@ -163,6 +163,75 @@ class UserController extends Controller
         return view('website.login');
     }
 
+    public function forget_password(Request $request)
+    {
+        if
+        ($request->isMethod('post')) {
+            $data = $request->all();
+            // dd($data);
+            $email = $data['email'];
+            $user = User::where('email', $email)->count();
+            if ($user > 0) {
+                ////////////////////// Send Forget Mail To User  ///////////////////////////////
+                ///
+                DB::beginTransaction();
+                $email = $data['email'];
+                $MessageDate = [
+                    'code' => base64_encode($email)
+                ];
+                Mail::send('website.mails.UserChangePasswordMail', $MessageDate, function ($message) use ($email) {
+                    $message->to($email)->subject(' رابط تغير كلمة المرور ');
+                });
+                DB::commit();
+                return $this->success_message(' تم ارسال رابط تغير كلمة المرور علي البريد الالكتروني  ');
+            } else {
+                return Redirect::back()->withErrors(['للاسف لا يوجد حساب بهذة البيانات ']);
+                // return $this->Error_message(' للاسف لا يوجد حساب بهذة البيانات  ');
+            }
+        }
+        return view('website.forget-password');
+    }
+
+    public function change_forget_password(Request $request, $email)
+    {
+        $email = base64_decode($email);
+        return view('website.change-password', compact('email'));
+    }
+
+    public function update_forget_password(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+           // dd($data);
+            $email = $data['email'];
+            //dd($data);
+            $usercount = User::where('email', $email)->count();
+            if ($usercount > 0) {
+                ////////// Start Change Password
+                $user = User::where('email', $email)->first();
+                $rules = [
+                    'password' => 'required',
+                    'confirm_password' => 'required|same:password'
+                ];
+                $messages = [
+                    'password.required' => ' من فضلك ادخل كلمة المرور  ',
+                    'confirm_password.required' => ' من فضلك اكد كلمة المرور ',
+                    'confirm_password.same' => ' من فضلك يجب تاكيد كلمة المرور بنجاح '
+                ];
+                $validator = Validator::make($data, $rules, $messages);
+                if ($validator->fails()) {
+                    return Redirect::back()->withInput()->withErrors($validator);
+                }
+                $user->update([
+                    'password'=>Hash::make($data['password']),
+                ]);
+                return redirect()->to('login')->with('Success_message', '   تم تعديل كلمة المرور بنجاح سجل ذخولك الان ');
+            } else {
+                return Redirect::back()->withErrors(['للاسف لا يوجد حساب بهذة البيانات ']);
+            }
+        }
+    }
+
     public function update_info(Request $request)
     {
         try {
@@ -229,7 +298,7 @@ class UserController extends Controller
     public function update_data(Request $request)
     {
         $citizen = City::all();
-        $user = User::where('id',Auth::id())->first();
+        $user = User::where('id', Auth::id())->first();
         try {
 
             if ($request->isMethod('post')) {
@@ -275,10 +344,10 @@ class UserController extends Controller
                 ]);
                 return $this->success_message('  تم تعديل البيانات الخاصة بك بنجاح  !!  ');
             }
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return $this->exception_message($e);
         }
-        return view('website.users.update-data',compact('user','citizen'));
+        return view('website.users.update-data', compact('user', 'citizen'));
     }
 
     public function change_password(Request $request)
@@ -322,6 +391,7 @@ class UserController extends Controller
     {
         return view('website.users.alerts');
     }
+
 
     function logout()
     {

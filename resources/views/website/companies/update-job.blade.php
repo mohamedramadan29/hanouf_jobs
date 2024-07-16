@@ -198,9 +198,9 @@
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد  </option>
-                                                            <option selected value="١">١</option>
-                                                            <option value="٢">٢</option>
-                                                            <option value="٣">٣</option>
+                                                            @foreach($JobsNames as $jobname)
+                                                                <option @if($jobname['id'] == $adv['job_name']) selected @endif  value="{{$jobname['id']}}"> {{$jobname['title']}} </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -294,12 +294,9 @@
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
                                                             <option disabled value=""> حدد  </option>
-                                                            <option selected value="التخصص الاول"> التخصص الاول</option>
-                                                            <option value="التخصص الاول"> التخصص الاول</option>
-                                                            <option value="التخصص الاول"> التخصص الاول</option>
-                                                            <option value="التخصص الاول"> التخصص الاول</option>
-                                                            <option value="التخصص الاول"> التخصص الاول</option>
-                                                            <option value="التخصص الاول"> التخصص الاول</option>
+                                                            @foreach($specialists as $special)
+                                                                <option @if($special['id'] == $adv['profession_specialist']) selected @endif value="{{$special['id']}}"> {{$special['name']}} </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -348,16 +345,6 @@
                                                     <label>  العنوان </label>
                                                     <div class="ls-inputicon-box">
                                                         <input required class="form-control" name="title" type="text" value="{{$adv['title']}}">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
-                                                <div class="form-group">
-                                                    <label> اسم المنشور </label>
-                                                    <div class="ls-inputicon-box">
-                                                        <input required class="form-control" name="title_name" type="text" value="{{$adv['title_name']}}">
                                                     </div>
                                                 </div>
                                             </div>

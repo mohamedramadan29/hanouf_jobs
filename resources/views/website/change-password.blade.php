@@ -1,6 +1,6 @@
 @extends('website.layouts.master_login')
 @section('title')
-    هل نسيت كلمة المرور
+   تغير كلمة المرور
 @endsection
 @section('content')
     <!-- CONTENT START -->
@@ -39,76 +39,51 @@
                             <div class="twm-log-reg-inner">
                                 <div class="twm-log-reg-head">
                                     <div class="twm-log-reg-logo">
-                                        <span class="log-reg-form-title"> هل نسيت كلمة المرور  </span>
+                                        <span class="log-reg-form-title">  تغير كلمة المرور   </span>
                                     </div>
                                 </div>
                                 <div class="twm-tabs-style-2">
 
-                                    <ul class="nav nav-tabs" id="myTab2" role="tablist">
-
-                                        <!--Login Candidate-->
-                                        <li class="nav-item">
-                                            <button class="nav-link active" data-bs-toggle="tab"
-                                                    data-bs-target="#twm-login-candidate" type="button"><i
-                                                    class="fas fa-user-tie"></i> موظف
-                                            </button>
-                                        </li>
-                                        <!--Login Employer-->
-                                        <li class="nav-item">
-                                            <button class="nav-link" data-bs-toggle="tab"
-                                                    data-bs-target="#twm-login-Employer" type="button"><i
-                                                    class="fas fa-building"></i>صاحب العمل
-                                            </button>
-                                        </li>
-
-                                    </ul>
 
                                     <div class="tab-content" id="myTab2Content">
                                         <!--Login Candidate Content-->
                                         <div class="tab-pane fade show active" id="twm-login-candidate">
-                                            <form action="{{url('forget-password')}}" method="post">
+                                            <form action="{{url('user/update_forget_password')}}" method="post">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <div class="form-group mb-3">
-                                                            <input name="email" type="email" required=""
-                                                                   value="{{old('email')}}"
+                                                            <input readonly name="email" type="email" required=""
+                                                                   value="{{$email}}"
                                                                    class="form-control"
                                                                    placeholder=" البريد الالكتروني  *">
                                                         </div>
                                                     </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group mb-3">
+                                                            <input name="password" type="password" required=""
+                                                                   value=""
+                                                                   class="form-control"
+                                                                   placeholder="كلمة المرور*">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group mb-3">
+                                                            <input name="confirm_password" type="password" required=""
+                                                                   value=""
+                                                                   class="form-control"
+                                                                   placeholder="تأكيد كلمة المرور*">
+                                                        </div>
+                                                    </div>
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <button type="submit" class="site-button"> ارسال
+                                                            <button type="submit" class="site-button">   تغير كلمة المرور
                                                             </button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </form>
                                         </div>
-                                        <!--Login Employer Content-->
-                                        <div class="tab-pane fade" id="twm-login-Employer">
-                                            <form action="{{url('company/forget-password')}}" method="post">
-                                                @csrf
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group mb-3">
-                                                            <input name="email" type="email" required=""
-                                                                   value="{{old('email')}}"
-                                                                   class="form-control"
-                                                                   placeholder=" البريد الالكتروني  *">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <button type="submit" class="site-button"> ارسال
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>

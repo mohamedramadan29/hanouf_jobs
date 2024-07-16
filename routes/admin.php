@@ -7,7 +7,9 @@ use \App\Http\Controllers\admin\CompanyController;
 use \App\Http\Controllers\admin\AdvertesmentController;
 use \App\Http\Controllers\admin\UserController;
 use \App\Http\Controllers\admin\FaqController;
-
+use \App\Http\Controllers\admin\TermsController;
+use \App\Http\Controllers\admin\JobsNameController;
+use \App\Http\Controllers\admin\SpecialistController;
 Route::group(['prefix' => 'admin'], function () {
     // Admin Login
     Route::match(['post', 'get'], '/', [AdminController::class, 'login'])->name('admin_login');
@@ -49,6 +51,7 @@ Route::group(['prefix' => 'admin'], function () {
             Route::match(['post', 'get'], 'advertisement/store', 'store');
             Route::match(['post', 'get'], 'advertisement/update/{id}', 'update');
             Route::post('advertisement/delete/{id}', 'delete');
+            Route::get('send_notification_new_job/{id}','send_notification_new_job');
         });
         /////////////////////////////// Start Users ////////////////
         ///
@@ -65,6 +68,27 @@ Route::group(['prefix' => 'admin'], function () {
             Route::match(['post', 'get'], 'faq/store', 'store');
             Route::match(['post', 'get'], 'faq/update/{id}', 'update');
             Route::post('faq/delete/{id}', 'delete');
+        });
+        ///////////////////////// Start Terms //////////
+        ///
+        Route::controller(TermsController::class)->group(function () {
+            Route::match(['post', 'get'], 'terms', 'update')->name('terms');
+        });
+        ///////////////////// Start Other Settings
+        /// /// Job Names
+        Route::controller(JobsNameController::class)->group(function () {
+            Route::get('jobs_name', 'index');
+            Route::match(['post', 'get'], 'job/add', 'add');
+            Route::match(['post', 'get'], 'job/update/{id}', 'update');
+            Route::post('job/delete/{id}', 'delete');
+        });
+        ///////////////////// Start Other Settings
+        /// ///// Specialist
+        Route::controller(SpecialistController::class)->group(function () {
+            Route::get('specialists', 'index');
+            Route::match(['post', 'get'], 'special/add', 'add');
+            Route::match(['post', 'get'], 'special/update/{id}', 'update');
+            Route::post('special/delete/{id}', 'delete');
         });
     });
 });

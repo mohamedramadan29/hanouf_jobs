@@ -108,6 +108,30 @@
                 </ul>
             </li>
 
+            <li class="side-item side-item-category">  اعدادات اضافية   </li>
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="">
+                    <i style="font-size: 22px;margin-left: 10px" class="bx bx-package"></i>
+                    <span class="side-menu__label"> اعدادات اضافية   </span><i
+                        class="angle fe fe-chevron-down"></i></a>
+                <ul class="slide-menu">
+                    <li><a class="slide-item" href="{{url('admin/jobs_name')}}"> المسميات الوظيفية   </a>
+                    <li><a class="slide-item" href="{{url('admin/specialists')}}">  التخصصات المهنية    </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="side-item side-item-category">  الشروط والاحكام  </li>
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="">
+                    <i style="font-size: 22px;margin-left: 10px" class="bx bx-package"></i>
+                    <span class="side-menu__label">  الشروط والاحكام    </span><i
+                        class="angle fe fe-chevron-down"></i></a>
+                <ul class="slide-menu">
+                    <li><a class="slide-item" href="{{url('admin/terms')}}"> الشروط والاحكام    </a>
+                    </li>
+                </ul>
+            </li>
+
             <li class="side-item side-item-category"> المستخدمين</li>
             <li class="slide">
                 <a class="side-menu__item" data-toggle="slide" href="">

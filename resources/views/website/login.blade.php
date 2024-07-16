@@ -24,7 +24,7 @@
                     <div class="col-xl-7 col-lg-6 col-md-5 twm-log-reg-media-wrap">
                         <div class="twm-log-reg-media">
                             <div class="twm-l-media">
-                                <img src="{{asset('assets/website/images/login-bg.png')}}" alt="">
+                                <img src="{{asset('assets/website/images/login.svg')}}" alt="">
                             </div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                         <div class="twm-log-reg-form-wrap">
                             <div class="twm-log-reg-logo-head">
                                 <a href="{{url('/')}}">
-                                    <img src="{{asset('assets/website/images/main_logo.png')}}" alt="" class="logo">
+                                    <img src="{{asset('assets/website/images/logo.png')}}" alt="" class="logo">
                                 </a>
                             </div>
 
@@ -71,8 +71,10 @@
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <div class="form-group mb-3">
-                                                            <input name="email" type="email" required="" value="{{old('email')}}"
-                                                                   class="form-control" placeholder=" البريد الالكتروني  *">
+                                                            <input name="email" type="email" required=""
+                                                                   value="{{old('email')}}"
+                                                                   class="form-control"
+                                                                   placeholder=" البريد الالكتروني  *">
                                                         </div>
                                                     </div>
 
@@ -91,9 +93,11 @@
                                                                     <input type="checkbox" class="form-check-input"
                                                                            id="Password4">
                                                                     <label class="form-check-label rem-forgot"
-                                                                           for="Password4">تذكرنى <a href="javascript:;"
-                                                                                                     class="site-text-primary">هل
-                                                                            نسيت كلمة السر</a></label>
+                                                                           for="Password4">تذكرنى
+
+                                                                        <a href="{{url('forget-password')}}"
+                                                                           class="site-text-primary">
+                                                                            هل نسيت كلمة السر</a></label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -125,8 +129,10 @@
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <div class="form-group mb-3">
-                                                            <input name="email" type="email" required="" value="{{old('email')}}"
-                                                                   class="form-control" placeholder=" البريد الالكتروني  *">
+                                                            <input name="email" type="email" required=""
+                                                                   value="{{old('email')}}"
+                                                                   class="form-control"
+                                                                   placeholder=" البريد الالكتروني  *">
                                                         </div>
                                                     </div>
 

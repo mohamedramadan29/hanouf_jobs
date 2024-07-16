@@ -32,6 +32,7 @@ return new class extends Migration {
             $table->integer('employs_accepted')->nullable();
             $table->string('status')->default('1');
             $table->timestamp('end_time')->nullable();
+            $table->tinyInteger('send_notifications')->default('0');
             $table->timestamps();
         });
     }

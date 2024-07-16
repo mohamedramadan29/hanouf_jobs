@@ -20,7 +20,7 @@
                         <div class="twm-log-reg-form-wrap">
                             <div class="twm-log-reg-logo-head">
                                 <a href="{{url('/')}}">
-                                    <img src="{{asset('assets/website/images/main_logo.png')}}" alt="" class="logo">
+                                    <img src="{{asset('assets/website/images/logo.png')}}" alt="" class="logo">
                                 </a>
                             </div>
 

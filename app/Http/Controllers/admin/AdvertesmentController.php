@@ -9,6 +9,8 @@ use App\Http\Traits\Upload_Images;
 use App\Models\admin\Advertisment;
 use App\Models\admin\City;
 use App\Models\admin\Company;
+use App\Models\admin\Jobsname;
+use App\Models\admin\Specialist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -22,14 +24,16 @@ class AdvertesmentController extends Controller
 
     public function index()
     {
-        $advertisements = Advertisment::with('company')->get();
+        $advertisements = Advertisment::with('company','jobs_names')->get();
+       // dd($advertisements);
         return view('admin.advertisements.index', compact('advertisements'));
     }
-
     public function store(Request $request)
     {
         $companies = Company::all();
         $citizen = City::all();
+        $JobsNames = Jobsname::all();
+        $specialists = Specialist::all();
         try {
             if ($request->isMethod('post')) {
                 $data = $request->all();
@@ -51,7 +55,6 @@ class AdvertesmentController extends Controller
                     'salary' => 'required',
                     'description' => 'required',
                     'title' => 'required',
-                    'title_name' => 'required',
                     'status' => 'required',
                 ];
                 $messages = [
@@ -81,7 +84,6 @@ class AdvertesmentController extends Controller
                     'description' => $data['description'],
                     'title' => $data['title'],
                     'slug' => $adv_slug,
-                    'title_name' => $data['title_name'],
                     'status' => $data['status'],
                 ]);
                 return $this->success_message('  تم اضافة الاعلان بنجاح   ');
@@ -89,7 +91,7 @@ class AdvertesmentController extends Controller
         } catch (\Exception $e) {
             return $this->exception_message($e);
         }
-        return view('admin.advertisements.store', compact('companies', 'citizen'));
+        return view('admin.advertisements.store', compact('companies', 'citizen','specialists','JobsNames'));
     }
 
     public function update(Request $request, $id)
@@ -97,6 +99,8 @@ class AdvertesmentController extends Controller
         $adv = Advertisment::findOrFail($id);
         $companies = Company::all();
         $citizen = City::all();
+        $JobsNames = Jobsname::all();
+        $specialists = Specialist::all();
         try {
             if ($request->isMethod('post')) {
                 $data = $request->all();
@@ -118,7 +122,6 @@ class AdvertesmentController extends Controller
                     'salary' => 'required',
                     'description' => 'required',
                     'title' => 'required',
-                    'title_name' => 'required',
                     'status' => 'required',
                 ];
                 $messages = [
@@ -145,19 +148,16 @@ class AdvertesmentController extends Controller
                     'salary' => $data['salary'],
                     'description' => $data['description'],
                     'title' => $data['title'],
-                    'title_name' => $data['title_name'],
                     'status' => $data['status'],
                 ]);
-
-                /////////////////////// Send Status Confirmation Email ///////////
-                ///
+                /////////////////////// Send Status Confirmation Email //////////
                 return $this->success_message(' تم تعديل الاعلان بنجاح  ');
 
             }
         } catch (\Exception $e) {
             return $this->exception_message($e);
         }
-        return view('admin.advertisements.update', compact('companies', 'citizen', 'adv'));
+        return view('admin.advertisements.update', compact('companies', 'citizen','specialists','JobsNames', 'adv'));
     }
 
     public function delete($id)
@@ -170,5 +170,13 @@ class AdvertesmentController extends Controller
             return $this->exception_message($e);
         }
 
+    }
+
+    /////////////////// Admin Send Notification To User You Have New Job
+    ///
+    ///
+    public function send_notification_new_job($adv_id)
+    {
+        dd($adv_id);
     }
 }

@@ -17,4 +17,10 @@ class Advertisment extends Model
     {
         return $this->belongsTo(Company::class,'company_id');
     }
+    ///////// Get the jobs Name
+    ///
+    public function jobs_names()
+    {
+        return $this->belongsTo(Jobsname::class,'job_name');
+    }
 }

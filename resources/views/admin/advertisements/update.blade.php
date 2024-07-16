@@ -135,9 +135,9 @@
                                         <div class="col-md-9">
                                             <select name="job_name" id="" class="form-control select2">
                                                 <option value=""> -- حدد --</option>
-                                                <option selected value="١">١</option>
-                                                <option value="٢">٢</option>
-                                                <option value="٣">٣</option>
+                                                @foreach($JobsNames as $jobname)
+                                                    <option @if($jobname['id'] == $adv['job_name']) selected @endif value="{{$jobname['id']}}"> {{$jobname['title']}} </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -240,12 +240,9 @@
                                         <div class="col-md-9">
                                             <select name="profession_specialist" id="" class="form-control select2">
                                                 <option value=""> -- حدد --</option>
-                                                <option @if($adv['profession_specialist'] == 'التخصص الاول') selected
-                                                        @endif value="التخصص الاول"> التخصص الاول
-                                                </option>
-                                                <option @if($adv['profession_specialist'] == 'التخصص الاول') selected
-                                                        @endif value="التخصص الاول"> التخصص الاول
-                                                </option>
+                                                @foreach($specialists as $special)
+                                                    <option @if($special['id'] == $adv['profession_specialist']) selected @endif value="{{$special['id']}}"> {{$special['name']}} </option>
+                                                @endforeach
 
                                             </select>
                                         </div>
@@ -306,19 +303,6 @@
                                         <div class="col-md-9">
                                             <input required type="text" class="form-control" name="title"
                                                    value="{{$adv['title']}}">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group ">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label class="form-label"> اسم المنشور
-                                            </label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input required type="text" class="form-control" name="title_name"
-                                                   value="{{$adv['title_name']}}">
                                         </div>
                                     </div>
                                 </div>
