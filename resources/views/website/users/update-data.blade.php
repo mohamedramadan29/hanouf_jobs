@@ -150,7 +150,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> المدينة </label>
                                                     <div class="ls-inputicon-box">
@@ -167,7 +167,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-8 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> إمكانية التنقل من مدينة أخرى للعمل </label>
                                                     <div class="ls-inputicon-box">
@@ -178,11 +178,11 @@
                                                             <option disabled selected value=""> حدد</option>
                                                             <option
                                                                 @if($user['can_placed_from_to_another'] == 'نعم') selected
-                                                                @endif value="نعم">نعم
+                                                                @endif value="1">نعم
                                                             </option>
                                                             <option
                                                                 @if($user['can_placed_from_to_another'] == 'لا') selected
-                                                                @endif value="لا">لا
+                                                                @endif value="2">لا
                                                             </option>
                                                         </select>
                                                     </div>
@@ -190,7 +190,7 @@
                                             </div>
 
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> مسمى الوظيفي للمبيعات </label>
                                                     <div class="ls-inputicon-box">
@@ -199,16 +199,19 @@
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد</option>
-                                                            <option selected value="١">١</option>
-                                                            <option value="٢">٢</option>
-                                                            <option value="٣">٣</option>
+                                                            @foreach($nameJobs as  $job)
+                                                                <option @if($job['id'] == $user['job_name']) selected
+                                                                        @endif value="{{$job['id']}}">{{$job['title']}}</option>
+                                                            @endforeach
                                                         </select>
+
+
                                                     </div>
                                                 </div>
                                             </div>
 
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> طبيعة العمل </label>
                                                     <div class="ls-inputicon-box">
@@ -235,7 +238,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group">
                                                     <label> عدد سنوات الخبرة </label>
                                                     <div class="ls-inputicon-box">
@@ -245,11 +248,15 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+
+
+
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="ls-inputicon-box">
                                                     @php
                                                         $languages = explode(',',$user['language']);
                                                     @endphp
+                                                    <label> حدد اللغة </label>
                                                     <select required class="wt-select-box selectpicker" multiple
                                                             name="language[]"
                                                             data-live-search="true" title="" id="j-category"
@@ -266,7 +273,7 @@
                                             </div>
 
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> مستوي اللغة </label>
                                                     <div class="ls-inputicon-box">
@@ -289,7 +296,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> ماهي تخصصك المهني للمبيعات ؟ </label>
                                                     <div class="ls-inputicon-box">
@@ -298,18 +305,17 @@
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد</option>
-                                                            <option selected value="التخصص الاول"> التخصص الاول</option>
-                                                            <option value="التخصص الاول"> التخصص الاول</option>
-                                                            <option value="التخصص الاول"> التخصص الاول</option>
-                                                            <option value="التخصص الاول"> التخصص الاول</option>
-                                                            <option value="التخصص الاول"> التخصص الاول</option>
-                                                            <option value="التخصص الاول"> التخصص الاول</option>
+                                                            @foreach($specialists as $special)
+                                                                <option
+                                                                    @if($special['id'] == $user['profession_specialist']) selected
+                                                                    @endif value="{{$special['id']}}"> {{$special['name']}} </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group">
                                                     <label> الراتب المحدد </label>
                                                     <div class="ls-inputicon-box">

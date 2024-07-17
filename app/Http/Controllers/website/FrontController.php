@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
-
+use App\Models\admin\Company;
 class FrontController extends Controller
 {
     use Message_Trait;
@@ -99,6 +99,20 @@ class FrontController extends Controller
             return $this->exception_message($e);
         }
 
+
+    }
+
+    /////////// Public Details
+    ///
+    public function company_details($username)
+    {
+        $company_count = Company::where('username',$username)->count();
+        if ($company_count > 0){
+            $company = Company::where('username',$username)->first();
+            return view('website.public-company-info',compact('company'));
+        }else{
+            abort('404');
+        }
 
     }
 }

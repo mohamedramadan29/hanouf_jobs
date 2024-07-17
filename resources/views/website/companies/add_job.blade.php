@@ -148,6 +148,7 @@
                                                             <option disabled selected value=""> حدد الجنس</option>
                                                             <option value="ذكر"> ذكر</option>
                                                             <option value="انثي"> انثي</option>
+                                                            <option value="كلاهما"> كلاهما </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -319,12 +320,38 @@
                                                 </div>
                                             </div>
 
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label> المهام الوظيفية <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
+                                                    <textarea class="form-control" rows="3" name="job_requirements"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label> المؤهلات والخبرات  <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
+                                                    <textarea  class="form-control" rows="3" name="job_experience"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>  مميزات العمل   <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
+                                                    <textarea  class="form-control" rows="3" name="job_advantage"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>  المعلومات المطلوبة  <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
+                                                    <textarea class="form-control" rows="3" name="job_needed"></textarea>
+                                                </div>
+                                            </div>
+
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="text-left">
                                                     <button type="submit" class="site-button m-r5">نشر الوظيفة</button>
-{{--                                                    <button type="submit" class="site-button outline-primary">حفظ--}}
-{{--                                                        المسودة--}}
-{{--                                                    </button>--}}
+
                                                 </div>
                                             </div>
 
@@ -345,3 +372,5 @@
     </div>
     <!-- CONTENT END -->
 @endsection
+
+

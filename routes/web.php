@@ -5,7 +5,7 @@ use \App\Http\Controllers\website\AdvertisementController;
 use \App\Http\Controllers\website\UserController;
 use \App\Http\Controllers\website\CompanyController;
 use \App\Http\Controllers\website\FrontController;
-
+use \App\Http\Controllers\website\jobOfferController;
 Route::get('/', function () {
     return view('website.index');
 });
@@ -76,6 +76,11 @@ Route::controller(FrontController::class)->group(function () {
     Route::get('terms','terms');
     Route::post('add_contact_message', 'add_contact_message');
     Route::get('employers','employers');
+    Route::get('companies/{username}','company_details');
+});
+
+Route::controller(jobOfferController::class)->group(function (){
+   Route::post('add-offer','add_offer');
 });
 
 Route::view('404', 'website.404');

@@ -112,7 +112,17 @@
 
                                         <div class="row">
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-12 col-lg-12 col-md-12">
+                                                <div class="form-group">
+                                                    <label>  العنوان </label>
+                                                    <div class="ls-inputicon-box">
+                                                        <input required class="form-control" name="title" type="text" value="{{$adv['title']}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <input type="hidden" name="company_id"
                                                        value="{{\Illuminate\Support\Facades\Auth::guard('company')->user()->id}}">
                                                 <div class="form-group city-outer-bx has-feedback">
@@ -133,7 +143,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> حدد الجنس </label>
                                                     <div class="ls-inputicon-box">
@@ -145,12 +155,13 @@
                                                             </option>
                                                             <option @if($adv['sex'] == 'انثي') selected @endif value="انثي"> انثي
                                                             </option>
+                                                            <option @if($adv['sex'] == 'كلاهما') selected @endif value="كلاهما"> كلاهما </option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> المدينة </label>
                                                     <div class="ls-inputicon-box">
@@ -207,7 +218,7 @@
                                             </div>
 
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label>  طبيعه العمل  </label>
                                                     <div class="ls-inputicon-box">
@@ -231,7 +242,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group">
                                                     <label>  عدد سنوات الخبرة </label>
                                                     <div class="ls-inputicon-box">
@@ -240,7 +251,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> اللغة المطلوبة </label>
                                                     <div class="ls-inputicon-box">
@@ -263,7 +274,7 @@
 
 
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> مستوي اللغة </label>
                                                     <div class="ls-inputicon-box">
@@ -286,7 +297,7 @@
                                             </div>
 
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> ماهو التخصص المهني المطلوب ؟ </label>
                                                     <div class="ls-inputicon-box">
@@ -303,7 +314,7 @@
                                             </div>
 
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group">
                                                     <label> الراتب المحدد </label>
                                                     <div class="ls-inputicon-box">
@@ -340,12 +351,32 @@
                                             </div>
 
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+
+                                            <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>  العنوان </label>
-                                                    <div class="ls-inputicon-box">
-                                                        <input required class="form-control" name="title" type="text" value="{{$adv['title']}}">
-                                                    </div>
+                                                    <label> المهام الوظيفية <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
+                                                    <textarea class="form-control" rows="3" name="job_requirements">{{$adv['job_requirements']}}</textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label> المؤهلات والخبرات  <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
+                                                    <textarea  class="form-control" rows="3" name="job_experience">{{$adv['job_experience']}}</textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>  مميزات العمل   <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
+                                                    <textarea  class="form-control" rows="3" name="job_advantage">{{$adv['job_advantage']}}</textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>  المعلومات المطلوبة  <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
+                                                    <textarea class="form-control" rows="3" name="job_needed">{{$adv['job_needed']}}</textarea>
                                                 </div>
                                             </div>
 

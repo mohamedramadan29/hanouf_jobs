@@ -114,7 +114,6 @@
                                                     <div class="ls-inputicon-box">
                                                         <input class="form-control" name="name" type="text"
                                                                value="{{Auth::user()->name}}">
-                                                        <i class="fs-input-icon fa fa-building"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -126,7 +125,7 @@
                                                         <input disabled readonly class="form-control" name="username"
                                                                type="text"
                                                                value="{{Auth::user()->username}}">
-                                                        <i class="fs-input-icon fa fa-user"></i>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -137,7 +136,7 @@
                                                     <div class="ls-inputicon-box">
                                                         <input class="form-control" name="email" type="email"
                                                                value="{{Auth::user()->email}}">
-                                                        <i class="fs-input-icon fas fa-at"></i>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -148,7 +147,7 @@
                                                     <div class="ls-inputicon-box">
                                                         <input class="form-control" name="mobile" type="text"
                                                                value="{{Auth::user()->mobile}}">
-                                                        <i class="fs-input-icon fa fa-phone-alt"></i>
+
                                                     </div>
                                                 </div>
                                             </div>

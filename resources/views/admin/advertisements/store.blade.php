@@ -273,18 +273,50 @@
                                     </div>
                                 </div>
 
-{{--                                <div class="form-group ">--}}
-{{--                                    <div class="row">--}}
-{{--                                        <div class="col-md-3">--}}
-{{--                                            <label class="form-label"> اسم المنشور--}}
-{{--                                            </label>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="col-md-9">--}}
-{{--                                            <input required type="text" class="form-control" name="title_name"--}}
-{{--                                                   value="">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
+
+                                <div class="form-group ">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label> المهام الوظيفية <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <textarea class="form-control" rows="3" name="job_requirements"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label> المؤهلات والخبرات  <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <textarea  class="form-control" rows="3" name="job_experience"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label>   مميزات العمل    <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <textarea  class="form-control" rows="3" name="job_advantage"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label>     المعلومات المطلوبة  <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <textarea class="form-control" rows="3" name="job_needed"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="form-group ">
                                     <div class="row">

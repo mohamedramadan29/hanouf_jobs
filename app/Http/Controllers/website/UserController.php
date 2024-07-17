@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Traits\Message_Trait;
 use App\Http\Traits\Slug_Trait;
 use App\Http\Traits\Upload_Images;
-use App\Models\admin\Advertisment;
 use App\Models\admin\City;
-use App\Models\admin\Company;
+use App\Models\admin\Jobsname;
+use App\Models\admin\Specialist;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -298,6 +298,8 @@ class UserController extends Controller
     public function update_data(Request $request)
     {
         $citizen = City::all();
+        $specialists = Specialist::all();
+        $nameJobs = Jobsname::all();
         $user = User::where('id', Auth::id())->first();
         try {
 
@@ -347,7 +349,7 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return $this->exception_message($e);
         }
-        return view('website.users.update-data', compact('user', 'citizen'));
+        return view('website.users.update-data', compact('user', 'citizen','nameJobs','specialists'));
     }
 
     public function change_password(Request $request)

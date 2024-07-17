@@ -5760,7 +5760,7 @@ button.scroltop span {
 
 .wt-bnr-inr-entry {
   display: table-cell;
-  vertical-align: bottom;
+  vertical-align: middle;
   text-align: center;
   padding-bottom: 30px;
 }
@@ -6024,6 +6024,7 @@ button.scroltop span {
 /*Pagination Style*/
 .pagination-outer {
   padding-top: 30px;
+    text-align:center;
 }
 @media (max-width: 991px) {
   .pagination-outer {
@@ -24809,3 +24810,121 @@ form label{
     margin-bottom:12px;
 }
 /* End Terms Data */
+
+/***** Start NotificationAlerts ********/
+.notificaion-alerts{
+    margin-top: 7px;
+    margin-left:15px;
+    margin-right:15px
+}
+
+.notificaion-alerts .fa-bell{
+    color:#646464;
+    font-size:22px;
+}
+.notificaion-alerts .fa-envelope{
+    color:#646464;
+    font-size:22px;
+}
+.notificaion-alerts .dropdown-toggle::after{
+    display:none;
+}
+.notificaion-alerts .dropdown-menu.show{
+    margin-top:15px !important;
+    max-height: 235px;
+    overflow-y: scroll;
+    min-height:200px;
+}
+.notificaion-alerts .dropdown-item{
+    padding:10px;
+    color:#4a4a4a;
+    text-wrap: wrap;
+    width: 310px;
+    font-size: 15px;
+}
+.notificaion-alerts hr{
+    color:#ccc;
+}
+.notificaion-alerts .counter{
+    background-color: #ed0b0b;
+    position: relative;
+    min-width: 24px;
+    display: inline-block;
+    min-height: 24px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 12px;
+    line-height: 24px;
+    top: -15px;
+    left: -9px;
+}
+.notificaion-alerts .dropdown-item .timer{
+    margin-top: 10px;
+    display: block;
+    font-size: 13px;
+    color: #656565;
+}
+.notificaion-alerts .dropdown-item .timer i{
+    color: #656565;
+}
+@media(max-width:991px){
+    .notificaion-alerts{
+        margin-right:8px;
+        margin-left:8px;
+    }
+    .notificaion-alerts .counter{
+        font-size:11px;
+        min-width: 22px;
+        min-height: 22px;
+        line-height: 22px;
+    }
+}
+/********* End NotificationAlerts **********/
+
+/********************************** Start Jobs Page *************/
+.newalljobs{
+
+}
+.newalljobs .job_title{
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+.newalljobs .twm-jobs-browse{
+    color: #fff;
+    background-color: var(--main-color);
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    padding: 5px;
+    width: 120px;
+    text-align: center;
+    margin-right: 15px;
+}
+.twm-jobs-list-style1 .twm-job-title .twm-job-post-duration{
+    font-size:12px;
+}
+.twm-jobs-list-style1 p{
+    line-height:2;
+}
+/* Start Job Details Page  */
+.job_details_page .twm-job-self-wrap .twm-job-self-info .twm-job-self-top .twm-mid-content{
+    padding-top:40px;
+}
+.job_details_page .twm-job-self-wrap .twm-job-self-info .twm-job-self-top .twm-job-title{
+    font-weight:bold;
+}
+.job_details_page .twm-s-title {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.job_details_page .panel-tittle{
+    font-weight: bold;
+    font-size: 16px;
+}
+.job_details_page .span_info{
+    font-size: 11px;
+    color: #787878;
+    margin-top: 10px;
+    display: inline-block;
+}
+/****** End Job Details Page  *******/

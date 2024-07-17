@@ -23,4 +23,8 @@ class Advertisment extends Model
     {
         return $this->belongsTo(Jobsname::class,'job_name');
     }
+    public function specialist()
+    {
+        return $this->belongsTo(Specialist::class,'profession_specialist');
+    }
 }

@@ -30,8 +30,8 @@
                         <ul class=" nav navbar-nav">
                             <li class="has-mega-menu"><a href="{{url('/')}}"> الرئيسية </a></li>
                             <li class="has-mega-menu"><a href="{{url('jobs')}}"> الوظائف </a></li>
-                            <li class="has-child"><a href="{{url('talents')}}"> الموظفين  </a></li>
-                            <li class="has-child"><a href="{{url('employers')}}"> لاصحاب الوظائف  </a></li>
+                            <li class="has-child"><a href="{{url('talents')}}"> الموظفين </a></li>
+                            <li class="has-child"><a href="{{url('employers')}}"> لاصحاب الوظائف </a></li>
                             <li class="has-child"><a href="{{url('talent-details')}}"> تفاصيل الخبير </a></li>
                             <li class="has-child"><a href="{{url('contact')}}"> اتصل بنا </a></li>
                         </ul>
@@ -41,14 +41,53 @@
                     <!-- Header Right Section-->
                     <div class="extra-nav header-2-nav">
                         <div class="extra-cell">
-                            <div class="header-search">
-                                <a href="#search" class="header-search-icon"><i class="feather-search"></i></a>
-                            </div>
-                        </div>
-                        <div class="extra-cell">
                             <div class="header-nav-btn-section">
                                 <!------------------------------ Login As Company  -------------------------->
                                 @if(Auth::guard('company')->user())
+                                    <!------------------------ Notification Alerts For Company  --------------->
+                                    <div class="dropdown notificaion-alerts">
+
+                                        <button class="dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            @if(Auth::guard('company')->user()->unreadNotifications->count() > 0)
+                                                <span
+                                                    class="counter"> {{Auth::guard('company')->user()->unreadNotifications->count()}} </span>
+                                            @endif
+
+                                            <i class="fa fa-bell"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            @forelse (\Illuminate\Support\Facades\Auth::guard('company')->user()->unreadNotifications as $notification)
+                                                @if($notification['type'] == 'App\Notifications\SendJobAcceptedFromAdmin')
+                                                    <li><a class="dropdown-item"
+                                                           href="{{url('job/'.$notification['data']['adv_id'].'-'.$notification['data']['slug'])}}"> {{$notification['data']['title']}}
+                                                            : {{$notification['data']['title_name']}}
+                                                            <br>
+                                                            <span class="timer"> <i class="fa fa-clock"></i>  {{$notification->created_at->diffForHumans()}}  </span>
+                                                        </a>
+
+                                                    </li>
+                                                    <hr>
+                                                @elseif($notification['type'] == 'App\Notifications\NewOfferRequestToCompanyJob')
+                                                    <li><a class="dropdown-item"
+                                                           href="#"> {{$notification['data']['title']}}
+                                                            : {{$notification['data']['adv_title']}}
+                                                            <br>
+                                                            <span class="timer"> <i class="fa fa-clock"></i>  {{$notification->created_at->diffForHumans()}}  </span>
+                                                        </a>
+
+                                                    </li>
+                                                    <hr>
+                                                @endif
+
+                                            @empty
+                                                <li><a class="dropdown-item"> لا يوجد لديك اشعارات في الوقت الحالي </a>
+                                                </li>
+                                                <hr>
+                                            @endforelse
+                                        </ul>
+                                    </div>
+
                                     <div class="twm-nav-btn-left">
                                         <a class="twm-nav-sign-up" href="{{url('company/dashboard')}}" role="button">
                                             <i class="feather-user"></i> حسابي
@@ -61,6 +100,64 @@
                                     </div>
                                     <!--------------------------------- Login As Employer ------------------->
                                 @elseif(Auth::user())
+                                    <!----------------- Message Alerts --------------->
+
+                                    <div class="dropdown notificaion-alerts">
+
+                                        <button class="dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="counter"> 4 </span>
+                                            <i class="fa fa-envelope"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li><a class="dropdown-item" href="#"> لديك رسالة جديدة : اسم
+                                                    الوظيفة </a></li>
+                                            <hr>
+                                            <li><a class="dropdown-item" href="#"> لديك اقتراح وظيفة جديدة : اسم
+                                                    الوظيفة </a></li>
+                                            <hr>
+                                            <li><a class="dropdown-item" href="#"> لديك اقتراح وظيفة جديدة : اسم
+                                                    الوظيفة </a></li>
+                                            <hr>
+                                            <li><a class="dropdown-item" href="#"> لديك اقتراح وظيفة جديدة : اسم
+                                                    الوظيفة </a></li>
+                                            <hr>
+                                            <li><a class="dropdown-item" href="#"> لديك اقتراح وظيفة جديدة : اسم
+                                                    الوظيفة </a></li>
+                                            <hr>
+                                        </ul>
+                                    </div>
+                                    <!------------------------ Notification Alerts For Users  --------------->
+                                    <div class="dropdown notificaion-alerts">
+
+                                        <button class="dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            @if(Auth::user()->unreadNotifications->count() > 0)
+                                                <span
+                                                    class="counter"> {{Auth::user()->unreadNotifications->count()}} </span>
+                                            @endif
+
+                                            <i class="fa fa-bell"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            @forelse (\Illuminate\Support\Facades\Auth::user()->unreadNotifications as $notification)
+                                                <li><a class="dropdown-item"
+                                                       href="{{url('job/'.$notification['data']['adv_id'].'-'.$notification['data']['adv_slug'])}}"> {{$notification['data']['title']}}
+                                                        : {{$notification['data']['adv_name']}}
+                                                        <br>
+                                                        <span class="timer"> <i class="fa fa-clock"></i>  {{$notification->created_at->diffForHumans()}}  </span>
+                                                    </a>
+
+                                                </li>
+                                                <hr>
+                                            @empty
+                                                <li><a class="dropdown-item"> لا يوجد لديك اشعارات في الوقت الحالي </a>
+                                                </li>
+                                                <hr>
+                                            @endforelse
+                                        </ul>
+                                    </div>
+
                                     <div class="twm-nav-btn-left">
                                         <a class="twm-nav-sign-up" href="{{url('user/dashboard')}}"
                                            role="button">

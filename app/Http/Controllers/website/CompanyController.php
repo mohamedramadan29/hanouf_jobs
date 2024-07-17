@@ -11,7 +11,6 @@ use App\Models\admin\City;
 use App\Models\admin\Company;
 use App\Models\admin\Jobsname;
 use App\Models\admin\Specialist;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +18,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Testing\Fluent\Concerns\Has;
 
 class CompanyController extends Controller
 {
@@ -353,6 +351,10 @@ class CompanyController extends Controller
                     'description' => $data['description'],
                     'title' => $data['title'],
                     'slug'=>$adv_slug,
+                    'job_requirements'=>$data['job_requirements'],
+                    'job_experience'=>$data['job_experience'],
+                    'job_advantage'=>$data['job_advantage'],
+                    'job_needed'=>$data['job_needed']
                 ]);
                 return $this->success_message('  تم اضافة الاعلان بنجاح من فضلك انتظر التفعيل من الادارة !!  ');
             }
@@ -424,6 +426,10 @@ class CompanyController extends Controller
                     'salary' => $data['salary'],
                     'description' => $data['description'],
                     'title' => $data['title'],
+                    'job_requirements'=>$data['job_requirements'],
+                    'job_experience'=>$data['job_experience'],
+                    'job_advantage'=>$data['job_advantage'],
+                    'job_needed'=>$data['job_needed'],
                     'status'=>0,
                 ]);
                 return $this->success_message('  تم تعديل الاعلان بنجاح من فضلك انتظر التفعيل من الادارة !!  ');
