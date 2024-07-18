@@ -12,8 +12,8 @@
     <meta name="description" content="" />
 
     <!-- FAVICONS ICON -->
-    <link rel="icon" href="{{asset('assets/website/images/favicon.ico')}}" type="image/x-icon" />
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/website/images/favicon.png')}}" />
+    <link rel="icon" href="{{asset('assets/website/images/logo.png')}}" type="image/x-icon" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/website/images/logo.png')}}" />
 
     <!-- PAGE TITLE HERE -->
     <title>  @yield('title') </title>

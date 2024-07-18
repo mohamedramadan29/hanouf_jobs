@@ -3,6 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\admin\City;
+use App\Models\admin\Jobsname;
+use App\Models\admin\Specialist;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -38,4 +41,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    public function jobs_name()
+    {
+        return $this->belongsTo(Jobsname::class,'job_name');
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(City::class,'city');
+    }
+
+    public function specialist()
+    {
+        return $this->belongsTo(Specialist::class,'profession_specialist');
+    }
 }

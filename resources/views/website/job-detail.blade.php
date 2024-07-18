@@ -1,6 +1,6 @@
 @extends('website.layouts.master')
 @section('title')
-    {{ $adv['title']}}
+    {{ $adv['title']}}  | تخير
 @endsection
 @section('content')
 

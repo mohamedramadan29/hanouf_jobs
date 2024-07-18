@@ -51,7 +51,7 @@
                                                 data-bs-toggle="dropdown" aria-expanded="false">
                                             @if(Auth::guard('company')->user()->unreadNotifications->count() > 0)
                                                 <span
-                                                    class="counter"> {{Auth::guard('company')->user()->unreadNotifications->count()}} </span>
+                                                        class="counter"> {{Auth::guard('company')->user()->unreadNotifications->count()}} </span>
                                             @endif
 
                                             <i class="fa fa-bell"></i>
@@ -70,7 +70,7 @@
                                                     <hr>
                                                 @elseif($notification['type'] == 'App\Notifications\NewOfferRequestToCompanyJob')
                                                     <li><a class="dropdown-item"
-                                                           href="#"> {{$notification['data']['title']}}
+                                                           href="{{url('company/job/offers/'.$notification['data']['adv_id'])}}"> {{$notification['data']['title']}}
                                                             : {{$notification['data']['adv_title']}}
                                                             <br>
                                                             <span class="timer"> <i class="fa fa-clock"></i>  {{$notification->created_at->diffForHumans()}}  </span>
@@ -134,22 +134,36 @@
                                                 data-bs-toggle="dropdown" aria-expanded="false">
                                             @if(Auth::user()->unreadNotifications->count() > 0)
                                                 <span
-                                                    class="counter"> {{Auth::user()->unreadNotifications->count()}} </span>
+                                                        class="counter"> {{Auth::user()->unreadNotifications->count()}} </span>
                                             @endif
 
                                             <i class="fa fa-bell"></i>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            @forelse (\Illuminate\Support\Facades\Auth::user()->unreadNotifications as $notification)
-                                                <li><a class="dropdown-item"
-                                                       href="{{url('job/'.$notification['data']['adv_id'].'-'.$notification['data']['adv_slug'])}}"> {{$notification['data']['title']}}
-                                                        : {{$notification['data']['adv_name']}}
-                                                        <br>
-                                                        <span class="timer"> <i class="fa fa-clock"></i>  {{$notification->created_at->diffForHumans()}}  </span>
-                                                    </a>
 
-                                                </li>
-                                                <hr>
+                                            @forelse (\Illuminate\Support\Facades\Auth::user()->unreadNotifications as $notification)
+                                                @if($notification['type'] == 'App\Notifications\SendNewSujestJob')
+                                                    <li><a class="dropdown-item"
+                                                           href="{{url('job/'.$notification['data']['adv_id'].'-'.$notification['data']['adv_slug'])}}"> {{$notification['data']['title']}}
+                                                            : {{$notification['data']['adv_name']}}
+                                                            <br>
+                                                            <span class="timer"> <i class="fa fa-clock"></i>  {{$notification->created_at->diffForHumans()}}  </span>
+                                                        </a>
+
+                                                    </li>
+                                                    <hr>
+                                                @elseif($notification['type'] == 'App\Notifications\SendUnaccepedOfferToUser')
+                                                    <li><a class="dropdown-item"
+                                                           href="{{url('job/'.$notification['data']['adv_id'].'-'.$notification['data']['adv_slug'])}}"> {{$notification['data']['title']}}
+                                                            : {{$notification['data']['adv_name']}}
+                                                            <br>
+                                                            <span class="timer"> <i class="fa fa-clock"></i>  {{$notification->created_at->diffForHumans()}}  </span>
+                                                        </a>
+
+                                                    </li>
+                                                    <hr>
+                                                @endif
+
                                             @empty
                                                 <li><a class="dropdown-item"> لا يوجد لديك اشعارات في الوقت الحالي </a>
                                                 </li>

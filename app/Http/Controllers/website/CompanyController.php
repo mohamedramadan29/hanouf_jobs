@@ -11,11 +11,15 @@ use App\Models\admin\City;
 use App\Models\admin\Company;
 use App\Models\admin\Jobsname;
 use App\Models\admin\Specialist;
+use App\Models\User;
+use App\Models\website\Joboffer;
+use App\Notifications\SendUnaccepedOfferToUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
@@ -204,7 +208,7 @@ class CompanyController extends Controller
             $companycount = Company::where('email', $email)->count();
             if ($companycount > 0) {
                 ////////// Start Change Password
-                $company =Company::where('email', $email)->first();
+                $company = Company::where('email', $email)->first();
                 $rules = [
                     'password' => 'required',
                     'confirm_password' => 'required|same:password'
@@ -219,7 +223,7 @@ class CompanyController extends Controller
                     return Redirect::back()->withInput()->withErrors($validator);
                 }
                 $company->update([
-                    'password'=>Hash::make($data['password']),
+                    'password' => Hash::make($data['password']),
                 ]);
                 return redirect()->to('login')->with('Success_message', '   تم تعديل كلمة المرور بنجاح سجل ذخولك الان ');
             } else {
@@ -350,11 +354,11 @@ class CompanyController extends Controller
                     'salary' => $data['salary'],
                     'description' => $data['description'],
                     'title' => $data['title'],
-                    'slug'=>$adv_slug,
-                    'job_requirements'=>$data['job_requirements'],
-                    'job_experience'=>$data['job_experience'],
-                    'job_advantage'=>$data['job_advantage'],
-                    'job_needed'=>$data['job_needed']
+                    'slug' => $adv_slug,
+                    'job_requirements' => $data['job_requirements'],
+                    'job_experience' => $data['job_experience'],
+                    'job_advantage' => $data['job_advantage'],
+                    'job_needed' => $data['job_needed']
                 ]);
                 return $this->success_message('  تم اضافة الاعلان بنجاح من فضلك انتظر التفعيل من الادارة !!  ');
             }
@@ -362,23 +366,23 @@ class CompanyController extends Controller
             return $this->exception_message($e);
         }
 
-        return view('website.companies.add_job', compact('citizen','specialists','JobsNames'));
+        return view('website.companies.add_job', compact('citizen', 'specialists', 'JobsNames'));
     }
 
     public function jobs()
     {
-        $jobs = Advertisment::where('company_id',Auth::guard('company')->user()->id)->get();
+        $jobs = Advertisment::where('company_id', Auth::guard('company')->user()->id)->get();
 
-        return view('website.companies.jobs',compact('jobs'));
+        return view('website.companies.jobs', compact('jobs'));
     }
 
-    public function update_job(Request $request,$id)
+    public function update_job(Request $request, $id)
     {
         $JobsNames = Jobsname::all();
         $specialists = Specialist::all();
         $adv = Advertisment::findOrFail($id);
-        if($adv['company_id'] != Auth::guard('company')->user()->id){
-           return \redirect('404');
+        if ($adv['company_id'] != Auth::guard('company')->user()->id) {
+            return \redirect('404');
         }
         $citizen = City::all();
         try {
@@ -426,18 +430,18 @@ class CompanyController extends Controller
                     'salary' => $data['salary'],
                     'description' => $data['description'],
                     'title' => $data['title'],
-                    'job_requirements'=>$data['job_requirements'],
-                    'job_experience'=>$data['job_experience'],
-                    'job_advantage'=>$data['job_advantage'],
-                    'job_needed'=>$data['job_needed'],
-                    'status'=>0,
+                    'job_requirements' => $data['job_requirements'],
+                    'job_experience' => $data['job_experience'],
+                    'job_advantage' => $data['job_advantage'],
+                    'job_needed' => $data['job_needed'],
+                    'status' => 0,
                 ]);
                 return $this->success_message('  تم تعديل الاعلان بنجاح من فضلك انتظر التفعيل من الادارة !!  ');
             }
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return $this->exception_message($e);
         }
-        return view('website.companies.update-job',compact('adv','citizen','specialists','JobsNames'));
+        return view('website.companies.update-job', compact('adv', 'citizen', 'specialists', 'JobsNames'));
     }
 
     public function delete_job($id)
@@ -445,20 +449,82 @@ class CompanyController extends Controller
         try {
 
             $job = Advertisment::findOrFail($id);
-          //  dd($job);
-            if(Auth::guard('company')->user()->id == $job['company_id']){
+            //  dd($job);
+            if (Auth::guard('company')->user()->id == $job['company_id']) {
                 $job->delete();
                 return $this->success_message(' تم حذف الوظيفة بنجاح  ');
-            }else{
+            } else {
                 return $this->Error_message(' لا يمكنك حذف هذة الوظيفة  ');
             }
 
 
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return $this->exception_message($e);
         }
     }
 
+
+    /////////// Show Job Offers //////
+    ///
+    public function talent_offers($id)
+    {
+        $adv = Advertisment::where('id', $id)->first();
+        /////// Check This Company Has This Adv Or Not
+        ///
+        if (isset($adv)) {
+            $company_id = $adv['company_id'];
+            if (Auth::guard('company')->id() == $company_id) {
+                $offers = Joboffer::with('user')->where('adv_id', $id)->paginate(5);
+
+                $count_offers = Joboffer::where('adv_id', $id)->count();
+
+                //////////////// Update red In Notification Table
+                ///
+                $notifications = DB::table('notifications')
+                    ->where('notifiable_id', $company_id)
+                    ->where('type', 'App\Notifications\NewOfferRequestToCompanyJob')->update(['read_at' => now()]);
+                return view('website.companies.talent-offers', compact('offers', 'adv', 'count_offers'));
+            } else {
+                abort('404');
+            }
+        } else {
+            abort('404');
+        }
+
+
+    }
+
+    //////////// Unaccepted Offer
+    ///
+    public function offer_unaccepted($id)
+    {
+        try{
+            $offer = Joboffer::findOrFail($id);
+
+            // Get The User
+            $user_id = $offer['user_id'];
+            $user = User::where('id',$user_id)->get();
+            $adv_id = $offer['adv_id'];
+            $adv = Advertisment::where('id',$adv_id)->first();
+            $adv_slug = $adv['slug'];
+            $adv_name = $adv['title'];
+            ///////// Update Offer Table To Refused
+            $offer->update([
+                'offer_status'=>'مرفوض'
+            ]);
+
+            ///////// Send Notification To User For Refused
+
+            Notification::send($user,new SendUnaccepedOfferToUser($user_id,$adv_id,$adv_slug,$adv_name));
+
+            return $this->success_message(' تم رفض العرض من المتقدم  ');
+
+        }catch (\Exception $e){
+            return $this->exception_message($e);
+        }
+
+
+    }
     public function chat()
     {
         return view('website.companies.chat');
@@ -478,35 +544,35 @@ class CompanyController extends Controller
     {
 
         try {
-            if ($request->isMethod('post')){
+            if ($request->isMethod('post')) {
                 $data = $request->all();
                 $rules = [
-                    'old_password'=>'required',
-                    'new_password'=>'required|min:8',
-                    'confirm_password'=>'required|same:new_password'
+                    'old_password' => 'required',
+                    'new_password' => 'required|min:8',
+                    'confirm_password' => 'required|same:new_password'
                 ];
                 $messages = [
-                    'old_password.required'=>' من فضلك ادخل كلمة المرور القديمة ',
+                    'old_password.required' => ' من فضلك ادخل كلمة المرور القديمة ',
                     'new_password.min' => ' من فضلك ادخل كلمة مرور قوية اكثر من 8 احرف وارقام ',
                     'confirm_password.same' => 'من فضلك اكد كلمة المرور بشكل صحيح ',
                 ];
-                $validator = Validator::make($data,$rules,$messages);
-                if ($validator->fails()){
+                $validator = Validator::make($data, $rules, $messages);
+                if ($validator->fails()) {
                     return Redirect::back()->withInput()->withErrors($validator);
                 }
 
-                if (Hash::check($data['old_password'], Auth::guard('company')->user()->password)){
-                    $company = Company::where('id',Auth::guard('company')->id())->first();
+                if (Hash::check($data['old_password'], Auth::guard('company')->user()->password)) {
+                    $company = Company::where('id', Auth::guard('company')->id())->first();
                     $company->update([
-                        'password'=>Hash::make($data['new_password'])
+                        'password' => Hash::make($data['new_password'])
                     ]);
                     return $this->success_message(' رائع !! تم تعديل كلمة المرور بنجاح  ');
-                }else{
+                } else {
                     return Redirect::back()->withInput()->withErrors(['  كلمة المرور القديمة غير صحيحة !!!!!  ']);
                 }
 
             }
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return $this->exception_message($e);
         }
         return view('website.companies.change-password');

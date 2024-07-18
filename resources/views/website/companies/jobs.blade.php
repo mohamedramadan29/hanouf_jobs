@@ -154,6 +154,14 @@
                                                                         </li>
 
                                                                         <li>
+                                                                            <a href="{{url('company/job/offers/'.$job['id'])}}" title=" مشاهدة المتقدمين للوظيفة  "
+                                                                               type="button"
+                                                                               data-bs-toggle="tooltip"
+                                                                               data-bs-placement="top"> <span
+                                                                                    class="fa fa-users"></span> </a>
+                                                                        </li>
+
+                                                                        <li>
                                                                             <a href="{{url('company/job/delete/'.$job['id'])}}"
                                                                                onclick="return confirm('هل انت متاكد من حذف الوظيفة !!!!')"
                                                                                title="حذف الوظيفة"

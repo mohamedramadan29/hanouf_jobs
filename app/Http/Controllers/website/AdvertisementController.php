@@ -44,13 +44,5 @@ class AdvertisementController extends Controller
         return view('website.job-detail', compact('adv','offers','CountAllOffers','CityName'));
     }
 
-    public function talents()
-    {
-        return view('website.talents');
-    }
 
-    public function talent_details()
-    {
-        return view('website.talent-details');
-    }
 }

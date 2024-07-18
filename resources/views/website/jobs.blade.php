@@ -1,6 +1,6 @@
 @extends('website.layouts.master')
 @section('title')
-    الوظائف
+    الوظائف | تخير
 @endsection
 @section('content')
 

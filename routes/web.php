@@ -29,6 +29,7 @@ Route::controller(UserController::class)->group(function () {
         Route::get('user/alerts', 'alerts');
         Route::match(['post', 'get'], 'user/change-password', 'change_password');
         Route::get('user/logout', 'logout');
+        Route::get('user/alert/delete/{id}','delete_alert');
     });
 
     Route::match(['post', 'get'], 'forget-password', 'forget_password');
@@ -55,6 +56,9 @@ Route::controller(CompanyController::class)->group(function () {
         Route::get('company/job/delete/{id}', 'delete_job');
         Route::match(['post', 'get'], 'company/change-password', 'change_password');
         Route::get('company/logout', 'logout');
+        Route::get('company/job/offers/{id}','talent_offers');
+        ///////// Unaccepted offer
+        Route::get('company/offer/unaccepted/{id}','offer_unaccepted');
     });
     Route::get('company/plan', 'plans');
     Route::get('company/chat', 'chat');
@@ -66,8 +70,6 @@ Route::controller(CompanyController::class)->group(function () {
 Route::controller(AdvertisementController::class)->group(function () {
     Route::get('jobs', 'index');
     Route::get('job/{id}-{slug}', 'job_details');
-    Route::get('talents', 'talents');
-    Route::get('talent-details', 'talent_details');
 });
 
 Route::controller(FrontController::class)->group(function () {
@@ -77,6 +79,8 @@ Route::controller(FrontController::class)->group(function () {
     Route::post('add_contact_message', 'add_contact_message');
     Route::get('employers','employers');
     Route::get('companies/{username}','company_details');
+    Route::get('talents', 'talents');
+    Route::get('talent-details/{username}', 'talent_details');
 });
 
 Route::controller(jobOfferController::class)->group(function (){

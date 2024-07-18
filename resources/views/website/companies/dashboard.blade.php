@@ -86,8 +86,6 @@
                                     </li>
                                     <li><a href="{{url('company/plan')}}"><i class="fa fa-credit-card"></i> ادارة الخطة
                                         </a></li>
-                                    <li><a href="{{url('company/job-users')}}"><i class="fa fa-users"></i> المتقدمين
-                                            للوظيفة </a></li>
                                     <li><a href="{{url('company/change-password')}}"><i class="fa fa-fingerprint"></i>
                                             تغيير كلمة المرور</a></li>
                                     <li><a href="{{url('company/logout')}}"><i class="fa fa-share-square"></i> تسجيل
@@ -119,7 +117,7 @@
                                                     <div class="ls-inputicon-box">
                                                         <input class="form-control" name="name" type="text"
                                                                value="{{Auth::guard('company')->user()->name}}">
-                                                        <i class="fs-input-icon fa fa-building"></i>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -131,7 +129,7 @@
                                                         <input disabled readonly class="form-control" name="username"
                                                                type="text"
                                                                value="{{Auth::guard('company')->user()->username}}">
-                                                        <i class="fs-input-icon fa fa-user"></i>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -142,7 +140,7 @@
                                                     <div class="ls-inputicon-box">
                                                         <input class="form-control" name="email" type="email"
                                                                value="{{Auth::guard('company')->user()->email}}">
-                                                        <i class="fs-input-icon fas fa-at"></i>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -153,7 +151,7 @@
                                                     <div class="ls-inputicon-box">
                                                         <input class="form-control" name="mobile" type="text"
                                                                value="{{Auth::guard('company')->user()->mobile}}">
-                                                        <i class="fs-input-icon fa fa-phone-alt"></i>
+
                                                     </div>
                                                 </div>
                                             </div>

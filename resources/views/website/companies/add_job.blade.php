@@ -121,7 +121,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <input type="hidden" name="company_id"
                                                        value="{{\Illuminate\Support\Facades\Auth::guard('company')->user()->id}}">
                                                 <div class="form-group city-outer-bx has-feedback">
@@ -138,7 +138,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> حدد الجنس </label>
                                                     <div class="ls-inputicon-box">
@@ -154,7 +154,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> المدينة </label>
                                                     <div class="ls-inputicon-box">
@@ -225,7 +225,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group">
                                                     <label>  عدد سنوات الخبرة </label>
                                                     <div class="ls-inputicon-box">
@@ -234,7 +234,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> اللغة المطلوبة </label>
                                                     <div class="ls-inputicon-box">
@@ -250,7 +250,7 @@
 
 
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> مستوي اللغة </label>
                                                     <div class="ls-inputicon-box">
@@ -267,7 +267,7 @@
                                             </div>
 
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> ماهو التخصص المهني المطلوب ؟ </label>
                                                     <div class="ls-inputicon-box">
@@ -284,7 +284,7 @@
                                             </div>
 
 
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group">
                                                     <label> الراتب المحدد </label>
                                                     <div class="ls-inputicon-box">

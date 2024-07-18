@@ -271,9 +271,9 @@ class UserController extends Controller
                     try {
                         $filename = $this->saveImage($request->file('logo'), public_path('assets/uploads/users'));
                         /// Delete old image
-                        if ($user['logo'] != null && $user['logo'] != '') {
-                            unlink($user['logo'], public_path('assets/uploads/users/' . $user['logo']));
-                        }
+//                        if ($user['logo'] != null && $user['logo'] != '') {
+//                            unlink($user['logo'], public_path('assets/uploads/users/' . $user['logo']));
+//                        }
 
                         $user->update([
                             'logo' => $filename,
@@ -389,9 +389,20 @@ class UserController extends Controller
         return view('website.users.change-password');
     }
 
+    public function suggested_jobs()
+    {
+        $notifications = DB::table('notifications')->where('type','App\Notifications\SendNewSujestJob')->where('notifiable_id',Auth::user()->id)->get();
+        return view('website.users.suggested-jobs',compact('notifications'));
+    }
     public function alerts()
     {
-        return view('website.users.alerts');
+        $notifications = DB::table('notifications')->where('type','App\Notifications\SendNewSujestJob')->where('notifiable_id',Auth::user()->id)->get();
+        return view('website.users.alerts',compact('notifications'));
+    }
+    public function delete_alert($id)
+    {
+        $notification = DB::table('notifications')->where('id',$id)->delete();
+        return $this->success_message(' تم حذف التنبية بنجاح  ');
     }
 
 

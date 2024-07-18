@@ -4,8 +4,10 @@ namespace App\Http\Controllers\website;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\Message_Trait;
+use App\Models\admin\Advertisment;
 use App\Models\admin\Faq;
 use App\Models\admin\Terms;
+use App\Models\User;
 use App\Models\website\ContactMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -107,12 +109,32 @@ class FrontController extends Controller
     public function company_details($username)
     {
         $company_count = Company::where('username',$username)->count();
+
         if ($company_count > 0){
             $company = Company::where('username',$username)->first();
-            return view('website.public-company-info',compact('company'));
+            $advs = Advertisment::where('company_id',$company['id'])->get();
+            return view('website.public-company-info',compact('company','advs'));
         }else{
             abort('404');
         }
 
     }
+
+    public function talents()
+    {
+        return view('website.talents');
+    }
+
+    public function talent_details($username)
+    {
+        $talent_count = User::where('username',$username)->count();
+        if($talent_count > 0){
+            $talent = User::with('jobs_name','location')->where('username',$username)->first();
+            return view('website.talent-details',compact('talent'));
+        }else{
+            abort('404');
+        }
+
+    }
+
 }

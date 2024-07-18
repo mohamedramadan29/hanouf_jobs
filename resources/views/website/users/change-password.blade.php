@@ -75,9 +75,6 @@
                                     <li><a href="{{url('user/update')}}"><i class="fa fa-edit"></i> تعديل الملف الشخصي
                                         </a></li>
 
-                                    <li><a href="{{url('user/suggested-jobs')}}"><i class="fa fa-receipt"></i>  الوظائف المقترحة
-                                        </a></li>
-
                                     <li><a href="{{url('user/alerts')}}"><i class="fa fa-bell"></i>   تنبيهات مهمة
                                         </a></li>
 
