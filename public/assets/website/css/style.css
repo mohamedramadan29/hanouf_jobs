@@ -14071,6 +14071,7 @@ strong {
 .wt-admin-dashboard-msg-2 .wt-dashboard-msg-search-list {
     background-color: #fff;
     height: 700px;
+    overflow:scroll;
 }
 
 .wt-admin-dashboard-msg-2 .wt-dashboard-msg-search-list-wrap {
@@ -14151,6 +14152,7 @@ strong {
     padding: 0px;
     margin: 30px 40px;
     height: 550px;
+    overflow:scroll;
 }
 
 @media (max-width: 540px) {

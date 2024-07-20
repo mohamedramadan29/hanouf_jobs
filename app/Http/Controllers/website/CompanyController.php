@@ -12,7 +12,9 @@ use App\Models\admin\Company;
 use App\Models\admin\Jobsname;
 use App\Models\admin\Specialist;
 use App\Models\User;
+use App\Models\website\Coversation;
 use App\Models\website\Joboffer;
+use App\Models\website\Message;
 use App\Notifications\SendUnaccepedOfferToUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -498,36 +500,68 @@ class CompanyController extends Controller
     ///
     public function offer_unaccepted($id)
     {
-        try{
+        try {
             $offer = Joboffer::findOrFail($id);
 
             // Get The User
             $user_id = $offer['user_id'];
-            $user = User::where('id',$user_id)->get();
+            $user = User::where('id', $user_id)->get();
             $adv_id = $offer['adv_id'];
-            $adv = Advertisment::where('id',$adv_id)->first();
+            $adv = Advertisment::where('id', $adv_id)->first();
             $adv_slug = $adv['slug'];
             $adv_name = $adv['title'];
             ///////// Update Offer Table To Refused
             $offer->update([
-                'offer_status'=>'مرفوض'
+                'offer_status' => 'مرفوض'
             ]);
 
             ///////// Send Notification To User For Refused
 
-            Notification::send($user,new SendUnaccepedOfferToUser($user_id,$adv_id,$adv_slug,$adv_name));
+            Notification::send($user, new SendUnaccepedOfferToUser($user_id, $adv_id, $adv_slug, $adv_name));
 
             return $this->success_message(' تم رفض العرض من المتقدم  ');
 
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return $this->exception_message($e);
         }
 
 
     }
-    public function chat()
+
+    public function start_conversation($username)
     {
-        return view('website.companies.chat');
+        $sender_username = Auth::guard('company')->user()->username;
+        $reciever_username = $username;
+        $last_message_time = null;
+
+        /////////// chat If this Users Sender And Reciever Have Conversation Or Not
+
+        $count_conversations = Coversation::where('sender_username', $sender_username)->
+        where('receiver_username', $reciever_username)->
+        OrWhere('sender_username', $reciever_username)->
+        where('receiver_username', $sender_username)->count();
+        if ($count_conversations > 0) {
+            return view('website.companies.chat');
+        } else {
+            ///////// Start Create Conversation
+            ///
+            $conversation = new Coversation();
+            $conversation->sender_username = $sender_username;
+            $conversation->receiver_username = $reciever_username;
+            $conversation->last_time_message = $last_message_time;
+            $conversation->save(); // حفظ المحادثة والحصول على المعرف
+
+// إضافة الرسائل
+            $message = new Message();
+            $message->conversation_id = $conversation->id; // استخدام معرف المحادثة التي تم إنشاؤها للتو
+            $message->sender_username = $sender_username;
+            $message->receiver_username = $reciever_username;
+            $message->body = 'السلام عليكم كيف الحال';
+            $message->save(); // حفظ الرسالة
+           // return view('chat-main');
+            return Redirect::to('chat-main');
+        }
+
     }
 
     public function job_users()

@@ -141,8 +141,21 @@
 <script src="{{asset('assets/website/js/swiper-bundle.min.js')}}"></script><!-- Swiper JS -->
 <script src="{{asset('assets/website/js/custom.js')}}"></script><!-- CUSTOM FUCTIONS  -->
 <script src="{{asset('assets/website/js/switcher.js')}}"></script><!-- SHORTCODE FUCTIONS  -->
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 @notifyJs
 @yield('js')
+@livewireScripts
+
+<script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('0b5767cf97c2b0e3dc9a', {
+        cluster: 'eu'
+    });
+
+</script>
 </body>
 
 </html>

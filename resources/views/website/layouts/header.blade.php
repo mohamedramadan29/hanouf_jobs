@@ -37,8 +37,10 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/website/css/swiper-bundle.min.css')}}"><!-- Swiper Slider -->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/website/css/style.css')}}"><!-- MAIN STYLE SHEET -->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/website/css/rtl.css')}}"><!-- RTL STYLE SHEET -->
+
     @notifyCss
     @yield('css')
+    @livewireStyles
 </head>
 
 
