@@ -11,7 +11,7 @@ use Livewire\Component;
 class Sendmessage extends Component
 {
 
-    public $listeners = ['update_dataCompany', 'update_dataUsers','dispatchCompanyMessageSend'];
+    public $listeners = ['update_dataCompany', 'update_dataUsers','dispatchMessageSend'];
     public $message_body;
     public $selected_conversation;
     public $recieverUsers;
@@ -64,16 +64,18 @@ class Sendmessage extends Component
         // refresh chat list
         $this->dispatch('refresh')->to('chat.chatlist');
         ////////// For start RealTimeChat
-        /// First Make Company Is Send
-        $this->dispatch('dispatchCompanyMessageSend')->self();
+        $this->dispatch('dispatchMessageSend')->self();
     }
 
-    public function dispatchCompanyMessageSend()
+    public function dispatchMessageSend()
     {
-       // dd($this->create_message);
-        broadcast(new \App\Events\SendMessage
-        ($this->sender, $this->recieverUsers, $this->selected_conversation,$this->create_message));
-
+        if (auth()->guard('company')->check()){
+            broadcast(new \App\Events\SendMessage
+            ($this->sender, $this->recieverUsers, $this->selected_conversation,$this->create_message));
+        }else{
+            broadcast(new \App\Events\SendMessage2
+            ($this->sender, $this->recieverUsers, $this->selected_conversation,$this->create_message));
+        }
     }
 
     public function render()

@@ -142,6 +142,7 @@
 <script src="{{asset('assets/website/js/custom.js')}}"></script><!-- CUSTOM FUCTIONS  -->
 <script src="{{asset('assets/website/js/switcher.js')}}"></script><!-- SHORTCODE FUCTIONS  -->
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 @notifyJs
 @yield('js')
 @livewireScripts

@@ -14,21 +14,23 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class SendMessage implements ShouldBroadcast
+class SendMessage2 implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-///////////// First Evevnt Make Company Is Sender
     public $sender;
     public $reciever;
-
     public $conversation;
     public $message;
-    public function __construct(Company $sender, User $reciever, Coversation $conversation, Message $message)
+
+    public function __construct(User $sender, Company $reciever, Coversation $conversation, Message $message)
     {
         $this->sender = $sender;
+
         $this->reciever = $reciever;
+
         $this->conversation = $conversation;
+
         $this->message = $message;
     }
 
@@ -43,11 +45,11 @@ class SendMessage implements ShouldBroadcast
 
     }
 
-
     public function broadcastOn()
     {
-//        error_log($this->sender);
-//        error_log($this->reciever);
-        return new PrivateChannel('chat.'.$this->reciever->id);
+        error_log($this->sender);
+        error_log($this->reciever);
+        return new PrivateChannel('chat2.' . $this->reciever->id);
+
     }
 }
