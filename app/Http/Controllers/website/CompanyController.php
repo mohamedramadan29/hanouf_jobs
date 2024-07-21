@@ -543,9 +543,7 @@ class CompanyController extends Controller
         $sender_username = Auth::guard('company')->user()->username;
         $reciever_username = $username;
         $last_message_time = null;
-
         /////////// chat If this Users Sender And Reciever Have Conversation Or Not
-
         $count_conversations = Coversation::where('sender_username', $sender_username)->
         where('receiver_username', $reciever_username)->
         where('adv_id', $job_id)->
@@ -554,7 +552,8 @@ class CompanyController extends Controller
         where('adv_id', $job_id)->
         count();
         if ($count_conversations > 0) {
-            return view('website.companies.chat');
+            return Redirect::to('chat-main');
+           // return view('website.companies.chat');
         } else {
             ///////// Start Create Conversation
             ///
@@ -564,13 +563,13 @@ class CompanyController extends Controller
             $conversation->last_time_message = $last_message_time;
             $conversation->adv_id = $job_id;
             $conversation->save(); // حفظ المحادثة والحصول على المعرف
-
 // إضافة الرسائل
             $message = new Message();
             $message->conversation_id = $conversation->id; // استخدام معرف المحادثة التي تم إنشاؤها للتو
             $message->sender_username = $sender_username;
             $message->receiver_username = $reciever_username;
-            $message->body = 'السلام عليكم كيف الحال';
+            $message->body =  ' بداية محادثة بخصوص العرض المقدم علي وظيفة ';
+            $message->type = 'company';
             $message->save(); // حفظ الرسالة
             // return view('chat-main');
             return Redirect::to('chat-main');

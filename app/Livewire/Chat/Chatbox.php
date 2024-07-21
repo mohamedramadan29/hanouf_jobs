@@ -13,14 +13,16 @@ class Chatbox extends Component
 
     //protected $listeners = ['load_conversationCompany','load_conversationUsers','pushMessage'];
     public $reciever;
+    public $sender_logo;
     public $selected_conversation;
     public $recieverUsers;
     public $messages;
     public $auth_username;
-
     public $auth_id;
     public $event_name;
     public $chat_page;
+
+    public $img_path;
 
 
     public function mount()
@@ -29,10 +31,12 @@ class Chatbox extends Component
             $this->img_path = 'assets/uploads/users/';
             $this->auth_username = auth()->guard('company')->user()->username;
             $this->auth_id = auth()->guard('company')->user()->id;
+            $this->sender_logo = auth()->guard('company')->user()->logo;
         } else {
             $this->img_path = 'assets/uploads/companies/';
             $this->auth_username = auth()->user()->username; // الحارس الافتراضي للمستخدم العادي
             $this->auth_id = auth()->user()->id;
+            $this->sender_logo = auth()->user()->logo;
         }
     }
 
@@ -83,6 +87,7 @@ class Chatbox extends Component
     {
         $this->selected_conversation = $coversation;
         $this->recieverUsers = $reciever;
+
         $this->messages = Message::where('conversation_id', $this->selected_conversation->id)->get();
         // dd($this->messages);
     }
@@ -94,6 +99,8 @@ class Chatbox extends Component
         $this->messages = Message::where('conversation_id', $this->selected_conversation->id)->get();
         // dd($this->messages);
     }
+
+
 
     public function pushMessage($message)
     {

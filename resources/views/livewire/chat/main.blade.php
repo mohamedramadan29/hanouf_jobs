@@ -31,51 +31,92 @@
 
             <!-- OUR BLOG START -->
             <div class="section-full p-t120  p-b90 site-bg-white">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row">
                         <div class="col-xl-3 col-lg-4 col-md-12 rightSidebar m-b30">
-                            <div class="side-bar-st-1">
-                                <div class="twm-candidate-profile-pic">
-                                    <img src="{{asset('assets/website/images/jobs-company/pic1.jpg')}}" alt="">
-                                    <div class="upload-btn-wrapper">
+                            @if(\Illuminate\Support\Facades\Auth::guard('company')->user())
+                                <div class="side-bar-st-1">
+                                    <div class="twm-candidate-profile-pic">
+                                        @if(\Illuminate\Support\Facades\Auth::guard('company')->user()->logo !='')
+                                            <img
+                                                src="{{asset('assets/uploads/companies/'.Auth::guard('company')->user()->logo)}}"
+                                                alt="">
+                                        @else
+                                            <img src="{{asset('assets/website/images/jobs-company/pic1.jpg')}}" alt="">
+                                        @endif
 
-                                        <div id="upload-image-grid"></div>
-                                        <button class="site-button button-sm">حمل الصورة</button>
-                                        <input type="file" name="myfile" id="file-uploader" accept=".jpg, .jpeg, .png">
                                     </div>
+
+                                    <div class="twm-mid-content text-center" style="margin-bottom: 15px">
+                                        <a href="{{url('company/dashboard')}}" class="twm-job-title">
+                                            <h4 style="margin-bottom: 10px">  {{Auth::guard('company')->user()->name}} </h4>
+                                        </a>
+                                        <p> {{Auth::guard('company')->user()->email}} </p>
+                                    </div>
+
+                                    <div class="twm-nav-list-1">
+                                        <ul>
+                                            <li><a href="{{url('company/dashboard')}}"><i class="fa fa-user"></i>ملف
+                                                    الشركة</a></li>
+                                            <li><a href="{{url('company/jobs')}}"><i class="fa fa-suitcase"></i> إدارة
+                                                    الوظائف</a></li>
+                                            <li><a href="{{url('company/add-job')}}"><i class="fa fa-user"></i> اضف وظيفة جديدة
+                                                </a></li>
+                                            <li class="active"><a href="{{url('chat-main')}}"><i class="fa fa-comments"></i> المحادثات </a>
+                                            </li>
+                                            <li><a href="{{url('company/change-password')}}"><i class="fa fa-fingerprint"></i>
+                                                    تغيير كلمة المرور</a></li>
+                                            <li><a href="{{url('company/logout')}}"><i class="fa fa-share-square"></i> تسجيل
+                                                    خروج</a></li>
+                                        </ul>
+                                    </div>
+
                                 </div>
 
-                                <div class="twm-mid-content text-center">
-                                    <a href="{{url('company/dashboard')}}" class="twm-job-title">
-                                        <h4>استوديو الفنان </h4>
-                                    </a>
-                                    <p>مقاول تكنولوجيا المعلومات</p>
+                            @else
+                                <div class="side-bar-st-1">
+                                    <div class="twm-candidate-profile-pic">
+                                        @if(\Illuminate\Support\Facades\Auth::user()->logo !='')
+                                            <img
+                                                src="{{asset('assets/uploads/users/'.Auth::user()->logo)}}"
+                                                alt="">
+                                        @else
+                                            <img src="{{asset('assets/website/images/jobs-company/pic1.jpg')}}" alt="">
+                                        @endif
+
+                                    </div>
+
+                                    <div class="twm-mid-content text-center" style="margin-bottom: 15px">
+                                        <a href="{{url('user/dashboard')}}" class="twm-job-title">
+                                            <h4 style="margin-bottom: 10px">  {{Auth::user()->name}} </h4>
+                                        </a>
+                                        <p> {{Auth::user()->email}} </p>
+                                    </div>
+
+                                    <div class="twm-nav-list-1">
+                                        <ul>
+                                            <li><a href="{{url('user/dashboard')}}"><i class="fa fa-user"></i>
+                                                    حسابي
+                                                </a></li>
+                                            <li><a href="{{url('user/update')}}"><i class="fa fa-edit"></i> تعديل الملف الشخصي </a></li>
+                                            <li class="active"><a href="{{url('chat-main')}}"><i class="fa fa-comments"></i> المحادثات </a>
+                                            </li>
+
+
+                                            <li><a href="{{url('user/alerts')}}"><i class="fa fa-bell"></i>   تنبيهات مهمة
+                                                </a></li>
+
+
+                                            <li><a href="{{url('user/change-password')}}"><i class="fa fa-fingerprint"></i>
+                                                    تغيير كلمة المرور</a></li>
+                                            <li><a href="{{url('user/logout')}}"><i class="fa fa-share-square"></i> تسجيل
+                                                    خروج</a></li>
+                                        </ul>
+                                    </div>
+
                                 </div>
 
-                                <div class="twm-nav-list-1">
-                                    <ul>
-                                        <li><a href="{{url('company/dashboard')}}"><i class="fa fa-user"></i>ملف الشركة</a>
-                                        </li>
-                                        <li><a href="{{url('company/jobs')}}"><i class="fa fa-suitcase"></i> إدارة
-                                                الوظائف</a></li>
-                                        <li><a href="{{url('company/add-job')}}"><i class="fa fa-user"></i> اضف وظيفة
-                                                جديدة
-                                            </a></li>
-                                        <li class="active"><a href="{{url('chat-main')}}"><i
-                                                    class="fa fa-credit-card"></i> المحادثات </a></li>
-                                        <li><a href="{{url('company/plan')}}"><i class="fa fa-credit-card"></i> ادارة
-                                                الخطة
-                                            </a></li>
-                                        <li><a href="{{url('company/change-password')}}"><i
-                                                    class="fa fa-fingerprint"></i>
-                                                تغيير كلمة المرور</a></li>
-                                        <li><a href="{{url('company/logout')}}"><i class="fa fa-share-square"></i> تسجيل
-                                                خروج</a></li>
-                                    </ul>
-                                </div>
-
-                            </div>
-
+                            @endif
                         </div>
 
                         <div class="col-xl-9 col-lg-8 col-md-12 m-b30">

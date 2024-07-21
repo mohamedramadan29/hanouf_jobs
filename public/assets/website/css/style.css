@@ -28435,3 +28435,23 @@ form label {
     color:var(--main-color);
     font-size:24px;
 }
+
+.img_content_chat1{
+    display: flex;
+    justify-content: start;
+    align-items: end;
+}
+.img_content_chat2{
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+
+.wt-admin-dashboard-msg-2.twm-dashboard-style-2 .single-user-com-text{
+    width:90%
+}
+
+.wt-admin-dashboard-msg-2 .single-user-comment-wrap {
+    padding: 5px 0px;
+    margin: 0px 14px;
+}

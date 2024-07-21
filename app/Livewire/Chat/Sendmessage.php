@@ -18,6 +18,7 @@ class Sendmessage extends Component
     public $auth_username;
     public $sender;
     public $create_message;
+    public $sender_type;
 
     public function update_dataCompany(Coversation $coversation, User $reciever)
     {
@@ -37,10 +38,12 @@ class Sendmessage extends Component
             $this->img_path = 'assets/uploads/users/';
             $this->auth_username = auth()->guard('company')->user()->username;
             $this->sender = auth()->guard('company')->user();
+            $this->sender_type = 'company';
         } else {
             $this->img_path = 'assets/uploads/companies/';
             $this->auth_username = auth()->user()->username; // الحارس الافتراضي للمستخدم العادي
             $this->sender = auth()->user();
+            $this->sender_type='employee';
         }
     }
 
@@ -54,6 +57,7 @@ class Sendmessage extends Component
             'sender_username' => $this->auth_username,
             'receiver_username' => $this->recieverUsers->username,
             'body' => $this->message_body,
+            'type'=> $this->sender_type,
         ]);
         //dd('message send');
         $this->selected_conversation->last_time_message = $this->create_message->created_at;
