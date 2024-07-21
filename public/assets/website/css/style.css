@@ -28413,3 +28413,25 @@ form label {
     margin-top:10px;
     margin-bottom:10px;
 }
+
+
+/**************** Start New Hero Section ****/
+.hero_buttons .twm-jobs-browse{
+    background-color:var(--main-color);
+    color:#fff;
+    padding:10px;
+}
+
+.about_search_job .twm-media{
+    display: flex;
+    justify-content: center;
+}
+
+.about_search_job .twm-media img{
+    max-width:400px;
+}
+
+.sec_title{
+    color:var(--main-color);
+    font-size:24px;
+}

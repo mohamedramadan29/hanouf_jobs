@@ -39,8 +39,13 @@ class CompanyController extends Controller
             $username = $this->CustomeSlug($data['name']);
             $checkUsername = Company::where('username', $username)->count();
             if ($checkUsername > 0) {
-                return redirect()->back()->withErrors([' اسم الشركة متواجد من قبل من فضلك ادخل اسم جديد  '])->withInput();
+                return redirect()->back()->withErrors([' الاسم  متواجد من قبل من فضلك ادخل اسم جديد  '])->withInput();
             }
+            $checkusernameusers = User::where('username', $username)->count();
+            if ($checkusernameusers > 0) {
+                return redirect()->back()->withErrors([' الاسم  متواجد من قبل من فضلك ادخل اسم جديد  '])->withInput();
+            }
+
             $rules = [
                 'name' => 'required',
                 'email' => 'required|email|unique:companies,email|max:150',
@@ -67,7 +72,6 @@ class CompanyController extends Controller
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
-
             $company = Company::create([
                 'name' => $data['name'],
                 'username' => $username,
@@ -558,7 +562,7 @@ class CompanyController extends Controller
             $message->receiver_username = $reciever_username;
             $message->body = 'السلام عليكم كيف الحال';
             $message->save(); // حفظ الرسالة
-           // return view('chat-main');
+            // return view('chat-main');
             return Redirect::to('chat-main');
         }
 

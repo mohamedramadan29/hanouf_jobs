@@ -2,26 +2,6 @@
 <footer class="footer-dark" style="background-image: url({{asset('assets/website/images/f-bg.jpg')}});">
     <div class="container">
 
-        <!-- NEWS LETTER SECTION START -->
-        <div class="ftr-nw-content">
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="ftr-nw-title">
-                        انضم إلى اشتراك البريد الإلكتروني الخاص بنا الآن للحصول على تحديثات الوظائف والإشعارات الجديدة
-                    </div>
-                </div>
-                <div class="col-md-7">
-                    <form>
-                        <div class="ftr-nw-form">
-                            <input name="news-letter" class="form-control" placeholder="أدخل بريدك الإلكتروني"
-                                   type="text">
-                            <button class="ftr-nw-subcribe-btn">إشترك الآن</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- NEWS LETTER SECTION END -->
         <!-- FOOTER BLOCKES START -->
         <div class="footer-top">
             <div class="row">

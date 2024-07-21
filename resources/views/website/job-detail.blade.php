@@ -152,40 +152,115 @@
                                     </div>
                                     <div class="panel-body wt-panel-body p-a20 m-b30">
                                         @if($offers > 0)
-                                            <div class="alert alert-danger"> تم التقديم الي الوظيفة من قبل  </div>
-                                            @else
-                                            <form method="post" action="{{url('add-offer')}}" enctype="multipart/form-data">
-                                                @csrf
-                                                <div class="row">
-                                                    <!--Description-->
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <input type="hidden" name="adv_id" value="{{$adv['id']}}">
-                                                            <input type="hidden" name="company_id"
-                                                                   value="{{$adv['company_id']}}">
-                                                            <input type="hidden" name="adv_title" value="{{$adv['title']}}">
-                                                            <label> خطاب التوظيف <span style="color:red"> * </span> </label>
-                                                            <textarea required style="height: 150px;" name="cover_letter"
-                                                                      class="form-control" rows="10"
-                                                                      placeholder=" خطاب التوظيف  ">{{old('cover_letter')}}</textarea>
-                                                            <span class="span_info"> لماذا أنت مهتم بهذه الوظيفة، ما أهم خبراتك ومالذي تستطيع تقديمه؟ </span>
+                                            <div class="alert alert-danger"> تم التقديم الي الوظيفة من قبل</div>
+                                        @else
+                                            @if(\Illuminate\Support\Facades\Auth::user())
+                                                <form method="post" action="{{url('add-offer')}}"
+                                                      enctype="multipart/form-data" id="offerForm">
+                                                    @csrf
+                                                    <div class="row">
+                                                        <!--Description-->
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <input type="hidden" name="adv_id"
+                                                                       value="{{$adv['id']}}">
+                                                                <input type="hidden" name="company_id"
+                                                                       value="{{$adv['company_id']}}">
+                                                                <input type="hidden" name="adv_title"
+                                                                       value="{{$adv['title']}}">
+                                                                <label> خطاب التوظيف <span style="color:red"> * </span>
+                                                                </label>
+                                                                <textarea required style="height: 150px;"
+                                                                          name="cover_letter" class="form-control"
+                                                                          rows="10"
+                                                                          placeholder=" خطاب التوظيف  ">{{old('cover_letter')}}</textarea>
+                                                                <span class="span_info"> لماذا أنت مهتم بهذه الوظيفة، ما أهم خبراتك ومالذي تستطيع تقديمه؟ </span>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>إضافة ملفات مرفقة</label>
+                                                                <br>
+                                                                <input type="file" name="cover_files[]"
+                                                                       class="form-control" accept=".pdf, .doc, .docx"
+                                                                       id="fileInput" multiple style="display: none;">
+                                                                <button type="button" class="btn btn-primary uploadFiles"
+                                                                        id="uploadButton">ارفع الملفات  <i class="fa fa-upload"></i>
+                                                                </button>
+                                                                <span id="fileNames" class="span_info">لم يتم اختيار ملفات بعد</span>
+                                                                <span class="span_info">الامتدادات المسموحة: pdf, doc, docx. الحجم الأقصى للملف 50MB</span>
+                                                            </div>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label> إضافة ملفات مرفقة </label>
-                                                            <input multiple type="file" name="cover_files[]" class="form-group"
-                                                                   accept=".pdf, .doc, .docx" id="fileInput">
-                                                            <span class="span_info">  الامتدادات المسموحة: pdf, doc, docx. الحجم الاقصى للملف 50MB  </span>
+                                                        <div class="col-lg-12 col-md-12">
+                                                            <div class="text-left">
+                                                                <button type="submit" class="site-button m-r5"
+                                                                        id="submitBtn"> ارسل <i
+                                                                        class="fa fa-paper-plane"> </i></button>
+                                                                <span id="loader"
+                                                                      style="display: none;">جاري الإرسال...</span>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                </form>
 
-                                                    <div class="col-lg-12 col-md-12">
-                                                        <div class="text-left">
-                                                            <button type="submit" class="site-button m-r5"> ارسل <i
-                                                                    class="fa fa-paper-plane"> </i></button>
-                                                        </div>
-                                                    </div>
+                                                <script>
+                                                    document.getElementById('offerForm').addEventListener('submit', function (event) {
+                                                        document.getElementById('submitBtn').disabled = true; // تعطيل زر الإرسال
+                                                        document.getElementById('submitBtn').style.display = 'none'; // إخفاء زر الإرسال
+                                                        document.getElementById('loader').style.display = 'inline'; // إظهار مؤشر التحميل
+                                                    });
+                                                </script>
+
+                                                <script>
+                                                    document.getElementById('uploadButton').addEventListener('click', function() {
+                                                        document.getElementById('fileInput').click();
+                                                    });
+
+                                                    document.getElementById('fileInput').addEventListener('change', function() {
+                                                        var input = document.getElementById('fileInput');
+                                                        var output = document.getElementById('fileNames');
+                                                        var fileNames = [];
+                                                        for (var i = 0; i < input.files.length; i++) {
+                                                            fileNames.push(input.files[i].name);
+                                                        }
+                                                        output.textContent = fileNames.length > 0 ? fileNames.join(', ') : 'لم يتم اختيار ملفات بعد';
+                                                    });
+                                                </script>
+
+                                                <style>
+                                                    .uploadFiles {
+                                                        padding: 10px 20px;
+                                                        border-radius: 5px;
+                                                        cursor: pointer;
+                                                        background: transparent;
+                                                        color: var(--main-color);
+                                                        border-color: var(--main-color);
+                                                        outline: none;
+                                                    }
+
+                                                    .uploadFiles:hover {
+                                                        background: transparent;
+                                                        color: var(--main-color);
+                                                        border-color: var(--main-color);
+                                                    }
+
+                                                    #fileNames {
+                                                        display: block;
+                                                        margin-top: 10px;
+                                                        color: #333;
+                                                        font-size:14px
+                                                    }
+
+                                                    #loader {
+                                                        font-size: 16px;
+                                                        color: var(--main-color);
+                                                    }
+                                                </style>
+
+                                            @else
+                                                <div class="alert alert-danger"> من فضلك سجل دخولك اولا  كموظف للتقديم الي
+                                                    الوظيفة
                                                 </div>
-                                            </form>
+                                            @endif
+
                                         @endif
 
                                     </div>
@@ -221,21 +296,24 @@
                                                 <div class="twm-s-info-inner">
                                                     <i class="fas fa-user-tie"></i>
                                                     <span class="twm-title">مسمى وظيفي</span>
-                                                    <div class="twm-s-info-discription"> {{$adv['jobs_names']['title']}} </div>
+                                                    <div
+                                                        class="twm-s-info-discription"> {{$adv['jobs_names']['title']}} </div>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="twm-s-info-inner">
                                                     <i class="fas fa-clock"></i>
                                                     <span class="twm-title">خبرة</span>
-                                                    <div class="twm-s-info-discription"> {{$adv['experience']}} سنة </div>
+                                                    <div class="twm-s-info-discription"> {{$adv['experience']}}سنة
+                                                    </div>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="twm-s-info-inner">
                                                     <i class="fas fa-suitcase"></i>
                                                     <span class="twm-title"> التخصص </span>
-                                                    <div class="twm-s-info-discription"> {{$adv['specialist']['name']}} </div>
+                                                    <div
+                                                        class="twm-s-info-discription"> {{$adv['specialist']['name']}} </div>
                                                 </div>
                                             </li>
                                             <li>
@@ -250,7 +328,8 @@
 
                                                     <i class="fas fa-money-bill-wave"></i>
                                                     <span class="twm-title">عرض الراتب</span>
-                                                    <div class="twm-s-info-discription">   {{ $adv['salary']  }} /  شهر</div>
+                                                    <div class="twm-s-info-discription">   {{ $adv['salary']  }} / شهر
+                                                    </div>
                                                 </div>
                                             </li>
 
@@ -264,7 +343,8 @@
                                 <div class="twm-s-info3">
                                     <div class="twm-s-info-logo-section">
                                         <div class="twm-media">
-                                            <img src="{{asset('assets/uploads/companies/'.$adv['company']['logo'])}}" alt="#">
+                                            <img src="{{asset('assets/uploads/companies/'.$adv['company']['logo'])}}"
+                                                 alt="#">
                                         </div>
                                     </div>
                                     <ul>
@@ -277,7 +357,8 @@
                                             </div>
                                         </li>
                                     </ul>
-                                    <a href="{{url('companies/'.$adv['company']['username'])}}" class=" site-button">عرض الصفحة الشخصية</a>
+                                    <a href="{{url('companies/'.$adv['company']['username'])}}" class=" site-button">عرض
+                                        الصفحة الشخصية</a>
 
                                 </div>
                             </div>

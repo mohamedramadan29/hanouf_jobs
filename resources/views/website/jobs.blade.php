@@ -46,82 +46,37 @@
                         <div class="side-bar">
 
                             <div class="sidebar-elements search-bx">
-
-                                <form>
-
+                                <form method="get" action="{{ url('jobs') }}">
+                                    @csrf
                                     <div class="form-group mb-4">
-                                        <h4 class="section-head-small mb-4">فئة</h4>
-                                        <select class="wt-select-bar-large selectpicker" data-live-search="true"
-                                                data-bv-field="size">
-                                            <option>كل الفئة</option>
-                                            <option>مصمم الويب</option>
-                                            <option>مطور</option>
-                                            <option>محاسب</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group mb-4">
-                                        <h4 class="section-head-small mb-4">الكلمة الرئيسية</h4>
+                                        <h4 class="section-head-small mb-4"> بحث </h4>
                                         <div class="input-group">
-                                            <input type="text" class="form-control"
-                                                   placeholder="عنوان الوظيفة أو الكلمة الرئيسية">
-                                            <button class="btn" type="button"><i class="feather-search"></i></button>
+                                            <input type="text" class="form-control" name="keyword" placeholder="عنوان الوظيفة أو الكلمة الرئيسية" value="{{ request('keyword') }}">
+                                            <button class="btn" type="submit"><i class="feather-search"></i></button>
                                         </div>
                                     </div>
 
                                     <div class="twm-sidebar-ele-filter">
-                                        <h4 class="section-head-small mb-4"> تاريخ نشر الاعلان </h4>
+                                        <h4 class="section-head-small mb-4"> المسمي الوظيفي </h4>
                                         <ul>
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="exampleradio1">
-                                                    <label class="form-check-label" for="exampleradio1">الساعة
-                                                        الأخيرة</label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="exampleradio2">
-                                                    <label class="form-check-label" for="exampleradio2">أخر 24
-                                                        ساعه</label>
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="exampleradio3">
-                                                    <label class="form-check-label" for="exampleradio3">اخر 7
-                                                        ايام</label>
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="exampleradio4">
-                                                    <label class="form-check-label" for="exampleradio4">آخر 14
-                                                        يومًا</label>
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="exampleradio5">
-                                                    <label class="form-check-label" for="exampleradio5">آخر 30
-                                                        يومًا</label>
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="exampleradio6">
-                                                    <label class="form-check-label" for="exampleradio6">الجميع</label>
-                                                </div>
-                                            </li>
-
+                                            @foreach($jobs as $job)
+                                                <li>
+                                                    <div class="form-check">
+                                                        <input type="checkbox" name="job_ids[]" value="{{ $job['id'] }}" class="form-check-input" id="job_{{ $job['id'] }}" {{ in_array($job['id'], request('job_ids', [])) ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="job_{{ $job['id'] }}">
+                                                            {{ $job['title'] }}
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                            @endforeach
                                         </ul>
                                     </div>
 
+                                    <div class="">
+                                        <button style="display: block;width: 100%" type="submit" class="site-button m-r5">بحث</button>
+                                    </div>
                                 </form>
+
 
                             </div>
                         </div>
@@ -131,13 +86,11 @@
                         <div class="product-filter-wrap d-flex justify-content-between align-items-center m-b30">
                             <span class="woocommerce-result-count-left">عرض {{ $advs->count()  }} وظيفة</span>
 
-                            <form class="woocommerce-ordering twm-filter-select" method="get">
-                                <span class="woocommerce-result-count"> رتب حسب </span>
-                                <select class="wt-select-bar-2 selectpicker" data-live-search="true"
-                                        data-bv-field="size">
-                                    <option>الأحدث</option>
-                                    <option>الاقدم</option>
-
+                            <form class="woocommerce-ordering twm-filter-select" method="get" action="{{url('jobs')}}">
+                                <span class="woocommerce-result-count">رتب حسب</span>
+                                <select class="wt-select-bar-2 selectpicker" data-live-search="true" name="sort" id="sortOrder" onchange="this.form.submit()">
+                                    <option value="desc" {{ request('sort') == 'desc' ? 'selected' : '' }}>الأحدث</option>
+                                    <option value="asc" {{ request('sort') == 'asc' ? 'selected' : '' }}>الاقدم</option>
                                 </select>
                             </form>
 

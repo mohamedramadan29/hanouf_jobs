@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\admin\Faq;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\website\AdvertisementController;
@@ -10,7 +11,8 @@ use \App\Http\Controllers\website\jobOfferController;
 use \App\Livewire\Chat\Createchat;
 
 Route::get('/', function () {
-    return view('website.index');
+    $employesfaqs = Faq::where('type','موظف')->get();
+    return view('website.index',compact('employesfaqs'));
 });
 
 /////////////////////////// User Controller //////////////////////

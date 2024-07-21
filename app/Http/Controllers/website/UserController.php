@@ -7,6 +7,8 @@ use App\Http\Traits\Message_Trait;
 use App\Http\Traits\Slug_Trait;
 use App\Http\Traits\Upload_Images;
 use App\Models\admin\City;
+use App\Models\admin\Company;
+use App\Models\admin\Faq;
 use App\Models\admin\Jobsname;
 use App\Models\admin\Specialist;
 use App\Models\User;
@@ -27,7 +29,8 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('website.users.dashboard');
+        $employesfaqs = Faq::where('type','موظف')->get();
+        return view('website.users.dashboard',compact('employesfaqs'));
     }
 
     function register(Request $request)
@@ -39,6 +42,10 @@ class UserController extends Controller
                 $username = $this->CustomeSlug($data['name']);
                 $checkUsername = User::where('username', $username)->count();
                 if ($checkUsername > 0) {
+                    return redirect()->back()->withErrors([' اسم المستخدم متواجد من قبل من فضلك ادخل اسم جديد  '])->withInput();
+                }
+                $checkUsernamecompany = Company::where('username', $username)->count();
+                if ($checkUsernamecompany > 0) {
                     return redirect()->back()->withErrors([' اسم المستخدم متواجد من قبل من فضلك ادخل اسم جديد  '])->withInput();
                 }
                 $rules = [
@@ -202,7 +209,7 @@ class UserController extends Controller
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
-           // dd($data);
+            // dd($data);
             $email = $data['email'];
             //dd($data);
             $usercount = User::where('email', $email)->count();
@@ -223,7 +230,7 @@ class UserController extends Controller
                     return Redirect::back()->withInput()->withErrors($validator);
                 }
                 $user->update([
-                    'password'=>Hash::make($data['password']),
+                    'password' => Hash::make($data['password']),
                 ]);
                 return redirect()->to('login')->with('Success_message', '   تم تعديل كلمة المرور بنجاح سجل ذخولك الان ');
             } else {
@@ -349,7 +356,7 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return $this->exception_message($e);
         }
-        return view('website.users.update-data', compact('user', 'citizen','nameJobs','specialists'));
+        return view('website.users.update-data', compact('user', 'citizen', 'nameJobs', 'specialists'));
     }
 
     public function change_password(Request $request)
@@ -391,17 +398,19 @@ class UserController extends Controller
 
     public function suggested_jobs()
     {
-        $notifications = DB::table('notifications')->where('type','App\Notifications\SendNewSujestJob')->where('notifiable_id',Auth::user()->id)->get();
-        return view('website.users.suggested-jobs',compact('notifications'));
+        $notifications = DB::table('notifications')->where('type', 'App\Notifications\SendNewSujestJob')->where('notifiable_id', Auth::user()->id)->get();
+        return view('website.users.suggested-jobs', compact('notifications'));
     }
+
     public function alerts()
     {
-        $notifications = DB::table('notifications')->where('type','App\Notifications\SendNewSujestJob')->where('notifiable_id',Auth::user()->id)->get();
-        return view('website.users.alerts',compact('notifications'));
+        $notifications = DB::table('notifications')->where('type', 'App\Notifications\SendNewSujestJob')->where('notifiable_id', Auth::user()->id)->get();
+        return view('website.users.alerts', compact('notifications'));
     }
+
     public function delete_alert($id)
     {
-        $notification = DB::table('notifications')->where('id',$id)->delete();
+        $notification = DB::table('notifications')->where('id', $id)->delete();
         return $this->success_message(' تم حذف التنبية بنجاح  ');
     }
 

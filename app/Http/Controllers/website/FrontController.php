@@ -19,6 +19,10 @@ class FrontController extends Controller
 {
     use Message_Trait;
 
+//    public function index()
+//    {
+//        return view('website.index',compact(''));
+//    }
     function contact()
     {
         return view('website.contact');
@@ -27,7 +31,6 @@ class FrontController extends Controller
 
     function faqs()
     {
-        $faqs = Faq::all();
         $companyfaqs = Faq::where('type','شركة')->get();
         $employesfaqs = Faq::where('type','موظف')->get();
         return view('website.faqs',compact('employesfaqs','companyfaqs'));
@@ -41,7 +44,8 @@ class FrontController extends Controller
 
     public function employers()
     {
-        return view('website.employers');
+        $companyfaqs = Faq::where('type','شركة')->get();
+        return view('website.employers',compact('companyfaqs'));
     }
     public function add_contact_message(Request $request)
     {
@@ -112,7 +116,7 @@ class FrontController extends Controller
 
         if ($company_count > 0){
             $company = Company::where('username',$username)->first();
-            $advs = Advertisment::where('company_id',$company['id'])->get();
+            $advs = Advertisment::where('company_id',$company['id'])->where('status','1')->get();
             return view('website.public-company-info',compact('company','advs'));
         }else{
             abort('404');
