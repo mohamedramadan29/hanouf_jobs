@@ -30,9 +30,8 @@
                         <ul class=" nav navbar-nav">
                             <li class="has-mega-menu"><a href="{{url('/')}}"> الرئيسية </a></li>
                             <li class="has-mega-menu"><a href="{{url('jobs')}}"> الوظائف </a></li>
-                            <li class="has-child"><a href="{{url('talents')}}"> الموظفين </a></li>
+                            <li class="has-child"><a href="{{url('talents')}}"> ابحث عن خبراء   </a></li>
                             <li class="has-child"><a href="{{url('employers')}}"> لاصحاب الوظائف </a></li>
-                            <li class="has-child"><a href="{{url('talent-details')}}"> تفاصيل الخبير </a></li>
                             <li class="has-child"><a href="{{url('contact')}}"> اتصل بنا </a></li>
                         </ul>
 

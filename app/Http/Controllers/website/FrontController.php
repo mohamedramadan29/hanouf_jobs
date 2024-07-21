@@ -122,7 +122,9 @@ class FrontController extends Controller
 
     public function talents()
     {
-        return view('website.talents');
+        $users = User::with('jobs_name','location')->paginate(5);
+       // dd($users);
+        return view('website.talents',compact('users'));
     }
 
     public function talent_details($username)

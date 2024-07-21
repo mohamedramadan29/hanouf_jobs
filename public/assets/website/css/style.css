@@ -6373,7 +6373,7 @@ button.scroltop span {
 
 /*inner page banner*/
 .wt-bnr-inr {
-    height: 500px;
+    height: 350px;
     background-size: cover;
     background-position: center center;
     display: table;
@@ -6394,7 +6394,7 @@ button.scroltop span {
 
 .wt-bnr-inr-entry {
     display: table-cell;
-    vertical-align: middle;
+    vertical-align: bottom;
     text-align: center;
     padding-bottom: 30px;
 }
@@ -6415,7 +6415,7 @@ button.scroltop span {
 }
 
 .wt-bnr-inr-entry .banner-title-outer .banner-title-name .wt-title {
-    color: #fff;
+    color: var(--main-color);
 }
 
 /*Breadcrumb*/
@@ -6437,7 +6437,7 @@ button.scroltop span {
 }
 
 .wt-breadcrumb li a {
-    color: #fff;
+    color: #303030;
 }
 
 .wt-breadcrumb li a:hover {
@@ -6450,7 +6450,7 @@ button.scroltop span {
     right: 8px;
     width: 8px;
     height: 2px;
-    background-color: #fff;
+    background-color: #303030;
     top: 50%;
     transform: translateY(-50%);
     color: #fff;
@@ -28403,4 +28403,13 @@ form label {
     .offers_page .twm-candidates-list-style1 .twm-fot-content {
         flex-direction: column;
     }
+}
+
+.talent_page .twm-candidates-list-style1 .twm-fot-content .twm-left-info{
+    flex-direction:column;
+}
+
+.talent_page .twm-candidates-list-style1 .twm-fot-content .twm-candidate-address{
+    margin-top:10px;
+    margin-bottom:10px;
 }

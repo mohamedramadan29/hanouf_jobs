@@ -1,6 +1,6 @@
 @extends('website.layouts.master')
 @section('title')
-    قائمة الخبراء
+    ابحث عن خبراء
 @endsection
 @section('content')
 
@@ -8,21 +8,22 @@
     <div class="page-content">
 
         <!-- INNER PAGE BANNER -->
-        <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url({{asset('assets/website/images/banner/1.jpg')}});">
+        <div class="wt-bnr-inr overlay-wraper bg-center"
+             style="background-image:url({{asset('assets/website/images/main_banner.jpg')}});">
             <div class="overlay-main site-bg-white opacity-01"></div>
             <div class="container">
                 <div class="wt-bnr-inr-entry">
                     <div class="banner-title-outer">
                         <div class="banner-title-name">
-                            <h2 class="wt-title">قائمة المرشحين</h2>
+                            <h2 class="wt-title"> خبراء تخير </h2>
                         </div>
                     </div>
                     <!-- BREADCRUMB ROW -->
 
                     <div>
                         <ul class="wt-breadcrumb breadcrumb-style-2">
-                            <li><a href="index.html">بيت</a></li>
-                            <li>قائمة المرشحين</li>
+                            <li><a href="{{url('/')}}"> الرئيسية </a></li>
+                            <li> خبراء تخير</li>
                         </ul>
                     </div>
 
@@ -50,385 +51,96 @@
 
                                     <div class="form-group mb-4">
                                         <h4 class="section-head-small mb-4">فئة</h4>
-                                        <select class="wt-select-bar-large selectpicker"  data-live-search="true" data-bv-field="size">
+                                        <select class="wt-select-bar-large selectpicker" data-live-search="true"
+                                                data-bv-field="size">
                                             <option selected>كل الفئة</option>
                                             <option>مصمم الويب</option>
                                             <option>مطور</option>
                                             <option>محاسب</option>
                                         </select>
                                     </div>
-
-                                    <div class="form-group mb-4">
-                                        <h4 class="section-head-small mb-4">الكلمة الرئيسية</h4>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="عنوان الوظيفة أو الكلمة الرئيسية">
-                                            <button class="btn" type="button"><i class="feather-search"></i></button>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group mb-4">
-                                        <h4 class="section-head-small mb-4">موقع</h4>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="موقع البحث">
-                                            <button class="btn" type="button"><i class="feather-map-pin"></i></button>
-                                        </div>
-                                    </div>
-
-                                    <div class="twm-sidebar-ele-filter">
-                                        <h4 class="section-head-small mb-4">نوع الوظيفة</h4>
-                                        <ul>
-                                            <li>
-                                                <div class=" form-check">
-                                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                    <label class="form-check-label" for="exampleCheck1">حسابهم الخاص</label>
-                                                </div>
-                                                <span class="twm-job-type-count">09</span>
-                                            </li>
-
-                                            <li>
-                                                <div class=" form-check">
-                                                    <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                                                    <label class="form-check-label" for="exampleCheck2">وقت كامل</label>
-                                                </div>
-                                                <span class="twm-job-type-count">07</span>
-                                            </li>
-
-                                            <li>
-                                                <div class=" form-check">
-                                                    <input type="checkbox" class="form-check-input" id="exampleCheck3">
-                                                    <label class="form-check-label" for="exampleCheck3">التدريب الداخلي</label>
-                                                </div>
-                                                <span class="twm-job-type-count">15</span>
-                                            </li>
-
-                                            <li>
-                                                <div class=" form-check">
-                                                    <input type="checkbox" class="form-check-input" id="exampleCheck4">
-                                                    <label class="form-check-label" for="exampleCheck4">دوام جزئى</label>
-                                                </div>
-                                                <span class="twm-job-type-count">20</span>
-                                            </li>
-
-                                            <li>
-                                                <div class=" form-check">
-                                                    <input type="checkbox" class="form-check-input" id="exampleCheck5">
-                                                    <label class="form-check-label" for="exampleCheck5">مؤقت</label>
-                                                </div>
-                                                <span class="twm-job-type-count">22</span>
-                                            </li>
-
-                                            <li>
-                                                <div class=" form-check">
-                                                    <input type="checkbox" class="form-check-input" id="exampleCheck6">
-                                                    <label class="form-check-label" for="exampleCheck6">متطوع</label>
-                                                </div>
-                                                <span class="twm-job-type-count">25</span>
-                                            </li>
-
-                                        </ul>
-                                    </div>
-
-                                    <div class="twm-sidebar-ele-filter">
-                                        <h4 class="section-head-small mb-4">مواقع التاريخ</h4>
-                                        <ul>
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="exampleradio1">
-                                                    <label class="form-check-label" for="exampleradio1">الساعة الأخيرة</label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="exampleradio2">
-                                                    <label class="form-check-label" for="exampleradio2">أخر 24 ساعه</label>
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="exampleradio3">
-                                                    <label class="form-check-label" for="exampleradio3">اخر 7 ايام</label>
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="exampleradio4">
-                                                    <label class="form-check-label" for="exampleradio4">آخر 14 يومًا</label>
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="exampleradio5">
-                                                    <label class="form-check-label" for="exampleradio5">آخر 30 يومًا</label>
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="exampleradio6">
-                                                    <label class="form-check-label" for="exampleradio6">الجميع</label>
-                                                </div>
-                                            </li>
-
-                                        </ul>
-                                    </div>
-
-                                    <div class="twm-sidebar-ele-filter">
-                                        <h4 class="section-head-small mb-4">نوع العمل</h4>
-                                        <ul>
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="Freelance1">
-                                                    <label class="form-check-label" for="Freelance1">حسابهم الخاص</label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="FullTime1">
-                                                    <label class="form-check-label" for="FullTime1">وقت كامل</label>
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="Intership1">
-                                                    <label class="form-check-label" for="Intership1">واجه</label>
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="Part-Time1">
-                                                    <label class="form-check-label" for="Part-Time1">دوام جزئى</label>
-                                                </div>
-                                            </li>
-
-                                        </ul>
-                                    </div>
-
                                 </form>
-
-                            </div>
-
-                            <div class="widget tw-sidebar-tags-wrap">
-                                <h4 class="section-head-small mb-4">العلامات</h4>
-
-                                <div class="tagcloud">
-                                    <a href="job-list.html">عام</a>
-                                    <a href="job-list.html">وظائف</a>
-                                    <a href="job-list.html">قسط</a>
-                                    <a href="job-list.html">طلب</a>
-                                    <a href="job-list.html">عمل</a>
-                                    <a href="job-list.html">تجنيد</a>
-                                    <a href="job-list.html">صاحب العمل</a>
-                                    <a href="job-list.html">دخل</a>
-                                    <a href="job-list.html">نصائح</a>
-                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-lg-8 col-md-12">
-                        <!--Filter Short By-->
-                        <div class="product-filter-wrap d-flex justify-content-between align-items-center m-b30">
-                            <span class="woocommerce-result-count-left">تظهر 2150 مرشح</span>
-
-                            <form class="woocommerce-ordering twm-filter-select" method="get">
-                                <span class="woocommerce-result-count">باختصار من قبل</span>
-                                <select class="wt-select-bar-2 selectpicker"  data-live-search="true" data-bv-field="size">
-                                    <option>الأحدث</option>
-                                    <option>حسابهم الخاص</option>
-                                    <option>وقت كامل</option>
-                                    <option>التدريب الداخلي</option>
-                                    <option>دوام جزئى</option>
-                                    <option>مؤقت</option>
-                                </select>
-                                <select class="wt-select-bar-2 selectpicker"  data-live-search="true" data-bv-field="size">
-                                    <option>عرض 10</option>
-                                    <option>عرض 20</option>
-                                    <option>عرض 30</option>
-                                    <option>عرض 40</option>
-                                    <option>عرض 50</option>
-                                    <option>عرض 60</option>
-                                </select>
-                            </form>
-
-                        </div>
-
-                        <div class="twm-candidates-list-wrap">
+                        <div class="twm-candidates-list-wrap talent_page">
                             <ul>
-                                <li>
-                                    <div class="twm-candidates-list-style1 mb-5">
-                                        <div class="twm-media">
-                                            <div class="twm-media-pic">
-                                                <img src="{{asset('assets/website/images/candidates/pic1.jpg')}}" alt="#">
-                                            </div>
-                                            <div class="twm-candidates-tag"><span>متميز</span></div>
-                                        </div>
-                                        <div class="twm-mid-content">
-                                            <a href="candidate-detail.html" class="twm-job-title">
-                                                <h4>واندا مونتغمري</h4>
-                                            </a>
-                                            <p>محاسب قانوني</p>
+                                @foreach($users as $user)
+                                    <a href="{{url('talent-details/'.$user['username'])}}">
+                                        <li>
+                                            <div class="twm-candidates-list-style1 mb-5">
+                                                <div class="twm-media">
+                                                    <div class="twm-media-pic">
+                                                        <img src="{{asset('assets/uploads/users/'.$user['logo'])}}"
+                                                             alt="#">
+                                                    </div>
 
-                                            <div class="twm-fot-content">
-                                                <div class="twm-left-info">
-                                                    <p class="twm-candidate-address"><i class="feather-map-pin"></i>نيويورك</p>
-                                                    <div class="twm-jobs-vacancies">20 دولار<span>/ يوم</span></div>
                                                 </div>
-                                                <div class="twm-right-btn">
-                                                    <a href="candidate-detail.html" class="twm-view-prifile site-text-primary">عرض الصفحة الشخصية</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="twm-candidates-list-style1 mb-5">
-                                        <div class="twm-media">
-                                            <div class="twm-media-pic">
-                                                <img src="{{asset('assets/website/images/candidates/pic1.jpg')}}" alt="#">
-                                            </div>
-                                            <div class="twm-candidates-tag"><span>متميز</span></div>
-                                        </div>
-                                        <div class="twm-mid-content">
-                                            <a href="candidate-detail.html" class="twm-job-title">
-                                                <h4>واندا مونتغمري</h4>
-                                            </a>
-                                            <p>محاسب قانوني</p>
+                                                <div class="twm-mid-content">
+                                                    <a href="{{url('talent-details/'.$user['username'])}}"
+                                                       class="twm-job-title">
+                                                        <h4>  {{$user['name']}} </h4>
+                                                    </a>
+                                                    <p> {{$user['jobs_name']['title']}} </p>
 
-                                            <div class="twm-fot-content">
-                                                <div class="twm-left-info">
-                                                    <p class="twm-candidate-address"><i class="feather-map-pin"></i>نيويورك</p>
-                                                    <div class="twm-jobs-vacancies">20 دولار<span>/ يوم</span></div>
-                                                </div>
-                                                <div class="twm-right-btn">
-                                                    <a href="candidate-detail.html" class="twm-view-prifile site-text-primary">عرض الصفحة الشخصية</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="twm-candidates-list-style1 mb-5">
-                                        <div class="twm-media">
-                                            <div class="twm-media-pic">
-                                                <img src="{{asset('assets/website/images/candidates/pic1.jpg')}}" alt="#">
-                                            </div>
-                                            <div class="twm-candidates-tag"><span>متميز</span></div>
-                                        </div>
-                                        <div class="twm-mid-content">
-                                            <a href="candidate-detail.html" class="twm-job-title">
-                                                <h4>واندا مونتغمري</h4>
-                                            </a>
-                                            <p>محاسب قانوني</p>
-
-                                            <div class="twm-fot-content">
-                                                <div class="twm-left-info">
-                                                    <p class="twm-candidate-address"><i class="feather-map-pin"></i>نيويورك</p>
-                                                    <div class="twm-jobs-vacancies">20 دولار<span>/ يوم</span></div>
-                                                </div>
-                                                <div class="twm-right-btn">
-                                                    <a href="candidate-detail.html" class="twm-view-prifile site-text-primary">عرض الصفحة الشخصية</a>
+                                                    <div class="twm-fot-content">
+                                                        <div class="twm-left-info">
+                                                            <p class="twm-candidate-address">{{$user['location']['name']}}
+                                                                <i
+                                                                    class="feather-map-pin"></i>
+                                                            </p>
+                                                            <div>
+                                                                @php
+                                                                    $desc_words = explode(' ',$user['info']);
+                                                           $short_description = implode(' ', array_slice($desc_words, 0, 20)) . '...';
+                                                                @endphp
+                                                                {{$short_description}} </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="twm-candidates-list-style1 mb-5">
-                                        <div class="twm-media">
-                                            <div class="twm-media-pic">
-                                                <img src="{{asset('assets/website/images/candidates/pic1.jpg')}}" alt="#">
-                                            </div>
-                                            <div class="twm-candidates-tag"><span>متميز</span></div>
-                                        </div>
-                                        <div class="twm-mid-content">
-                                            <a href="candidate-detail.html" class="twm-job-title">
-                                                <h4>واندا مونتغمري</h4>
-                                            </a>
-                                            <p>محاسب قانوني</p>
-
-                                            <div class="twm-fot-content">
-                                                <div class="twm-left-info">
-                                                    <p class="twm-candidate-address"><i class="feather-map-pin"></i>نيويورك</p>
-                                                    <div class="twm-jobs-vacancies">20 دولار<span>/ يوم</span></div>
-                                                </div>
-                                                <div class="twm-right-btn">
-                                                    <a href="candidate-detail.html" class="twm-view-prifile site-text-primary">عرض الصفحة الشخصية</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="twm-candidates-list-style1 mb-5">
-                                        <div class="twm-media">
-                                            <div class="twm-media-pic">
-                                                <img src="{{asset('assets/website/images/candidates/pic1.jpg')}}" alt="#">
-                                            </div>
-                                            <div class="twm-candidates-tag"><span>متميز</span></div>
-                                        </div>
-                                        <div class="twm-mid-content">
-                                            <a href="candidate-detail.html" class="twm-job-title">
-                                                <h4>واندا مونتغمري</h4>
-                                            </a>
-                                            <p>محاسب قانوني</p>
-
-                                            <div class="twm-fot-content">
-                                                <div class="twm-left-info">
-                                                    <p class="twm-candidate-address"><i class="feather-map-pin"></i>نيويورك</p>
-                                                    <div class="twm-jobs-vacancies">20 دولار<span>/ يوم</span></div>
-                                                </div>
-                                                <div class="twm-right-btn">
-                                                    <a href="candidate-detail.html" class="twm-view-prifile site-text-primary">عرض الصفحة الشخصية</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="twm-candidates-list-style1 mb-5">
-                                        <div class="twm-media">
-                                            <div class="twm-media-pic">
-                                                <img src="{{asset('assets/website/images/candidates/pic1.jpg')}}" alt="#">
-                                            </div>
-                                            <div class="twm-candidates-tag"><span>متميز</span></div>
-                                        </div>
-                                        <div class="twm-mid-content">
-                                            <a href="candidate-detail.html" class="twm-job-title">
-                                                <h4>واندا مونتغمري</h4>
-                                            </a>
-                                            <p>محاسب قانوني</p>
-
-                                            <div class="twm-fot-content">
-                                                <div class="twm-left-info">
-                                                    <p class="twm-candidate-address"><i class="feather-map-pin"></i>نيويورك</p>
-                                                    <div class="twm-jobs-vacancies">20 دولار<span>/ يوم</span></div>
-                                                </div>
-                                                <div class="twm-right-btn">
-                                                    <a href="candidate-detail.html" class="twm-view-prifile site-text-primary">عرض الصفحة الشخصية</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
+                                        </li>
+                                    </a>
+                                @endforeach
                             </ul>
                         </div>
 
                         <div class="pagination-outer">
                             <div class="pagination-style1">
-                                <ul class="clearfix">
-                                    <li class="prev"><a href="javascript:;"><span> <i class="fa fa-angle-left"></i> </span></a></li>
-                                    <li><a href="javascript:;">1</a></li>
-                                    <li class="active"><a href="javascript:;">2</a></li>
-                                    <li><a href="javascript:;">3</a></li>
-                                    <li><a class="javascript:;" href="javascript:;"><i class="fa fa-ellipsis-h"></i></a></li>
-                                    <li><a href="javascript:;">5</a></li>
-                                    <li class="next"><a href="javascript:;"><span> <i class="fa fa-angle-right"></i> </span></a></li>
-                                </ul>
+                                <!-- روابط التصفح -->
+                                @if ($users->hasPages())
+                                    <ul class="clearfix">
+                                        <!-- رابط الصفحة السابقة -->
+                                        @if ($users->onFirstPage())
+                                            <li class="prev disabled"><span> <i class="fa fa-angle-left"></i> </span>
+                                            </li>
+                                        @else
+                                            <li class="prev"><a href="{{ $users->previousPageUrl() }}"><span> <i
+                                                            class="fa fa-angle-left"></i> </span></a></li>
+                                        @endif
+
+                                        <!-- روابط الصفحات -->
+                                        @foreach ($users->getUrlRange(1, $users->lastPage()) as $page => $url)
+                                            @if ($page == $users->currentPage())
+                                                <li class="active"><a href="javascript:;">{{ $page }}</a></li>
+                                            @else
+                                                <li><a href="{{ $url }}">{{ $page }}</a></li>
+                                            @endif
+                                        @endforeach
+
+                                        <!-- رابط الصفحة التالية -->
+                                        @if ($users->hasMorePages())
+                                            <li class="next"><a href="{{ $users->nextPageUrl() }}"><span> <i
+                                                            class="fa fa-angle-right"></i> </span></a></li>
+                                        @else
+                                            <li class="next disabled"><span> <i class="fa fa-angle-right"></i> </span>
+                                            </li>
+                                        @endif
+
+                                    </ul>
+                                @endif
                             </div>
                         </div>
 
@@ -438,7 +150,6 @@
             </div>
         </div>
         <!-- OUR BLOG END -->
-
 
 
     </div>

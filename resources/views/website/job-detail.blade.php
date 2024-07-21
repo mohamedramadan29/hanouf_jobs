@@ -152,41 +152,42 @@
                                     </div>
                                     <div class="panel-body wt-panel-body p-a20 m-b30">
                                         @if($offers > 0)
+                                            <div class="alert alert-danger"> تم التقديم الي الوظيفة من قبل  </div>
+                                            @else
+                                            <form method="post" action="{{url('add-offer')}}" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="row">
+                                                    <!--Description-->
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <input type="hidden" name="adv_id" value="{{$adv['id']}}">
+                                                            <input type="hidden" name="company_id"
+                                                                   value="{{$adv['company_id']}}">
+                                                            <input type="hidden" name="adv_title" value="{{$adv['title']}}">
+                                                            <label> خطاب التوظيف <span style="color:red"> * </span> </label>
+                                                            <textarea required style="height: 150px;" name="cover_letter"
+                                                                      class="form-control" rows="10"
+                                                                      placeholder=" خطاب التوظيف  ">{{old('cover_letter')}}</textarea>
+                                                            <span class="span_info"> لماذا أنت مهتم بهذه الوظيفة، ما أهم خبراتك ومالذي تستطيع تقديمه؟ </span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label> إضافة ملفات مرفقة </label>
+                                                            <input multiple type="file" name="cover_files[]" class="form-group"
+                                                                   accept=".pdf, .doc, .docx" id="fileInput">
+                                                            <span class="span_info">  الامتدادات المسموحة: pdf, doc, docx. الحجم الاقصى للملف 50MB  </span>
+                                                        </div>
+                                                    </div>
 
-                                            <div class="alert alert-info"> تم التقديم الي الوظيفة من قبل  </div>
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <div class="text-left">
+                                                            <button type="submit" class="site-button m-r5"> ارسل <i
+                                                                    class="fa fa-paper-plane"> </i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         @endif
-                                        <form method="post" action="{{url('add-offer')}}" enctype="multipart/form-data">
-                                            @csrf
-                                            <div class="row">
-                                                <!--Description-->
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <input type="hidden" name="adv_id" value="{{$adv['id']}}">
-                                                        <input type="hidden" name="company_id"
-                                                               value="{{$adv['company_id']}}">
-                                                        <input type="hidden" name="adv_title" value="{{$adv['title']}}">
-                                                        <label> خطاب التوظيف <span style="color:red"> * </span> </label>
-                                                        <textarea required style="height: 150px;" name="cover_letter"
-                                                                  class="form-control" rows="10"
-                                                                  placeholder=" خطاب التوظيف  ">{{old('cover_letter')}}</textarea>
-                                                        <span class="span_info"> لماذا أنت مهتم بهذه الوظيفة، ما أهم خبراتك ومالذي تستطيع تقديمه؟ </span>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label> إضافة ملفات مرفقة </label>
-                                                        <input multiple type="file" name="cover_files[]" class="form-group"
-                                                               accept=".pdf, .doc, .docx" id="fileInput">
-                                                        <span class="span_info">  الامتدادات المسموحة: pdf, doc, docx. الحجم الاقصى للملف 50MB  </span>
-                                                    </div>
-                                                </div>
 
-                                                <div class="col-lg-12 col-md-12">
-                                                    <div class="text-left">
-                                                        <button type="submit" class="site-button m-r5"> ارسل <i
-                                                                class="fa fa-paper-plane"> </i></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
                                     </div>
                                 </div>
                             </div>
