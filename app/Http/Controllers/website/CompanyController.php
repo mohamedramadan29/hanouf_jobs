@@ -277,15 +277,19 @@ class CompanyController extends Controller
                     return redirect()->back()->withErrors($validator)->withInput();
                 }
 
-
                 if ($request->hasFile('logo')) {
                     try {
                         $filename = $this->saveImage($request->file('logo'), public_path('assets/uploads/companies'));
                         /// Delete old image
+                        // حذف الصورة القديمة إن وجدت
                         if ($company['logo'] != null && $company['logo'] != '') {
-                            unlink($company['logo'], public_path('assets/uploads/companies/' . $company['logo']));
+                            // مسار الصورة القديمة
+                            $oldFilePath = public_path('assets/uploads/companies/' . $company['logo']);
+                            // حذف الصورة القديمة
+                            if (file_exists($oldFilePath)) {
+                                unlink($oldFilePath);
+                            }
                         }
-
                         $company->update([
                             'logo' => $filename,
                         ]);
@@ -532,8 +536,10 @@ class CompanyController extends Controller
 
     }
 
-    public function start_conversation($username)
+    public function start_conversation($adv_id, $username)
     {
+        $job_id = $adv_id;
+
         $sender_username = Auth::guard('company')->user()->username;
         $reciever_username = $username;
         $last_message_time = null;
@@ -542,8 +548,11 @@ class CompanyController extends Controller
 
         $count_conversations = Coversation::where('sender_username', $sender_username)->
         where('receiver_username', $reciever_username)->
+        where('adv_id', $job_id)->
         OrWhere('sender_username', $reciever_username)->
-        where('receiver_username', $sender_username)->count();
+        where('receiver_username', $sender_username)->
+        where('adv_id', $job_id)->
+        count();
         if ($count_conversations > 0) {
             return view('website.companies.chat');
         } else {
@@ -553,6 +562,7 @@ class CompanyController extends Controller
             $conversation->sender_username = $sender_username;
             $conversation->receiver_username = $reciever_username;
             $conversation->last_time_message = $last_message_time;
+            $conversation->adv_id = $job_id;
             $conversation->save(); // حفظ المحادثة والحصول على المعرف
 
 // إضافة الرسائل

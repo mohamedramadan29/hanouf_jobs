@@ -66,16 +66,14 @@ Route::controller(CompanyController::class)->group(function () {
         Route::get('company/offer/unaccepted/{id}', 'offer_unaccepted');
         /////////// Start Conversation
         ///
-        Route::get('company/start-chat/{username}','start_conversation');
-
+        Route::get('company/chat/{adv_id}-{username}','start_conversation');
+       // Route::get('company/chat/{adv_id}-{username}', [ChatController::class, 'showChat']);
     });
 
     Route::get('chat-main',\App\Livewire\Chat\Main::class);
     Route::get('company/plan', 'plans');
     Route::get('company/chat', 'chat');
     Route::get('company/job-users', 'job_users'); // رابط المتقدمين للوظيفة
-
-
 });
 
 Route::controller(AdvertisementController::class)->group(function () {

@@ -29,8 +29,8 @@ class UserController extends Controller
 
     public function index()
     {
-        $employesfaqs = Faq::where('type','موظف')->get();
-        return view('website.users.dashboard',compact('employesfaqs'));
+        $employesfaqs = Faq::where('type', 'موظف')->get();
+        return view('website.users.dashboard', compact('employesfaqs'));
     }
 
     function register(Request $request)
@@ -278,10 +278,13 @@ class UserController extends Controller
                     try {
                         $filename = $this->saveImage($request->file('logo'), public_path('assets/uploads/users'));
                         /// Delete old image
-//                        if ($user['logo'] != null && $user['logo'] != '') {
-//                            unlink($user['logo'], public_path('assets/uploads/users/' . $user['logo']));
-//                        }
-
+                        if ($user['logo'] != null && $user['logo'] != '') {
+                            // مسار الصورة القديمة
+                            $oldFilePath = public_path('assets/uploads/users/' . $user['logo']);
+                            if(file_exists($oldFilePath)){
+                                unlink($oldFilePath);
+                            }
+                        }
                         $user->update([
                             'logo' => $filename,
                         ]);

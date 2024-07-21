@@ -1,6 +1,8 @@
 @extends('website.layouts.master')
 @section('title')
-   حسابي
+    تخير
+    |
+   {{\Illuminate\Support\Facades\Auth::user()->name}}
 @endsection
 @section('content')
 

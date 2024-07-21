@@ -118,7 +118,7 @@
                                                             <a href="{{url('talent-details/'.$offer['user']['username'])}}"
                                                                class="btn btn-primary btn-sm"> تفاصيل المتقدم<i
                                                                     class="fa fa-eye"></i> </a>
-                                                            <a href="{{url('company/start-chat/'.$offer['user']['username'])}}" class="btn btn-success btn-sm"><i
+                                                            <a href="{{url('company/chat/'.$offer['id'].'-'.$offer['user']['username'])}}" class="btn btn-success btn-sm"><i
                                                                     class="fa fa-comment"></i> محاثة
                                                             </a>
                                                             <a href="{{url('company/offer/unaccepted/'.$offer['id'])}}"

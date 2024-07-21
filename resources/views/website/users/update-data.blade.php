@@ -1,5 +1,8 @@
 @extends('website.layouts.master')
 @section('title')
+
+    تخير
+    |
     تعديل البيانات
 @endsection
 @section('content')
@@ -131,7 +134,7 @@
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> حدد الجنس </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker" name="sex"
+                                                        <select required class="wt-select-box selectpicker سثمث" name="sex"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد الجنس</option>
@@ -173,11 +176,11 @@
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد</option>
                                                             <option
-                                                                @if($user['can_placed_from_to_another'] == 'نعم') selected
+                                                                @if($user['can_placed_from_to_another'] == '1') selected
                                                                 @endif value="1">نعم
                                                             </option>
                                                             <option
-                                                                @if($user['can_placed_from_to_another'] == 'لا') selected
+                                                                @if($user['can_placed_from_to_another'] == '2') selected
                                                                 @endif value="2">لا
                                                             </option>
                                                         </select>

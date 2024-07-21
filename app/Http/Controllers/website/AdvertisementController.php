@@ -52,17 +52,35 @@ class AdvertisementController extends Controller
         $CountAllOffers = Joboffer::count();
         $CityName = City::where('id', $adv['city'])->first();
         ///// When Open Make The Notification Read
-        if (Auth::user()) {
-            $notification_id = DB::table('notifications')->where('data->adv_id', $id)->where('notifiable_id', Auth::id())->pluck('id')->first();
-            DB::table('notifications')->where('id', $notification_id)->update([
-                'read_at' => now()
-            ]);
-        } else {
-            $notification_id = DB::table('notifications')->where('data->adv_id', $id)->where('notifiable_id', Auth::guard('company')->id())->pluck('id')->first();
-            DB::table('notifications')->where('id', $notification_id)->update([
-                'read_at' => now()
-            ]);
+        if (Auth::check()) {
+            // تحقق من إشعار المستخدم العادي
+            $notification_id = DB::table('notifications')
+                ->where('data->adv_id', $id)
+                ->where('notifiable_id', Auth::id())
+                ->pluck('id')
+                ->first();
+
+            if ($notification_id) {
+//                dd($notification_id);
+                DB::table('notifications')->where('id', $notification_id)->update([
+                    'read_at' => now()
+                ]);
+            }
+        } else if (Auth::guard('company')->check()) {
+            // تحقق من إشعار مستخدم الشركة
+            $notification_id = DB::table('notifications')
+                ->where('data->adv_id', $id)
+                ->where('notifiable_id', Auth::guard('company')->id())
+                ->pluck('id')
+                ->first();
+            if ($notification_id) {
+              //  dd($notification_id);
+                DB::table('notifications')->where('id', $notification_id)->update([
+                    'read_at' => now()
+                ]);
+            }
         }
+
 
         ///////////
 

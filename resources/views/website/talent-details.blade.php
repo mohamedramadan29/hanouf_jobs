@@ -31,9 +31,12 @@
                             </div>
                         </div>
                         <br>
-                        <div class="twm-ep-detail-tags">
-                            <button class="de-info twm-bg-green"><i class="fa fa-comment"></i> محاثة</button>
-                        </div>
+                        @if(\Illuminate\Support\Facades\Auth::guard('company')->user())
+                            <div class="twm-ep-detail-tags">
+                                <button class="de-info twm-bg-green"><i class="fa fa-comment"></i> محاثة</button>
+                            </div>
+                        @endif
+
                     </div>
                 </div>
             </div>
@@ -52,7 +55,6 @@
                                     <h4 class="section-head-small mb-4">معلومات الشخصي</h4>
                                     <div class="twm-s-info-4">
                                         <div class="row">
-
                                             <div class="col-md-6">
                                                 <div class="twm-s-info-inner">
                                                     <i class="fas fa-money-bill-wave"></i>

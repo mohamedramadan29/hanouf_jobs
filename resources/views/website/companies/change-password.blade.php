@@ -110,7 +110,7 @@
                                                     <div class="ls-inputicon-box">
                                                         <input class="form-control wt-form-control" name="old_password"
                                                                type="password" placeholder="">
-                                                        <i class="fs-input-icon fa fa-asterisk "></i>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -120,7 +120,7 @@
                                                     <div class="ls-inputicon-box">
                                                         <input class="form-control wt-form-control" name="new_password"
                                                                type="password" placeholder="">
-                                                        <i class="fs-input-icon fa fa-asterisk"></i>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -129,9 +129,10 @@
                                                 <div class="form-group">
                                                     <label>تأكيد كلمة المرور الجديدة</label>
                                                     <div class="ls-inputicon-box">
-                                                        <input class="form-control wt-form-control" name="confirm_password"
+                                                        <input class="form-control wt-form-control"
+                                                               name="confirm_password"
                                                                type="password" placeholder="">
-                                                        <i class="fs-input-icon fa fa-asterisk"></i>
+
                                                     </div>
                                                 </div>
                                             </div>

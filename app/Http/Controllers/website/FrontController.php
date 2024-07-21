@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Traits\Message_Trait;
 use App\Models\admin\Advertisment;
 use App\Models\admin\Faq;
+use App\Models\admin\Jobsname;
+use App\Models\admin\Specialist;
 use App\Models\admin\Terms;
 use App\Models\User;
 use App\Models\website\ContactMessage;
@@ -15,6 +17,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Models\admin\Company;
+
 class FrontController extends Controller
 {
     use Message_Trait;
@@ -31,22 +34,23 @@ class FrontController extends Controller
 
     function faqs()
     {
-        $companyfaqs = Faq::where('type','شركة')->get();
-        $employesfaqs = Faq::where('type','موظف')->get();
-        return view('website.faqs',compact('employesfaqs','companyfaqs'));
+        $companyfaqs = Faq::where('type', 'شركة')->get();
+        $employesfaqs = Faq::where('type', 'موظف')->get();
+        return view('website.faqs', compact('employesfaqs', 'companyfaqs'));
     }
 
     public function terms()
     {
-        $term_data = Terms::orderby('id','desc')->first();
-        return view('website.terms',compact('term_data'));
+        $term_data = Terms::orderby('id', 'desc')->first();
+        return view('website.terms', compact('term_data'));
     }
 
     public function employers()
     {
-        $companyfaqs = Faq::where('type','شركة')->get();
-        return view('website.employers',compact('companyfaqs'));
+        $companyfaqs = Faq::where('type', 'شركة')->get();
+        return view('website.employers', compact('companyfaqs'));
     }
+
     public function add_contact_message(Request $request)
     {
         try {
@@ -78,11 +82,11 @@ class FrontController extends Controller
             $new_message = new ContactMessage();
 
             $new_message->create([
-                'name'=>$data['name'],
-                'email'=>$data['email'],
-                'phone'=>$data['phone'],
-                'subject'=>$data['subject'],
-                'message'=>$data['message'],
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'subject' => $data['subject'],
+                'message' => $data['message'],
             ]);
             // Send Alert New Message Notification To Admin
             $email = 'mr319242@gmail.com';
@@ -91,8 +95,8 @@ class FrontController extends Controller
                 'name' => $data['name'],
                 "email" => $data['email'],
                 'phone' => $data['phone'],
-                'subject'=>$data['subject'],
-                'contact_message'=>$data['message']
+                'subject' => $data['subject'],
+                'contact_message' => $data['message']
             ];
             Mail::send('website.mails.SendAlertNewContactMessage', $MessageDate, function ($message) use ($email) {
                 $message->to($email)->subject(' لديك رسالة تواصل جديدة من صفحة تواصل معنا  ');
@@ -112,32 +116,45 @@ class FrontController extends Controller
     ///
     public function company_details($username)
     {
-        $company_count = Company::where('username',$username)->count();
+        $company_count = Company::where('username', $username)->count();
 
-        if ($company_count > 0){
-            $company = Company::where('username',$username)->first();
-            $advs = Advertisment::where('company_id',$company['id'])->where('status','1')->get();
-            return view('website.public-company-info',compact('company','advs'));
-        }else{
+        if ($company_count > 0) {
+            $company = Company::where('username', $username)->first();
+            $advs = Advertisment::where('company_id', $company['id'])->where('status', '1')->get();
+            return view('website.public-company-info', compact('company', 'advs'));
+        } else {
             abort('404');
         }
 
     }
 
-    public function talents()
+    public function talents(Request $request)
     {
-        $users = User::with('jobs_name','location')->paginate(5);
-       // dd($users);
-        return view('website.talents',compact('users'));
+
+        $query = User::with('jobs_name', 'location');
+
+        if ($request->has('job_ids')) {
+            $jobids = $request->get('job_ids');
+            $query->whereIn('job_name', $jobids);
+        }
+        if ($request->has('special_ids')) {
+            $special_ids = $request->get('special_ids');
+            $query->whereIn('profession_specialist', $special_ids);
+        }
+        $jobs = Jobsname::all();
+        $specialists = Specialist::all();
+        $users = $query->paginate(5);
+        // dd($users);
+        return view('website.talents', compact('users', 'jobs', 'specialists'));
     }
 
     public function talent_details($username)
     {
-        $talent_count = User::where('username',$username)->count();
-        if($talent_count > 0){
-            $talent = User::with('jobs_name','location')->where('username',$username)->first();
-            return view('website.talent-details',compact('talent'));
-        }else{
+        $talent_count = User::where('username', $username)->count();
+        if ($talent_count > 0) {
+            $talent = User::with('jobs_name', 'location')->where('username', $username)->first();
+            return view('website.talent-details', compact('talent'));
+        } else {
             abort('404');
         }
 

@@ -6415,7 +6415,7 @@ button.scroltop span {
 }
 
 .wt-bnr-inr-entry .banner-title-outer .banner-title-name .wt-title {
-    color: var(--main-color);
+    color: #3E3E3E;
 }
 
 /*Breadcrumb*/
@@ -10829,17 +10829,17 @@ ol.comment-list li.comment .comment-respond .comment-form p {
 }
 
 .twm-candidates-list-style1 .twm-media .twm-media-pic {
-    width: 90px;
-    height: 90px;
+    width: 100px;
+    height: 100px;
     border-radius: 10px;
-    overflow: hidden;
     position: relative;
-    top: -50px;
-    margin-bottom: -30px;
 }
 
 .twm-candidates-list-style1 .twm-media .twm-media-pic img {
     display: inline-block;
+    border-radius: 5px;
+    width: 100px;
+    height: 100px;
 }
 
 .twm-candidates-list-style1 .twm-media .twm-candidates-tag span {

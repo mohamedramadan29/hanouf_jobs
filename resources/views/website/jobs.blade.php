@@ -76,8 +76,6 @@
                                         <button style="display: block;width: 100%" type="submit" class="site-button m-r5">بحث</button>
                                     </div>
                                 </form>
-
-
                             </div>
                         </div>
                     </div>

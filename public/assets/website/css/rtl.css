@@ -3328,6 +3328,9 @@
   padding-right: 10px;
   text-align: right;
 }
+.form-group .ls-inputicon-box  input[type='number']{
+    text-align:left !important;
+}
 .ls-inputicon-box .bootstrap-select .dropdown-toggle {
   padding-left: 0px;
   padding-right: 12px;

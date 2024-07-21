@@ -1,6 +1,8 @@
 @extends('website.layouts.master')
 @section('title')
-    حساب الشركة
+    تخير
+    |
+    {{Auth::guard('company')->user()->name}}
 @endsection
 @section('content')
 
@@ -63,7 +65,6 @@
                                 @else
                                     <img src="{{asset('assets/website/images/jobs-company/pic1.jpg')}}" alt="">
                                 @endif
-
 
                             </div>
 

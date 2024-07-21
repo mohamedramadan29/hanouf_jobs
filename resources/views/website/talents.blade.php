@@ -47,19 +47,48 @@
 
                             <div class="sidebar-elements search-bx">
 
-                                <form>
+                                <div class="sidebar-elements search-bx">
+                                    <form method="get" action="{{ url('talents') }}">
+                                        @csrf
 
-                                    <div class="form-group mb-4">
-                                        <h4 class="section-head-small mb-4">فئة</h4>
-                                        <select class="wt-select-bar-large selectpicker" data-live-search="true"
-                                                data-bv-field="size">
-                                            <option selected>كل الفئة</option>
-                                            <option>مصمم الويب</option>
-                                            <option>مطور</option>
-                                            <option>محاسب</option>
-                                        </select>
-                                    </div>
-                                </form>
+                                        <div class="twm-sidebar-ele-filter">
+                                            <h4 class="section-head-small mb-4"> المسمي الوظيفي </h4>
+                                            <ul>
+                                                @foreach($jobs as $job)
+                                                    <li>
+                                                        <div class="form-check">
+                                                            <input type="checkbox" name="job_ids[]" value="{{ $job['id'] }}" class="form-check-input" id="job_{{ $job['id'] }}" {{ in_array($job['id'], request('job_ids', [])) ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="job_{{ $job['id'] }}">
+                                                                {{ $job['title'] }}
+                                                            </label>
+                                                        </div>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+
+                                        <div class="twm-sidebar-ele-filter">
+                                            <h4 class="section-head-small mb-4"> التخصص المهني  </h4>
+                                            <ul>
+                                                @foreach($specialists as $special)
+                                                    <li>
+                                                        <div class="form-check">
+                                                            <input type="checkbox" name="special_ids[]" value="{{$special['id'] }}" class="form-check-input" id="special_{{ $special['id'] }}" {{ in_array($special['id'], request('special_ids', [])) ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="special_{{$special['id'] }}">
+                                                                {{$special['name'] }}
+                                                            </label>
+                                                        </div>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+
+
+                                        <div class="">
+                                            <button style="display: block;width: 100%" type="submit" class="site-button m-r5">بحث</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
