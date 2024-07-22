@@ -14137,6 +14137,7 @@ strong {
     background-color: #fff;
     border-bottom: 1px solid #dbdbdb;
     min-height: 85px;
+    align-items:center;
 }
 
 .wt-admin-dashboard-msg-2 .single-msg-user-name-box .message-action {

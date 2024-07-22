@@ -7,6 +7,15 @@
                      alt="">
                 <h4 class="single-msg-user-name"> {{$recieverUsers->name}}  </h4>
             </div>
+            @if(\Illuminate\Support\Facades\Auth::guard('company')->user())
+                <div>
+                    <a href="#" class="btn btn-success btn-sm"><i class="fa fa-check"></i> الموافقة </a>
+                    <a   onclick="return confirm(' هل انت متاكد من الغاء العرض وحذف الشات !!! ')" href="{{url('company/offer/unaccepted/'.$selected_conversation->id)}}"
+                       class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> الرفض </a>
+                </div>
+            @endif
+
+
         </div>
         <div id="msg-chat-wrap" class="single-user-msg-conversation scrollbar-macosx">
             @foreach($messages as $message)
@@ -18,29 +27,31 @@
                                 <div
                                     class="img_content_chat1 {{$auth_username == $message->sender_username ? '': 'img_content_chat2'}}">
                                     <div class="single-user-com-pic">
-                                        @if($message->type == 'company') <!-- Mean  the company Is Sender  -->
+                                        @if($message->type == 'company')
+                                            <!-- Mean  the company Is Sender  -->
                                             <img
                                                 src="{{asset('assets/uploads/companies/'.$this->sender_logo)}}"
                                                 alt="">
-                                        @elseif($message->type == 'employee') <!------- Mean  The emp Is Sender ---->
-                                        <img
-                                            src="{{asset('assets/uploads/users/'.$this->sender_logo)}}"
-                                            alt="">
-                                @endif
+                                        @elseif($message->type == 'employee')
+                                            <!------- Mean  The emp Is Sender ---->
+                                            <img
+                                                src="{{asset('assets/uploads/users/'.$this->sender_logo)}}"
+                                                alt="">
+                                        @endif
+                                    </div>
+                                    <div class="single-user-com-text">
+                                        {{$message->body}}
+                                    </div>
                                 </div>
-                                <div class="single-user-com-text">
-                                    {{$message->body}}
-                                </div>
-                            </div>
 
-                            <div class="single-user-msg-time"> {{$message->created_at->diffForHumans()}} </div>
+                                <div class="single-user-msg-time"> {{$message->created_at->diffForHumans()}} </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            @endforeach
+
+
         </div>
-        @endforeach
-
-
-</div>
-@endif
+    @endif
 </div>
