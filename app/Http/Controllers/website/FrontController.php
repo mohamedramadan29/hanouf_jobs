@@ -89,7 +89,7 @@ class FrontController extends Controller
                 'message' => $data['message'],
             ]);
             // Send Alert New Message Notification To Admin
-            $email = 'mr319242@gmail.com';
+            $email = env('MAIL_FROM_ADDRESS');
 
             $MessageDate = [
                 'name' => $data['name'],

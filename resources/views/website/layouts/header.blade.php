@@ -9,7 +9,7 @@
     <meta name="keywords" content="" />
     <meta name="author" content="" />
     <meta name="robots" content="" />
-    <meta name="description" content="" />
+    <meta name="description" content=" اكتشف فرص العمل التي تناسب مهاراتك " />
 
     <!-- FAVICONS ICON -->
     <link rel="icon" href="{{asset('assets/website/images/logo.png')}}" type="image/x-icon" />
