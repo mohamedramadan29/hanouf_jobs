@@ -10,7 +10,7 @@
             @if(\Illuminate\Support\Facades\Auth::guard('company')->user())
                 <div>
                     <a href="#" class="btn btn-success btn-sm"><i class="fa fa-check"></i> الموافقة </a>
-                    <a   onclick="return confirm(' هل انت متاكد من الغاء العرض وحذف الشات !!! ')" href="{{url('company/offer/unaccepted/'.$selected_conversation->id)}}"
+                    <a onclick="return confirm(' هل انت متاكد من الغاء العرض وحذف الشات !!! ')" href="{{url('company/offer/unacceptedOffer/'.$selected_conversation->id)}}"
                        class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> الرفض </a>
                 </div>
             @endif

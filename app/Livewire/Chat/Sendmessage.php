@@ -6,12 +6,15 @@ use App\Models\admin\Company;
 use App\Models\User;
 use App\Models\website\Coversation;
 use App\Models\website\Message;
+use App\Notifications\NewMessage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 
 class Sendmessage extends Component
 {
 
-    public $listeners = ['update_dataCompany', 'update_dataUsers','dispatchMessageSend'];
+    public $listeners = ['update_dataCompany', 'update_dataUsers', 'dispatchMessageSend'];
     public $message_body;
     public $selected_conversation;
     public $recieverUsers;
@@ -19,6 +22,7 @@ class Sendmessage extends Component
     public $sender;
     public $create_message;
     public $sender_type;
+    public $notification_Model;
 
     public function update_dataCompany(Coversation $coversation, User $reciever)
     {
@@ -43,7 +47,8 @@ class Sendmessage extends Component
             $this->img_path = 'assets/uploads/companies/';
             $this->auth_username = auth()->user()->username; // الحارس الافتراضي للمستخدم العادي
             $this->sender = auth()->user();
-            $this->sender_type='employee';
+            $this->sender_type = 'employee';
+
         }
     }
 
@@ -57,8 +62,18 @@ class Sendmessage extends Component
             'sender_username' => $this->auth_username,
             'receiver_username' => $this->recieverUsers->username,
             'body' => $this->message_body,
-            'type'=> $this->sender_type,
+            'type' => $this->sender_type,
         ]);
+        if ($this->sender_type == 'company') {
+            $user = User::where('username', $this->recieverUsers->username)->first();
+
+        } elseif ($this->sender_type == 'employee') {
+            $user = Company::where('username', $this->recieverUsers->username)->first();
+
+        }
+
+       // dd($sender_username);
+
         //dd('message send');
         $this->selected_conversation->last_time_message = $this->create_message->created_at;
         $this->selected_conversation->save();
@@ -69,16 +84,18 @@ class Sendmessage extends Component
         $this->dispatch('refresh')->to('chat.chatlist');
         ////////// For start RealTimeChat
         $this->dispatch('dispatchMessageSend')->self();
+        // Send Notification New Message To Reciever
+        Notification::send($user, new NewMessage($this->selected_conversation->id, $this->auth_username));
     }
 
     public function dispatchMessageSend()
     {
-        if (auth()->guard('company')->check()){
+        if (auth()->guard('company')->check()) {
             broadcast(new \App\Events\SendMessage
-            ($this->sender, $this->recieverUsers, $this->selected_conversation,$this->create_message));
-        }else{
+            ($this->sender, $this->recieverUsers, $this->selected_conversation, $this->create_message));
+        } else {
             broadcast(new \App\Events\SendMessage2
-            ($this->sender, $this->recieverUsers, $this->selected_conversation,$this->create_message));
+            ($this->sender, $this->recieverUsers, $this->selected_conversation, $this->create_message));
         }
     }
 

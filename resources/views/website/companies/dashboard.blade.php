@@ -83,10 +83,10 @@
                                             الوظائف</a></li>
                                     <li><a href="{{url('company/add-job')}}"><i class="fa fa-user"></i> اضف وظيفة جديدة
                                         </a></li>
-                                    <li><a href="{{url('company/chat')}}"><i class="fa fa-comments"></i> المحادثات </a>
+                                    <li><a href="{{url('chat-main')}}"><i class="fa fa-comments"></i> المحادثات </a>
                                     </li>
-                                    <li><a href="{{url('company/plan')}}"><i class="fa fa-credit-card"></i> ادارة الخطة
-                                        </a></li>
+{{--                                    <li><a href="{{url('company/plan')}}"><i class="fa fa-credit-card"></i> ادارة الخطة--}}
+{{--                                        </a></li>--}}
                                     <li><a href="{{url('company/change-password')}}"><i class="fa fa-fingerprint"></i>
                                             تغيير كلمة المرور</a></li>
                                     <li><a href="{{url('company/logout')}}"><i class="fa fa-share-square"></i> تسجيل

@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Models\website\Coversation;
 use App\Models\website\Joboffer;
 use App\Models\website\Message;
+use App\Notifications\NewMessage;
 use App\Notifications\SendUnaccepedOfferToUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -510,7 +511,6 @@ class CompanyController extends Controller
     {
         try {
             $offer = Joboffer::findOrFail($id);
-
             // Get The User
             $user_id = $offer['user_id'];
             $user = User::where('id', $user_id)->get();
@@ -536,20 +536,52 @@ class CompanyController extends Controller
 
     }
 
+    public function offer_unacceptedafterchat($conversation_id)
+    {
+       // dd($conversation_id);
+
+
+        /////////// ١ - Get the Offer Data From Conversation
+        ///
+        $conversation  = Coversation::findOrFail($conversation_id);
+        $offer_id = $conversation['offer_id'];
+        $offer = Joboffer::findOrFail($offer_id);
+        ///// Update offer Status
+        $offer->update([
+            'offer_status' => 'مرفوض',
+        ]);
+        ////// Send Notification To User
+        ///
+        // Get The User
+        $user_id = $offer['user_id'];
+        $user = User::where('id', $user_id)->get();
+        $adv_id = $offer['adv_id'];
+        $adv = Advertisment::where('id', $adv_id)->first();
+        $adv_slug = $adv['slug'];
+        $adv_name = $adv['title'];
+        Notification::send($user, new SendUnaccepedOfferToUser($user_id, $adv_id, $adv_slug, $adv_name));
+
+        // Delete The Conversation Between User And Company
+        ///
+        ///
+        $conversation  = Coversation::findOrFail($conversation_id);
+        $conversation->delete();
+        return Redirect::to('company/job/offers/'.$adv_id)->with(['Success_message' => ' تم رفض العرض المقدم  ']);
+    }
+
     public function start_conversation($adv_id, $username)
     {
         $job_id = $adv_id;
-
         $sender_username = Auth::guard('company')->user()->username;
         $reciever_username = $username;
         $last_message_time = null;
         /////////// chat If this Users Sender And Reciever Have Conversation Or Not
         $count_conversations = Coversation::where('sender_username', $sender_username)->
         where('receiver_username', $reciever_username)->
-        where('adv_id', $job_id)->
+        where('offer_id', $job_id)->
         OrWhere('sender_username', $reciever_username)->
         where('receiver_username', $sender_username)->
-        where('adv_id', $job_id)->
+        where('offer_id', $job_id)->
         count();
         if ($count_conversations > 0) {
             return Redirect::to('chat-main');
@@ -561,7 +593,7 @@ class CompanyController extends Controller
             $conversation->sender_username = $sender_username;
             $conversation->receiver_username = $reciever_username;
             $conversation->last_time_message = $last_message_time;
-            $conversation->adv_id = $job_id;
+            $conversation->offer_id = $job_id;
             $conversation->save(); // حفظ المحادثة والحصول على المعرف
 // إضافة الرسائل
             $message = new Message();
@@ -572,6 +604,10 @@ class CompanyController extends Controller
             $message->type = 'company';
             $message->save(); // حفظ الرسالة
             // return view('chat-main');
+            ///////// Send Notification To User Company Start Chat
+            ///
+            $user = User::where('username',$reciever_username)->first();
+            Notification::send($user,new NewMessage($conversation->id,$sender_username));
             return Redirect::to('chat-main');
         }
 

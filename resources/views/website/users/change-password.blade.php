@@ -75,6 +75,10 @@
                                     <li><a href="{{url('user/update')}}"><i class="fa fa-edit"></i> تعديل الملف الشخصي
                                         </a></li>
 
+                                    <li><a href="{{url('chat-main')}}"><i class="fa fa-comments"></i> المحادثات </a>
+                                    </li>
+
+
                                     <li><a href="{{url('user/alerts')}}"><i class="fa fa-bell"></i>   تنبيهات مهمة
                                         </a></li>
 

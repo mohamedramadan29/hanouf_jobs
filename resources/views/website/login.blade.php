@@ -109,16 +109,7 @@
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <button type="submit" class="log_with_google">
-                                                                <img
-                                                                    src="{{asset('assets/website/images/google-icon.png')}}"
-                                                                    alt="">
-                                                                تابع مع جوجل
-                                                            </button>
-                                                        </div>
-                                                    </div>
+
                                                 </div>
                                             </form>
                                         </div>
@@ -165,16 +156,7 @@
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <button type="submit" class="log_with_google">
-                                                                <img
-                                                                    src="{{asset('assets/website/images/google-icon.png')}}"
-                                                                    alt="">
-                                                                تابع مع جوجل
-                                                            </button>
-                                                        </div>
-                                                    </div>
+
                                                 </div>
                                             </form>
                                         </div>

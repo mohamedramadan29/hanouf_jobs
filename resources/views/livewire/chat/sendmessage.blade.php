@@ -1,3 +1,4 @@
+<div style="margin-top: 90px">
 <div class="single-msg-reply-comment">
     @if($selected_conversation)
     <form action="" wire:submit.prevent="sendmessage">
@@ -8,4 +9,5 @@
     </div>
     </form>
     @endif
+</div>
 </div>

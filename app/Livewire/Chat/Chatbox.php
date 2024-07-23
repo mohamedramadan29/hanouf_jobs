@@ -6,6 +6,7 @@ use App\Models\admin\Company;
 use App\Models\User;
 use App\Models\website\Coversation;
 use App\Models\website\Message;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Chatbox extends Component
@@ -66,20 +67,49 @@ class Chatbox extends Component
     {
         //$this->dispatch('refresh')->to('chat.chat-list');
 
-
+      ///dd($event);
         $broadcatsmessage = Message::find($event['body']);
-        $broadcatsmessage->read = 1;
-        $this->pushMessage($broadcatsmessage->id);
+        if (!$broadcatsmessage) {
+            // Handle the case where the message is not found
+            return;
+        }
+        // Check if any selected conversation is set
+        if ($this->selected_conversation) {
+            // Check if Auth/current selected conversation is same as broadcasted selected conversation
+            if ((int) $this->selected_conversation->id === (int) $event['conversation_id']) {
+                // Mark message as read
+                $broadcatsmessage->read = 1;
+                $this->pushMessage($broadcatsmessage->id);
+
+            }
+
+        }
+
+
+
     }
 
     public function broadcastMessage2($event)
     {
+       /// dd($event);
 
-        //$this->dispatch('refresh')->to('chat.chat-list');
         $broadcatsmessage2 = Message::find($event['body']);
-        $broadcatsmessage2->read = 1;
+        if (!$broadcatsmessage2) {
+            // Handle the case where the message is not found
+            return;
+        }
+        // Check if any selected conversation is set
+        if ($this->selected_conversation) {
+            // Check if Auth/current selected conversation is same as broadcasted selected conversation
+            if ((int) $this->selected_conversation->id === (int) $event['conversation_id']) {
+                // Mark message as read
+                $broadcatsmessage2->read = 1;
+                $this->pushMessage($broadcatsmessage2->id);
 
-        $this->pushMessage($broadcatsmessage2->id);
+            }
+
+        }
+
     }
 
 
@@ -90,6 +120,11 @@ class Chatbox extends Component
 
         $this->messages = Message::where('conversation_id', $this->selected_conversation->id)->get();
         // dd($this->messages);
+
+        ///////Make the Message Notitifcation IS Read
+        $notifications = DB::table('notifications')
+            ->where('notifiable_id', $this->auth_id)
+            ->where('type', 'App\Notifications\NewMessage')->update(['read_at' => now()]);
     }
 
     public function load_conversationUsers(Coversation $coversation, Company $reciever)
@@ -98,6 +133,10 @@ class Chatbox extends Component
         $this->recieverUsers = $reciever;
         $this->messages = Message::where('conversation_id', $this->selected_conversation->id)->get();
         // dd($this->messages);
+        ///////Make the Message Notitifcation IS Read
+        $notifications = DB::table('notifications')
+            ->where('notifiable_id', $this->auth_id)
+            ->where('type', 'App\Notifications\NewMessage')->update(['read_at' => now()]);
     }
 
 
@@ -106,6 +145,7 @@ class Chatbox extends Component
     {
         $newMessage = Message::find($message);
         $this->messages->push($newMessage);
+
     }
 
     public function render()

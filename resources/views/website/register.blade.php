@@ -54,7 +54,7 @@
                                     <div class="tab-content" id="myTab2Content">
                                         <!--Login Candidate Content-->
                                         <div class="tab-pane fade show active" id="twm-login-candidate">
-                                            <form action="{{url('user/register')}}" method="post">
+                                            <form id="UserRegister" action="{{url('user/register')}}" method="post">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-lg-12">
@@ -126,30 +126,27 @@
                                                             </select>
                                                         </div>
                                                     </div>
-
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <button type="submit" class="site-button"> حساب جديد
+                                                            <button id="submitBtnUser" type="submit" class="site-button"> حساب جديد
                                                             </button>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <span class="center-text-or">أو</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <button type="submit" class="log_with_google">
-                                                                <i class="fab fa-google"></i>
-                                                                تابع مع جوجل
-                                                            </button>
+                                                            <span class="loader" id="loaderUser"
+                                                                  style="display: none;">جاري الإرسال...</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </form>
                                         </div>
+
+                                        <script>
+                                            document.getElementById('UserRegister').addEventListener('submit', function (event) {
+                                                document.getElementById('submitBtnUser').disabled = true; // تعطيل زر الإرسال
+                                                document.getElementById('submitBtnUser').style.display = 'none'; // إخفاء زر الإرسال
+                                                document.getElementById('loaderUser').style.display = 'inline'; // إظهار مؤشر التحميل
+                                            });
+                                        </script>
+
+
                                         <!--Login Employer Content-->
                                         <div class="tab-pane fade" id="twm-login-Employer">
                                             @if (Session::has('Success_message'))
@@ -164,7 +161,7 @@
                                                     @endphp
                                                 @endforeach
                                             @endif
-                                                <form action="{{url('company/register')}}" method="post">
+                                                <form id="CompanyRegister" action="{{url('company/register')}}" method="post">
                                                     @csrf
                                                     <div class="row">
                                                         <div class="col-lg-12">
@@ -243,28 +240,31 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <button type="submit" class="site-button"> حساب جديد
-                                                                </button>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <span class="center-text-or">أو</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <button type="submit" class="log_with_google">
-                                                                    <i class="fab fa-google"></i>
-                                                                    تابع مع جوجل
-                                                                </button>
-                                                            </div>
+                                                        <div class="form-group">
+                                                            <button id="submitBtncompany" type="submit" class="site-button"> حساب جديد
+                                                            </button>
+                                                            <span class="loader" id="loaderCompany"
+                                                                  style="display: none;">جاري الإرسال...</span>
                                                         </div>
                                                     </div>
                                                 </form>
+
+
+                                                <script>
+                                                    document.getElementById('CompanyRegister').addEventListener('submit', function (event) {
+                                                        document.getElementById('submitBtncompany').disabled = true; // تعطيل زر الإرسال
+                                                        document.getElementById('submitBtncompany').style.display = 'none'; // إخفاء زر الإرسال
+                                                        document.getElementById('loaderCompany').style.display = 'inline'; // إظهار مؤشر التحميل
+                                                    });
+                                                </script>
+
+
+                                                <style>
+                                                    .loader {
+                                                        font-size: 16px;
+                                                        color: var(--main-color);
+                                                    }
+                                                </style>
                                         </div>
 
                                     </div>
