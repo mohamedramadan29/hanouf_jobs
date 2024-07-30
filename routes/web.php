@@ -64,6 +64,8 @@ Route::controller(CompanyController::class)->group(function () {
         Route::get('company/job/offers/{id}', 'talent_offers');
         ///////// Unaccepted offer
         Route::get('company/offer/unaccepted/{conversation_id}', 'offer_unaccepted');
+        //// accepted Offer
+        Route::get('company/offer/acceptedOffer/{conversation_id}', 'offer_accepted');
         ////// Unaccepted Offer After Chat
         Route::get('company/offer/unacceptedOffer/{conversation_id}', 'offer_unacceptedafterchat');
         /////////// Start Conversation

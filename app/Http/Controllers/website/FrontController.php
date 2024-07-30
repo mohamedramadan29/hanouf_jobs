@@ -143,8 +143,7 @@ class FrontController extends Controller
         }
         $jobs = Jobsname::all();
         $specialists = Specialist::all();
-        $users = $query->paginate(5);
-        // dd($users);
+        $users = $query->where('job_name','!=','')->where('profession_specialist','!=','')->where('city','!=','')->paginate(5);
         return view('website.talents', compact('users', 'jobs', 'specialists'));
     }
 

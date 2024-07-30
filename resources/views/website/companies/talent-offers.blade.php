@@ -109,20 +109,35 @@
                                                         @endif
                                                     </div>
                                                     <div class="twm-right-btn">
-                                                        @if($offer['offer_status'] == 'مرفوض')
-                                                            <button
-                                                                class="btn btn-danger btn-sm"><i class="">X</i> تم رفض
-                                                                العرض
-                                                            </button>
-                                                        @else
+
+                                                        @if($offer['offer_status'] == null || $offer['offer_status'] == '')
                                                             <a href="{{url('talent-details/'.$offer['user']['username'])}}"
                                                                class="btn btn-primary btn-sm"> تفاصيل المتقدم<i
                                                                     class="fa fa-eye"></i> </a>
-                                                            <a href="{{url('company/chat/'.$offer['id'].'-'.$offer['user']['username'])}}" class="btn btn-success btn-sm"><i
+                                                            <a href="{{url('company/chat/'.$offer['id'].'-'.$offer['user']['username'])}}"
+                                                               class="btn btn-success btn-sm"><i
                                                                     class="fa fa-comment"></i> محاثة
                                                             </a>
                                                             <a href="{{url('company/offer/unaccepted/'.$offer['id'])}}"
                                                                class="btn btn-danger btn-sm"><i class="">X</i> رفض العرض</a>
+                                                        @elseif($offer['offer_status'] == 'مرفوض')
+                                                            <button
+                                                                class="btn btn-danger btn-sm"><i class="">X</i> تم رفض
+                                                                العرض
+                                                            </button>
+                                                            <a href="{{url('company/chat/'.$offer['id'].'-'.$offer['user']['username'])}}"
+                                                               class="btn btn-success btn-sm"><i
+                                                                    class="fa fa-comment"></i> محاثة
+                                                            </a>
+                                                        @elseif($offer['offer_status'] == 'مقبول')
+                                                            <button
+                                                                class="btn btn-success btn-sm"><i
+                                                                    class="fa fa-check"></i> تم قبول العرض
+                                                            </button>
+                                                            <a href="{{url('company/chat/'.$offer['id'].'-'.$offer['user']['username'])}}"
+                                                               class="btn btn-success btn-sm"><i
+                                                                    class="fa fa-comment"></i> محاثة
+                                                            </a>
                                                         @endif
 
                                                     </div>

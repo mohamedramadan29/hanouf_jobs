@@ -8,13 +8,30 @@
                 <h4 class="single-msg-user-name"> {{$recieverUsers->name}}  </h4>
             </div>
             @if(\Illuminate\Support\Facades\Auth::guard('company')->user())
-                <div>
-                    <a href="#" class="btn btn-success btn-sm"><i class="fa fa-check"></i> الموافقة </a>
-                    <a onclick="return confirm(' هل انت متاكد من الغاء العرض وحذف الشات !!! ')" href="{{url('company/offer/unacceptedOffer/'.$selected_conversation->id)}}"
-                       class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> الرفض </a>
-                </div>
-            @endif
+                @php
+                    $offer_id = $selected_conversation->offer_id;
+                    $offer_data = \App\Models\website\Joboffer::where('id',$offer_id)->first();
+                    $offer_status = $offer_data['offer_status'];
+                @endphp
 
+                @if($offer_status == '' || $offer_status == null)
+                    <div>
+                        <a href="{{url('company/offer/acceptedOffer/'.$selected_conversation->id)}}" class="btn btn-success btn-sm"><i class="fa fa-check"></i> الموافقة </a>
+                        <a onclick="return confirm('  هل انت متاكد من رفض العرض المقدم  !!! ')"
+                           href="{{url('company/offer/unacceptedOffer/'.$selected_conversation->id)}}"
+                           class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> الرفض </a>
+                    </div>
+                @elseif($offer_status == 'مرفوض')
+                    <div>
+                        <button class="btn btn-danger"><i> x </i> تم رفض العرض</button>
+                    </div>
+                @elseif($offer_status == 'مقبول')
+                    <div>
+                        <button class="btn btn-success"><i class="fa fa-check"></i> تم قبول العرض</button>
+                    </div>
+                @endif
+
+            @endif
 
         </div>
         <div id="msg-chat-wrap" class="single-user-msg-conversation scrollbar-macosx">

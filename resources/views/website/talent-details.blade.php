@@ -31,76 +31,127 @@
                             </div>
                         </div>
                         <br>
-                        @if(\Illuminate\Support\Facades\Auth::guard('company')->user())
-                            <div class="twm-ep-detail-tags">
-                                <button class="de-info twm-bg-green"><i class="fa fa-comment"></i> محاثة</button>
-                            </div>
-                        @endif
-
                     </div>
                 </div>
             </div>
             <div class="container">
-
-
                 <div class="section-content">
-
                     <div class="row d-flex justify-content-center">
-
                         <div class="col-lg-9 col-md-12">
                             <!-- Candidate detail START -->
                             <div class="cabdidate-de-info">
+                                <h4 class="twm-s-title m-t0">ْعَنِّي</h4>
+                                <p> {{$talent['info']}} </p>
 
                                 <div class="twm-s-info-wrap mb-5">
-                                    <h4 class="section-head-small mb-4">معلومات الشخصي</h4>
+                                    <br>
+                                    <h4 class="section-head-small mb-4"> معلومات الموظف </h4>
                                     <div class="twm-s-info-4">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="twm-s-info-inner">
-                                                    <i class="fas fa-money-bill-wave"></i>
+                                                    <span class="twm-title"> المسمي الوظيفي  </span>
+                                                    <div class="twm-s-info-discription"> {{$talent['jobs_name']['title']}} </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="twm-s-info-inner">
+                                                    <span class="twm-title"> التخصص </span>
+                                                    <div
+                                                        class="twm-s-info-discription"> {{$talent['specialist']['name']}} </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="twm-s-info-inner">
+
+                                                    <span class="twm-title">  الجنسية  </span>
+                                                    <div
+                                                        class="twm-s-info-discription"> {{$talent['nationality']}} </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="twm-s-info-inner">
+
+                                                    <span class="twm-title">جنس</span>
+                                                    <div class="twm-s-info-discription"> {{$talent['sex']}} </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="twm-s-info-inner">
+                                                    <span class="twm-title"> المدينة  </span>
+                                                    <div
+                                                        class="twm-s-info-discription">  {{$talent['location']['name']}}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="twm-s-info-inner">
+                                                    <span class="twm-title">
+إمكانية التنقل من مدينة أخرى للعمل   </span>
+                                                    <div
+                                                        class="twm-s-info-discription">
+                                                        @if($talent['can_placed_from_to_another'] == 1) نعم@else
+                                                            لا
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-6">
+                                                <div class="twm-s-info-inner">
+
+                                                    <span class="twm-title"> طبيعة العمل  </span>
+                                                    @php
+                                                        $work_types = explode(',',$talent['work_type']);
+                                                    @endphp
+                                                    <div class="twm-s-info-discription">
+                                                    @foreach($work_types as $work_type)
+                                                        {{$work_type}} |
+                                                    @endforeach
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="twm-s-info-inner">
+                                                    <span class="twm-title"> اللغة   </span>
+                                                    @php
+                                                        $languages = explode(',',$talent['language']);
+                                                    @endphp
+                                                    <div class="twm-s-info-discription">
+                                                        @foreach($languages as $lang)
+                                                            {{$lang}} |
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="twm-s-info-inner">
+                                                    <span class="twm-title">  مستوي اللغة  </span>
+                                                    <div class="twm-s-info-discription">
+                                                     {{$talent['language_level']}}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="twm-s-info-inner">
+
                                                     <span class="twm-title">عرض الراتب</span>
                                                     <div class="twm-s-info-discription"> {{$talent['salary']}} </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="twm-s-info-inner">
-                                                    <i class="fas fa-clock"></i>
+
                                                     <span class="twm-title">خبرة</span>
                                                     <div class="twm-s-info-discription">{{ $talent['experience']  }}
                                                         سنوات
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="twm-s-info-inner">
-                                                    <i class="fas fa-venus-mars"></i>
-                                                    <span class="twm-title">جنس</span>
-                                                    <div class="twm-s-info-discription"> {{$talent['sex']}} </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="twm-s-info-inner">
-                                                    <i class="fas fa-mobile-alt"></i>
-                                                    <span class="twm-title">  الجنسية  </span>
-                                                    <div
-                                                        class="twm-s-info-discription"> {{$talent['nationality']}} </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="twm-s-info-inner">
-                                                    <i class="fas fa-at"></i>
-                                                    <span class="twm-title"> التخصص </span>
-                                                    <div
-                                                        class="twm-s-info-discription"> {{$talent['specialist']['name']}} </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="twm-s-info-inner">
-
-                                                    <i class="fas fa-map-marker-alt"></i>
-                                                    <span class="twm-title">عنوان</span>
-                                                    <div
-                                                        class="twm-s-info-discription">  {{$talent['location']['name']}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -110,8 +161,6 @@
                                     </div>
                                 </div>
 
-                                <h4 class="twm-s-title m-t0">ْعَنِّي</h4>
-                                <p> {{$talent['info']}} </p>
                             </div>
                         </div>
 

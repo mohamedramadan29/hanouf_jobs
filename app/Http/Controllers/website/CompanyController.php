@@ -16,6 +16,7 @@ use App\Models\website\Coversation;
 use App\Models\website\Joboffer;
 use App\Models\website\Message;
 use App\Notifications\NewMessage;
+use App\Notifications\SendAcceptedOffer;
 use App\Notifications\SendUnaccepedOfferToUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -338,7 +339,11 @@ class CompanyController extends Controller
                     'notification_timeslot' => 'required',
                     'salary' => 'required',
                     'description' => 'required',
+                    'new_work_place' => 'required',
                     'title' => 'required',
+                    'new_work_time' => 'required',
+                    'new_age' => 'required',
+
                 ];
                 $messages = [
                     'nationality.required' => ' من فضلك حدد الجنسية  ',
@@ -369,7 +374,10 @@ class CompanyController extends Controller
                     'job_requirements' => $data['job_requirements'],
                     'job_experience' => $data['job_experience'],
                     'job_advantage' => $data['job_advantage'],
-                    'job_needed' => $data['job_needed']
+                    'job_needed' => $data['job_needed'],
+                    'new_work_time' => $data['new_work_time'],
+                    'new_work_place' => $data['new_work_place'],
+                    'new_age' => $data['new_age'],
                 ]);
                 return $this->success_message('  تم اضافة الاعلان بنجاح من فضلك انتظر التفعيل من الادارة !!  ');
             }
@@ -417,7 +425,10 @@ class CompanyController extends Controller
                     'notification_timeslot' => 'required',
                     'salary' => 'required',
                     'description' => 'required',
+                    'new_work_place' => 'required',
                     'title' => 'required',
+                    'new_work_time' => 'required',
+                    'new_age' => 'required',
                 ];
                 $messages = [
                     'nationality.required' => ' من فضلك حدد الجنسية  ',
@@ -445,6 +456,9 @@ class CompanyController extends Controller
                     'job_experience' => $data['job_experience'],
                     'job_advantage' => $data['job_advantage'],
                     'job_needed' => $data['job_needed'],
+                    'new_work_time' => $data['new_work_time'],
+                    'new_work_place' => $data['new_work_place'],
+                    'new_age' => $data['new_age'],
                     'status' => 0,
                 ]);
                 return $this->success_message('  تم تعديل الاعلان بنجاح من فضلك انتظر التفعيل من الادارة !!  ');
@@ -509,6 +523,7 @@ class CompanyController extends Controller
     ///
     public function offer_unaccepted($id)
     {
+
         try {
             $offer = Joboffer::findOrFail($id);
             // Get The User
@@ -538,12 +553,9 @@ class CompanyController extends Controller
 
     public function offer_unacceptedafterchat($conversation_id)
     {
-       // dd($conversation_id);
-
-
         /////////// ١ - Get the Offer Data From Conversation
         ///
-        $conversation  = Coversation::findOrFail($conversation_id);
+        $conversation = Coversation::findOrFail($conversation_id);
         $offer_id = $conversation['offer_id'];
         $offer = Joboffer::findOrFail($offer_id);
         ///// Update offer Status
@@ -564,9 +576,36 @@ class CompanyController extends Controller
         // Delete The Conversation Between User And Company
         ///
         ///
-        $conversation  = Coversation::findOrFail($conversation_id);
-        $conversation->delete();
-        return Redirect::to('company/job/offers/'.$adv_id)->with(['Success_message' => ' تم رفض العرض المقدم  ']);
+//        $conversation  = Coversation::findOrFail($conversation_id);
+//        $conversation->delete();
+        return Redirect::to('company/job/offers/' . $adv_id)->with(['Success_message' => ' تم رفض العرض المقدم  ']);
+    }
+
+
+    public function offer_accepted($conversation_id)
+    {
+        /////////// ١ - Get the Offer Data From Conversation
+        ///
+        $conversation = Coversation::findOrFail($conversation_id);
+        $offer_id = $conversation['offer_id'];
+        $offer = Joboffer::findOrFail($offer_id);
+        ///// Update offer Status
+        $offer->update([
+            'offer_status' => 'مقبول',
+        ]);
+        ////// Send Notification To User
+        ///
+        // Get The User
+        $user_id = $offer['user_id'];
+        $user = User::where('id', $user_id)->get();
+        $adv_id = $offer['adv_id'];
+        $adv = Advertisment::where('id', $adv_id)->first();
+        $adv_slug = $adv['slug'];
+        $adv_name = $adv['title'];
+        Notification::send($user, new SendAcceptedOffer($user_id, $adv_id, $adv_slug, $adv_name));
+
+        return Redirect::to('company/job/offers/' . $adv_id)->with(['Success_message' => ' تم  قبول العرض المقدم  ']);
+
     }
 
     public function start_conversation($adv_id, $username)
@@ -575,6 +614,15 @@ class CompanyController extends Controller
         $sender_username = Auth::guard('company')->user()->username;
         $reciever_username = $username;
         $last_message_time = null;
+        //////// Get The Job Data to Get The Job Name
+        ///
+
+        // Get The Offer Data
+        $offerdata = Joboffer::findOrFail($adv_id);
+        $advertiment_id = $offerdata['adv_id'];
+
+        $advertiment_data = Advertisment::findOrFail($advertiment_id);
+        $advertiment_title = $advertiment_data['title'];
         /////////// chat If this Users Sender And Reciever Have Conversation Or Not
         $count_conversations = Coversation::where('sender_username', $sender_username)->
         where('receiver_username', $reciever_username)->
@@ -585,7 +633,7 @@ class CompanyController extends Controller
         count();
         if ($count_conversations > 0) {
             return Redirect::to('chat-main');
-           // return view('website.companies.chat');
+            // return view('website.companies.chat');
         } else {
             ///////// Start Create Conversation
             ///
@@ -594,20 +642,21 @@ class CompanyController extends Controller
             $conversation->receiver_username = $reciever_username;
             $conversation->last_time_message = $last_message_time;
             $conversation->offer_id = $job_id;
+            $conversation->last_time_message = now();
             $conversation->save(); // حفظ المحادثة والحصول على المعرف
 // إضافة الرسائل
             $message = new Message();
             $message->conversation_id = $conversation->id; // استخدام معرف المحادثة التي تم إنشاؤها للتو
             $message->sender_username = $sender_username;
             $message->receiver_username = $reciever_username;
-            $message->body =  ' بداية محادثة بخصوص العرض المقدم علي وظيفة ';
+            $message->body = $advertiment_title . ' بداية محادثة بخصوص العرض المقدم علي وظيفة ';
             $message->type = 'company';
             $message->save(); // حفظ الرسالة
             // return view('chat-main');
             ///////// Send Notification To User Company Start Chat
             ///
-            $user = User::where('username',$reciever_username)->first();
-            Notification::send($user,new NewMessage($conversation->id,$sender_username));
+            $user = User::where('username', $reciever_username)->first();
+            Notification::send($user, new NewMessage($conversation->id, $sender_username));
             return Redirect::to('chat-main');
         }
 

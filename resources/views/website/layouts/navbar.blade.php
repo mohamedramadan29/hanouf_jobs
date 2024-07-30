@@ -48,29 +48,29 @@
                                     <div class="dropdown notificaion-alerts">
                                         <button class="dropdown-toggle" type="button" id="dropdownMenuButton1"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                            @if(Auth::guard('company')->user()->unreadNotifications->where('type','App\Notifications\NewMessage')->count() > 0 )
-                                                <span
-                                                    class="counter"> {{Auth::guard('company')->user()->unreadNotifications->count()}} </span>
+                                            @php
+                                                $unreadMessageNotifications = Auth::guard('company')->user()->unreadNotifications->where('type', 'App\Notifications\NewMessage');
+                                            @endphp
+
+                                            @if($unreadMessageNotifications->count() > 0)
+                                                <span class="counter"> {{$unreadMessageNotifications->count()}} </span>
                                             @endif
                                             <i class="fa fa-envelope"></i>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            @if(Auth::guard('company')->user()->unreadNotifications->where('type','App\Notifications\NewMessage')->count() > 0 )
-                                                @foreach(\Illuminate\Support\Facades\Auth::guard('company')->user()->unreadNotifications as $notification)
-
-                                                    <li><a class="dropdown-item"
-                                                           href="{{url('chat-main')}}"> {{$notification['data']['title']}}
-                                                            {{$notification['data']['sender_username']}}
+                                            @if($unreadMessageNotifications->count() > 0)
+                                                @foreach($unreadMessageNotifications as $notification)
+                                                    <li>
+                                                        <a class="dropdown-item" href="{{url('chat-main')}}">
+                                                            {{$notification['data']['title']}} {{$notification['data']['sender_username']}}
                                                             <br>
-                                                            <span class="timer"> <i class="fa fa-clock"></i>  {{$notification->created_at->diffForHumans()}}  </span>
+                                                            <span class="timer"><i class="fa fa-clock"></i> {{$notification->created_at->diffForHumans()}}</span>
                                                         </a>
                                                     </li>
                                                     <hr>
-
                                                 @endforeach
                                             @else
-                                                <li><a class="dropdown-item"> لا يوجد لديك رسائل في الوقت
-                                                        الحالي </a>
+                                                <li><a class="dropdown-item"> لا يوجد لديك رسائل في الوقت الحالي </a>
                                                 </li>
                                                 <hr>
                                             @endif
@@ -82,15 +82,18 @@
 
                                         <button class="dropdown-toggle" type="button" id="dropdownMenuButton1"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                            @if(Auth::guard('company')->user()->unreadNotifications->count() > 0)
-                                                <span
-                                                    class="counter"> {{Auth::guard('company')->user()->unreadNotifications->count()}} </span>
+                                            @php
+                                                $unreadNotificationsCompany = \Illuminate\Support\Facades\Auth::guard('company')->user()->unreadNotifications->filter(function($notification) {
+                                                    return $notification['type'] !== 'App\Notifications\NewMessage';
+                                                });
+                                            @endphp
+                                            @if($unreadNotificationsCompany->count() > 0)
+                                                <span class="counter"> {{$unreadNotificationsCompany->count()}} </span>
                                             @endif
-
                                             <i class="fa fa-bell"></i>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            @forelse (\Illuminate\Support\Facades\Auth::guard('company')->user()->unreadNotifications as $notification)
+                                            @forelse ($unreadNotificationsCompany as $notification)
                                                 @if($notification['type'] == 'App\Notifications\SendJobAcceptedFromAdmin')
                                                     <li><a class="dropdown-item"
                                                            href="{{url('job/'.$notification['data']['adv_id'].'-'.$notification['data']['slug'])}}"> {{$notification['data']['title']}}
@@ -111,16 +114,6 @@
 
                                                     </li>
                                                     <hr>
-                                                @elseif($notification['type'] == 'App\Notifications\NewMessage')
-                                                    <li><a class="dropdown-item"
-                                                           href="{{url('chat-main')}}"> {{$notification['data']['title']}}
-                                                            {{$notification['data']['sender_username']}}
-                                                            <br>
-                                                            <span class="timer"> <i class="fa fa-clock"></i>  {{$notification->created_at->diffForHumans()}}  </span>
-                                                        </a>
-                                                    </li>
-                                                    <hr>
-
                                                 @endif
 
                                             @empty
@@ -155,26 +148,27 @@
                                             <i class="fa fa-envelope"></i>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            @if(Auth::user()->unreadNotifications->where('type','App\Notifications\NewMessage')->count() > 0 )
-                                                @forelse (\Illuminate\Support\Facades\Auth::user()->unreadNotifications as $notification)
+                                            @php
+                                                $newMessageNotifications = Auth::user()->unreadNotifications->where('type', 'App\Notifications\NewMessage');
+                                            @endphp
 
-                                                    <li><a class="dropdown-item"
-                                                           href="{{url('chat-main')}}"> {{$notification['data']['title']}}
-                                                            {{$notification['data']['sender_username']}}
+                                            @if($newMessageNotifications->count() > 0)
+                                                @forelse ($newMessageNotifications as $notification)
+                                                    <li>
+                                                        <a class="dropdown-item" href="{{url('chat-main')}}">
+                                                            {{$notification['data']['title']}} {{$notification['data']['sender_username']}}
                                                             <br>
-                                                            <span class="timer"> <i class="fa fa-clock"></i>  {{$notification->created_at->diffForHumans()}}  </span>
+                                                            <span class="timer"><i class="fa fa-clock"></i> {{$notification->created_at->diffForHumans()}}</span>
                                                         </a>
                                                     </li>
                                                     <hr>
                                                 @empty
                                                     <li><a class="dropdown-item"> لا يوجد لديك رسائل في الوقت
-                                                            الحالي </a>
-                                                    </li>
+                                                            الحالي </a></li>
                                                     <hr>
                                                 @endforelse
                                             @else
-                                                <li><a class="dropdown-item"> لا يوجد لديك رسائل في الوقت
-                                                        الحالي </a>
+                                                <li><a class="dropdown-item"> لا يوجد لديك رسائل في الوقت الحالي </a>
                                                 </li>
                                                 <hr>
                                             @endif
@@ -185,15 +179,19 @@
 
                                         <button class="dropdown-toggle" type="button" id="dropdownMenuButton1"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                            @if(Auth::user()->unreadNotifications->count() > 0 )
-                                                <span
-                                                    class="counter"> {{Auth::user()->unreadNotifications->count()}} </span>
+                                            @php
+                                                $unreadNotificationsUsers = \Illuminate\Support\Facades\Auth::user()->unreadNotifications->filter(function($notification) {
+                                                    return $notification['type'] !== 'App\Notifications\NewMessage';
+                                                });
+                                            @endphp
+                                            @if($unreadNotificationsUsers->count() > 0)
+                                                <span class="counter"> {{$unreadNotificationsUsers->count()}} </span>
                                             @endif
                                             <i class="fa fa-bell"></i>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-                                            @forelse (\Illuminate\Support\Facades\Auth::user()->unreadNotifications as $notification)
+                                            @forelse ($unreadNotificationsUsers as $notification)
                                                 @if($notification['type'] == 'App\Notifications\SendNewSujestJob')
                                                     <li><a class="dropdown-item"
                                                            href="{{url('job/'.$notification['data']['adv_id'].'-'.$notification['data']['adv_slug'])}}"> {{$notification['data']['title']}}
@@ -214,13 +212,14 @@
 
                                                     </li>
                                                     <hr>
-                                                @elseif($notification['type'] == 'App\Notifications\NewMessage')
+                                                @elseif($notification['type'] == 'App\Notifications\SendAcceptedOffer')
                                                     <li><a class="dropdown-item"
-                                                           href="{{url('chat-main')}}"> {{$notification['data']['title']}}
-                                                            {{$notification['data']['sender_username']}}
+                                                           href="{{url('job/'.$notification['data']['adv_id'].'-'.$notification['data']['adv_slug'])}}"> {{$notification['data']['title']}}
+                                                            : {{$notification['data']['adv_name']}}
                                                             <br>
                                                             <span class="timer"> <i class="fa fa-clock"></i>  {{$notification->created_at->diffForHumans()}}  </span>
                                                         </a>
+
                                                     </li>
                                                     <hr>
                                                 @endif

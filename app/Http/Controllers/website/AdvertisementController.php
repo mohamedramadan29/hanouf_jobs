@@ -44,6 +44,24 @@ class AdvertisementController extends Controller
 
     public function job_details($id, $slug)
     {
+
+        $compelete_info = '';
+        if (Auth::check()){
+            $user = Auth::user();
+            $name = $user['name'];
+            $mobile = $user['mobile'];
+            $city = $user['city'];
+            $job_name = $user['job_name'];
+            $profession_specialist = $user['profession_specialist'];
+            $info = $user['info'];
+
+            $compelete_info = '';
+            if (empty($name) || empty($mobile) || empty($city) || empty($job_name) || empty($profession_specialist) || empty($info)) {
+                $compelete_info = '  من فضلك ادخل جميع البيانات الخاصة بك بشكل صحيح لتتمكن من   التقدم الي الوظيفة ';
+            }
+        }
+
+
         $adv = Advertisment::with('company', 'jobs_names', 'specialist')->where('id', $id)->first();
 
         ////////// Check If This Job Has Cover Letter From This Auth User Not No
@@ -74,7 +92,7 @@ class AdvertisementController extends Controller
                 ->pluck('id')
                 ->first();
             if ($notification_id) {
-              //  dd($notification_id);
+                //  dd($notification_id);
                 DB::table('notifications')->where('id', $notification_id)->update([
                     'read_at' => now()
                 ]);
@@ -84,7 +102,7 @@ class AdvertisementController extends Controller
 
         ///////////
 
-        return view('website.job-detail', compact('adv', 'offers', 'CountAllOffers', 'CityName'));
+        return view('website.job-detail', compact('adv', 'offers', 'CountAllOffers', 'CityName','compelete_info'));
     }
 
 

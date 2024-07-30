@@ -29,8 +29,21 @@ class UserController extends Controller
 
     public function index()
     {
-        $employesfaqs = Faq::where('type', 'موظف')->get();
-        return view('website.users.dashboard', compact('employesfaqs'));
+        $user = Auth::user();
+        $name = $user['name'];
+        $mobile = $user['mobile'];
+        $city = $user['city'];
+        $job_name = $user['job_name'];
+        $profession_specialist = $user['profession_specialist'];
+        $info = $user['info'];
+
+        $compelete_info = '';
+        if (empty($name) || empty($mobile) || empty($city) || empty($job_name) || empty($profession_specialist) || empty($info)) {
+
+            $compelete_info =  '  من فضلك ادخل جميع البيانات الخاصة بك بشكل صحيح لتتمكن من الظهور في قائمة المواهب وتسطيع التقدم الي الوظيفة المناسبة ';
+        }
+
+        return view('website.users.dashboard',compact('compelete_info'));
     }
 
     function register(Request $request)
@@ -281,7 +294,7 @@ class UserController extends Controller
                         if ($user['logo'] != null && $user['logo'] != '') {
                             // مسار الصورة القديمة
                             $oldFilePath = public_path('assets/uploads/users/' . $user['logo']);
-                            if(file_exists($oldFilePath)){
+                            if (file_exists($oldFilePath)) {
                                 unlink($oldFilePath);
                             }
                         }

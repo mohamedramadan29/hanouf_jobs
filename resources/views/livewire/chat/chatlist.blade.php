@@ -7,15 +7,16 @@
 
                     @if (auth()->guard('company')->check())
                         @if(Auth::guard('company')->user()->unreadNotifications->where('type','App\Notifications\NewMessage')->count() > 0 )
-                            <span class="badge badge-danger bg-danger"> {{Auth::guard('company')->user()->unreadNotifications->where('type','App\Notifications\NewMessage')->count()}} </span>
+                            <span
+                                class="badge badge-danger bg-danger"> {{Auth::guard('company')->user()->unreadNotifications->where('type','App\Notifications\NewMessage')->count()}} </span>
                         @endif
                     @endif
-
-                        @if (auth()->check())
-                            @if(Auth::user()->unreadNotifications->where('type','App\Notifications\NewMessage')->count() > 0 )
-                                <span class="badge badge-danger bg-danger"> {{Auth::user()->unreadNotifications->where('type','App\Notifications\NewMessage')->count()}} </span>
-                            @endif
+                    @if (auth()->check())
+                        @if(Auth::user()->unreadNotifications->where('type','App\Notifications\NewMessage')->count() > 0 )
+                            <span
+                                class="badge badge-danger bg-danger"> {{Auth::user()->unreadNotifications->where('type','App\Notifications\NewMessage')->count()}} </span>
                         @endif
+                    @endif
 
 
                     @if(isset($conversation->Messages->last()->created_at))

@@ -1,6 +1,6 @@
 @extends('website.layouts.master')
 @section('title')
-  تعديل الوظيفة
+    تعديل الوظيفة
 @endsection
 @section('content')
 
@@ -28,7 +28,7 @@
                 <div class="wt-bnr-inr-entry">
                     <div class="banner-title-outer">
                         <div class="banner-title-name">
-                            <h2 class="wt-title"> تعديل الوظيفة  </h2>
+                            <h2 class="wt-title"> تعديل الوظيفة </h2>
                         </div>
                     </div>
                     <!-- BREADCRUMB ROW -->
@@ -36,7 +36,7 @@
                     <div>
                         <ul class="wt-breadcrumb breadcrumb-style-2">
                             <li><a href="{{url('/')}}"> الرئيسية </a></li>
-                            <li> تعديل الوظيفة  </li>
+                            <li> تعديل الوظيفة</li>
                         </ul>
                     </div>
 
@@ -61,8 +61,8 @@
                             <div class="twm-candidate-profile-pic">
                                 @if(\Illuminate\Support\Facades\Auth::guard('company')->user()->logo !='')
                                     <img
-                                        src="{{asset('assets/uploads/companies/'.Auth::guard('company')->user()->logo)}}"
-                                        alt="">
+                                            src="{{asset('assets/uploads/companies/'.Auth::guard('company')->user()->logo)}}"
+                                            alt="">
                                 @else
                                     <img src="{{asset('assets/website/images/jobs-company/pic1.jpg')}}" alt="">
                                 @endif
@@ -85,8 +85,8 @@
                                             اضف وظيفة جديدة </a></li>
                                     <li><a href="{{url('chat-main')}}"><i class="fa fa-credit-card"></i> المحادثات
                                         </a></li>
-{{--                                    <li><a href="{{url('company/plan')}}"><i class="fa fa-credit-card"></i> ادارة الخطة--}}
-{{--                                        </a></li>--}}
+                                    {{--                                    <li><a href="{{url('company/plan')}}"><i class="fa fa-credit-card"></i> ادارة الخطة--}}
+                                    {{--                                        </a></li>--}}
                                     <li><a href="{{url('company/change-password')}}"><i class="fa fa-fingerprint"></i>
                                             تغيير كلمة المرور</a></li>
                                     <li><a href="{{url('company/logout')}}"><i class="fa fa-share-square"></i> تسجيل
@@ -114,9 +114,10 @@
 
                                             <div class="col-xl-12 col-lg-12 col-md-12">
                                                 <div class="form-group">
-                                                    <label>  العنوان </label>
+                                                    <label> العنوان </label>
                                                     <div class="ls-inputicon-box">
-                                                        <input required class="form-control" name="title" type="text" value="{{$adv['title']}}">
+                                                        <input required class="form-control" name="title" type="text"
+                                                               value="{{$adv['title']}}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -128,11 +129,13 @@
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> حدد الجنسية </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker" name="nationality"
+                                                        <select required class="wt-select-box selectpicker"
+                                                                name="nationality"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد الجنسية</option>
-                                                            <option @if($adv['nationality'] == 'مصري') selected @endif value="مصري">
+                                                            <option @if($adv['nationality'] == 'مصري') selected
+                                                                    @endif value="مصري">
                                                                 مصري
                                                             </option>
                                                             <option @if($adv['nationality'] == 'سعودي') selected
@@ -151,11 +154,15 @@
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد الجنس</option>
-                                                            <option @if($adv['sex'] == 'ذكر') selected @endif value="ذكر"> ذكر
+                                                            <option @if($adv['sex'] == 'ذكر') selected
+                                                                    @endif value="ذكر"> ذكر
                                                             </option>
-                                                            <option @if($adv['sex'] == 'انثي') selected @endif value="انثي"> انثي
+                                                            <option @if($adv['sex'] == 'انثي') selected
+                                                                    @endif value="انثي"> انثي
                                                             </option>
-                                                            <option @if($adv['sex'] == 'كلاهما') selected @endif value="كلاهما"> كلاهما </option>
+                                                            <option @if($adv['sex'] == 'كلاهما') selected
+                                                                    @endif value="كلاهما"> كلاهما
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -179,16 +186,16 @@
                                             </div>
 
 
-
                                             <div class="col-xl-8 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> هل ترغب في من يسكن في منطقة اخرى وليس لدية مانع
-                                                        بالعمل في مدينتك ؟  </label>
+                                                        بالعمل في مدينتك ؟ </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select  required class="wt-select-box selectpicker" name="available_work_from_another_place"
-                                                                 data-live-search="true" title="" id="j-category"
-                                                                 data-bv-field="size">
-                                                            <option disabled selected value=""> حدد  </option>
+                                                        <select required class="wt-select-box selectpicker"
+                                                                name="available_work_from_another_place"
+                                                                data-live-search="true" title="" id="j-category"
+                                                                data-bv-field="size">
+                                                            <option disabled selected value=""> حدد</option>
                                                             <option @if($adv['available_work_from_another_place'] == 1) selected
                                                                     @endif value="1">نعم
                                                             </option>
@@ -203,14 +210,16 @@
 
                                             <div class="col-xl-4 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label>  مسمى الوظيفي للمبيعات </label>
+                                                    <label> مسمى الوظيفي للمبيعات </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker" name="job_name"
+                                                        <select required class="wt-select-box selectpicker"
+                                                                name="job_name"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
-                                                            <option disabled selected value=""> حدد  </option>
+                                                            <option disabled selected value=""> حدد</option>
                                                             @foreach($JobsNames as $jobname)
-                                                                <option @if($jobname['id'] == $adv['job_name']) selected @endif  value="{{$jobname['id']}}"> {{$jobname['title']}} </option>
+                                                                <option @if($jobname['id'] == $adv['job_name']) selected
+                                                                        @endif  value="{{$jobname['id']}}"> {{$jobname['title']}} </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -220,22 +229,25 @@
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label>  طبيعه العمل  </label>
+                                                    <label> طبيعه العمل </label>
                                                     <div class="ls-inputicon-box">
                                                         @php
                                                             $work_types = explode(',',$adv['work_type']);
                                                         @endphp
-                                                        <select required multiple class="wt-select-box selectpicker" name="work_type[]"
+                                                        <select required multiple class="wt-select-box selectpicker"
+                                                                name="work_type[]"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
                                                             <option @if(in_array('هاتفي',$work_types)) selected
                                                                     @endif value="هاتفي">هاتفي
                                                             </option>
                                                             <option value="ميداني"
-                                                                    @if(in_array('ميداني', $work_types)) selected @endif>ميداني
+                                                                    @if(in_array('ميداني', $work_types)) selected @endif>
+                                                                ميداني
                                                             </option>
                                                             <option value="مكتبي"
-                                                                    @if(in_array('مكتبي', $work_types)) selected @endif>مكتبي
+                                                                    @if(in_array('مكتبي', $work_types)) selected @endif>
+                                                                مكتبي
                                                             </option>
                                                         </select>
                                                     </div>
@@ -244,9 +256,10 @@
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group">
-                                                    <label>  عدد سنوات الخبرة </label>
+                                                    <label> عدد سنوات الخبرة </label>
                                                     <div class="ls-inputicon-box">
-                                                        <input  required class="form-control" min="1" name="experience" type="number" value="{{$adv['experience']}}">
+                                                        <input required class="form-control" min="1" name="experience"
+                                                               type="number" value="{{$adv['experience']}}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -258,10 +271,12 @@
                                                         @php
                                                             $languages = explode(',',$adv['language']);
                                                         @endphp
-                                                        <select required class="wt-select-box selectpicker" multiple name="language[]"
+                                                        <select required class="wt-select-box selectpicker" multiple
+                                                                name="language[]"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
-                                                            <option @if(in_array('عربي',$languages)) selected @endif value="عربي">
+                                                            <option @if(in_array('عربي',$languages)) selected
+                                                                    @endif value="عربي">
                                                                 عربي
                                                             </option>
                                                             <option @if(in_array('انجليزي',$languages)) selected
@@ -273,15 +288,15 @@
                                             </div>
 
 
-
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> مستوي اللغة </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker" name="language_level"
+                                                        <select required class="wt-select-box selectpicker"
+                                                                name="language_level"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
-                                                            <option disabled selected value=""> حدد  </option>
+                                                            <option disabled selected value=""> حدد</option>
                                                             <option @if($adv['language_level'] == 'مبتدأ') selected
                                                                     @endif value="مبتدأ">مبتدأ
                                                             </option>
@@ -301,12 +316,14 @@
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> ماهو التخصص المهني المطلوب ؟ </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker" name="profession_specialist"
+                                                        <select required class="wt-select-box selectpicker"
+                                                                name="profession_specialist"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
-                                                            <option disabled value=""> حدد  </option>
+                                                            <option disabled value=""> حدد</option>
                                                             @foreach($specialists as $special)
-                                                                <option @if($special['id'] == $adv['profession_specialist']) selected @endif value="{{$special['id']}}"> {{$special['name']}} </option>
+                                                                <option @if($special['id'] == $adv['profession_specialist']) selected
+                                                                        @endif value="{{$special['id']}}"> {{$special['name']}} </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -318,26 +335,94 @@
                                                 <div class="form-group">
                                                     <label> الراتب المحدد </label>
                                                     <div class="ls-inputicon-box">
-                                                        <input required class="form-control" min="1" name="salary" type="number" value="{{$adv['salary']}}">
+                                                        <input required class="form-control" min="1" name="salary"
+                                                               type="number" value="{{$adv['salary']}}">
                                                     </div>
                                                 </div>
                                             </div>
 
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                                <div class="form-group">
+                                                    <label> موقع العمل </label>
+                                                    <div class="ls-inputicon-box">
+                                                        <input required class="form-control" name="new_work_place"
+                                                               type="text" value="{{$adv['new_work_place']}}">
+                                                    </div>
+                                                </div>
+                                            </div>
 
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                                <div class="form-group">
+                                                    <label> نوع العمل </label>
+                                                    <div class="ls-inputicon-box">
+                                                        <select required class="wt-select-box selectpicker"
+                                                                name="new_work_time"
+                                                                data-live-search="true" title="" id="j-category"
+                                                                data-bv-field="size">
+                                                            <option disabled selected value=""> حدد</option>
+                                                            <option @if($adv['new_work_time'] == 'جزئي') selected
+                                                                    @endif value="جزئي">جزئي
+                                                            </option>
+                                                            <option @if($adv['new_work_time'] == 'كامل') selected
+                                                                    @endif value="كامل">كامل
+                                                            </option>
+                                                            <option @if($adv['new_work_time'] == 'مؤقت') selected
+                                                                    @endif value="مؤقت">مؤقت
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                                <div class="form-group">
+                                                    <label> العمر المطلوب </label>
+                                                    <div class="ls-inputicon-box">
+                                                        <select required class="wt-select-box selectpicker"
+                                                                name="new_age"
+                                                                data-live-search="true" title="" id="j-category"
+                                                                data-bv-field="size">
+                                                            <option disabled selected value=""> حدد</option>
+                                                            <option @if($adv['new_age'] == '18-24') selected
+                                                                    @endif value="18-24">18-24
+                                                            </option>
+                                                            <option @if($adv['new_age'] == '25-29') selected
+                                                                    @endif value="25-29"> 25-29
+                                                            </option>
+                                                            <option @if($adv['new_age'] == '30-39') selected
+                                                                    @endif value="30-39">30-39
+                                                            </option>
+                                                            <option @if($adv['new_age'] == '+40') selected
+                                                                    @endif value="+40">+40
+                                                            </option>
+                                                            <option @if($adv['new_age'] == 'لايهم') selected
+                                                                    @endif value="لايهم">لايهم
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                             <div class="col-xl-12 col-lg-12 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label>  يوجد لدينا مرشحين على رأس العمل ويملكون فترة
+                                                    <label> يوجد لدينا مرشحين على رأس العمل ويملكون فترة
                                                         اشعار
                                                         محدده , أختر الفترة المناسبة لك </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker" name="notification_timeslot"
+                                                        <select required class="wt-select-box selectpicker"
+                                                                name="notification_timeslot"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
-                                                            <option disabled selected value=""> حدد  </option>
-                                                            <option @if($adv['notification_timeslot'] == 'فوري') selected @endif value="فوري"> فوري</option>
-                                                            <option @if($adv['notification_timeslot'] == 'خلال شهر') selected @endif value="خلال شهر">خلال شهر</option>
-                                                            <option @if($adv['notification_timeslot'] == 'خلال شهرين') selected @endif value="خلال شهرين">خلال شهرين</option>
+                                                            <option disabled selected value=""> حدد</option>
+                                                            <option @if($adv['notification_timeslot'] == 'فوري') selected
+                                                                    @endif value="فوري"> فوري
+                                                            </option>
+                                                            <option @if($adv['notification_timeslot'] == 'خلال شهر') selected
+                                                                    @endif value="خلال شهر">خلال شهر
+                                                            </option>
+                                                            <option @if($adv['notification_timeslot'] == 'خلال شهرين') selected
+                                                                    @endif value="خلال شهرين">خلال شهرين
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -346,36 +431,45 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label> الوصف الوظيفي </label>
-                                                    <textarea required class="form-control" rows="3" name="description">{{$adv['description']}}</textarea>
+                                                    <textarea required class="form-control" rows="3"
+                                                              name="description">{{$adv['description']}}</textarea>
                                                 </div>
                                             </div>
 
 
-
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label> المهام الوظيفية <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
-                                                    <textarea class="form-control" rows="3" name="job_requirements">{{$adv['job_requirements']}}</textarea>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label> المؤهلات والخبرات  <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
-                                                    <textarea  class="form-control" rows="3" name="job_experience">{{$adv['job_experience']}}</textarea>
+                                                    <label> المهام الوظيفية <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span>
+                                                    </label>
+                                                    <textarea class="form-control" rows="3"
+                                                              name="job_requirements">{{$adv['job_requirements']}}</textarea>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>  مميزات العمل   <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
-                                                    <textarea  class="form-control" rows="3" name="job_advantage">{{$adv['job_advantage']}}</textarea>
+                                                    <label> المؤهلات والخبرات <span
+                                                                class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span>
+                                                    </label>
+                                                    <textarea class="form-control" rows="3"
+                                                              name="job_experience">{{$adv['job_experience']}}</textarea>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>  المعلومات المطلوبة  <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
+                                                    <label> مميزات العمل <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span>
+                                                    </label>
+                                                    <textarea class="form-control" rows="3"
+                                                              name="job_advantage">{{$adv['job_advantage']}}</textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label> المعلومات المطلوبة <span
+                                                                class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span>
+                                                    </label>
                                                     <textarea class="form-control" rows="3" name="job_needed">{{$adv['job_needed']}}</textarea>
                                                 </div>
                                             </div>

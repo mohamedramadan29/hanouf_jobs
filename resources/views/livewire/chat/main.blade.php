@@ -1,4 +1,5 @@
 <div>
+    @section('title') المحادثات   @endsection
     @section('content')
 
         <!-- CONTENT START -->

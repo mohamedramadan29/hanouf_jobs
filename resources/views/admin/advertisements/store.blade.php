@@ -78,6 +78,7 @@
                                                 <option value=""> -- حدد الجنس --</option>
                                                 <option value="ذكر"> ذكر</option>
                                                 <option value="انثي"> انثي</option>
+                                                <option value="كلاهما"> كلاهما </option>
                                             </select>
                                         </div>
                                     </div>
@@ -210,6 +211,49 @@
                                                 @foreach($specialists as $special)
                                                     <option value="{{$special['id']}}"> {{$special['name']}} </option>
                                                 @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label> موقع العمل  </label>
+                                        <div class="ls-inputicon-box">
+                                            <input required class="form-control" name="new_work_place" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label> نوع العمل  </label>
+                                        <div class="ls-inputicon-box">
+                                            <select required class="wt-select-box selectpicker" name="new_work_time"
+                                                    data-live-search="true" title="" id="j-category"
+                                                    data-bv-field="size">
+                                                <option disabled selected value=""> حدد  </option>
+                                                <option value="جزئي">جزئي</option>
+                                                <option value="كامل">كامل</option>
+                                                <option value="مؤقت">مؤقت</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label> العمر المطلوب   </label>
+                                        <div class="ls-inputicon-box">
+                                            <select required class="wt-select-box selectpicker" name="new_age"
+                                                    data-live-search="true" title="" id="j-category"
+                                                    data-bv-field="size">
+                                                <option disabled selected value=""> حدد  </option>
+                                                <option value="18-24">18-24</option>
+                                                <option value="25-29"> 25-29 </option>
+                                                <option value="30-39">30-39</option>
+                                                <option value="+40">+40</option>
+                                                <option value="لايهم">لايهم</option>
                                             </select>
                                         </div>
                                     </div>

@@ -62,6 +62,9 @@ class AdvertesmentController extends Controller
                     'description' => 'required',
                     'title' => 'required',
                     'status' => 'required',
+                    'new_work_place' => 'required',
+                    'new_work_time' => 'required',
+                    'new_age' => 'required',
                 ];
                 $messages = [
 
@@ -94,6 +97,10 @@ class AdvertesmentController extends Controller
                     'job_experience' => $data['job_experience'],
                     'job_advantage' => $data['job_advantage'],
                     'job_needed' => $data['job_needed'],
+                    'new_work_time' => $data['new_work_time'],
+                    'new_work_place' => $data['new_work_place'],
+                    'new_age' => $data['new_age'],
+
                 ]);
                 return $this->success_message('  تم اضافة الاعلان بنجاح   ');
             }
@@ -138,6 +145,9 @@ class AdvertesmentController extends Controller
                     'description' => 'required',
                     'title' => 'required',
                     'status' => 'required',
+                    'new_work_place' => 'required',
+                    'new_work_time' => 'required',
+                    'new_age' => 'required',
                 ];
                 $messages = [
 
@@ -167,6 +177,9 @@ class AdvertesmentController extends Controller
                     'job_experience' => $data['job_experience'],
                     'job_advantage' => $data['job_advantage'],
                     'job_needed' => $data['job_needed'],
+                    'new_work_time' => $data['new_work_time'],
+                    'new_work_place' => $data['new_work_place'],
+                    'new_age' => $data['new_age'],
                 ]);
                 if ($data['status'] == 1) {
                     $adv->update([
@@ -179,8 +192,8 @@ class AdvertesmentController extends Controller
                             'admin_accept_notification' => 1,
                         ]);
                         // Send Notify To Company
-                      //  Notification::send($company, new SendJobAcceptedFromAdmin($adv_id, $company_id, $title, $slug));
-                        Notification::send($company,new SendJobAcceptedFromAdmin($adv_id,$company_id,$title,$slug));
+                        //  Notification::send($company, new SendJobAcceptedFromAdmin($adv_id, $company_id, $title, $slug));
+                        Notification::send($company, new SendJobAcceptedFromAdmin($adv_id, $company_id, $title, $slug));
                     }
                 }
                 /////////////////////// Send Status Confirmation Email //////////

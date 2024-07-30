@@ -45,8 +45,6 @@
             </div>
         </div>
         <!-- INNER PAGE BANNER END -->
-
-
         <!-- OUR BLOG START -->
         <div class="section-full p-t120  p-b90 site-bg-white">
             <div class="container">
@@ -91,13 +89,14 @@
                                             خروج</a></li>
                                 </ul>
                             </div>
-
                         </div>
-
                     </div>
-
                     <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
                         <!--Filter Short By-->
+                        @if(isset($compelete_info) && $compelete_info !='')
+                            <div class="alert alert-danger">  {{$compelete_info}} </div>
+                        @endif
+
                         <div class="twm-right-section-panel site-bg-gray">
                             <form method="post" action="{{url('user/update_info')}}" enctype="multipart/form-data">
                                 @csrf

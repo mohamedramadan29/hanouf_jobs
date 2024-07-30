@@ -27,7 +27,7 @@ class Chatlist extends Component
             $this->auth_username = auth()->user()->username; // الحارس الافتراضي للمستخدم العادي
         }
         $this->conversations = Coversation::where('sender_username', $this->auth_username)->
-        orWhere('receiver_username', $this->auth_username)->get();
+        orWhere('receiver_username', $this->auth_username)->orderBy('last_time_message','DESC')->get();
     }
 
     ////// Start Get Users I'm Make chats It

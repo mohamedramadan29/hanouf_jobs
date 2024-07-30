@@ -25,6 +25,8 @@ class Chatbox extends Component
 
     public $img_path;
 
+    public $offer_id;
+
 
     public function mount()
     {
@@ -131,6 +133,7 @@ class Chatbox extends Component
     {
         $this->selected_conversation = $coversation;
         $this->recieverUsers = $reciever;
+        $this->offer_id = $this->selected_conversation->offer_id;
         $this->messages = Message::where('conversation_id', $this->selected_conversation->id)->get();
         // dd($this->messages);
         ///////Make the Message Notitifcation IS Read
