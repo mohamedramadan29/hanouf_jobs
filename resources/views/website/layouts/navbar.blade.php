@@ -9,15 +9,15 @@
 
                     <div class="logo-header">
                         <div class="logo-header-inner logo-header-one">
-                            <a href="{{url('/')}}">
-                                <img width="85px" src="{{asset('assets/website/images/logo.png')}}" alt="">
+                            <a href="{{ url('/') }}">
+                                <img width="85px" src="{{ asset('assets/website/images/logo.png') }}" alt="">
                             </a>
                         </div>
                     </div>
 
                     <!-- NAV Toggle Button -->
                     <button id="mobile-side-drawer" data-target=".header-nav" data-toggle="collapse" type="button"
-                            class="navbar-toggler collapsed">
+                        class="navbar-toggler collapsed">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar icon-bar-first"></span>
                         <span class="icon-bar icon-bar-two"></span>
@@ -28,11 +28,11 @@
                     <div class="nav-animation header-nav navbar-collapse collapse d-flex justify-content-center">
 
                         <ul class=" nav navbar-nav">
-                            <li class="has-mega-menu"><a href="{{url('/')}}"> الرئيسية </a></li>
-                            <li class="has-mega-menu"><a href="{{url('jobs')}}"> الوظائف </a></li>
-                            <li class="has-child"><a href="{{url('talents')}}"> ابحث عن خبراء </a></li>
-                            <li class="has-child"><a href="{{url('employers')}}"> لاصحاب الوظائف </a></li>
-                            <li class="has-child"><a href="{{url('contact')}}"> اتصل بنا </a></li>
+                            <li class="has-mega-menu"><a href="{{ url('/') }}"> الرئيسية </a></li>
+                            <li class="has-mega-menu"><a href="{{ url('jobs') }}"> الوظائف </a></li>
+                            <li class="has-child"><a href="{{ url('talents') }}"> ابحث عن خبراء </a></li>
+                            <li class="has-child"><a href="{{ url('employers') }}"> لاصحاب الوظائف </a></li>
+                            <li class="has-child"><a href="{{ url('contact') }}"> اتصل بنا </a></li>
                         </ul>
 
                     </div>
@@ -42,29 +42,37 @@
                         <div class="extra-cell">
                             <div class="header-nav-btn-section">
                                 <!------------------------------ Login As Company  -------------------------->
-                                @if(Auth::guard('company')->user())
+                                @if (Auth::guard('company')->user())
                                     <!----------------- Message Alerts --------------->
 
                                     <div class="dropdown notificaion-alerts">
                                         <button class="dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            data-bs-toggle="dropdown" aria-expanded="false">
                                             @php
-                                                $unreadMessageNotifications = Auth::guard('company')->user()->unreadNotifications->where('type', 'App\Notifications\NewMessage');
+                                                $unreadMessageNotifications = Auth::guard('company')
+                                                    ->user()
+                                                    ->unreadNotifications->where(
+                                                        'type',
+                                                        'App\Notifications\NewMessage',
+                                                    );
                                             @endphp
 
-                                            @if($unreadMessageNotifications->count() > 0)
-                                                <span class="counter"> {{$unreadMessageNotifications->count()}} </span>
+                                            @if ($unreadMessageNotifications->count() > 0)
+                                                <span class="counter"> {{ $unreadMessageNotifications->count() }}
+                                                </span>
                                             @endif
                                             <i class="fa fa-envelope"></i>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            @if($unreadMessageNotifications->count() > 0)
-                                                @foreach($unreadMessageNotifications as $notification)
+                                            @if ($unreadMessageNotifications->count() > 0)
+                                                @foreach ($unreadMessageNotifications as $notification)
                                                     <li>
-                                                        <a class="dropdown-item" href="{{url('chat-main')}}">
-                                                            {{$notification['data']['title']}} {{$notification['data']['sender_username']}}
+                                                        <a class="dropdown-item" href="{{ url('chat-main') }}">
+                                                            {{ $notification['data']['title'] }}
+                                                            {{ $notification['data']['sender_username'] }}
                                                             <br>
-                                                            <span class="timer"><i class="fa fa-clock"></i> {{$notification->created_at->diffForHumans()}}</span>
+                                                            <span class="timer"><i class="fa fa-clock"></i>
+                                                                {{ $notification->created_at->diffForHumans() }}</span>
                                                         </a>
                                                     </li>
                                                     <hr>
@@ -81,35 +89,46 @@
                                     <div class="dropdown notificaion-alerts">
 
                                         <button class="dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            data-bs-toggle="dropdown" aria-expanded="false">
                                             @php
-                                                $unreadNotificationsCompany = \Illuminate\Support\Facades\Auth::guard('company')->user()->unreadNotifications->filter(function($notification) {
-                                                    return $notification['type'] !== 'App\Notifications\NewMessage';
-                                                });
+                                                $unreadNotificationsCompany = \Illuminate\Support\Facades\Auth::guard(
+                                                    'company',
+                                                )
+                                                    ->user()
+                                                    ->unreadNotifications->filter(function ($notification) {
+                                                        return $notification['type'] !== 'App\Notifications\NewMessage';
+                                                    });
                                             @endphp
-                                            @if($unreadNotificationsCompany->count() > 0)
-                                                <span class="counter"> {{$unreadNotificationsCompany->count()}} </span>
+                                            @if ($unreadNotificationsCompany->count() > 0)
+                                                <span class="counter"> {{ $unreadNotificationsCompany->count() }}
+                                                </span>
                                             @endif
                                             <i class="fa fa-bell"></i>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                             @forelse ($unreadNotificationsCompany as $notification)
-                                                @if($notification['type'] == 'App\Notifications\SendJobAcceptedFromAdmin')
+                                                @if ($notification['type'] == 'App\Notifications\SendJobAcceptedFromAdmin')
                                                     <li><a class="dropdown-item"
-                                                           href="{{url('job/'.$notification['data']['adv_id'].'-'.$notification['data']['slug'])}}"> {{$notification['data']['title']}}
-                                                            : {{$notification['data']['title_name']}}
+                                                            href="{{ url('job/' . $notification['data']['adv_id'] . '-' . $notification['data']['slug']) }}">
+                                                            {{ $notification['data']['title'] }}
+                                                            : {{ $notification['data']['title_name'] }}
                                                             <br>
-                                                            <span class="timer"> <i class="fa fa-clock"></i>  {{$notification->created_at->diffForHumans()}}  </span>
+                                                            <span class="timer"> <i class="fa fa-clock"></i>
+                                                                {{ $notification->created_at->diffForHumans() }}
+                                                            </span>
                                                         </a>
 
                                                     </li>
                                                     <hr>
                                                 @elseif($notification['type'] == 'App\Notifications\NewOfferRequestToCompanyJob')
                                                     <li><a class="dropdown-item"
-                                                           href="{{url('company/job/offers/'.$notification['data']['adv_id'])}}"> {{$notification['data']['title']}}
-                                                            : {{$notification['data']['adv_title']}}
+                                                            href="{{ url('company/job/offers/' . $notification['data']['adv_id']) }}">
+                                                            {{ $notification['data']['title'] }}
+                                                            : {{ $notification['data']['adv_title'] }}
                                                             <br>
-                                                            <span class="timer"> <i class="fa fa-clock"></i>  {{$notification->created_at->diffForHumans()}}  </span>
+                                                            <span class="timer"> <i class="fa fa-clock"></i>
+                                                                {{ $notification->created_at->diffForHumans() }}
+                                                            </span>
                                                         </a>
 
                                                     </li>
@@ -125,12 +144,13 @@
                                     </div>
 
                                     <div class="twm-nav-btn-left">
-                                        <a class="twm-nav-sign-up" href="{{url('company/dashboard')}}" role="button">
+                                        <a class="twm-nav-sign-up" href="{{ url('company/dashboard') }}"
+                                            role="button">
                                             <i class="feather-user"></i> حسابي
                                         </a>
                                     </div>
                                     <div class="twm-nav-btn-right">
-                                        <a href="{{url('company/add-job')}}" class="twm-nav-post-a-job">
+                                        <a href="{{ url('company/add-job') }}" class="twm-nav-post-a-job">
                                             <i class="feather-briefcase"></i> اضافة وظيفة
                                         </a>
                                     </div>
@@ -140,25 +160,30 @@
 
                                     <div class="dropdown notificaion-alerts">
                                         <button class="dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                            @if(Auth::user()->unreadNotifications->where('type','App\Notifications\NewMessage')->count() > 0 )
-                                                <span
-                                                    class="counter"> {{Auth::user()->unreadNotifications->count()}} </span>
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            @if (Auth::user()->unreadNotifications->where('type', 'App\Notifications\NewMessage')->count() > 0)
+                                                <span class="counter"> {{ Auth::user()->unreadNotifications->count() }}
+                                                </span>
                                             @endif
                                             <i class="fa fa-envelope"></i>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                             @php
-                                                $newMessageNotifications = Auth::user()->unreadNotifications->where('type', 'App\Notifications\NewMessage');
+                                                $newMessageNotifications = Auth::user()->unreadNotifications->where(
+                                                    'type',
+                                                    'App\Notifications\NewMessage',
+                                                );
                                             @endphp
 
-                                            @if($newMessageNotifications->count() > 0)
+                                            @if ($newMessageNotifications->count() > 0)
                                                 @forelse ($newMessageNotifications as $notification)
                                                     <li>
-                                                        <a class="dropdown-item" href="{{url('chat-main')}}">
-                                                            {{$notification['data']['title']}} {{$notification['data']['sender_username']}}
+                                                        <a class="dropdown-item" href="{{ url('chat-main') }}">
+                                                            {{ $notification['data']['title'] }}
+                                                            {{ $notification['data']['sender_username'] }}
                                                             <br>
-                                                            <span class="timer"><i class="fa fa-clock"></i> {{$notification->created_at->diffForHumans()}}</span>
+                                                            <span class="timer"><i class="fa fa-clock"></i>
+                                                                {{ $notification->created_at->diffForHumans() }}</span>
                                                         </a>
                                                     </li>
                                                     <hr>
@@ -178,46 +203,58 @@
                                     <div class="dropdown notificaion-alerts">
 
                                         <button class="dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            data-bs-toggle="dropdown" aria-expanded="false">
                                             @php
-                                                $unreadNotificationsUsers = \Illuminate\Support\Facades\Auth::user()->unreadNotifications->filter(function($notification) {
-                                                    return $notification['type'] !== 'App\Notifications\NewMessage';
-                                                });
+                                                $unreadNotificationsUsers = \Illuminate\Support\Facades\Auth::user()->unreadNotifications->filter(
+                                                    function ($notification) {
+                                                        return $notification['type'] !== 'App\Notifications\NewMessage';
+                                                    },
+                                                );
                                             @endphp
-                                            @if($unreadNotificationsUsers->count() > 0)
-                                                <span class="counter"> {{$unreadNotificationsUsers->count()}} </span>
+                                            @if ($unreadNotificationsUsers->count() > 0)
+                                                <span class="counter"> {{ $unreadNotificationsUsers->count() }}
+                                                </span>
                                             @endif
                                             <i class="fa fa-bell"></i>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
                                             @forelse ($unreadNotificationsUsers as $notification)
-                                                @if($notification['type'] == 'App\Notifications\SendNewSujestJob')
+                                                @if ($notification['type'] == 'App\Notifications\SendNewSujestJob')
                                                     <li><a class="dropdown-item"
-                                                           href="{{url('job/'.$notification['data']['adv_id'].'-'.$notification['data']['adv_slug'])}}"> {{$notification['data']['title']}}
-                                                            : {{$notification['data']['adv_name']}}
+                                                            href="{{ url('job/' . $notification['data']['adv_id'] . '-' . $notification['data']['adv_slug']) }}">
+                                                            {{ $notification['data']['title'] }}
+                                                            : {{ $notification['data']['adv_name'] }}
                                                             <br>
-                                                            <span class="timer"> <i class="fa fa-clock"></i>  {{$notification->created_at->diffForHumans()}}  </span>
+                                                            <span class="timer"> <i class="fa fa-clock"></i>
+                                                                {{ $notification->created_at->diffForHumans() }}
+                                                            </span>
                                                         </a>
 
                                                     </li>
                                                     <hr>
                                                 @elseif($notification['type'] == 'App\Notifications\SendUnaccepedOfferToUser')
                                                     <li><a class="dropdown-item"
-                                                           href="{{url('job/'.$notification['data']['adv_id'].'-'.$notification['data']['adv_slug'])}}"> {{$notification['data']['title']}}
-                                                            : {{$notification['data']['adv_name']}}
+                                                            href="{{ url('job/' . $notification['data']['adv_id'] . '-' . $notification['data']['adv_slug']) }}">
+                                                            {{ $notification['data']['title'] }}
+                                                            : {{ $notification['data']['adv_name'] }}
                                                             <br>
-                                                            <span class="timer"> <i class="fa fa-clock"></i>  {{$notification->created_at->diffForHumans()}}  </span>
+                                                            <span class="timer"> <i class="fa fa-clock"></i>
+                                                                {{ $notification->created_at->diffForHumans() }}
+                                                            </span>
                                                         </a>
 
                                                     </li>
                                                     <hr>
                                                 @elseif($notification['type'] == 'App\Notifications\SendAcceptedOffer')
                                                     <li><a class="dropdown-item"
-                                                           href="{{url('job/'.$notification['data']['adv_id'].'-'.$notification['data']['adv_slug'])}}"> {{$notification['data']['title']}}
-                                                            : {{$notification['data']['adv_name']}}
+                                                            href="{{ url('job/' . $notification['data']['adv_id'] . '-' . $notification['data']['adv_slug']) }}">
+                                                            {{ $notification['data']['title'] }}
+                                                            : {{ $notification['data']['adv_name'] }}
                                                             <br>
-                                                            <span class="timer"> <i class="fa fa-clock"></i>  {{$notification->created_at->diffForHumans()}}  </span>
+                                                            <span class="timer"> <i class="fa fa-clock"></i>
+                                                                {{ $notification->created_at->diffForHumans() }}
+                                                            </span>
                                                         </a>
 
                                                     </li>
@@ -233,21 +270,20 @@
                                     </div>
 
                                     <div class="twm-nav-btn-left">
-                                        <a class="twm-nav-sign-up" href="{{url('user/dashboard')}}"
-                                           role="button">
+                                        <a class="twm-nav-sign-up" href="{{ url('user/dashboard') }}"
+                                            role="button">
                                             <i class="feather-log-in"></i> حسابي
                                         </a>
                                     </div>
                                 @else
                                     <!---------------------------- Not Login Users ---------------------------->
                                     <div class="twm-nav-btn-left">
-                                        <a class="twm-nav-sign-up" href="{{url('login')}}"
-                                           role="button">
+                                        <a class="twm-nav-sign-up" href="{{ url('login') }}" role="button">
                                             <i class="feather-log-in"></i> تسجيل دخول
                                         </a>
                                     </div>
                                     <div class="twm-nav-btn-right">
-                                        <a href="{{url('register')}}" class="twm-nav-post-a-job">
+                                        <a href="{{ url('register') }}" class="twm-nav-post-a-job">
                                             <i class="feather-user"></i> حساب جديد
                                         </a>
                                     </div>
@@ -267,13 +303,14 @@
             <div id="search">
                 <span class="close"></span>
                 <form role="search" id="searchform" action="https://thewebmax.org/search" method="get"
-                      class="radius-xl">
-                    <input class="form-control" value="" name="q" type="search" placeholder="اكتب للبحث"/>
+                    class="radius-xl">
+                    <input class="form-control" value="" name="q" type="search"
+                        placeholder="اكتب للبحث" />
                     <span class="input-group-append">
-                    <button type="button" class="search-btn">
-                        <i class="fa fa-paper-plane"></i>
-                    </button>
-                </span>
+                        <button type="button" class="search-btn">
+                            <i class="fa fa-paper-plane"></i>
+                        </button>
+                    </span>
                 </form>
             </div>
         </div>
