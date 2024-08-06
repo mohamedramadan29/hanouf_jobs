@@ -67,10 +67,23 @@
                                                         class="twm-job-post-duration">/   {{$adv->created_at->diffForHumans()}} </span>
                                                 </h4>
                                                 <div class="twm-job-self-bottom">
-                                                    <a class="site-button"
-                                                       href="#send_request">
-                                                        قدم الآن <i class="fa fa-paper-plane"> </i>
-                                                    </a>
+                                                    @if(\Illuminate\Support\Facades\Auth::guard('company')->user())
+                                                        @if(\Illuminate\Support\Facades\Auth::guard('company')->user()->id == $adv['company_id'])
+                                                            <a class="site-button"
+                                                               href="{{url('company/job/'.$adv['id'])}}">
+                                                                تعديل الوظيفة  <i class="fa fa-paper-plane"> </i>
+                                                            </a>
+                                                            <br>
+                                                            <span class="badge badge-danger bg-danger"> عند التعديل سيتم مراجعتها وتفعيلها بعد 24 ساعه – هل انت متأكد ؟  </span>
+                                                        @endif
+
+                                                    @else
+                                                        <a class="site-button"
+                                                           href="#send_request">
+                                                            قدم الآن <i class="fa fa-paper-plane"> </i>
+                                                        </a>
+                                                    @endif
+
                                                 </div>
                                             </div>
                                         </div>

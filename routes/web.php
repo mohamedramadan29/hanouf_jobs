@@ -59,6 +59,7 @@ Route::controller(CompanyController::class)->group(function () {
         Route::get('company/jobs', 'jobs');
         Route::match(['get', 'post'], 'company/job/{id}', 'update_job');
         Route::get('company/job/delete/{id}', 'delete_job');
+        Route::get('company/job/stoped/{id}', 'stop_job');
         Route::match(['post', 'get'], 'company/change-password', 'change_password');
         Route::get('company/logout', 'logout');
         Route::get('company/job/offers/{id}', 'talent_offers');

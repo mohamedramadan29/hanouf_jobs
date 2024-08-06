@@ -488,6 +488,26 @@ class CompanyController extends Controller
         }
     }
 
+    public function stop_job($id)
+    {
+        try {
+
+            $job = Advertisment::findOrFail($id);
+            //  dd($job);
+            if (Auth::guard('company')->user()->id == $job['company_id']) {
+                $job->update([
+                    'status'=> 0,
+                ]);
+                return $this->success_message(' تم ايقاف الاعلان بنجاح ');
+            } else {
+                return $this->Error_message(' لا يمكنك ايقاف هذة الوظيفة  ');
+            }
+
+
+        } catch (\Exception $e) {
+            return $this->exception_message($e);
+        }
+    }
 
     /////////// Show Job Offers //////
     ///

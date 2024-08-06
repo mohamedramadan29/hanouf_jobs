@@ -29,9 +29,9 @@
 
                         <ul class=" nav navbar-nav">
                             <li class="has-mega-menu"><a href="{{ url('/') }}"> الرئيسية </a></li>
-                            <li class="has-mega-menu"><a href="{{ url('jobs') }}"> الوظائف </a></li>
-                            <li class="has-child"><a href="{{ url('talents') }}"> ابحث عن خبراء </a></li>
-                            <li class="has-child"><a href="{{ url('employers') }}"> لاصحاب الوظائف </a></li>
+                            <li class="has-mega-menu"><a href="{{ url('jobs') }}"> الشواغر الوظيفية </a></li>
+                            <li class="has-child"><a href="{{ url('talents') }}"> ابحث عن موظفين </a></li>
+{{--                            <li class="has-child"><a href="{{ url('employers') }}"> لاصحاب الوظائف </a></li>--}}
                             <li class="has-child"><a href="{{ url('contact') }}"> اتصل بنا </a></li>
                         </ul>
 
@@ -58,7 +58,7 @@
                                             @endphp
 
                                             @if ($unreadMessageNotifications->count() > 0)
-                                                <span class="counter"> {{ $unreadMessageNotifications->count() }}
+                                                <span class="my_counter"> {{ $unreadMessageNotifications->count() }}
                                                 </span>
                                             @endif
                                             <i class="fa fa-envelope"></i>
@@ -100,7 +100,7 @@
                                                     });
                                             @endphp
                                             @if ($unreadNotificationsCompany->count() > 0)
-                                                <span class="counter"> {{ $unreadNotificationsCompany->count() }}
+                                                <span class="my_counter"> {{ $unreadNotificationsCompany->count() }}
                                                 </span>
                                             @endif
                                             <i class="fa fa-bell"></i>
@@ -162,7 +162,7 @@
                                         <button class="dropdown-toggle" type="button" id="dropdownMenuButton1"
                                             data-bs-toggle="dropdown" aria-expanded="false">
                                             @if (Auth::user()->unreadNotifications->where('type', 'App\Notifications\NewMessage')->count() > 0)
-                                                <span class="counter"> {{ Auth::user()->unreadNotifications->count() }}
+                                                <span class="my_counter"> {{ Auth::user()->unreadNotifications->count() }}
                                                 </span>
                                             @endif
                                             <i class="fa fa-envelope"></i>
@@ -212,7 +212,7 @@
                                                 );
                                             @endphp
                                             @if ($unreadNotificationsUsers->count() > 0)
-                                                <span class="counter"> {{ $unreadNotificationsUsers->count() }}
+                                                <span class="my_counter"> {{ $unreadNotificationsUsers->count() }}
                                                 </span>
                                             @endif
                                             <i class="fa fa-bell"></i>

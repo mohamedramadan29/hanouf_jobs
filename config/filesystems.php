@@ -45,21 +45,21 @@ return [
         ],
         'companies' => [
             'driver' => 'local',
-            'root' => base_path('public/assets/uploads/companies'), // Use base_path() directly with the path
+            'root' => base_path('assets/uploads/companies'), // Use base_path() directly with the path
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
         'JobOfferFiles' => [
             'driver' => 'local',
-            'root' => base_path('public/assets/uploads/JobOfferFiles'), // Use base_path() directly with the path
+            'root' => base_path('assets/uploads/JobOfferFiles'), // Use base_path() directly with the path
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
         'users' => [
             'driver' => 'local',
-            'root' => base_path('public/assets/uploads/users'), // Use base_path() directly with the path
+            'root' => base_path('assets/uploads/users'), // Use base_path() directly with the path
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,

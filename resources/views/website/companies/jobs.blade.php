@@ -49,7 +49,7 @@
         <div class="section-full p-t120  p-b90 site-bg-white">
 
 
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
 
                     <div class="col-xl-3 col-lg-4 col-md-12 rightSidebar m-b30">
@@ -115,7 +115,6 @@
                                                     <thead>
                                                     <tr>
                                                         <th> العنوان</th>
-                                                        <th> اسم المشروع</th>
                                                         <th> الراتب</th>
                                                         <th> تاريخ النشر</th>
                                                         <th> الحالة</th>
@@ -128,7 +127,6 @@
                                                             <td>
                                                                 {{$job['title']}}
                                                             </td>
-                                                            <td>  {{$job['title_name']}} </td>
                                                             <td>
                                                                 {{$job['salary']}} دولار
                                                             </td>
@@ -144,30 +142,30 @@
                                                             </td>
                                                             <td>
                                                                 <div class="twm-table-controls">
-                                                                    <ul class="twm-DT-controls-icon list-unstyled">
+                                                                    <ul class="twm-DT-controls-icon list-unstyled jobs_button_controls">
                                                                         <li>
-                                                                            <a href="{{url('company/job/'.$job['id'])}}" title=" مشاهدة الوظيفة  "
-                                                                               type="button"
-                                                                               data-bs-toggle="tooltip"
-                                                                               data-bs-placement="top"> <span
-                                                                                    class="fa fa-eye"></span> </a>
+                                                                            <a class="btn btn-primary btn-sm" href="{{url('company/job/'.$job['id'])}}"> <span
+                                                                                    class="fa fa-eye"></span>  مشاهدة وتعديل الوظيفة  </a>
                                                                         </li>
 
                                                                         <li>
-                                                                            <a href="{{url('company/job/offers/'.$job['id'])}}" title=" مشاهدة المتقدمين للوظيفة  "
-                                                                               type="button"
-                                                                               data-bs-toggle="tooltip"
-                                                                               data-bs-placement="top"> <span
-                                                                                    class="fa fa-users"></span> </a>
+                                                                            <a class="btn btn-warning btn-sm" href="{{url('company/job/offers/'.$job['id'])}}" title=" مشاهدة المتقدمين للوظيفة  "
+                                                                               > <span
+                                                                                    class="fa fa-users"></span> مشاهدة المتقدمين للوظيفة  </a>
                                                                         </li>
 
                                                                         <li>
-                                                                            <a href="{{url('company/job/delete/'.$job['id'])}}"
+                                                                            <a class="btn btn-danger btn-sm" href="{{url('company/job/delete/'.$job['id'])}}"
                                                                                onclick="return confirm('هل انت متاكد من حذف الوظيفة !!!!')"
-                                                                               title="حذف الوظيفة"
-                                                                               data-bs-toggle="tooltip"
-                                                                               data-bs-placement="top">
-                                                                                <span class="far fa-trash-alt"></span>
+                                                                               title="حذف الوظيفة" >
+                                                                                <span class="far fa-trash-alt"> حذف الوظيفة </span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a class="btn btn-info btn-sm" href="{{url('company/job/stoped/'.$job['id'])}}"
+                                                                               onclick="return confirm('هل انت متاكد من  ايقاف الاعلان !!!!')"
+                                                                               title="ايقاف الاعلان" >
+                                                                                <span class="far fa-trash-alt">  ايقاف الاعلان  </span>
                                                                             </a>
                                                                         </li>
 

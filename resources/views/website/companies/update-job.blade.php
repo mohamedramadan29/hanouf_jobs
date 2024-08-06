@@ -61,8 +61,8 @@
                             <div class="twm-candidate-profile-pic">
                                 @if(\Illuminate\Support\Facades\Auth::guard('company')->user()->logo !='')
                                     <img
-                                            src="{{asset('assets/uploads/companies/'.Auth::guard('company')->user()->logo)}}"
-                                            alt="">
+                                        src="{{asset('assets/uploads/companies/'.Auth::guard('company')->user()->logo)}}"
+                                        alt="">
                                 @else
                                     <img src="{{asset('assets/website/images/jobs-company/pic1.jpg')}}" alt="">
                                 @endif
@@ -196,11 +196,13 @@
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد</option>
-                                                            <option @if($adv['available_work_from_another_place'] == 1) selected
-                                                                    @endif value="1">نعم
+                                                            <option
+                                                                @if($adv['available_work_from_another_place'] == 1) selected
+                                                                @endif value="1">نعم
                                                             </option>
-                                                            <option @if($adv['available_work_from_another_place'] == 2) selected
-                                                                    @endif value="2">لا
+                                                            <option
+                                                                @if($adv['available_work_from_another_place'] == 2) selected
+                                                                @endif value="2">لا
                                                             </option>
                                                         </select>
                                                     </div>
@@ -322,8 +324,9 @@
                                                                 data-bv-field="size">
                                                             <option disabled value=""> حدد</option>
                                                             @foreach($specialists as $special)
-                                                                <option @if($special['id'] == $adv['profession_specialist']) selected
-                                                                        @endif value="{{$special['id']}}"> {{$special['name']}} </option>
+                                                                <option
+                                                                    @if($special['id'] == $adv['profession_specialist']) selected
+                                                                    @endif value="{{$special['id']}}"> {{$special['name']}} </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -414,14 +417,17 @@
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد</option>
-                                                            <option @if($adv['notification_timeslot'] == 'فوري') selected
-                                                                    @endif value="فوري"> فوري
+                                                            <option
+                                                                @if($adv['notification_timeslot'] == 'فوري') selected
+                                                                @endif value="فوري"> فوري
                                                             </option>
-                                                            <option @if($adv['notification_timeslot'] == 'خلال شهر') selected
-                                                                    @endif value="خلال شهر">خلال شهر
+                                                            <option
+                                                                @if($adv['notification_timeslot'] == 'خلال شهر') selected
+                                                                @endif value="خلال شهر">خلال شهر
                                                             </option>
-                                                            <option @if($adv['notification_timeslot'] == 'خلال شهرين') selected
-                                                                    @endif value="خلال شهرين">خلال شهرين
+                                                            <option
+                                                                @if($adv['notification_timeslot'] == 'خلال شهرين') selected
+                                                                @endif value="خلال شهرين">خلال شهرين
                                                             </option>
                                                         </select>
                                                     </div>
@@ -449,7 +455,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label> المؤهلات والخبرات <span
-                                                                class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span>
+                                                            class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span>
                                                     </label>
                                                     <textarea class="form-control" rows="3"
                                                               name="job_experience">{{$adv['job_experience']}}</textarea>
@@ -468,15 +474,19 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label> المعلومات المطلوبة <span
-                                                                class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span>
+                                                            class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span>
                                                     </label>
-                                                    <textarea class="form-control" rows="3" name="job_needed">{{$adv['job_needed']}}</textarea>
+                                                    <textarea class="form-control" rows="3"
+                                                              name="job_needed">{{$adv['job_needed']}}</textarea>
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="text-left">
-                                                    <button type="submit" class="site-button m-r5"> تعديل الوظيفة  </button>
+                                                    <button style="margin-bottom: 10px" type="submit" class="site-button m-r5"> تعديل الوظيفة
+                                                    </button>
+                                                    <br>
+                                                    <span class="badge badge-danger bg-danger"> عند التعديل سيتم مراجعتها وتفعيلها بعد 24 ساعه – هل انت متأكد ؟  </span>
                                                 </div>
                                             </div>
 

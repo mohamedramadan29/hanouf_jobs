@@ -33,7 +33,7 @@ class SendJobAcceptedFromAdmin extends Notification
             'company_id'=>$this->company_id,
             'title_name'=>$this->title,
             'slug'=>$this->slug,
-            'title'=>' تاهنيا ! تم قبول الوظيفة الخاصة بك  ',
+            'title'=>' تم تفعيل الأعلان الوظيفي  ',
 
 
         ];
