@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Chat;
 
+use App\Http\Traits\Upload_Images;
 use App\Models\admin\Company;
 use App\Models\User;
 use App\Models\website\Coversation;
@@ -10,12 +11,15 @@ use App\Notifications\NewMessage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
-
+use Livewire\WithFileUploads;
 class Sendmessage extends Component
 {
+    use WithFileUploads;
+    use Upload_Images;
 
     public $listeners = ['update_dataCompany', 'update_dataUsers', 'dispatchMessageSend'];
     public $message_body;
+    public $file;
     public $selected_conversation;
     public $recieverUsers;
     public $auth_username;
@@ -52,17 +56,41 @@ class Sendmessage extends Component
         }
     }
 
+    protected $rules = [
+        'file' => 'nullable|mimes:jpg,jpeg,png,pdf,doc,docx|max:10240', // 10MB
+        'message_body' => 'required|string',
+    ];
+
+    protected $messages = [
+        'file.mimes' => 'الملفات يجب أن تكون بصيغة: jpg, jpeg, png, pdf, doc, docx.',
+        'file.max' => 'حجم الملف يجب أن لا يتجاوز 10 ميجابايت.',
+        'message_body.string' => 'يجب أن يكون نص الرسالة من نوع نصي.',
+    ];
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
+
     public function sendmessage()
     {
-        if ($this->message_body == null) {
+        $this->validate();
+        if ($this->message_body == null && $this->file == null)  {
             return null;
+        }
+        $filePath = null;
+        if ($this->file) {
+            $filePath = $this->file->store('users_chat','public');
         }
         $this->create_message = Message::create([
             'conversation_id' => $this->selected_conversation->id,
             'sender_username' => $this->auth_username,
             'receiver_username' => $this->recieverUsers->username,
             'body' => $this->message_body,
+            'files' => $filePath,
             'type' => $this->sender_type,
+
         ]);
         if ($this->sender_type == 'company') {
             $user = User::where('username', $this->recieverUsers->username)->first();

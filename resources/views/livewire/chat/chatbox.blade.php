@@ -16,7 +16,8 @@
 
                 @if($offer_status == '' || $offer_status == null)
                     <div>
-                        <a href="{{url('company/offer/acceptedOffer/'.$selected_conversation->id)}}" class="btn btn-success btn-sm"><i class="fa fa-check"></i> الموافقة </a>
+                        <a href="{{url('company/offer/acceptedOffer/'.$selected_conversation->id)}}"
+                           class="btn btn-success btn-sm"><i class="fa fa-check"></i> الموافقة </a>
                         <a onclick="return confirm('  هل انت متاكد من رفض العرض المقدم  !!! ')"
                            href="{{url('company/offer/unacceptedOffer/'.$selected_conversation->id)}}"
                            class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> الرفض </a>
@@ -58,6 +59,24 @@
                                     </div>
                                     <div class="single-user-com-text">
                                         {{$message->body}}
+                                        <br>
+                                        @if($message->files)
+                                            @php
+                                                $filePath = Storage::url($message->files);
+                                                $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
+                                            @endphp
+                                            @if(in_array($fileExtension, ['jpg', 'jpeg', 'png']))
+                                                <a target="_blank" href="{{ $filePath }}">
+                                                    <img src="{{ $filePath }}" alt="File" style="max-width: 150px;">
+                                                </a>
+                                            @elseif(in_array($fileExtension, ['pdf']))
+                                                <a class="btn btn-primary btn-sm" href="{{ $filePath }}" target="_blank">عرض الملف PDF</a>
+                                            @elseif(in_array($fileExtension, ['doc', 'docx']))
+                                                <a class="btn btn-primary btn-sm" href="{{ $filePath }}" target="_blank">عرض الملف Word</a>
+                                            @else
+                                                <a class="btn btn-primary btn-sm" href="{{ $filePath }}" target="_blank">تحميل الملف</a>
+                                            @endif
+                                        @endif
                                     </div>
                                 </div>
 
