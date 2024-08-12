@@ -77,7 +77,6 @@ class AdvertisementController extends Controller
                 ->where('notifiable_id', Auth::id())
                 ->pluck('id')
                 ->first();
-
             if ($notification_id) {
 //                dd($notification_id);
                 DB::table('notifications')->where('id', $notification_id)->update([

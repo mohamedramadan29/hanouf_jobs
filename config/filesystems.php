@@ -64,6 +64,13 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        'userscv' => [
+            'driver' => 'local',
+            'root' => base_path('assets/uploads/userscv'), // Use base_path() directly with the path
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
         'chatfiles' => [
             'driver' => 'local',
             'root' => base_path('assets/uploads/chatfiles'), // Use base_path() directly with the path

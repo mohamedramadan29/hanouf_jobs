@@ -16,13 +16,13 @@
                         <input class="form-control" name="title" type="text"
                                value="{{$job['title']}}">
                     </div>
-
                     <div class="form-group">
-                        <label for=""> الحالة </label>
-                        <select name="status" id="" class="form-control">
-                            <option value=""> -- حدد -- </option>
-                            <option @if($job['status'] == 1) selected @endif value="1"> فعال </option>
-                            <option @if($job['status'] == 0) selected @endif value="0">غير فعال   </option>
+                        <label for=""> حدد التصنيف  </label>
+                        <select name="cat_id" id="" class="form-control">
+                            <option value="" selected disabled> -- حدد -- </option>
+                            @foreach($JobCategories as $category)
+                                <option @if($job['cat_id'] == $category['id']) selected @endif value="{{$category['id']}}"> {{$category['name']}} </option>
+                            @endforeach
                         </select>
                     </div>
                 </div>

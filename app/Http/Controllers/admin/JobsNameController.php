@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\Message_Trait;
+use App\Models\admin\JobCategory;
 use App\Models\admin\Jobsname;
 use Illuminate\Http\Request;
 
@@ -12,19 +13,22 @@ class JobsNameController extends Controller
     use Message_Trait;
     public function index()
     {
-        $alljobs  = Jobsname::all();
-        return view('admin.other_settings.JobsNames.index',compact('alljobs'));
+        $alljobs  = Jobsname::with('Category')->get();
+        $JobCategories = JobCategory::all();
+        return view('admin.other_settings.JobsNames.index',compact('alljobs','JobCategories'));
     }
     public function add(Request $request)
     {
         if ($request->isMethod('post')){
             $data = $request->all();
-           // dd($data);
-            $namejob = new Jobsname();
-            $namejob->create([
-                'title'=>$data['title'],
-                'status'=>$data['status'],
-            ]);
+           $jobtitles = explode(',',$data['titles']);
+            foreach ($jobtitles as $title){
+                $namejob = new Jobsname();
+                $namejob->create([
+                    'title'=>$title,
+                    'cat_id'=>$data['cat_id'],
+                ]);
+            }
             return $this->success_message(' تمت الاضافة بنجاح  ');
         }
     }
@@ -36,7 +40,7 @@ class JobsNameController extends Controller
            // dd($data);
             $jobname->update([
                 'title'=>$data['title'],
-                'status'=>$data['status']
+                'cat_id'=>$data['cat_id'],
             ]);
             return $this->success_message(' تم التعديل بنجاح  ');
         }

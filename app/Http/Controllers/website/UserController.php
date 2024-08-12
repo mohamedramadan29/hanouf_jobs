@@ -264,6 +264,9 @@ class UserController extends Controller
                     'email' => 'required|email|unique:users,email,' . $id . '|max:150',
                     'mobile' => 'required|numeric|unique:users,mobile,' . $id . '|digits_between:8,16',
                 ];
+                if($request->hasFile('cv')){
+                    $rules['cv'] = 'required|mimes:pdf,doc,docx|max:51200';
+                }
                 if ($request->hasFile('logo')) {
                     $rules['logo'] = 'image|mimes:jpg,png,jpeg|max:4096'; // max:4096 لتحديد حجم الملف بالكيلوبايت (4MB)
                 }
@@ -279,13 +282,32 @@ class UserController extends Controller
                     'mobile.digits_between' => 'يجب أن يكون رقم الهاتف بين 8 و 16 رقمًا.',
                     'logo.image' => 'الملف يجب أن يكون صورة.',
                     'logo.mimes' => 'الصورة يجب أن تكون بصيغة:  webp , jpg , jpeg, png.',
-                    'logo.max' => 'حجم الصورة يجب ألا يتجاوز 4 ميجابايت.'
+                    'logo.max' => 'حجم الصورة يجب ألا يتجاوز 4 ميجابايت.',
+                    'cv.mimes' => ' من فضلك حدد الملفات بشكل صحيح من نوع : pdf,doc,docx  ',
+                    'cv.max' => ' اقصي حجم للملف  50 ميجا  ',
                 ];
                 $validator = Validator::make($data, $rules, $messages);
                 if ($validator->fails()) {
                     return redirect()->back()->withErrors($validator)->withInput();
                 }
-
+                if ($request->hasFile('cv')) {
+                    try {
+                        $cvfilename = $this->saveImage($request->file('cv'), public_path('assets/uploads/userscv'));
+                        /// Delete old image
+                        if ($user['cv'] != null && $user['cv'] != '') {
+                            // مسار الصورة القديمة
+                            $cvoldFilePath = public_path('assets/uploads/userscv/' . $user['cv']);
+                            if (file_exists($cvoldFilePath)) {
+                                unlink($cvoldFilePath);
+                            }
+                        }
+                        $user->update([
+                            'cv' => $cvfilename,
+                        ]);
+                    } catch (\Exception $e) {
+                        return redirect()->back()->with('error', 'The Cv failed to upload: ' . $e->getMessage())->withInput();
+                    }
+                }
 
                 if ($request->hasFile('logo')) {
                     try {
@@ -415,12 +437,19 @@ class UserController extends Controller
     public function suggested_jobs()
     {
         $notifications = DB::table('notifications')->where('type', 'App\Notifications\SendNewSujestJob')->where('notifiable_id', Auth::user()->id)->get();
+
+        foreach ($notifications as $notify){
+            $notify->update([
+                'read_at' => now(),
+            ]);
+        }
+
         return view('website.users.suggested-jobs', compact('notifications'));
     }
 
     public function alerts()
     {
-        $notifications = DB::table('notifications')->where('type', 'App\Notifications\SendNewSujestJob')->where('notifiable_id', Auth::user()->id)->get();
+        $notifications = DB::table('notifications')->where('notifiable_id', Auth::user()->id)->get();
         return view('website.users.alerts', compact('notifications'));
     }
 

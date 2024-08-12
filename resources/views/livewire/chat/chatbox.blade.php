@@ -10,7 +10,7 @@
             @if(\Illuminate\Support\Facades\Auth::guard('company')->user())
 
                 <!-- Modal -->
-                <div class="modal fade" id="unaccepted" tabindex="-1" aria-labelledby="exampleModalLabel"
+                <div class="refused_offer_modal modal fade" id="unaccepted" tabindex="-1" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -19,28 +19,34 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                             </div>
-                            <form method="post" action="">
+                            <form method="post"
+                                  action="{{url('company/offer/unacceptedOffer/'.$selected_conversation->id)}}">
                                 <div class="modal-body">
-
                                     @csrf
                                     <div class="box">
                                         <label for=""> من فضلك حدد سبب الرفص </label>
-                                        <select name="refuse_reason" id="" class="form-control select2">
-                                            <option selected disabled> - حدد سبب الرفض -</option>
-                                            <option value="1"> السبب الاول</option>
-                                            <option value="2"> السبب الثاني</option>
-                                            <option value="3"> السبب الثالث</option>
-                                            <option value="4"> السبب الرابع</option>
-                                        </select>
+
+                                            <select required name="refuse_reason" class="wt-select-box form-control"
+                                                    title="" id="j-category">
+                                                <option selected disabled> - حدد سبب الرفض -</option>
+                                                <option value="السبب الاول"> السبب الاول</option>
+                                                <option value=" السبب الثاني"> السبب الثاني</option>
+                                                <option value="السبب الثالث"> السبب الثالث</option>
+                                                <option value=" السبب الرابع"> السبب الرابع</option>
+                                            </select>
+
                                     </div>
                                     <div class="box">
                                         <label for=""> اضافة نعليق اضافي </label>
                                         <textarea name="more_refuse_info" id="" class="form-control"></textarea>
                                     </div>
                                     <div class="modal-footer">
-                                        <button style="background-color: #5c636a" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">رجوع
+                                        <button style="background-color: #5c636a" type="button"
+                                                class="btn btn-secondary btn-sm" data-bs-dismiss="modal">رجوع
                                         </button>
-                                        <button style="background-color: #bb2d3b" type="button" class="btn btn-danger btn-sm"> رفض  </button>
+                                        <button style="background-color: #bb2d3b" type="submit"
+                                                class="btn btn-danger btn-sm"> رفض
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -58,9 +64,6 @@
                     <div>
                         <a href="{{url('company/offer/acceptedOffer/'.$selected_conversation->id)}}"
                            class="btn btn-success btn-sm"><i class="fa fa-check"></i> الموافقة </a>
-                        <a onclick="return confirm('  هل انت متاكد من رفض العرض المقدم  !!! ')"
-                           href="{{url('company/offer/unacceptedOffer/'.$selected_conversation->id)}}"
-                           class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> الرفض </a>
                         <!-- Button trigger modal -->
                         <button style="background-color: #bb2d3b" type="button" class="btn btn-danger btn-sm"
                                 data-bs-toggle="modal" data-bs-target="#unaccepted">
@@ -70,7 +73,9 @@
                     </div>
                 @elseif($offer_status == 'مرفوض')
                     <div>
-                        <button class="btn btn-danger"><i> x </i> تم رفض العرض</button>
+                        <button class="btn btn-danger btn-sm"><i> x </i> تم رفض العرض</button>
+                        <a href="{{url('company/offer/acceptedOffer/'.$selected_conversation->id)}}"
+                           class="btn btn-success btn-sm"><i class="fa fa-check"></i> تغير قرار الرفض الي الموافقة  </a>
                     </div>
                 @elseif($offer_status == 'مقبول')
                     <div>

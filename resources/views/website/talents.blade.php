@@ -53,39 +53,73 @@
 
                                         <div class="twm-sidebar-ele-filter">
                                             <h4 class="section-head-small mb-4"> المسمي الوظيفي </h4>
-                                            <ul>
+                                            <select class="wt-select-bar-large selectpicker" name="job_ids[]" multiple
+                                                    data-live-search="true" data-bv-field="size">
+                                                <option value="" disabled> -- حدد المسمي الوظيفي --</option>
                                                 @foreach($jobs as $job)
-                                                    <li>
-                                                        <div class="form-check">
-                                                            <input type="checkbox" name="job_ids[]" value="{{ $job['id'] }}" class="form-check-input" id="job_{{ $job['id'] }}" {{ in_array($job['id'], request('job_ids', [])) ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="job_{{ $job['id'] }}">
-                                                                {{ $job['title'] }}
-                                                            </label>
-                                                        </div>
-                                                    </li>
+                                                    <option
+                                                        {{ in_array($job['id'], request('job_ids', [])) ? 'selected' : '' }} value="{{ $job['id'] }}">  {{ $job['title'] }} </option>
                                                 @endforeach
-                                            </ul>
+                                            </select>
                                         </div>
 
                                         <div class="twm-sidebar-ele-filter">
-                                            <h4 class="section-head-small mb-4"> التخصص المهني  </h4>
-                                            <ul>
+                                            <h4 class="section-head-small mb-4"> التخصص المهني </h4>
+                                            <select class="wt-select-bar-large selectpicker" name="special_ids[]"
+                                                    multiple
+                                                    data-live-search="true" data-bv-field="size">
+                                                <option value="" disabled> -- حدد التخصصني المهني --</option>
                                                 @foreach($specialists as $special)
-                                                    <li>
-                                                        <div class="form-check">
-                                                            <input type="checkbox" name="special_ids[]" value="{{$special['id'] }}" class="form-check-input" id="special_{{ $special['id'] }}" {{ in_array($special['id'], request('special_ids', [])) ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="special_{{$special['id'] }}">
-                                                                {{$special['name'] }}
-                                                            </label>
-                                                        </div>
-                                                    </li>
+                                                    <option
+                                                        {{ in_array($special['id'], request('special_ids', [])) ? 'selected' : '' }} value="{{ $special['id'] }}">  {{ $special['name'] }} </option>
                                                 @endforeach
-                                            </ul>
+                                            </select>
+                                        </div>
+
+                                        <div class="twm-sidebar-ele-filter">
+                                            <h4 class="section-head-small mb-4">  الجنسية  </h4>
+                                            <select class="wt-select-bar-large selectpicker" name="nationality[]"
+                                                    multiple
+                                                    data-live-search="true" data-bv-field="size">
+                                                <option value="" disabled>  --  حدد الجنسية  -- </option>
+
+                                                    <option value="مصري"> مصري </option>
+                                                    <option value="سعودي"> سعودي </option>
+
+                                            </select>
+                                        </div>
+                                        <div class="twm-sidebar-ele-filter">
+                                            <h4 class="section-head-small mb-4">  الجنس   </h4>
+                                            <select class="wt-select-bar-large selectpicker" name="sex[]"
+                                                    multiple
+                                                    data-live-search="true" data-bv-field="size">
+                                                <option value="" disabled>  --  حدد الجنس   -- </option>
+                                                    <option value="ذكر"> ذكر
+                                                    </option>
+                                                    <option   value="انثي"> انثي
+                                                    </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="twm-sidebar-ele-filter">
+                                            <h4 class="section-head-small mb-4"> المدينة  </h4>
+                                            <select class="wt-select-bar-large selectpicker" name="city_ids[]"
+                                                    multiple
+                                                    data-live-search="true" data-bv-field="size">
+                                                <option value="" disabled> -- حدد المدينة  --</option>
+                                                @foreach($citizen as $city)
+                                                    <option
+                                                        {{ in_array($city['id'], request('city_ids', [])) ? 'selected' : '' }} value="{{ $city['id'] }}">  {{ $city['name'] }} </option>
+                                                @endforeach
+                                            </select>
                                         </div>
 
 
+
                                         <div class="">
-                                            <button style="display: block;width: 100%" type="submit" class="site-button m-r5">بحث</button>
+                                            <button style="display: block;width: 100%" type="submit"
+                                                    class="site-button m-r5">بحث
+                                            </button>
                                         </div>
                                     </form>
                                 </div>

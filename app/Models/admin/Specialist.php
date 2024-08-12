@@ -9,4 +9,9 @@ class Specialist extends Model
 {
     protected $guarded = [];
     use HasFactory;
+
+    public function category()
+    {
+        return $this->belongsTo(SpecialCategory::class,'cat_id');
+    }
 }

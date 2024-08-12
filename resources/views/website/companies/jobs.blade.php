@@ -161,13 +161,17 @@
                                                                                 <span class="far fa-trash-alt"> حذف الوظيفة </span>
                                                                             </a>
                                                                         </li>
-                                                                        <li>
-                                                                            <a class="btn btn-info btn-sm" href="{{url('company/job/stoped/'.$job['id'])}}"
-                                                                               onclick="return confirm('هل انت متاكد من  ايقاف الاعلان !!!!')"
-                                                                               title="ايقاف الاعلان" >
-                                                                                <span class="far fa-trash-alt">  ايقاف الاعلان  </span>
-                                                                            </a>
-                                                                        </li>
+
+                                                                        @if($job['status'] == 1)
+                                                                            <li>
+                                                                                <a class="btn btn-info btn-sm" href="{{url('company/job/stoped/'.$job['id'])}}"
+                                                                                   onclick="return confirm('هل انت متاكد من  ايقاف الاعلان !!!!')"
+                                                                                   title="ايقاف الاعلان" >
+                                                                                    <span class="far fa-trash-alt">  ايقاف الاعلان  </span>
+                                                                                </a>
+                                                                            </li>
+                                                                        @endif
+
 
                                                                     </ul>
                                                                 </div>

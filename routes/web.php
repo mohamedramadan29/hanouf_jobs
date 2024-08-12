@@ -10,6 +10,8 @@ use \App\Http\Controllers\website\FrontController;
 use \App\Http\Controllers\website\jobOfferController;
 use \App\Livewire\Chat\Createchat;
 
+use App\Exports\OffersExport;
+use Maatwebsite\Excel\Facades\Excel;
 Route::get('/', function () {
     $employesfaqs = Faq::where('type','موظف')->get();
     return view('website.index',compact('employesfaqs'));
@@ -63,12 +65,15 @@ Route::controller(CompanyController::class)->group(function () {
         Route::match(['post', 'get'], 'company/change-password', 'change_password');
         Route::get('company/logout', 'logout');
         Route::get('company/job/offers/{id}', 'talent_offers');
+        //// Search Offers
+        ///
+        Route::get('company/offers/search/{id}', 'offer_search');
         ///////// Unaccepted offer
-        Route::get('company/offer/unaccepted/{conversation_id}', 'offer_unaccepted');
+        Route::post('company/offer/unaccepted/{conversation_id}', 'offer_unaccepted');
         //// accepted Offer
         Route::get('company/offer/acceptedOffer/{conversation_id}', 'offer_accepted');
         ////// Unaccepted Offer After Chat
-        Route::get('company/offer/unacceptedOffer/{conversation_id}', 'offer_unacceptedafterchat');
+        Route::post('company/offer/unacceptedOffer/{conversation_id}', 'offer_unacceptedafterchat');
         /////////// Start Conversation
         ///
         Route::get('company/chat/{adv_id}-{username}','start_conversation');
@@ -108,5 +113,9 @@ Route::view('404', 'website.404');
 Route::get('lists', \App\Livewire\Chat\Chatlist::class);
 Route::get('create-chat',Createchat::class);
 Route::get('counter', \App\Livewire\Counter::class);
+///////////// Export Offers
+Route::get('/offers/export/{id}', function($id) {
+    return Excel::download(new OffersExport($id), 'offers.xlsx');
+})->name('offers.export');
 
 include 'admin.php';

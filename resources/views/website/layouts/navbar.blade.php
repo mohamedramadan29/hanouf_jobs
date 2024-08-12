@@ -235,7 +235,7 @@
                                                     <hr>
                                                 @elseif($notification['type'] == 'App\Notifications\SendUnaccepedOfferToUser')
                                                     <li><a class="dropdown-item"
-                                                            href="{{ url('job/' . $notification['data']['adv_id'] . '-' . $notification['data']['adv_slug']) }}">
+                                                            href="{{url('user/alerts')}}">
                                                             {{ $notification['data']['title'] }}
                                                             : {{ $notification['data']['adv_name'] }}
                                                             <br>

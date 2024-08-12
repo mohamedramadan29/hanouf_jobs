@@ -138,10 +138,21 @@
                                                     </td>
                                                 </tr>
                                             @elseif($notification['type'] == 'App\Notifications\SendUnaccepedOfferToUser')
-
                                                 <tr>
                                                     <td>  {{$notification['data']['title']}}
-                                                        : {{$notification['data']['adv_name']}}  </td>
+                                                        : {{$notification['data']['adv_name']}}
+                                                        <br>
+                                                        @if(isset($notification['data']['refuse_reason']))
+                                                            <span class="badge badge-danger bg-danger"> سبب الرفض  </span>
+                                                             {{$notification['data']['refuse_reason']}}
+                                                        @endif
+                                                        <br>
+                                                        @if(isset($notification['data']['more_refuse_info']))
+                                                            <span class="badge badge-danger bg-danger">  تفاصيل اضافية عن سبب الرفض   </span>
+                                                            {{$notification['data']['more_refuse_info']}}
+                                                        @endif
+
+                                                    </td>
                                                     <td>  {{$notification->created_at->diffForHumans()}}   </td>
                                                     <td>
                                                         <a href="{{url('job/'.$notification['data']['adv_id'].'-'.$notification['data']['adv_slug'])}}"
@@ -170,7 +181,7 @@
                                     </table>
                                 </div>
                             @else
-                                <div class="alert alert-info"> لا يوجد لديك اشعارات في الوقت الحالي !! </div>
+                                <div class="alert alert-info"> لا يوجد لديك اشعارات في الوقت الحالي !!</div>
                             @endif
 
 

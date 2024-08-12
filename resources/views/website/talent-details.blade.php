@@ -40,18 +40,44 @@
                         <div class="col-lg-9 col-md-12">
                             <!-- Candidate detail START -->
                             <div class="cabdidate-de-info">
-                                <h4 class="twm-s-title m-t0">ْعَنِّي</h4>
+                                <h4 style="font-weight: bold" class="twm-s-title m-t0">ْعَنِّي</h4>
                                 <p> {{$talent['info']}} </p>
+                                <br>
+                                @if($talent['cv'] !='')
+                                    <h4 style="font-weight: bold" class="twm-s-title m-t0"> السيرة الذاتية </h4>
+                                    <a target="_blank" href="{{asset('assets/uploads/userscv/'.$talent->cv)}}"
+                                       type="button"
+                                       class="btn btn-primary uploadFiles"> مشاهدة السيرة الذاتية <i
+                                            class="fa fa-download"></i>
+                                    </a>
+                                    <style>
+                                        .uploadFiles {
+                                            padding: 10px 20px;
+                                            border-radius: 5px;
+                                            cursor: pointer;
+                                            background: transparent;
+                                            color: var(--main-color);
+                                            border-color: var(--main-color);
+                                            outline: none;
+                                        }
 
+                                        .uploadFiles:hover {
+                                            background: transparent;
+                                            color: var(--main-color);
+                                            border-color: var(--main-color);
+                                        }
+                                    </style>
+                                @endif
                                 <div class="twm-s-info-wrap mb-5">
                                     <br>
-                                    <h4 class="section-head-small mb-4"> معلومات الموظف </h4>
+                                    <h4 style="font-weight: bold" class="section-head-small mb-4"> معلومات الموظف </h4>
                                     <div class="twm-s-info-4">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="twm-s-info-inner">
                                                     <span class="twm-title"> المسمي الوظيفي  </span>
-                                                    <div class="twm-s-info-discription"> {{$talent['jobs_name']['title']}} </div>
+                                                    <div
+                                                        class="twm-s-info-discription"> {{$talent['jobs_name']['title']}} </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -93,7 +119,9 @@
 إمكانية التنقل من مدينة أخرى للعمل   </span>
                                                     <div
                                                         class="twm-s-info-discription">
-                                                        @if($talent['can_placed_from_to_another'] == 1) نعم@else
+                                                        @if($talent['can_placed_from_to_another'] == 1)
+                                                            نعم
+                                                        @else
                                                             لا
                                                         @endif
                                                     </div>
@@ -109,9 +137,9 @@
                                                         $work_types = explode(',',$talent['work_type']);
                                                     @endphp
                                                     <div class="twm-s-info-discription">
-                                                    @foreach($work_types as $work_type)
-                                                        {{$work_type}} |
-                                                    @endforeach
+                                                        @foreach($work_types as $work_type)
+                                                            {{$work_type}} |
+                                                        @endforeach
                                                     </div>
                                                 </div>
                                             </div>
@@ -134,7 +162,7 @@
                                                 <div class="twm-s-info-inner">
                                                     <span class="twm-title">  مستوي اللغة  </span>
                                                     <div class="twm-s-info-discription">
-                                                     {{$talent['language_level']}}
+                                                        {{$talent['language_level']}}
                                                     </div>
                                                 </div>
                                             </div>

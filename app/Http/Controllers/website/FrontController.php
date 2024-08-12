@@ -5,6 +5,7 @@ namespace App\Http\Controllers\website;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\Message_Trait;
 use App\Models\admin\Advertisment;
+use App\Models\admin\City;
 use App\Models\admin\Faq;
 use App\Models\admin\Jobsname;
 use App\Models\admin\Specialist;
@@ -117,7 +118,6 @@ class FrontController extends Controller
     public function company_details($username)
     {
         $company_count = Company::where('username', $username)->count();
-
         if ($company_count > 0) {
             $company = Company::where('username', $username)->first();
             $advs = Advertisment::where('company_id', $company['id'])->where('status', '1')->get();
@@ -141,10 +141,23 @@ class FrontController extends Controller
             $special_ids = $request->get('special_ids');
             $query->whereIn('profession_specialist', $special_ids);
         }
+        if ($request->has('nationality')) {
+            $nationality = $request->get('nationality');
+            $query->whereIn('nationality', $nationality);
+        }
+        if ($request->has('sex')) {
+            $sex = $request->get('sex');
+            $query->whereIn('sex', $sex);
+        }
+        if ($request->has('city_ids')) {
+            $city_ids = $request->get('city_ids');
+            $query->whereIn('city', $city_ids);
+        }
         $jobs = Jobsname::all();
         $specialists = Specialist::all();
+        $citizen = City::all();
         $users = $query->where('job_name','!=','')->where('profession_specialist','!=','')->where('city','!=','')->paginate(5);
-        return view('website.talents', compact('users', 'jobs', 'specialists'));
+        return view('website.talents', compact('users', 'jobs', 'specialists','citizen'));
     }
 
     public function talent_details($username)

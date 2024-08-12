@@ -96,14 +96,13 @@
                         @if(isset($compelete_info) && $compelete_info !='')
                             <div class="alert alert-danger">  {{$compelete_info}} </div>
                         @endif
-
                         <div class="twm-right-section-panel site-bg-gray">
-                            <form method="post" action="{{url('user/update_info')}}" enctype="multipart/form-data">
+                            <form id="offerForm" method="post" action="{{url('user/update_info')}}" enctype="multipart/form-data">
                                 @csrf
                                 <!--Basic Information-->
                                 <div class="panel panel-default">
                                     <div class="panel-heading wt-panel-heading p-a20">
-                                        <h4 class="panel-tittle m-a0"> المعلومات الاساسية   </h4>
+                                        <h4 class="panel-tittle m-a0"> المعلومات الاساسية </h4>
                                     </div>
                                     <div class="panel-body wt-panel-body p-a20 m-b30 ">
 
@@ -161,6 +160,37 @@
                                                 </div>
                                             </div>
 
+                                            @if(Auth::user()->cv != '')
+
+                                                <div class="col-xl-6 col-lg-6 col-md-12">
+                                                    <div class="form-group">
+                                                        <label> مشاهدة السيرة الذاتية  </label>
+                                                        <a target="_blank" href="{{asset('assets/uploads/userscv/'.\Illuminate\Support\Facades\Auth::user()->cv)}}" type="button"
+                                                                class="btn btn-primary uploadFiles"> مشاهدة السيرة الذاتية   <i
+                                                                class="fa fa-download"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                            @endif
+
+                                            <div class="form-group">
+                                                <label> تعديل السيرة الذاتية  </label>
+                                                <br>
+                                                <input type="file" name="cv"
+                                                       class="form-control"
+                                                       accept=".pdf, .doc, .docx"
+                                                       id="fileInput" multiple
+                                                       style="display: none;">
+                                                <button type="button"
+                                                        class="btn btn-primary uploadFiles"
+                                                        id="uploadButton"> رفع السيرة الذاتية  <i
+                                                        class="fa fa-upload"></i>
+                                                </button>
+                                                <span id="fileNames" class="span_info">لم يتم اختيار ملفات بعد</span>
+                                                <span class="span_info">الامتدادات المسموحة: pdf, doc, docx. الحجم الأقصى للملف 50MB</span>
+                                            </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <div class="upload-btn-wrapper">
@@ -182,7 +212,9 @@
 
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="text-left">
-                                                    <button type="submit" class="site-button">احفظ التغييرات</button>
+                                                    <button id="submitBtn" type="submit" class="site-button">احفظ التغييرات</button>
+                                                    <span id="loader"
+                                                          style="display: none;">جاري حفظ التغيرات ...</span>
                                                 </div>
                                             </div>
 
@@ -193,6 +225,61 @@
                                 </div>
 
                             </form>
+
+
+                            <script>
+                                document.getElementById('offerForm').addEventListener('submit', function (event) {
+                                    document.getElementById('submitBtn').disabled = true; // تعطيل زر الإرسال
+                                    document.getElementById('submitBtn').style.display = 'none'; // إخفاء زر الإرسال
+                                    document.getElementById('loader').style.display = 'inline'; // إظهار مؤشر التحميل
+                                });
+                            </script>
+
+                            <script>
+                                document.getElementById('uploadButton').addEventListener('click', function () {
+                                    document.getElementById('fileInput').click();
+                                });
+
+                                document.getElementById('fileInput').addEventListener('change', function () {
+                                    var input = document.getElementById('fileInput');
+                                    var output = document.getElementById('fileNames');
+                                    var fileNames = [];
+                                    for (var i = 0; i < input.files.length; i++) {
+                                        fileNames.push(input.files[i].name);
+                                    }
+                                    output.textContent = fileNames.length > 0 ? fileNames.join(', ') : 'لم يتم اختيار ملفات بعد';
+                                });
+                            </script>
+
+                            <style>
+                                .uploadFiles {
+                                    padding: 10px 20px;
+                                    border-radius: 5px;
+                                    cursor: pointer;
+                                    background: transparent;
+                                    color: var(--main-color);
+                                    border-color: var(--main-color);
+                                    outline: none;
+                                }
+
+                                .uploadFiles:hover {
+                                    background: transparent;
+                                    color: var(--main-color);
+                                    border-color: var(--main-color);
+                                }
+
+                                #fileNames {
+                                    display: block;
+                                    margin-top: 10px;
+                                    color: #333;
+                                    font-size: 14px
+                                }
+
+                                #loader {
+                                    font-size: 16px;
+                                    color: var(--main-color);
+                                }
+                            </style>
                         </div>
                     </div>
 

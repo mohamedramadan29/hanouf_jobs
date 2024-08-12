@@ -9,4 +9,8 @@ class Jobsname extends Model
 {
     protected $guarded = [];
     use HasFactory;
+    public function Category()
+    {
+        return $this->belongsTo(JobCategory::class,'cat_id');
+    }
 }

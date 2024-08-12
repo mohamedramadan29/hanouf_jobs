@@ -541,9 +541,11 @@ class CompanyController extends Controller
 
     //////////// Unaccepted Offer
     ///
-    public function offer_unaccepted($id)
+    public function offer_unaccepted(Request $request, $id)
     {
-
+        $data = $request->all();
+        $refuse_reason = $data['refuse_reason'];
+        $more_refuse_info = $data['more_refuse_info'];
         try {
             $offer = Joboffer::findOrFail($id);
             // Get The User
@@ -555,12 +557,15 @@ class CompanyController extends Controller
             $adv_name = $adv['title'];
             ///////// Update Offer Table To Refused
             $offer->update([
-                'offer_status' => 'مرفوض'
+                'offer_status' => 'مرفوض',
+                'refuse_reason'=>$data['refuse_reason'],
+                'more_refuse_info'=>$data['more_refuse_info'],
+
             ]);
 
             ///////// Send Notification To User For Refused
 
-            Notification::send($user, new SendUnaccepedOfferToUser($user_id, $adv_id, $adv_slug, $adv_name));
+            Notification::send($user, new SendUnaccepedOfferToUser($user_id, $adv_id, $adv_slug, $adv_name,$refuse_reason,$more_refuse_info));
 
             return $this->success_message(' تم رفض العرض من المتقدم  ');
 
@@ -571,16 +576,21 @@ class CompanyController extends Controller
 
     }
 
-    public function offer_unacceptedafterchat($conversation_id)
+    public function offer_unacceptedafterchat(Request $request,$conversation_id)
     {
         /////////// ١ - Get the Offer Data From Conversation
         ///
+        $data = $request->all();
+        $refuse_reason = $data['refuse_reason'];
+        $more_refuse_info = $data['more_refuse_info'];
         $conversation = Coversation::findOrFail($conversation_id);
         $offer_id = $conversation['offer_id'];
         $offer = Joboffer::findOrFail($offer_id);
         ///// Update offer Status
         $offer->update([
             'offer_status' => 'مرفوض',
+            'refuse_reason'=>$data['refuse_reason'],
+            'more_refuse_info'=>$data['more_refuse_info'],
         ]);
         ////// Send Notification To User
         ///
@@ -591,7 +601,7 @@ class CompanyController extends Controller
         $adv = Advertisment::where('id', $adv_id)->first();
         $adv_slug = $adv['slug'];
         $adv_name = $adv['title'];
-        Notification::send($user, new SendUnaccepedOfferToUser($user_id, $adv_id, $adv_slug, $adv_name));
+        Notification::send($user, new SendUnaccepedOfferToUser($user_id, $adv_id, $adv_slug, $adv_name,$refuse_reason,$more_refuse_info));
 
         // Delete The Conversation Between User And Company
         ///
@@ -612,6 +622,8 @@ class CompanyController extends Controller
         ///// Update offer Status
         $offer->update([
             'offer_status' => 'مقبول',
+            'refuse_reason' => '',
+            'more_refuse_info' => ''
         ]);
         ////// Send Notification To User
         ///
@@ -728,6 +740,25 @@ class CompanyController extends Controller
             return $this->exception_message($e);
         }
         return view('website.companies.change-password');
+    }
+
+
+    ////// Search In Offers
+    public function offer_search(Request $request,$id)
+    {
+        $data = $request->all();
+        $adv = Advertisment::findOrFail($id);
+        $count_offers = Joboffer::where('adv_id', $id)->count();
+
+        $query = Joboffer::where('adv_id', $id);
+        if ($request->isMethod('get')){
+            $query->where('offer_status',$data['offer_status']);
+        }
+        $offers = $query->paginate(5);
+        $count_offers_after_search = $query->count();
+
+        return view('website.companies.talent-offers',compact('offers','adv','count_offers','count_offers_after_search'));
+
     }
 
     public function logout()

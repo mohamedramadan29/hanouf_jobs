@@ -12,17 +12,17 @@
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for=""> المسمي الوظيفي   </label>
-                        <input class="form-control" name="title" type="text"
-                               value="">
+                        <label for="">  المسميات الوظيفية <span class="badge badge-danger bg-danger"> افصل بين كل مسمي والاخر ب ( , ) </span>   </label>
+                        <textarea required name="titles" id=""  class="form-control"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for=""> الحالة </label>
-                        <select name="status" id="" class="form-control">
-                            <option value=""> -- حدد -- </option>
-                            <option value="1"> فعال </option>
-                            <option value="0">غير فعال   </option>
+                        <label for=""> حدد التصنيف  </label>
+                        <select name="cat_id" id="" class="form-control">
+                            <option value="" selected disabled> -- حدد -- </option>
+                            @foreach($JobCategories as $category)
+                                <option value="{{$category['id']}}"> {{$category['name']}} </option>
+                            @endforeach
                         </select>
                     </div>
                 </div>

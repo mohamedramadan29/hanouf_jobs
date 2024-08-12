@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\Message_Trait;
 use App\Models\admin\Jobsname;
+use App\Models\admin\SpecialCategory;
 use App\Models\admin\Specialist;
 use Illuminate\Http\Request;
 
@@ -14,20 +15,24 @@ class SpecialistController extends Controller
 
     public function index()
     {
-        $allspecialists = Specialist::all();
-        return view('admin.other_settings.SpecialistNames.index', compact('allspecialists'));
+        $allspecialists = Specialist::with('category')->get();
+        $speicalCategory = SpecialCategory::all();
+        return view('admin.other_settings.SpecialistNames.index', compact('allspecialists','speicalCategory'));
     }
 
     public function add(Request $request)
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
-            // dd($data);
-            $special = new Specialist();
-            $special->create([
-                'name' => $data['title'],
-                'status' => $data['status'],
-            ]);
+            $specialtitles = explode(',',$data['titles']);
+            foreach ($specialtitles as $title){
+                $special = new Specialist();
+                $special->create([
+                    'name' => $title,
+                    'cat_id'=>$data['cat_id']
+                ]);
+            }
+
             return $this->success_message(' تمت الاضافة بنجاح  ');
         }
     }

@@ -57,6 +57,7 @@
                                 <tr>
                                     <th class="wd-15p border-bottom-0"> #</th>
                                     <th class="wd-15p border-bottom-0">  المسمي الوظيفي  </th>
+                                    <th class="wd-15p border-bottom-0">   التصنيف   </th>
                                     <th class="wd-15p border-bottom-0">  الحالة  </th>
                                     <th class="wd-15p border-bottom-0"> العمليات</th>
                                 </tr>
@@ -69,6 +70,7 @@
                                     <tr>
                                         <td> {{$i++}} </td>
                                         <td> {{$job['title']}} </td>
+                                        <td> {{$job['category']['name']}} </td>
                                         <td> @if($job['status'] == 1)
                                                  <span class="badge badge-success"> مفعل  </span>
                                             @else

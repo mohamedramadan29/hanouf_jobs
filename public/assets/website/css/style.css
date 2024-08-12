@@ -28466,3 +28466,50 @@ form label {
     margin-bottom:5px;
 }
 
+
+
+.refused_offer_modal{
+
+}
+.refused_offer_modal .box{
+    margin-bottom:20px;
+    margin-top:20px;
+}
+
+.refused_offer_modal .box label{
+    margin-bottom:10px;
+}
+.refused_offer_modal .box select{
+    padding:10px
+}
+.refused_offer_modal .box textarea{
+    min-height:80px;
+}
+
+.search_form_offer{
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ececec;
+}
+
+.search_form_offer .box{}
+.search_form_offer .box label{
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.search_form_offer .box select{
+    padding: 0;
+    background: #fff;
+    border: 1px solid #e1e1e1;
+    padding-right: 10px;
+}
+.search_form_offer .box button{
+    background: var(--main-color);
+    width: 120px;
+    padding: 10px;
+    margin-top: 40px;
+    margin-right: 20px;
+    border-radius: 9px;
+    border-color: var(--main-color);
+}

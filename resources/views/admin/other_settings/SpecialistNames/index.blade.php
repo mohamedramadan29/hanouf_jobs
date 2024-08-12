@@ -57,6 +57,7 @@
                                 <tr>
                                     <th class="wd-15p border-bottom-0"> #</th>
                                     <th class="wd-15p border-bottom-0">  التخصص  </th>
+                                    <th class="wd-15p border-bottom-0">   التصنيف   </th>
                                     <th class="wd-15p border-bottom-0">  الحالة  </th>
                                     <th class="wd-15p border-bottom-0"> العمليات</th>
                                 </tr>
@@ -69,6 +70,7 @@
                                     <tr>
                                         <td> {{$i++}} </td>
                                         <td> {{$special['name']}} </td>
+                                        <td> {{$special['category']['name']}} </td>
                                         <td> @if($special['status'] == 1)
                                                  <span class="badge badge-success"> مفعل  </span>
                                             @else
