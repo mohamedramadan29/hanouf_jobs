@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jobsnames', function (Blueprint $table) {
+        Schema::create('job_categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cat_id')->references('id')->on('job_categories')->cascadeOnDelete();
-            $table->string('title');
-            $table->tinyInteger('status')->default('1');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jobsnames');
+        Schema::dropIfExists('job_categories');
     }
 };

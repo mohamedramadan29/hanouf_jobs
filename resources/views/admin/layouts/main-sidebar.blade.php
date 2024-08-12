@@ -108,6 +108,52 @@
                 </ul>
             </li>
 
+            <li class="side-item side-item-category">  المسميات الوظيفية والتصنيفات   </li>
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="">
+                    <i style="font-size: 22px;margin-left: 10px" class="bx bx-package"></i>
+                    <span class="side-menu__label">  التصنيفات    </span><i
+                        class="angle fe fe-chevron-down"></i></a>
+                <ul class="slide-menu">
+                    <li><a class="slide-item" href="{{url('admin/JobCategories')}}">  جميع التصنيفات   </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="">
+                    <i style="font-size: 22px;margin-left: 10px" class="bx bx-package"></i>
+                    <span class="side-menu__label">   المسميات الوظيفية  </span><i
+                        class="angle fe fe-chevron-down"></i></a>
+                <ul class="slide-menu">
+                    <li><a class="slide-item" href="{{url('admin/jobs_name')}}">  جميع المسميات   </a>
+                </ul>
+            </li>
+
+
+
+            <li class="side-item side-item-category">   التخصصات الوظيفية والمسميات   </li>
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="">
+                    <i style="font-size: 22px;margin-left: 10px" class="bx bx-package"></i>
+                    <span class="side-menu__label">  التصنيفات    </span><i
+                        class="angle fe fe-chevron-down"></i></a>
+                <ul class="slide-menu">
+                    <li><a class="slide-item" href="{{url('admin/SpecialCategories')}}">  جميع التصنيفات   </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="">
+                    <i style="font-size: 22px;margin-left: 10px" class="bx bx-package"></i>
+                    <span class="side-menu__label">   التخصصات المهنية   </span><i
+                        class="angle fe fe-chevron-down"></i></a>
+                <ul class="slide-menu">
+                    <li><a class="slide-item" href="{{url('admin/specialists')}}">  التخصصات المهنية    </a>
+                </ul>
+            </li>
+
+
+
             <li class="side-item side-item-category">  اعدادات اضافية   </li>
             <li class="slide">
                 <a class="side-menu__item" data-toggle="slide" href="">

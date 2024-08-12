@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('specialists', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('cat_id')->references('id')->on('special_categories')->cascadeOnDelete();
             $table->string('name');
             $table->tinyInteger('status')->default('1');
             $table->timestamps();

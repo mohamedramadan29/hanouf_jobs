@@ -10,6 +10,8 @@ use \App\Http\Controllers\admin\FaqController;
 use \App\Http\Controllers\admin\TermsController;
 use \App\Http\Controllers\admin\JobsNameController;
 use \App\Http\Controllers\admin\SpecialistController;
+use \App\Http\Controllers\admin\JobCategoryController;
+use \App\Http\Controllers\admin\SpecialCategoryController;
 Route::group(['prefix' => 'admin'], function () {
     // Admin Login
     Route::match(['post', 'get'], '/', [AdminController::class, 'login'])->name('admin_login');
@@ -75,6 +77,14 @@ Route::group(['prefix' => 'admin'], function () {
             Route::match(['post', 'get'], 'terms', 'update')->name('terms');
         });
         ///////////////////// Start Other Settings
+        ///
+        /// /// Category Names
+        Route::controller(JobCategoryController::class)->group(function () {
+            Route::get('JobCategories', 'index');
+            Route::match(['post', 'get'], 'jobcategory/add', 'add');
+            Route::match(['post', 'get'], 'jobcategory/update/{id}', 'update');
+            Route::post('jobcategory/delete/{id}', 'delete');
+        });
         /// /// Job Names
         Route::controller(JobsNameController::class)->group(function () {
             Route::get('jobs_name', 'index');
@@ -83,6 +93,15 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('job/delete/{id}', 'delete');
         });
         ///////////////////// Start Other Settings
+
+        /// /// Speicalist  Names
+        Route::controller(SpecialCategoryController::class)->group(function () {
+            Route::get('SpecialCategories', 'index');
+            Route::match(['post', 'get'], 'specialcategory/add', 'add');
+            Route::match(['post', 'get'], 'specialcategory/update/{id}', 'update');
+            Route::post('specialcategory/delete/{id}', 'delete');
+        });
+
         /// ///// Specialist
         Route::controller(SpecialistController::class)->group(function () {
             Route::get('specialists', 'index');
