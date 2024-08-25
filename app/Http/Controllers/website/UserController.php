@@ -9,7 +9,9 @@ use App\Http\Traits\Upload_Images;
 use App\Models\admin\City;
 use App\Models\admin\Company;
 use App\Models\admin\Faq;
+use App\Models\admin\JobCategory;
 use App\Models\admin\Jobsname;
+use App\Models\admin\SpecialCategory;
 use App\Models\admin\Specialist;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -345,6 +347,8 @@ class UserController extends Controller
         $citizen = City::all();
         $specialists = Specialist::all();
         $nameJobs = Jobsname::all();
+        $nameJobsCategories = JobCategory::all();
+        $specialistsCategories = SpecialCategory::all();
         $user = User::where('id', Auth::id())->first();
         try {
 
@@ -394,7 +398,7 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return $this->exception_message($e);
         }
-        return view('website.users.update-data', compact('user', 'citizen', 'nameJobs', 'specialists'));
+        return view('website.users.update-data', compact('user', 'citizen', 'nameJobs', 'specialists','nameJobsCategories','specialistsCategories'));
     }
 
     public function change_password(Request $request)

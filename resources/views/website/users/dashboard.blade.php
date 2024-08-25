@@ -36,7 +36,7 @@
                     <div>
                         <ul class="wt-breadcrumb breadcrumb-style-2">
                             <li><a href="{{url('/')}}"> الرئيسية </a></li>
-                            <li> حسابي  </li>
+                            <li>تعديل النبذة شخصية  </li>
                         </ul>
                     </div>
 
@@ -72,9 +72,9 @@
                             <div class="twm-nav-list-1">
                                 <ul>
                                     <li class="active"><a href="{{url('user/dashboard')}}"><i class="fa fa-user"></i>
-                                        حسابي
+                                            تعديل النبذة شخصية
                                         </a></li>
-                                    <li><a href="{{url('user/update')}}"><i class="fa fa-edit"></i> تعديل الملف الشخصي </a></li>
+                                    <li><a href="{{url('user/update')}}"><i class="fa fa-edit"></i> تعديل معلوماتي المهنية  </a></li>
 
                                     <li><a href="{{url('chat-main')}}"><i class="fa fa-comments"></i> المحادثات </a>
                                     </li>

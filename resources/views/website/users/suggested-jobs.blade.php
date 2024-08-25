@@ -72,9 +72,9 @@
                             <div class="twm-nav-list-1">
                                 <ul>
                                     <li><a href="{{url('user/dashboard')}}"><i class="fa fa-user"></i>
-                                            حسابي
+                                            تعديل النبذة شخصية
                                         </a></li>
-                                    <li><a href="{{url('user/update')}}"><i class="fa fa-edit"></i> تعديل الملف الشخصي </a></li>
+                                    <li><a href="{{url('user/update')}}"><i class="fa fa-edit"></i>  تعديل معلوماتي المهنية </a></li>
 
                                     <li class="active"><a href="{{url('user/suggested-jobs')}}"><i class="fa fa-receipt"></i>  الوظائف المقترحة
                                         </a></li>
