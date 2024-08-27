@@ -227,7 +227,7 @@
                                             <script>
                                                 document.getElementById('job-category').addEventListener('change', function () {
                                                     let categoryId = this.value;
-                                                    fetch(`/get-jobs-by-category/${categoryId}`)
+                                                    fetch(`/user/get-jobs-by-category/${categoryId}`)
                                                         .then(response => response.json())
                                                         .then(data => {
                                                             let jobNameSelect = document.getElementById('job-name');
@@ -282,7 +282,7 @@
                                             <script>
                                                 document.getElementById('specialistCategory').addEventListener('change', function () {
                                                     let categoryId = this.value;
-                                                    fetch(`/get-specialist-by-category/${categoryId}`)
+                                                    fetch(`/user/get-specialist-by-category/${categoryId}`)
                                                         .then(response => response.json())
                                                         .then(data => {
                                                             let specialNameSelect = document.getElementById('specialist_name');

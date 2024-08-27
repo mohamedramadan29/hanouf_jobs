@@ -136,23 +136,6 @@
                                 <div class="form-group ">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <label class="form-label"> طبيعة العمل
-                                            </label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <select name="work_type[]" id="" class="form-control select2" multiple>
-                                                <option value=""> -- حدد --</option>
-                                                <option value="هاتفي">هاتفي</option>
-                                                <option value="ميداني">ميداني</option>
-                                                <option value="مكتبي">مكتبي</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group ">
-                                    <div class="row">
-                                        <div class="col-md-3">
                                             <label class="form-label"> عدد سنوات الخبرة </label>
                                         </div>
                                         <div class="col-md-9">

@@ -23,21 +23,21 @@
                                   action="{{url('company/offer/unacceptedOffer/'.$selected_conversation->id)}}">
                                 <div class="modal-body">
                                     @csrf
-                                    <div class="box">
-                                        <label for=""> من فضلك حدد سبب الرفص </label>
+{{--                                    <div class="box">--}}
+{{--                                        <label for=""> من فضلك حدد سبب الرفص </label>--}}
 
-                                            <select required name="refuse_reason" class="wt-select-box form-control"
-                                                    title="" id="j-category">
-                                                <option selected disabled> - حدد سبب الرفض -</option>
-                                                <option value="السبب الاول"> السبب الاول</option>
-                                                <option value=" السبب الثاني"> السبب الثاني</option>
-                                                <option value="السبب الثالث"> السبب الثالث</option>
-                                                <option value=" السبب الرابع"> السبب الرابع</option>
-                                            </select>
+{{--                                            <select required name="refuse_reason" class="wt-select-box form-control"--}}
+{{--                                                    title="" id="j-category">--}}
+{{--                                                <option selected disabled> - حدد سبب الرفض -</option>--}}
+{{--                                                <option value="السبب الاول"> السبب الاول</option>--}}
+{{--                                                <option value=" السبب الثاني"> السبب الثاني</option>--}}
+{{--                                                <option value="السبب الثالث"> السبب الثالث</option>--}}
+{{--                                                <option value=" السبب الرابع"> السبب الرابع</option>--}}
+{{--                                            </select>--}}
 
-                                    </div>
+{{--                                    </div>--}}
                                     <div class="box">
-                                        <label for=""> اضافة نعليق اضافي </label>
+                                        <label for="">  ما هو سبب الرفض   </label>
                                         <textarea name="more_refuse_info" id="" class="form-control"></textarea>
                                     </div>
                                     <div class="modal-footer">

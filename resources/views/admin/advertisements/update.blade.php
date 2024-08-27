@@ -146,33 +146,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="form-group ">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label class="form-label"> طبيعة العمل
-                                            </label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            @php
-                                                $work_types = explode(',',$adv['work_type']);
-                                            @endphp
-                                            <select name="work_type[]" id="" class="form-control select2" multiple>
-                                                <option value=""> -- حدد --</option>
-                                                <option @if(in_array('هاتفي',$work_types)) selected
-                                                        @endif value="هاتفي">هاتفي
-                                                </option>
-                                                <option value="ميداني"
-                                                        @if(in_array('ميداني', $work_types)) selected @endif>ميداني
-                                                </option>
-                                                <option value="مكتبي"
-                                                        @if(in_array('مكتبي', $work_types)) selected @endif>مكتبي
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="form-group ">
                                     <div class="row">
                                         <div class="col-md-3">

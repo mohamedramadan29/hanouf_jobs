@@ -60,17 +60,15 @@
                         <div class="product-filter-wrap d-flex justify-content-between align-items-center m-b30">
                             <div>
                             <span
-                                class="woocommerce-result-count-left">    عدد المتقدمين ::<span> {{$count_offers}} </span>   </span>
+                                    class="woocommerce-result-count-left">    عدد المتقدمين ::<span> {{$count_offers}} </span>   </span>
                             </div>
 
 
                             <div>
                                 <a href="{{ route('offers.export', ['id' => $adv->id]) }}" class="btn btn-success">
-                                   تحميل تقرير عن العروض    <i class="fa fa-file"></i></a>
+                                    تحميل تقرير عن العروض <i class="fa fa-file"></i></a>
                             </div>
                         </div>
-
-
                         @if($count_offers > 0 )
                             <div class="search_form_offer">
                                 <form action="{{url('company/offers/search/'.$adv['id'])}}" method="get">
@@ -80,13 +78,17 @@
                                             <label> حدد حالة العرض </label>
                                             <select name="offer_status" id="" class="form-control">
                                                 <option value="" selected disabled> -- حدد حالة العرض --</option>
-                                                <option value="مرفوض">مرفوض</option>
-                                                <option value="مقبول">مقبول</option>
+                                                <option {{request('offer_status') == 'مرفوض' ? 'selected':'' }} value="مرفوض">
+                                                    مرفوض
+                                                </option>
+                                                <option {{request('offer_status') == 'مقبول' ? 'selected' : ''}} value="مقبول">
+                                                    مقبول
+                                                </option>
                                             </select>
                                         </div>
                                         <div class="box">
                                             <button type="submit" class="btn btn-primary btn-sm"> بحث <i
-                                                    class="fa fa-search"></i></button>
+                                                        class="fa fa-search"></i></button>
                                         </div>
                                     </div>
 
@@ -103,8 +105,8 @@
                                                 <div class="twm-media">
                                                     <div class="twm-media-pic">
                                                         <img
-                                                            src="{{asset('assets/uploads/users/'.$offer['user']['logo'])}}"
-                                                            alt="#">
+                                                                src="{{asset('assets/uploads/users/'.$offer['user']['logo'])}}"
+                                                                alt="#">
                                                     </div>
                                                 </div>
                                                 <div class="twm-mid-content">
@@ -132,11 +134,17 @@
                                                                     @endphp
                                                                     <div class="d-flex">
                                                                         @foreach($coverFiles as $file)
+{{--                                                                            <a style="margin:5px"--}}
+{{--                                                                               class="btn btn-secondary btn-sm"--}}
+{{--                                                                               href="{{asset('assets/uploads/JobOfferFiles/'.$file)}}"--}}
+{{--                                                                               target="_blank">{{ basename($file) }} <i--}}
+{{--                                                                                        class="fa fa-file"></i> </a>--}}
                                                                             <a style="margin:5px"
                                                                                class="btn btn-secondary btn-sm"
-                                                                               href="{{asset('assets/uploads/JobOfferFiles/'.$file)}}"
+                                                                               href="{{ asset('storage/' . $file) }}"
                                                                                target="_blank">{{ basename($file) }} <i
                                                                                     class="fa fa-file"></i> </a>
+
                                                                         @endforeach
                                                                     </div>
                                                                 </div>
@@ -147,11 +155,14 @@
                                                             @if($offer['offer_status'] == null || $offer['offer_status'] == '')
                                                                 <a href="{{url('talent-details/'.$offer['user']['username'])}}"
                                                                    class="btn btn-primary btn-sm"> تفاصيل المتقدم<i
-                                                                        class="fa fa-eye"></i> </a>
+                                                                            class="fa fa-eye"></i> </a>
                                                                 <a href="{{url('company/chat/'.$offer['id'].'-'.$offer['user']['username'])}}"
                                                                    class="btn btn-success btn-sm"><i
-                                                                        class="fa fa-comment"></i> محاثة
+                                                                            class="fa fa-comment"></i> محاثة
                                                                 </a>
+                                                                <a href="{{url('company/offer/acceptedOfferFromOffersPage/'.$offer['id'])}}"
+                                                                   class="btn btn-success btn-sm"> قبول العرض  <i
+                                                                        class="fa fa-eye"></i> </a>
 
 
                                                                 <button style="background-color: #bb2d3b" type="button"
@@ -162,22 +173,23 @@
                                                                 </button>
                                                             @elseif($offer['offer_status'] == 'مرفوض')
                                                                 <button
-                                                                    class="btn btn-danger btn-sm"><i class="">X</i> تم
+                                                                        class="btn btn-danger btn-sm"><i class="">X</i>
+                                                                    تم
                                                                     رفض
                                                                     العرض
                                                                 </button>
                                                                 <a href="{{url('company/chat/'.$offer['id'].'-'.$offer['user']['username'])}}"
                                                                    class="btn btn-success btn-sm"><i
-                                                                        class="fa fa-comment"></i> محاثة
+                                                                            class="fa fa-comment"></i> محاثة
                                                                 </a>
                                                             @elseif($offer['offer_status'] == 'مقبول')
                                                                 <button
-                                                                    class="btn btn-success btn-sm"><i
-                                                                        class="fa fa-check"></i> تم قبول العرض
+                                                                        class="btn btn-success btn-sm"><i
+                                                                            class="fa fa-check"></i> تم قبول العرض
                                                                 </button>
                                                                 <a href="{{url('company/chat/'.$offer['id'].'-'.$offer['user']['username'])}}"
                                                                    class="btn btn-success btn-sm"><i
-                                                                        class="fa fa-comment"></i> محاثة
+                                                                            class="fa fa-comment"></i> محاثة
                                                                 </a>
                                                             @endif
 
@@ -250,11 +262,11 @@
                                             <!-- رابط الصفحة السابقة -->
                                             @if ($offers->onFirstPage())
                                                 <li class="prev disabled"><span> <i
-                                                            class="fa fa-angle-left"></i> </span>
+                                                                class="fa fa-angle-left"></i> </span>
                                                 </li>
                                             @else
                                                 <li class="prev"><a href="{{ $offers->previousPageUrl() }}"><span> <i
-                                                                class="fa fa-angle-left"></i> </span></a></li>
+                                                                    class="fa fa-angle-left"></i> </span></a></li>
                                             @endif
 
                                             <!-- روابط الصفحات -->
@@ -269,10 +281,10 @@
                                             <!-- رابط الصفحة التالية -->
                                             @if ($offers->hasMorePages())
                                                 <li class="next"><a href="{{ $offers->nextPageUrl() }}"><span> <i
-                                                                class="fa fa-angle-right"></i> </span></a></li>
+                                                                    class="fa fa-angle-right"></i> </span></a></li>
                                             @else
                                                 <li class="next disabled"><span> <i
-                                                            class="fa fa-angle-right"></i> </span>
+                                                                class="fa fa-angle-right"></i> </span>
                                                 </li>
                                             @endif
 

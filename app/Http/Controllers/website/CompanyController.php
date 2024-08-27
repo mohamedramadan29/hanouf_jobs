@@ -601,7 +601,7 @@ class CompanyController extends Controller
         /////////// ١ - Get the Offer Data From Conversation
         ///
         $data = $request->all();
-        $refuse_reason = $data['refuse_reason'];
+//        $refuse_reason = $data['refuse_reason'];
         $more_refuse_info = $data['more_refuse_info'];
         $conversation = Coversation::findOrFail($conversation_id);
         $offer_id = $conversation['offer_id'];
@@ -609,7 +609,7 @@ class CompanyController extends Controller
         ///// Update offer Status
         $offer->update([
             'offer_status' => 'مرفوض',
-            'refuse_reason'=>$data['refuse_reason'],
+//            'refuse_reason'=>$data['refuse_reason'],
             'more_refuse_info'=>$data['more_refuse_info'],
         ]);
         ////// Send Notification To User
@@ -621,7 +621,7 @@ class CompanyController extends Controller
         $adv = Advertisment::where('id', $adv_id)->first();
         $adv_slug = $adv['slug'];
         $adv_name = $adv['title'];
-        Notification::send($user, new SendUnaccepedOfferToUser($user_id, $adv_id, $adv_slug, $adv_name,$refuse_reason,$more_refuse_info));
+        Notification::send($user, new SendUnaccepedOfferToUser($user_id, $adv_id, $adv_slug, $adv_name,$more_refuse_info));
 
         // Delete The Conversation Between User And Company
         ///
@@ -657,6 +657,33 @@ class CompanyController extends Controller
         Notification::send($user, new SendAcceptedOffer($user_id, $adv_id, $adv_slug, $adv_name));
 
         return Redirect::to('company/job/offers/' . $adv_id)->with(['Success_message' => ' تم  قبول العرض المقدم  ']);
+
+    }
+
+    public function offer_accepted_from_offers($offer_id)
+    {
+        /////////// ١ - Get the Offer Data From Conversation
+        ///
+        $offer = Joboffer::findOrFail($offer_id);
+        ///// Update offer Status
+        $offer->update([
+            'offer_status' => 'مقبول',
+            'refuse_reason' => '',
+            'more_refuse_info' => ''
+        ]);
+        ////// Send Notification To User
+        ///
+        // Get The User
+        $user_id = $offer['user_id'];
+        $user = User::where('id', $user_id)->get();
+        $adv_id = $offer['adv_id'];
+        $adv = Advertisment::where('id', $adv_id)->first();
+        $adv_slug = $adv['slug'];
+        $adv_name = $adv['title'];
+        Notification::send($user, new SendAcceptedOffer($user_id, $adv_id, $adv_slug, $adv_name));
+
+        return Redirect::to('company/job/offers/' . $adv_id)->with(['Success_message' => ' تم  قبول العرض المقدم  ']);
+
 
     }
 

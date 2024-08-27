@@ -43,7 +43,6 @@ class AdvertesmentController extends Controller
         try {
             if ($request->isMethod('post')) {
                 $data = $request->all();
-                $work_type = implode(',', $data['work_type']);
                 $language = implode(',', $data['language']);
                 $rules = [
                     'company_id' => 'required',
@@ -52,7 +51,6 @@ class AdvertesmentController extends Controller
                     'city' => 'required',
                     'available_work_from_another_place' => 'required',
                     'job_name' => 'required',
-                    'work_type' => 'required',
                     'experience' => 'required',
                     'language' => 'required',
                     'language_level' => 'required',
@@ -82,7 +80,6 @@ class AdvertesmentController extends Controller
                     'city' => $data['city'],
                     'available_work_from_another_place' => $data['available_work_from_another_place'],
                     'job_name' => $data['job_name'],
-                    'work_type' => $work_type,
                     'experience' => $data['experience'],
                     'language' => $language,
                     'language_level' => $data['language_level'],
@@ -126,7 +123,6 @@ class AdvertesmentController extends Controller
         try {
             if ($request->isMethod('post')) {
                 $data = $request->all();
-                $work_type = implode(',', $data['work_type']);
                 $language = implode(',', $data['language']);
                 $rules = [
                     'company_id' => 'required',
@@ -135,7 +131,6 @@ class AdvertesmentController extends Controller
                     'city' => 'required',
                     'available_work_from_another_place' => 'required',
                     'job_name' => 'required',
-                    'work_type' => 'required',
                     'experience' => 'required',
                     'language' => 'required',
                     'language_level' => 'required',
@@ -164,7 +159,6 @@ class AdvertesmentController extends Controller
                     'city' => $data['city'],
                     'available_work_from_another_place' => $data['available_work_from_another_place'],
                     'job_name' => $data['job_name'],
-                    'work_type' => $work_type,
                     'experience' => $data['experience'],
                     'language' => $language,
                     'language_level' => $data['language_level'],
@@ -235,9 +229,8 @@ class AdvertesmentController extends Controller
         $specialist = $adv_data['profession_specialist'];
         $slug = $adv_data['slug'];
         /////////////// Get The User Tha Have The Same Data
-        ///
-        $users = User::where(['nationality' => $nationality, 'sex' => $sex,
-            'can_placed_from_to_another' => $available_work_from_another_place, 'job_name' => $job_name,
+
+        $users = User::where(['nationality' => $nationality, 'job_name' => $job_name,
             'profession_specialist' => $specialist])->get();
         ////////////// Start Send Notification
         //dd($users);

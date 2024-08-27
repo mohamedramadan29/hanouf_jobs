@@ -39,8 +39,8 @@ Route::controller(UserController::class)->group(function () {
         Route::get('user/alert/delete/{id}', 'delete_alert');
         /////////
         ///
-        Route::get('/get-jobs-by-category/{categoryId}', 'getJobsByCategory');
-        Route::get('/get-specialist-by-category/{categoryId}', 'getSpecialistByCategory');
+        Route::get('/user/get-jobs-by-category/{categoryId}', 'getJobsByCategory');
+        Route::get('/user/get-specialist-by-category/{categoryId}', 'getSpecialistByCategory');
     });
 
     Route::match(['post', 'get'], 'forget-password', 'forget_password');
@@ -76,6 +76,7 @@ Route::controller(CompanyController::class)->group(function () {
         Route::post('company/offer/unaccepted/{conversation_id}', 'offer_unaccepted');
         //// accepted Offer
         Route::get('company/offer/acceptedOffer/{conversation_id}', 'offer_accepted');
+        Route::get('company/offer/acceptedOfferFromOffersPage/{offer_id}', 'offer_accepted_from_offers');
         ////// Unaccepted Offer After Chat
         Route::post('company/offer/unacceptedOffer/{conversation_id}', 'offer_unacceptedafterchat');
         /////////// Start Conversation

@@ -14,14 +14,14 @@ class SendUnaccepedOfferToUser extends Notification
 
     private $user_id;
     private $adv_id,$adv_slug,$adv_name;
-    private $refuse_reason,$more_refuse_info;
-    public function __construct($user_id,$adv_id,$adv_slug,$adv_name,$refuse_reason,$more_refuse_info)
+    private $more_refuse_info;
+    public function __construct($user_id,$adv_id,$adv_slug,$adv_name,$more_refuse_info)
     {
         $this->user_id = $user_id;
         $this->adv_id = $adv_id;
         $this->adv_slug = $adv_slug;
         $this->adv_name = $adv_name;
-        $this->refuse_reason = $refuse_reason;
+//        $this->refuse_reason = $refuse_reason;
         $this->more_refuse_info = $more_refuse_info;
     }
 
@@ -38,7 +38,7 @@ class SendUnaccepedOfferToUser extends Notification
             'title'=>' للأسف ! تم رفض العرض الخاص بك ::  ',
             'adv_slug'=>$this->adv_slug,
             'adv_name'=>$this->adv_name,
-            'refuse_reason'=>$this->refuse_reason,
+//            'refuse_reason'=>$this->refuse_reason,
             'more_refuse_info'=>$this->more_refuse_info,
         ];
     }
