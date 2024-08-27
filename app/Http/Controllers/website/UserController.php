@@ -42,10 +42,10 @@ class UserController extends Controller
         $compelete_info = '';
         if (empty($name) || empty($mobile) || empty($city) || empty($job_name) || empty($profession_specialist) || empty($info)) {
 
-            $compelete_info =  '  من فضلك ادخل جميع البيانات الخاصة بك بشكل صحيح لتتمكن من الظهور في قائمة المواهب وتسطيع التقدم الي الوظيفة المناسبة ';
+            $compelete_info = '  من فضلك ادخل جميع البيانات الخاصة بك بشكل صحيح لتتمكن من الظهور في قائمة المواهب وتسطيع التقدم الي الوظيفة المناسبة ';
         }
 
-        return view('website.users.dashboard',compact('compelete_info'));
+        return view('website.users.dashboard', compact('compelete_info'));
     }
 
     function register(Request $request)
@@ -266,7 +266,7 @@ class UserController extends Controller
                     'email' => 'required|email|unique:users,email,' . $id . '|max:150',
                     'mobile' => 'required|numeric|unique:users,mobile,' . $id . '|digits_between:8,16',
                 ];
-                if($request->hasFile('cv')){
+                if ($request->hasFile('cv')) {
                     $rules['cv'] = 'required|mimes:pdf,doc,docx|max:51200';
                 }
                 if ($request->hasFile('logo')) {
@@ -349,13 +349,13 @@ class UserController extends Controller
         $nameJobs = Jobsname::all();
         $nameJobsCategories = JobCategory::all();
         $specialistsCategories = SpecialCategory::all();
-        $user = User::where('id', Auth::id())->first();
+        $user = User::with('jobs_name','specialist')->where('id', Auth::id())->first();
         try {
 
             if ($request->isMethod('post')) {
                 $data = $request->all();
                 // dd($data);
-                $work_type = implode(',', $data['work_type']);
+//                $work_type = implode(',', $data['work_type']);
                 $language = implode(',', $data['language']);
                 $rules = [
                     'nationality' => 'required',
@@ -363,7 +363,7 @@ class UserController extends Controller
                     'city' => 'required',
                     'can_placed_from_to_another' => 'required',
                     'job_name' => 'required',
-                    'work_type' => 'required',
+//                    'work_type' => 'required',
                     'experience' => 'required',
                     'language' => 'required',
                     'language_level' => 'required',
@@ -384,11 +384,13 @@ class UserController extends Controller
                     'sex' => $data['sex'],
                     'city' => $data['city'],
                     'can_placed_from_to_another' => $data['can_placed_from_to_another'],
+                    'job_category' => $data['job_category'],
                     'job_name' => $data['job_name'],
-                    'work_type' => $work_type,
+//                    'work_type' => $work_type,
                     'experience' => $data['experience'],
                     'language' => $language,
                     'language_level' => $data['language_level'],
+                    'special_category' => $data['special_category'],
                     'profession_specialist' => $data['profession_specialist'],
                     'notification_timeslot' => $data['notification_timeslot'],
                     'salary' => $data['salary'],
@@ -398,9 +400,19 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return $this->exception_message($e);
         }
-        return view('website.users.update-data', compact('user', 'citizen', 'nameJobs', 'specialists','nameJobsCategories','specialistsCategories'));
+        return view('website.users.update-data', compact('user', 'citizen', 'nameJobs', 'specialists', 'nameJobsCategories', 'specialistsCategories'));
+    }
+    public function getJobsByCategory($categoryId)
+    {
+        $jobs = Jobsname::where('cat_id', $categoryId)->get(['id', 'title']);
+        return response()->json($jobs);
     }
 
+    public function getSpecialistByCategory($categoryId)
+    {
+        $specialists = Specialist::where('cat_id', $categoryId)->get(['id', 'name']);
+        return response()->json($specialists);
+    }
     public function change_password(Request $request)
     {
         try {
@@ -442,7 +454,7 @@ class UserController extends Controller
     {
         $notifications = DB::table('notifications')->where('type', 'App\Notifications\SendNewSujestJob')->where('notifiable_id', Auth::user()->id)->get();
 
-        foreach ($notifications as $notify){
+        foreach ($notifications as $notify) {
             $notify->update([
                 'read_at' => now(),
             ]);

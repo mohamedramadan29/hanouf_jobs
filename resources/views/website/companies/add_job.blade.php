@@ -85,8 +85,8 @@
                                             اضف وظيفة جديدة </a></li>
                                     <li><a href="{{url('chat-main')}}"><i class="fa fa-credit-card"></i> المحادثات
                                         </a></li>
-{{--                                    <li><a href="{{url('company/plan')}}"><i class="fa fa-credit-card"></i> ادارة الخطة--}}
-{{--                                        </a></li>--}}
+                                    {{--                                    <li><a href="{{url('company/plan')}}"><i class="fa fa-credit-card"></i> ادارة الخطة--}}
+                                    {{--                                        </a></li>--}}
                                     <li><a href="{{url('company/change-password')}}"><i class="fa fa-fingerprint"></i>
                                             تغيير كلمة المرور</a></li>
                                     <li><a href="{{url('company/logout')}}"><i class="fa fa-share-square"></i> تسجيل
@@ -114,7 +114,7 @@
 
                                             <div class="col-xl-12 col-lg-12 col-12">
                                                 <div class="form-group">
-                                                    <label>  العنوان </label>
+                                                    <label> العنوان </label>
                                                     <div class="ls-inputicon-box">
                                                         <input required class="form-control" name="title" type="text">
                                                     </div>
@@ -127,7 +127,8 @@
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> حدد الجنسية </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker" name="nationality"
+                                                        <select required class="wt-select-box selectpicker"
+                                                                name="nationality"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد الجنسية</option>
@@ -148,7 +149,7 @@
                                                             <option disabled selected value=""> حدد الجنس</option>
                                                             <option value="ذكر"> ذكر</option>
                                                             <option value="انثي"> انثي</option>
-                                                            <option value="كلاهما"> كلاهما </option>
+                                                            <option value="كلاهما"> كلاهما</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -174,16 +175,16 @@
                                             </div>
 
 
-
-                                            <div class="col-xl-8 col-lg-6 col-md-12">
+                                            <div class="col-xl-12 col-lg-12 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> هل ترغب في من يسكن في منطقة اخرى وليس لدية مانع
-                                                        بالعمل في مدينتك ؟  </label>
+                                                        بالعمل في مدينتك ؟ </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select  required class="wt-select-box selectpicker" name="available_work_from_another_place"
+                                                        <select required class="wt-select-box selectpicker"
+                                                                name="available_work_from_another_place"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
-                                                            <option disabled selected value=""> حدد  </option>
+                                                            <option disabled selected value=""> حدد</option>
                                                             <option value="1">نعم</option>
                                                             <option value="2">لا</option>
                                                         </select>
@@ -191,45 +192,134 @@
                                                 </div>
                                             </div>
 
-
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label>  مسمى الوظيفي للمبيعات </label>
+                                                    <label> حدد تصنيف المسمي الوظيفي </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker" name="job_name"
-                                                                data-live-search="true" title="" id="j-category"
+                                                        <select class="wt-select-box selectpicker"
+                                                                name="job-category"
+                                                                data-live-search="true" title="" id="job-category"
                                                                 data-bv-field="size">
-                                                            <option disabled selected value=""> حدد  </option>
-                                                            @foreach($JobsNames as $jobname)
-                                                                <option value="{{$jobname['id']}}"> {{$jobname['title']}} </option>
+                                                            <option disabled selected value=""> حدد</option>
+                                                            @foreach($nameJobsCategories as $jobcategory)
+                                                                <option
+                                                                    value="{{$jobcategory['id']}}">{{$jobcategory['name']}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
 
-
-                                            <div class="col-xl-4 col-lg-6 col-md-12">
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label>  طبيعة العمل  </label>
+                                                    <label> المسمي الوظيفي </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required multiple class="wt-select-box selectpicker" name="work_type[]"
-                                                                data-live-search="true" title="" id="j-category"
-                                                                data-bv-field="size">
+                                                        <select required class="form-control" name="job_name"
+                                                                title="" id="job-name">
+                                                            <option disabled selected value=""> حدد</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <script>
+                                                document.getElementById('job-category').addEventListener('change', function () {
+                                                    let categoryId = this.value;
+                                                    fetch(`/get-jobs-by-category/${categoryId}`)
+                                                        .then(response => response.json())
+                                                        .then(data => {
+                                                            let jobNameSelect = document.getElementById('job-name');
+                                                            jobNameSelect.innerHTML = '<option disabled selected value=""> حدد</option>';
 
-                                                            <option value="هاتفي">هاتفي</option>
-                                                            <option value="ميداني">ميداني</option>
-                                                            <option value="مكتبي">مكتبي</option>
+                                                            data.forEach(job => {
+                                                                let option = document.createElement('option');
+                                                                option.value = job.id;
+                                                                option.textContent = job.title;
+                                                                jobNameSelect.appendChild(option);
+                                                            });
+
+                                                            // Refresh the selectpicker to apply changes
+                                                            //$('.selectpicker').selectpicker('refresh');
+                                                        })
+                                                        .catch(error => console.error('Error:', error));
+                                                });
+                                            </script>
+
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                                <div class="form-group city-outer-bx has-feedback">
+                                                    <label> حدد تصنيف التخصص المهني </label>
+                                                    <div class="ls-inputicon-box">
+                                                        <select required class="wt-select-box selectpicker"
+                                                                name="special_category"
+                                                                data-live-search="true" title="" id="specialistCategory"
+                                                                data-bv-field="size">
+                                                            <option disabled selected value=""> حدد</option>
+                                                            @foreach($specialistsCategories as $specialcategory)
+                                                                <option
+                                                                    value="{{$specialcategory['id']}}"> {{$specialcategory['name']}} </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
-                                                <div class="form-group">
-                                                    <label>  عدد سنوات الخبرة </label>
+                                                <div class="form-group city-outer-bx has-feedback">
+                                                    <label> التخصص المهني المطلوب ؟ </label>
                                                     <div class="ls-inputicon-box">
-                                                        <input  required class="form-control" min="1" name="experience" type="number">
+                                                        <select required class="form-control"
+                                                                name="profession_specialist" title=""
+                                                                id="specialist_name">
+                                                            <option disabled selected value=""> حدد</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <script>
+                                                document.getElementById('specialistCategory').addEventListener('change', function () {
+                                                    let categoryId = this.value;
+                                                    fetch(`/get-specialist-by-category/${categoryId}`)
+                                                        .then(response => response.json())
+                                                        .then(data => {
+                                                            let specialNameSelect = document.getElementById('specialist_name');
+                                                            specialNameSelect.innerHTML = '<option disabled selected value=""> حدد</option>';
+
+                                                            data.forEach(special => {
+                                                                let option = document.createElement('option');
+                                                                option.value = special.id;
+                                                                option.textContent = special.name;
+                                                                specialNameSelect.appendChild(option);
+                                                            });
+
+                                                            // Refresh the selectpicker to apply changes
+                                                            //$('.selectpicker').selectpicker('refresh');
+                                                        })
+                                                        .catch(error => console.error('Error:', error));
+                                                });
+                                            </script>
+
+
+                                            {{--                                            <div class="col-xl-4 col-lg-6 col-md-12">--}}
+                                            {{--                                                <div class="form-group city-outer-bx has-feedback">--}}
+                                            {{--                                                    <label>  طبيعة العمل  </label>--}}
+                                            {{--                                                    <div class="ls-inputicon-box">--}}
+                                            {{--                                                        <select required multiple class="wt-select-box selectpicker" name="work_type[]"--}}
+                                            {{--                                                                data-live-search="true" title="" id="j-category"--}}
+                                            {{--                                                                data-bv-field="size">--}}
+
+                                            {{--                                                            <option value="هاتفي">هاتفي</option>--}}
+                                            {{--                                                            <option value="ميداني">ميداني</option>--}}
+                                            {{--                                                            <option value="مكتبي">مكتبي</option>--}}
+                                            {{--                                                        </select>--}}
+                                            {{--                                                    </div>--}}
+                                            {{--                                                </div>--}}
+                                            {{--                                            </div>--}}
+
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                                <div class="form-group">
+                                                    <label> عدد سنوات الخبرة </label>
+                                                    <div class="ls-inputicon-box">
+                                                        <input required class="form-control" min="1" name="experience"
+                                                               type="number">
                                                     </div>
                                                 </div>
                                             </div>
@@ -238,7 +328,8 @@
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> اللغة المطلوبة </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker" multiple name="language[]"
+                                                        <select required class="wt-select-box selectpicker" multiple
+                                                                name="language[]"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
                                                             <option value="عربي">عربي</option>
@@ -249,15 +340,15 @@
                                             </div>
 
 
-
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> مستوي اللغة </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker" name="language_level"
+                                                        <select required class="wt-select-box selectpicker"
+                                                                name="language_level"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
-                                                            <option disabled selected value=""> حدد  </option>
+                                                            <option disabled selected value=""> حدد</option>
                                                             <option value="مبتدأ">مبتدأ</option>
                                                             <option value="متوسط">متوسط</option>
                                                             <option value="متقدم">متقدم</option>
@@ -268,48 +359,35 @@
 
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
-                                                <div class="form-group city-outer-bx has-feedback">
-                                                    <label> ماهو التخصص المهني المطلوب ؟ </label>
-                                                    <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker" name="profession_specialist"
-                                                                data-live-search="true" title="" id="j-category"
-                                                                data-bv-field="size">
-                                                            <option disabled selected value=""> حدد  </option>
-                                                            @foreach($specialists as $special)
-                                                                <option value="{{$special['id']}}"> {{$special['name']}} </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group">
                                                     <label> الراتب المحدد </label>
                                                     <div class="ls-inputicon-box">
-                                                        <input required class="form-control" min="1" name="salary" type="number">
+                                                        <input required class="form-control" min="1" name="salary"
+                                                               type="number">
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group">
-                                                    <label> موقع العمل  </label>
+                                                    <label>موقع العمل <span
+                                                            class="badge badge-danger bg-danger"> [ دولة ، مدينة  ] </span>  </label>
                                                     <div class="ls-inputicon-box">
-                                                        <input required class="form-control" name="new_work_place" type="text">
+                                                        <input required class="form-control" name="new_work_place"
+                                                               type="text">
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group">
-                                                    <label> نوع العمل  </label>
+                                                    <label> نوع العمل </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker" name="new_work_time"
+                                                        <select required class="wt-select-box selectpicker"
+                                                                name="new_work_time"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
-                                                            <option disabled selected value=""> حدد  </option>
+                                                            <option disabled selected value=""> حدد</option>
                                                             <option value="جزئي">جزئي</option>
                                                             <option value="كامل">كامل</option>
                                                             <option value="مؤقت">مؤقت</option>
@@ -320,14 +398,15 @@
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group">
-                                                    <label> العمر المطلوب   </label>
+                                                    <label> العمر المطلوب </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker" name="new_age"
+                                                        <select required class="wt-select-box selectpicker"
+                                                                name="new_age"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
-                                                            <option disabled selected value=""> حدد  </option>
+                                                            <option disabled selected value=""> حدد</option>
                                                             <option value="18-24">18-24</option>
-                                                            <option value="25-29"> 25-29 </option>
+                                                            <option value="25-29"> 25-29</option>
                                                             <option value="30-39">30-39</option>
                                                             <option value="+40">+40</option>
                                                             <option value="لايهم">لايهم</option>
@@ -339,14 +418,15 @@
 
                                             <div class="col-xl-12 col-lg-12 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label>  يوجد لدينا مرشحين على رأس العمل ويملكون فترة
+                                                    <label> يوجد لدينا مرشحين على رأس العمل ويملكون فترة
                                                         اشعار
                                                         محدده , أختر الفترة المناسبة لك </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker" name="notification_timeslot"
+                                                        <select required class="wt-select-box selectpicker"
+                                                                name="notification_timeslot"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
-                                                            <option disabled selected value=""> حدد  </option>
+                                                            <option disabled selected value=""> حدد</option>
                                                             <option value="فوري"> فوري</option>
                                                             <option value="خلال شهر">خلال شهر</option>
                                                             <option value="خلال شهرين">خلال شهرين</option>
@@ -358,35 +438,46 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label> الوصف الوظيفي </label>
-                                                    <textarea required class="form-control" rows="3" name="description"></textarea>
+                                                    <textarea required class="form-control" rows="3"
+                                                              name="description"></textarea>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label> المهام الوظيفية <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
-                                                    <textarea class="form-control" rows="3" name="job_requirements"></textarea>
+                                                    <label> المهام الوظيفية <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span>
+                                                    </label>
+                                                    <textarea class="form-control" rows="3"
+                                                              name="job_requirements"></textarea>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label> المؤهلات والخبرات  <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
-                                                    <textarea  class="form-control" rows="3" name="job_experience"></textarea>
+                                                    <label> المؤهلات والخبرات <span
+                                                            class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span>
+                                                    </label>
+                                                    <textarea class="form-control" rows="3"
+                                                              name="job_experience"></textarea>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>  مميزات العمل   <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
-                                                    <textarea  class="form-control" rows="3" name="job_advantage"></textarea>
+                                                    <label> مميزات العمل <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span>
+                                                    </label>
+                                                    <textarea class="form-control" rows="3"
+                                                              name="job_advantage"></textarea>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>  المعلومات المطلوبة  <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span> </label>
-                                                    <textarea class="form-control" rows="3" name="job_needed"></textarea>
+                                                    <label> المعلومات المطلوبة <span
+                                                            class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span>
+                                                    </label>
+                                                    <textarea class="form-control" rows="3"
+                                                              name="job_needed"></textarea>
                                                 </div>
                                             </div>
 

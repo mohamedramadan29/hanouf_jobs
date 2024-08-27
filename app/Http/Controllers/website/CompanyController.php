@@ -9,7 +9,9 @@ use App\Http\Traits\Upload_Images;
 use App\Models\admin\Advertisment;
 use App\Models\admin\City;
 use App\Models\admin\Company;
+use App\Models\admin\JobCategory;
 use App\Models\admin\Jobsname;
+use App\Models\admin\SpecialCategory;
 use App\Models\admin\Specialist;
 use App\Models\User;
 use App\Models\website\Coversation;
@@ -318,11 +320,13 @@ class CompanyController extends Controller
         $citizen = City::all();
         $JobsNames = Jobsname::all();
         $specialists = Specialist::all();
+        $nameJobsCategories = JobCategory::all();
+        $specialistsCategories = SpecialCategory::all();
         try {
             if ($request->isMethod('post')) {
                 $data = $request->all();
                 // dd($data);
-                $work_type = implode(',', $data['work_type']);
+//                $work_type = implode(',', $data['work_type']);
                 $language = implode(',', $data['language']);
                 $rules = [
                     'company_id' => 'required',
@@ -331,7 +335,7 @@ class CompanyController extends Controller
                     'city' => 'required',
                     'available_work_from_another_place' => 'required',
                     'job_name' => 'required',
-                    'work_type' => 'required',
+//                    'work_type' => 'required',
                     'experience' => 'required',
                     'language' => 'required',
                     'language_level' => 'required',
@@ -360,11 +364,13 @@ class CompanyController extends Controller
                     'sex' => $data['sex'],
                     'city' => $data['city'],
                     'available_work_from_another_place' => $data['available_work_from_another_place'],
+                    'job-category'=>$data['job-category'],
                     'job_name' => $data['job_name'],
-                    'work_type' => $work_type,
+//                    'work_type' => $work_type,
                     'experience' => $data['experience'],
                     'language' => $language,
                     'language_level' => $data['language_level'],
+                    'special_category'=>$data['special_category'],
                     'profession_specialist' => $data['profession_specialist'],
                     'notification_timeslot' => $data['notification_timeslot'],
                     'salary' => $data['salary'],
@@ -385,7 +391,7 @@ class CompanyController extends Controller
             return $this->exception_message($e);
         }
 
-        return view('website.companies.add_job', compact('citizen', 'specialists', 'JobsNames'));
+        return view('website.companies.add_job', compact('citizen', 'specialists', 'JobsNames','nameJobsCategories','specialistsCategories'));
     }
 
     public function jobs()
@@ -394,11 +400,23 @@ class CompanyController extends Controller
 
         return view('website.companies.jobs', compact('jobs'));
     }
+    public function getJobsByCategory($categoryId)
+    {
+        $jobs = Jobsname::where('cat_id', $categoryId)->get(['id', 'title']);
+        return response()->json($jobs);
+    }
 
+    public function getSpecialistByCategory($categoryId)
+    {
+        $specialists = Specialist::where('cat_id', $categoryId)->get(['id', 'name']);
+        return response()->json($specialists);
+    }
     public function update_job(Request $request, $id)
     {
         $JobsNames = Jobsname::all();
         $specialists = Specialist::all();
+        $nameJobsCategories = JobCategory::all();
+        $specialistsCategories = SpecialCategory::all();
         $adv = Advertisment::findOrFail($id);
         if ($adv['company_id'] != Auth::guard('company')->user()->id) {
             return \redirect('404');
@@ -408,7 +426,7 @@ class CompanyController extends Controller
             if ($request->isMethod('post')) {
                 $data = $request->all();
                 // dd($data);
-                $work_type = implode(',', $data['work_type']);
+//                $work_type = implode(',', $data['work_type']);
                 $language = implode(',', $data['language']);
                 $rules = [
                     'company_id' => 'required',
@@ -417,7 +435,7 @@ class CompanyController extends Controller
                     'city' => 'required',
                     'available_work_from_another_place' => 'required',
                     'job_name' => 'required',
-                    'work_type' => 'required',
+//                    'work_type' => 'required',
                     'experience' => 'required',
                     'language' => 'required',
                     'language_level' => 'required',
@@ -442,11 +460,13 @@ class CompanyController extends Controller
                     'sex' => $data['sex'],
                     'city' => $data['city'],
                     'available_work_from_another_place' => $data['available_work_from_another_place'],
+                    'job-category'=>$data['job-category'],
                     'job_name' => $data['job_name'],
-                    'work_type' => $work_type,
+//                    'work_type' => $work_type,
                     'experience' => $data['experience'],
                     'language' => $language,
                     'language_level' => $data['language_level'],
+                    'special_category'=>$data['special_category'],
                     'profession_specialist' => $data['profession_specialist'],
                     'notification_timeslot' => $data['notification_timeslot'],
                     'salary' => $data['salary'],
@@ -466,7 +486,7 @@ class CompanyController extends Controller
         } catch (\Exception $e) {
             return $this->exception_message($e);
         }
-        return view('website.companies.update-job', compact('adv', 'citizen', 'specialists', 'JobsNames'));
+        return view('website.companies.update-job', compact('adv', 'citizen', 'specialists', 'JobsNames','specialistsCategories','nameJobsCategories'));
     }
 
     public function delete_job($id)

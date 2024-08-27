@@ -37,6 +37,10 @@ Route::controller(UserController::class)->group(function () {
         Route::match(['post', 'get'], 'user/change-password', 'change_password');
         Route::get('user/logout', 'logout');
         Route::get('user/alert/delete/{id}', 'delete_alert');
+        /////////
+        ///
+        Route::get('/get-jobs-by-category/{categoryId}', 'getJobsByCategory');
+        Route::get('/get-specialist-by-category/{categoryId}', 'getSpecialistByCategory');
     });
 
     Route::match(['post', 'get'], 'forget-password', 'forget_password');
@@ -78,6 +82,8 @@ Route::controller(CompanyController::class)->group(function () {
         ///
         Route::get('company/chat/{adv_id}-{username}','start_conversation');
        // Route::get('company/chat/{adv_id}-{username}', [ChatController::class, 'showChat']);
+        Route::get('/get-jobs-by-category/{categoryId}', 'getJobsByCategory');
+        Route::get('/get-specialist-by-category/{categoryId}', 'getSpecialistByCategory');
     });
 
     Route::get('chat-main',\App\Livewire\Chat\Main::class);

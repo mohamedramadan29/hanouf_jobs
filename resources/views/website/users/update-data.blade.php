@@ -78,7 +78,7 @@
                                             تعديل النبذة شخصية
                                         </a></li>
                                     <li class="active"><a href="{{url('user/update')}}"><i class="fa fa-edit"></i>
-                                            تعديل معلوماتي المهنية  </a></li>
+                                            تعديل معلوماتي المهنية </a></li>
 
                                     <li><a href="{{url('chat-main')}}"><i class="fa fa-comments"></i> المحادثات </a>
                                     </li>
@@ -137,7 +137,8 @@
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> حدد الجنس </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker سثمث" name="sex"
+                                                        <select required class="wt-select-box selectpicker سثمث"
+                                                                name="sex"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد الجنس</option>
@@ -193,38 +194,73 @@
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label>  حدد تصنيف المسمي الوظيفي   </label>
+                                                    <label> حدد تصنيف المسمي الوظيفي </label>
                                                     <div class="ls-inputicon-box">
                                                         <select class="wt-select-box selectpicker"
                                                                 name="job_category"
                                                                 data-live-search="true" title="" id="job-category"
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد</option>
-                                                            @foreach($nameJobsCategories as  $jobcategory)
-                                                                <option value="{{$jobcategory['id']}}">{{$jobcategory['name']}}</option>
+                                                            @foreach($nameJobsCategories as $jobcategory)
+                                                                <option @if($user['job_category'] == $jobcategory['id']) selected @endif
+                                                                    value="{{$jobcategory['id']}}">{{$jobcategory['name']}}</option>
                                                             @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                                <div class="form-group city-outer-bx has-feedback">
+                                                    <label> المسمي الوظيفي </label>
+                                                    <div class="ls-inputicon-box">
+                                                        <select required class="form-control"
+                                                                name="job_name"  title="" id="job-name">
+                                                            @if($user['job_name'] !='')
+                                                                <option selected value="{{$user['job_name']}}">{{$user['jobs_name']['title']}}</option>
+                                                            @endif
                                                         </select>
 
 
                                                     </div>
                                                 </div>
                                             </div>
+                                            <script>
+                                                document.getElementById('job-category').addEventListener('change', function () {
+                                                    let categoryId = this.value;
+                                                    fetch(`/get-jobs-by-category/${categoryId}`)
+                                                        .then(response => response.json())
+                                                        .then(data => {
+                                                            let jobNameSelect = document.getElementById('job-name');
+                                                            jobNameSelect.innerHTML = '<option disabled selected value=""> حدد</option>';
+
+                                                            data.forEach(job => {
+                                                                let option = document.createElement('option');
+                                                                option.value = job.id;
+                                                                option.textContent = job.title;
+                                                                jobNameSelect.appendChild(option);
+                                                            });
+
+                                                            // Refresh the selectpicker to apply changes
+                                                            //$('.selectpicker').selectpicker('refresh');
+                                                        })
+                                                        .catch(error => console.error('Error:', error));
+                                                });
+                                            </script>
+
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label> المسمي الوظيفي  </label>
+                                                    <label> حدد تصنيف التخصص المهني </label>
                                                     <div class="ls-inputicon-box">
                                                         <select required class="wt-select-box selectpicker"
-                                                                name="job_name"
-                                                                data-live-search="true" title="" id="j-category"
+                                                                name="special_category"
+                                                                data-live-search="true" title="" id="specialistCategory"
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد</option>
-                                                            @foreach($nameJobs as  $job)
-                                                                <option @if($job['id'] == $user['job_name']) selected
-                                                                        @endif value="{{$job['id']}}">{{$job['title']}}</option>
+                                                            @foreach($specialistsCategories as $specialcategory)
+                                                                <option @if($user['special_category'] == $specialcategory['id']) selected @endif
+                                                                    value="{{$specialcategory['id']}}"> {{$specialcategory['name']}} </option>
                                                             @endforeach
                                                         </select>
-
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -233,48 +269,67 @@
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> ماهي تخصصك المهني ؟ </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker"
-                                                                name="profession_specialist"
-                                                                data-live-search="true" title="" id="j-category"
-                                                                data-bv-field="size">
-                                                            <option disabled selected value=""> حدد</option>
-                                                            @foreach($specialists as $special)
-                                                                <option
-                                                                    @if($special['id'] == $user['profession_specialist']) selected
-                                                                    @endif value="{{$special['id']}}"> {{$special['name']}} </option>
-                                                            @endforeach
+                                                        <select required class="form-control"
+                                                                name="profession_specialist"  id="specialist_name">
+                                                            @if($user['profession_specialist'] !='')
+                                                                <option selected value="{{$user['profession_specialist']}}">{{$user['specialist']['name']}}</option>
+                                                            @endif
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
 
+                                            <script>
+                                                document.getElementById('specialistCategory').addEventListener('change', function () {
+                                                    let categoryId = this.value;
+                                                    fetch(`/get-specialist-by-category/${categoryId}`)
+                                                        .then(response => response.json())
+                                                        .then(data => {
+                                                            let specialNameSelect = document.getElementById('specialist_name');
+                                                            specialNameSelect.innerHTML = '<option disabled selected value=""> حدد</option>';
 
-{{--                                            <div class="col-xl-6 col-lg-6 col-md-12">--}}
-{{--                                                <div class="form-group city-outer-bx has-feedback">--}}
-{{--                                                    <label> طبيعة العمل </label>--}}
-{{--                                                    <div class="ls-inputicon-box">--}}
-{{--                                                        @php--}}
-{{--                                                            $work_types = explode(',',$user['work_type']);--}}
-{{--                                                        @endphp--}}
-{{--                                                        <select required multiple class="wt-select-box selectpicker"--}}
-{{--                                                                name="work_type[]"--}}
-{{--                                                                data-live-search="true" title="" id="j-category"--}}
-{{--                                                                data-bv-field="size">--}}
-{{--                                                            <option @if(in_array('هاتفي',$work_types)) selected--}}
-{{--                                                                    @endif value="هاتفي">هاتفي--}}
-{{--                                                            </option>--}}
-{{--                                                            <option value="ميداني"--}}
-{{--                                                                    @if(in_array('ميداني', $work_types)) selected @endif>--}}
-{{--                                                                ميداني--}}
-{{--                                                            </option>--}}
-{{--                                                            <option value="مكتبي"--}}
-{{--                                                                    @if(in_array('مكتبي', $work_types)) selected @endif>--}}
-{{--                                                                مكتبي--}}
-{{--                                                            </option>--}}
-{{--                                                        </select>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
+                                                            data.forEach(special => {
+                                                                let option = document.createElement('option');
+                                                                option.value = special.id;
+                                                                option.textContent = special.name;
+                                                                specialNameSelect.appendChild(option);
+                                                            });
+
+                                                            // Refresh the selectpicker to apply changes
+                                                            //$('.selectpicker').selectpicker('refresh');
+                                                        })
+                                                        .catch(error => console.error('Error:', error));
+                                                });
+                                            </script>
+
+
+
+                                            {{--                                            <div class="col-xl-6 col-lg-6 col-md-12">--}}
+                                            {{--                                                <div class="form-group city-outer-bx has-feedback">--}}
+                                            {{--                                                    <label> طبيعة العمل </label>--}}
+                                            {{--                                                    <div class="ls-inputicon-box">--}}
+                                            {{--                                                        @php--}}
+                                            {{--                                                            $work_types = explode(',',$user['work_type']);--}}
+                                            {{--                                                        @endphp--}}
+                                            {{--                                                        <select required multiple class="wt-select-box selectpicker"--}}
+                                            {{--                                                                name="work_type[]"--}}
+                                            {{--                                                                data-live-search="true" title="" id="j-category"--}}
+                                            {{--                                                                data-bv-field="size">--}}
+                                            {{--                                                            <option @if(in_array('هاتفي',$work_types)) selected--}}
+                                            {{--                                                                    @endif value="هاتفي">هاتفي--}}
+                                            {{--                                                            </option>--}}
+                                            {{--                                                            <option value="ميداني"--}}
+                                            {{--                                                                    @if(in_array('ميداني', $work_types)) selected @endif>--}}
+                                            {{--                                                                ميداني--}}
+                                            {{--                                                            </option>--}}
+                                            {{--                                                            <option value="مكتبي"--}}
+                                            {{--                                                                    @if(in_array('مكتبي', $work_types)) selected @endif>--}}
+                                            {{--                                                                مكتبي--}}
+                                            {{--                                                            </option>--}}
+                                            {{--                                                        </select>--}}
+                                            {{--                                                    </div>--}}
+                                            {{--                                                </div>--}}
+                                            {{--                                            </div>--}}
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group">
@@ -285,8 +340,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
 
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
