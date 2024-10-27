@@ -5,18 +5,33 @@
 @section('content')
     <!-- CONTENT START -->
     <div class="page-content">
-        @if (Session::has('Success_message'))
-            @php
-                emotify('success', \Illuminate\Support\Facades\Session::get('Success_message'));
-            @endphp
-        @endif
-        @if ($errors->any())
-            @foreach ($errors->all() as $error)
+{{--        @if (Session::has('Success_message'))--}}
+{{--            @php--}}
+{{--                emotify('success', \Illuminate\Support\Facades\Session::get('Success_message'));--}}
+{{--            @endphp--}}
+{{--        @endif--}}
+{{--        @if ($errors->any())--}}
+{{--            @foreach ($errors->all() as $error)--}}
+{{--                @php--}}
+{{--                    emotify('error', $error);--}}
+{{--                @endphp--}}
+{{--            @endforeach--}}
+{{--        @endif--}}
+
+
+
+            @if (Session::has('Success_message'))
                 @php
-                    emotify('error', $error);
+                    toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
                 @endphp
-            @endforeach
-        @endif
+            @endif
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    @php
+                        toastify()->error($error);
+                    @endphp
+                @endforeach
+            @endif
         <!-- Login Section Start -->
         <div class="section-full site-bg-white">
             <div class="container-fluid">
@@ -44,24 +59,24 @@
                                 </div>
                                 <div class="twm-tabs-style-2">
 
-                                    <ul class="nav nav-tabs" id="myTab2" role="tablist">
+{{--                                    <ul class="nav nav-tabs" id="myTab2" role="tablist">--}}
 
-                                        <!--Login Candidate-->
-                                        <li class="nav-item">
-                                            <button class="nav-link active" data-bs-toggle="tab"
-                                                    data-bs-target="#twm-login-candidate" type="button"><i
-                                                    class="fas fa-user-tie"></i> موظف
-                                            </button>
-                                        </li>
-                                        <!--Login Employer-->
-                                        <li class="nav-item">
-                                            <button class="nav-link" data-bs-toggle="tab"
-                                                    data-bs-target="#twm-login-Employer" type="button"><i
-                                                    class="fas fa-building"></i>صاحب العمل
-                                            </button>
-                                        </li>
+{{--                                        <!--Login Candidate-->--}}
+{{--                                        <li class="nav-item">--}}
+{{--                                            <button class="nav-link active" data-bs-toggle="tab"--}}
+{{--                                                    data-bs-target="#twm-login-candidate" type="button"><i--}}
+{{--                                                    class="fas fa-user-tie"></i> موظف--}}
+{{--                                            </button>--}}
+{{--                                        </li>--}}
+{{--                                        <!--Login Employer-->--}}
+{{--                                        <li class="nav-item">--}}
+{{--                                            <button class="nav-link" data-bs-toggle="tab"--}}
+{{--                                                    data-bs-target="#twm-login-Employer" type="button"><i--}}
+{{--                                                    class="fas fa-building"></i>صاحب العمل--}}
+{{--                                            </button>--}}
+{{--                                        </li>--}}
 
-                                    </ul>
+{{--                                    </ul>--}}
 
                                     <div class="tab-content" id="myTab2Content">
                                         <!--Login Candidate Content-->
@@ -85,7 +100,6 @@
                                                                    placeholder="كلمة المرور*">
                                                         </div>
                                                     </div>
-
                                                     <div class="col-lg-12">
                                                         <div class="twm-forgot-wrap">
                                                             <div class="form-group mb-3">
@@ -102,7 +116,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <button type="submit" class="site-button">تسجيل الدخول
@@ -114,52 +127,52 @@
                                             </form>
                                         </div>
                                         <!--Login Employer Content-->
-                                        <div class="tab-pane fade" id="twm-login-Employer">
-                                            <form action="{{route('company_login')}}" method="post">
-                                                @csrf
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group mb-3">
-                                                            <input name="email" type="email" required=""
-                                                                   value="{{old('email')}}"
-                                                                   class="form-control"
-                                                                   placeholder=" البريد الالكتروني  *">
-                                                        </div>
-                                                    </div>
+{{--                                        <div class="tab-pane fade" id="twm-login-Employer">--}}
+{{--                                            <form action="{{route('company_login')}}" method="post">--}}
+{{--                                                @csrf--}}
+{{--                                                <div class="row">--}}
+{{--                                                    <div class="col-lg-12">--}}
+{{--                                                        <div class="form-group mb-3">--}}
+{{--                                                            <input name="email" type="email" required=""--}}
+{{--                                                                   value="{{old('email')}}"--}}
+{{--                                                                   class="form-control"--}}
+{{--                                                                   placeholder=" البريد الالكتروني  *">--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
 
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group mb-3">
-                                                            <input name="password" type="password" class="form-control"
-                                                                   required=""
-                                                                   placeholder="كلمة المرور*">
-                                                        </div>
-                                                    </div>
+{{--                                                    <div class="col-lg-12">--}}
+{{--                                                        <div class="form-group mb-3">--}}
+{{--                                                            <input name="password" type="password" class="form-control"--}}
+{{--                                                                   required=""--}}
+{{--                                                                   placeholder="كلمة المرور*">--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
 
-                                                    <div class="col-lg-12">
-                                                        <div class="twm-forgot-wrap">
-                                                            <div class="form-group mb-3">
-                                                                <div class="form-check">
-                                                                    <input type="checkbox" class="form-check-input"
-                                                                           id="Password4">
-                                                                    <label class="form-check-label rem-forgot"
-                                                                           for="Password4">تذكرنى <a href="javascript:;"
-                                                                                                     class="site-text-primary">هل
-                                                                            نسيت كلمة السر</a></label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+{{--                                                    <div class="col-lg-12">--}}
+{{--                                                        <div class="twm-forgot-wrap">--}}
+{{--                                                            <div class="form-group mb-3">--}}
+{{--                                                                <div class="form-check">--}}
+{{--                                                                    <input type="checkbox" class="form-check-input"--}}
+{{--                                                                           id="Password4">--}}
+{{--                                                                    <label class="form-check-label rem-forgot"--}}
+{{--                                                                           for="Password4">تذكرنى <a href="javascript:;"--}}
+{{--                                                                                                     class="site-text-primary">هل--}}
+{{--                                                                            نسيت كلمة السر</a></label>--}}
+{{--                                                                </div>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
 
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <button type="submit" class="site-button">تسجيل الدخول
-                                                            </button>
-                                                        </div>
-                                                    </div>
+{{--                                                    <div class="col-md-12">--}}
+{{--                                                        <div class="form-group">--}}
+{{--                                                            <button type="submit" class="site-button">تسجيل الدخول--}}
+{{--                                                            </button>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
 
-                                                </div>
-                                            </form>
-                                        </div>
+{{--                                                </div>--}}
+{{--                                            </form>--}}
+{{--                                        </div>--}}
 
                                     </div>
                                 </div>

@@ -165,15 +165,34 @@ class UserController extends Controller
                 if ($validator->fails()) {
                     return redirect()->back()->withErrors($validator)->withInput();
                 }
-                if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
-                    if (Auth::user()->email_confirm == 0) {
-                        Auth::logout();
-                        return Redirect::back()->withInput()->withErrors('  من فضلك يجب تفعيل الحساب الخاص بك اولا  ');
+                $email = $data['email'];
+                $users_mails = User::where('email', $email)->get();
+                $company_mails = Company::where('email', $email)->get();
+                if ($users_mails->count() > 0) {
+                    if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
+                        if (Auth::user()->email_confirm == 0) {
+                            Auth::logout();
+                            return Redirect::back()->withInput()->withErrors('  من فضلك يجب تفعيل الحساب الخاص بك اولا  ');
+                        }
+                        return \redirect('user/dashboard');
+                    } else {
+                        return Redirect::back()->withInput()->withErrors('لا يوجد حساب بهذه البيانات  ');
                     }
-                    return \redirect('user/dashboard');
+                } elseif ($company_mails->count() > 0) {
+//                    return Redirect::route('company_login');
+                    if (Auth::guard('company')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
+                        if (Auth::guard('company')->user()->email_confirm == 0) {
+                            Auth::guard('company')->logout();
+                            return Redirect::back()->withInput()->withErrors('  من فضلك يجب تفعيل الحساب الخاص بك اولا  ');
+                        }
+                        return \redirect('company/dashboard');
+                    } else {
+                        return Redirect::back()->withInput()->withErrors('لا يوجد حساب بهذه البيانات  ');
+                    }
                 } else {
                     return Redirect::back()->withInput()->withErrors('لا يوجد حساب بهذه البيانات  ');
                 }
+
 
             } catch (\Exception $e) {
                 return $this->exception_message($e);
@@ -349,7 +368,7 @@ class UserController extends Controller
         $nameJobs = Jobsname::all();
         $nameJobsCategories = JobCategory::all();
         $specialistsCategories = SpecialCategory::all();
-        $user = User::with('jobs_name','specialist')->where('id', Auth::id())->first();
+        $user = User::with('jobs_name', 'specialist')->where('id', Auth::id())->first();
         try {
 
             if ($request->isMethod('post')) {
@@ -402,6 +421,7 @@ class UserController extends Controller
         }
         return view('website.users.update-data', compact('user', 'citizen', 'nameJobs', 'specialists', 'nameJobsCategories', 'specialistsCategories'));
     }
+
     public function getJobsByCategory($categoryId)
     {
         $jobs = Jobsname::where('cat_id', $categoryId)->get(['id', 'title']);
@@ -413,6 +433,7 @@ class UserController extends Controller
         $specialists = Specialist::where('cat_id', $categoryId)->get(['id', 'name']);
         return response()->json($specialists);
     }
+
     public function change_password(Request $request)
     {
         try {

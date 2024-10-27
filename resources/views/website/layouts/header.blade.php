@@ -39,6 +39,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/website/css/rtl.css')}}"><!-- RTL STYLE SHEET -->
 
     @notifyCss
+    @toastifyCss
     @yield('css')
     @livewireStyles
 </head>

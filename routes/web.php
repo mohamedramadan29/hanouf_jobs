@@ -48,10 +48,9 @@ Route::controller(UserController::class)->group(function () {
 /////////////////////// Company Controller //////////////////////
 ///
 Route::controller(CompanyController::class)->group(function () {
-
     Route::post('company/register', 'register');
     Route::get('company/confirm/{code}', 'CompanyConfirm');
-    Route::post('company/login', 'login')->name('company_login');
+    Route::match(['post','get'],'company/login', 'login')->name('company_login');
     //////////Forget Password
     ///
     Route::match(['post', 'get'], 'company/forget-password', 'forget_password');
