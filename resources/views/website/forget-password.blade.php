@@ -24,22 +24,22 @@
                     <div class="col-xl-7 col-lg-6 col-md-5 twm-log-reg-media-wrap">
                         <div class="twm-log-reg-media">
                             <div class="twm-l-media">
-                                <img src="{{asset('assets/website/images/forget_password.svg')}}" alt="">
+                                <img src="{{ asset('assets/website/images/forget_password.svg') }}" alt="">
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-5 col-lg-6 col-md-7">
                         <div class="twm-log-reg-form-wrap">
                             <div class="twm-log-reg-logo-head">
-                                <a href="{{url('/')}}">
-                                    <img src="{{asset('assets/website/images/logo.png')}}" alt="" class="logo">
+                                <a href="{{ url('/') }}">
+                                    <img src="{{ asset('assets/website/images/logo.png') }}" alt="" class="logo">
                                 </a>
                             </div>
 
                             <div class="twm-log-reg-inner">
                                 <div class="twm-log-reg-head">
                                     <div class="twm-log-reg-logo">
-                                        <span class="log-reg-form-title"> هل نسيت كلمة المرور  </span>
+                                        <span class="log-reg-form-title"> هل نسيت كلمة المرور </span>
                                     </div>
                                 </div>
                                 <div class="twm-tabs-style-2">
@@ -49,14 +49,14 @@
                                         <!--Login Candidate-->
                                         <li class="nav-item">
                                             <button class="nav-link active" data-bs-toggle="tab"
-                                                    data-bs-target="#twm-login-candidate" type="button"><i
+                                                data-bs-target="#twm-login-candidate" type="button"><i
                                                     class="fas fa-user-tie"></i> موظف
                                             </button>
                                         </li>
                                         <!--Login Employer-->
                                         <li class="nav-item">
                                             <button class="nav-link" data-bs-toggle="tab"
-                                                    data-bs-target="#twm-login-Employer" type="button"><i
+                                                data-bs-target="#twm-login-Employer" type="button"><i
                                                     class="fas fa-building"></i>صاحب العمل
                                             </button>
                                         </li>
@@ -66,15 +66,14 @@
                                     <div class="tab-content" id="myTab2Content">
                                         <!--Login Candidate Content-->
                                         <div class="tab-pane fade show active" id="twm-login-candidate">
-                                            <form action="{{url('forget-password')}}" method="post">
+                                            <form action="{{ url('forget-password') }}" method="post">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <div class="form-group mb-3">
                                                             <input name="email" type="email" required=""
-                                                                   value="{{old('email')}}"
-                                                                   class="form-control"
-                                                                   placeholder=" البريد الالكتروني  *">
+                                                                value="{{ old('email') }}" class="form-control"
+                                                                placeholder=" البريد الالكتروني  *">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
@@ -88,15 +87,14 @@
                                         </div>
                                         <!--Login Employer Content-->
                                         <div class="tab-pane fade" id="twm-login-Employer">
-                                            <form action="{{url('company/forget-password')}}" method="post">
+                                            <form action="{{ url('company/forget-password') }}" method="post">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <div class="form-group mb-3">
                                                             <input name="email" type="email" required=""
-                                                                   value="{{old('email')}}"
-                                                                   class="form-control"
-                                                                   placeholder=" البريد الالكتروني  *">
+                                                                value="{{ old('email') }}" class="form-control"
+                                                                placeholder=" البريد الالكتروني  *">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
