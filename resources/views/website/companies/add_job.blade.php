@@ -114,7 +114,7 @@
 
                                             <div class="col-xl-12 col-lg-12 col-12">
                                                 <div class="form-group">
-                                                    <label> العنوان </label>
+                                                    <label> عنوان الإعلان الوظيفي </label>
                                                     <div class="ls-inputicon-box">
                                                         <input required class="form-control" name="title" type="text">
                                                     </div>
@@ -362,7 +362,7 @@
                                                 <div class="form-group">
                                                     <label> الراتب المحدد </label>
                                                     <div class="ls-inputicon-box">
-                                                        <input required class="form-control" min="1" name="salary"
+                                                        <input class="form-control" min="1" name="salary"
                                                                type="number">
                                                     </div>
                                                 </div>
@@ -418,9 +418,7 @@
 
                                             <div class="col-xl-12 col-lg-12 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label> يوجد لدينا مرشحين على رأس العمل ويملكون فترة
-                                                        اشعار
-                                                        محدده , أختر الفترة المناسبة لك </label>
+                                                    <label> متى احتياجك لأغلاق الشاغر  </label>
                                                     <div class="ls-inputicon-box">
                                                         <select required class="wt-select-box selectpicker"
                                                                 name="notification_timeslot"
@@ -473,7 +471,7 @@
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label> المعلومات المطلوبة <span
+                                                    <label> البيانات المطلوبة للتقديم   <span
                                                             class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span>
                                                     </label>
                                                     <textarea class="form-control" rows="3"

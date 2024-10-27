@@ -29,8 +29,8 @@
 
                         <ul class=" nav navbar-nav">
                             <li class="has-mega-menu"><a href="{{ url('/') }}"> الرئيسية </a></li>
-                            <li class="has-mega-menu"><a href="{{ url('jobs') }}"> الشواغر الوظيفية </a></li>
-                            <li class="has-child"><a href="{{ url('talents') }}"> ابحث عن موظفين </a></li>
+                            <li class="has-mega-menu"><a href="{{ url('jobs') }}"> إعلانات وظيفية  </a></li>
+                            <li class="has-child"><a href="{{ url('talents') }}"> الباحثين عن العمل  </a></li>
 {{--                            <li class="has-child"><a href="{{ url('employers') }}"> لاصحاب الوظائف </a></li>--}}
                             <li class="has-child"><a href="{{ url('contact') }}"> اتصل بنا </a></li>
                         </ul>

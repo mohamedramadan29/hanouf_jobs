@@ -42,7 +42,7 @@ class UserController extends Controller
         $compelete_info = '';
         if (empty($name) || empty($mobile) || empty($city) || empty($job_name) || empty($profession_specialist) || empty($info)) {
 
-            $compelete_info = '  من فضلك ادخل جميع البيانات الخاصة بك بشكل صحيح لتتمكن من الظهور في قائمة المواهب وتسطيع التقدم الي الوظيفة المناسبة ';
+            $compelete_info = ' من فضلك اكمل بياناتك المهنية  ';
         }
 
         return view('website.users.dashboard', compact('compelete_info'));

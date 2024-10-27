@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Traits\Message_Trait;
 use App\Http\Traits\Slug_Trait;
 use App\Http\Traits\Upload_Images;
+use App\Models\admin\City;
+use App\Models\admin\JobCategory;
+use App\Models\admin\SpecialCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -20,8 +23,18 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::all();
+        $users = User::with('location')->get();
         return view('admin.users.index', compact('users'));
+    }
+
+
+    public function details($id)
+    {
+        $user = User::findOrFail($id);
+        $citizen = City::all();
+        $nameJobsCategories = JobCategory::all();
+        $specialistsCategories = SpecialCategory::all();
+        return view('admin.users.details',compact('user','citizen','nameJobsCategories','specialistsCategories'));
     }
 
     public function store(Request $request)

@@ -60,7 +60,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::controller(UserController::class)->group(function () {
             Route::get('users', 'index');
             Route::match(['post', 'get'], 'user/store', 'store');
-            Route::match(['post', 'get'], 'user/update/{id}', 'update');
+            Route::match(['post', 'get'], 'user/details/{id}', 'details');
             Route::post('user/delete/{id}', 'delete');
         });
         //////////////////////////// Start Faqs /////////////////

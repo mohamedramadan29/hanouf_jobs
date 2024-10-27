@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    المستخدمين
+    الموظفين
 @endsection
 @section('css')
     <link href="{{ URL::asset('assets/admin/plugins/datatable/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet"/>
@@ -16,7 +16,7 @@
         <div class="my-auto">
             <div class="d-flex">
                 <h4 class="content-title mb-0 my-auto">الرئيسية </h4><span
-                    class="text-muted mt-1 tx-13 mr-2 mb-0">/  المستخدمين  </span>
+                    class="text-muted mt-1 tx-13 mr-2 mb-0">/  الموظفين   </span>
             </div>
         </div>
     </div>
@@ -27,9 +27,7 @@
         <!-- Col -->
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header">
-                    <a href="{{url('admin/user/store')}}" class="btn btn-primary btn-sm"> اضافة مستخدم جديد  <i class="fa fa-plus"></i> </a>
-                </div>
+
                 <div class="card-body">
                     @if(Session::has('Success_message'))
                         <div
@@ -52,13 +50,11 @@
                                 <tr>
                                     <th class="wd-15p border-bottom-0"> #</th>
                                     <th class="wd-15p border-bottom-0"> الاسم  </th>
-                                    <th class="wd-15p border-bottom-0"> العنوان   </th>
-                                    <th class="wd-15p border-bottom-0"> المدينه   </th>
-                                    <th class="wd-15p border-bottom-0">  الولايه  </th>
-                                    <th class="wd-15p border-bottom-0"> الدوله   </th>
                                     <th class="wd-15p border-bottom-0"> البريد الالكتروني   </th>
                                     <th class="wd-15p border-bottom-0">  رقم الهاتف </th>
-                                    <th class="wd-15p border-bottom-0">   الحاله </th>
+                                    <th class="wd-15p border-bottom-0">  الجنسية   </th>
+                                    <th class="wd-15p border-bottom-0"> المدينه   </th>
+                                    <th class="wd-15p border-bottom-0">  معرفة الموقع   </th>
                                     <th class="wd-15p border-bottom-0"> العمليات</th>
                                 </tr>
                                 </thead>
@@ -70,23 +66,15 @@
                                     <tr>
                                         <td> {{$i++}} </td>
                                         <td> {{$user['name']}} </td>
-                                        <td> {{$user['address']}} </td>
-                                        <td> {{$user['city']}} </td>
-                                        <td> {{$user['state']}} </td>
-                                        <td> {{$user['country']}} </td>
                                         <td> {{$user['email']}} </td>
                                         <td> {{$user['mobile']}} </td>
+                                        <td> {{$user['nationality']}} </td>
+
+                                        <td> {{$user['location']['name']}} </td>
+                                        <td> {{$user['wherelisting']}} </td>
+
                                         <td>
-                                            @if($user['status'] == 1)
-                                                <span class="badge badge-success"> نشط  </span>
-                                            @elseif($user['status'] == 0)
-                                                <span class="badge badge-danger"> غير نشط </span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-primary btn-sm"
-                                                    data-target="#edit_model_{{$user['id']}}"
-                                                    data-toggle="modal"> تعديل الحاله <i class="fa fa-edit"></i></button>
+                                          <a class="btn btn-primary btn-sm" href="{{url('admin/user/details/'.$user['id'])}}"> تفاصيل المستخدم  </a>
                                         </td>
                                     </tr>
 

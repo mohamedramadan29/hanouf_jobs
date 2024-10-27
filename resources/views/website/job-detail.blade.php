@@ -146,7 +146,7 @@
                                     @php
                                         $job_needed = explode(',', $adv['job_needed']);
                                     @endphp
-                                    <h4 class="twm-s-title"> المعلومات المطلوبة </h4>
+                                    <h4 class="twm-s-title"> البيانات المطلوبة للتقديم </h4>
                                     <ul class="description-list-2">
                                         @foreach($job_needed as $job_need)
                                             <li>

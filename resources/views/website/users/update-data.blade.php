@@ -400,9 +400,7 @@
 
                                             <div class="col-xl-12 col-lg-12 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label> يوجد لدينا مرشحين على رأس العمل ويملكون فترة
-                                                        اشعار
-                                                        محدده , أختر الفترة المناسبة لك </label>
+                                                    <label>  هل انت مستعد للعمل ؟   </label>
                                                     <div class="ls-inputicon-box">
                                                         <select required class="wt-select-box selectpicker"
                                                                 name="notification_timeslot"

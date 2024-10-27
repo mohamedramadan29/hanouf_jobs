@@ -65,6 +65,15 @@
                     </li>
                 </ul>
             </li>
+            <li class="side-item side-item-category"> الموظفين   </li>
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="">
+                    <i style="font-size: 22px;margin-left: 10px" class="bx bx-user"></i>
+                    <span class="side-menu__label">   الموظفين </span><i class="angle fe fe-chevron-down"></i></a>
+                <ul class="slide-menu">
+                    <li><a class="slide-item" href="{{url('admin/users')}}"> الموظفين  </a></li>
+                </ul>
+            </li>
             <li class="side-item side-item-category"> ادارة الخطط والباقات</li>
             <li class="slide">
                 <a class="side-menu__item" data-toggle="slide" href="">
@@ -177,17 +186,6 @@
                     </li>
                 </ul>
             </li>
-
-            <li class="side-item side-item-category"> المستخدمين</li>
-            <li class="slide">
-                <a class="side-menu__item" data-toggle="slide" href="">
-                    <i style="font-size: 22px;margin-left: 10px" class="bx bx-user"></i>
-                    <span class="side-menu__label">   المستخدمين </span><i class="angle fe fe-chevron-down"></i></a>
-                <ul class="slide-menu">
-                    <li><a class="slide-item" href="{{url('admin/users')}}"> المستخدمين </a></li>
-                </ul>
-            </li>
-
             <li class="side-item side-item-category"> حسابي</li>
             <li class="slide">
                 <a class="side-menu__item" data-toggle="slide" href="">
@@ -200,23 +198,21 @@
                     <li><a class="slide-item" href="{{url('admin/update_admin_details')}}"> تعديل البيانات </a></li>
                 </ul>
             </li>
-            <li class="side-item side-item-category"> اعدادات الموقع</li>
-            <li class="slide">
-                <a class="side-menu__item" data-toggle="slide" href="">
-                    <i style="font-size: 22px;margin-left: 10px" class="bx bx-home"></i>
-                    <span class="side-menu__label">  الصفحه الرئيسيه  </span><i
-                        class="angle fe fe-chevron-down"></i></a>
-                <ul class="slide-menu">
-                    <li><a class="slide-item" href="{{url('admin/banners')}}"> البانرز </a>
-                    </li>
-                    <li><a class="slide-item" href="{{url('admin/website_advantage')}}"> مميزات المتجر </a>
-                    <li><a class="slide-item" href="{{url('admin/front_titles')}}"> التحكم في العناوين الرئيسية </a>
-                    <li><a class="slide-item" href="{{url('admin/under_banner')}}"> البانر الاساسي </a>
-                    </li>
-                </ul>
-            </li>
-
-
+{{--            <li class="side-item side-item-category"> اعدادات الموقع</li>--}}
+{{--            <li class="slide">--}}
+{{--                <a class="side-menu__item" data-toggle="slide" href="">--}}
+{{--                    <i style="font-size: 22px;margin-left: 10px" class="bx bx-home"></i>--}}
+{{--                    <span class="side-menu__label">  الصفحه الرئيسيه  </span><i--}}
+{{--                        class="angle fe fe-chevron-down"></i></a>--}}
+{{--                <ul class="slide-menu">--}}
+{{--                    <li><a class="slide-item" href="{{url('admin/banners')}}"> البانرز </a>--}}
+{{--                    </li>--}}
+{{--                    <li><a class="slide-item" href="{{url('admin/website_advantage')}}"> مميزات المتجر </a>--}}
+{{--                    <li><a class="slide-item" href="{{url('admin/front_titles')}}"> التحكم في العناوين الرئيسية </a>--}}
+{{--                    <li><a class="slide-item" href="{{url('admin/under_banner')}}"> البانر الاساسي </a>--}}
+{{--                    </li>--}}
+{{--                </ul>--}}
+{{--            </li>--}}
         </ul>
     </div>
 </aside>
