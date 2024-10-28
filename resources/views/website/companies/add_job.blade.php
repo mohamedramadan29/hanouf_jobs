@@ -148,7 +148,7 @@
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد الجنس</option>
                                                             <option value="ذكر"> ذكر</option>
-                                                            <option value="انثي"> انثي</option>
+                                                            <option value="انثي"> انثى</option>
                                                             <option value="كلاهما"> كلاهما</option>
                                                         </select>
                                                     </div>
@@ -208,7 +208,7 @@
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label>   تصنيف المسمي الوظيفي </label>
+                                                    <label>   تصنيف المسمى الوظيفي </label>
                                                     <div class="ls-inputicon-box">
                                                         <select class="wt-select-box selectpicker"
                                                                 name="job-category"
@@ -226,7 +226,7 @@
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label> المسمي الوظيفي </label>
+                                                    <label> المسمى الوظيفي </label>
                                                     <div class="ls-inputicon-box">
                                                         <select required class="form-control" name="job_name"
                                                                 title="" id="job-name">

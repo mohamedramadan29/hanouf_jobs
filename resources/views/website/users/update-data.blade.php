@@ -159,7 +159,7 @@
                                                                     @endif value="ذكر"> ذكر
                                                             </option>
                                                             <option @if($user['sex'] == 'انثي') selected
-                                                                    @endif value="انثي"> انثي
+                                                                    @endif value="انثي">انثى
                                                             </option>
                                                         </select>
                                                     </div>
@@ -225,7 +225,7 @@
                                             </div>
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label> حدد تصنيف المسمي الوظيفي </label>
+                                                    <label>  تصنيف المسمى الوظيفي </label>
                                                     <div class="ls-inputicon-box">
                                                         <select class="form-select"
                                                                 name="job_category"
@@ -242,7 +242,7 @@
                                             </div>
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label> المسمي الوظيفي </label>
+                                                    <label> المسمى الوظيفي </label>
                                                     <div class="ls-inputicon-box">
                                                         <select required class="form-select"
                                                                 name="job_name"  title="" id="job-name">
