@@ -130,35 +130,36 @@ class FrontController extends Controller
 
     public function talents(Request $request)
     {
-
+        // إنشاء استعلام للمستخدمين مع جلب العلاقات المطلوبة
         $query = User::with('jobs_name', 'location');
 
-        if ($request->has('job_ids')) {
-            $jobids = $request->get('job_ids');
-            $query->whereIn('job_name', $jobids);
+        // شرط البحث على أساس المسمي الوظيفي
+        if ($request->filled('job_ids')) {
+            $query->where('job_name', $request->job_ids);
         }
-        if ($request->has('special_ids')) {
-            $special_ids = $request->get('special_ids');
-            $query->whereIn('profession_specialist', $special_ids);
+
+        // شرط البحث على أساس التخصص المهني
+        if ($request->filled('special_ids')) {
+            $query->where('profession_specialist', $request->special_ids);
         }
-        if ($request->has('nationality')) {
-            $nationality = $request->get('nationality');
-            $query->whereIn('nationality', $nationality);
+
+        // شرط البحث على أساس المؤهل العلمي
+        if ($request->filled('academy_certificate')) {
+            $query->where('academy_certificate', $request->academy_certificate);
         }
-        if ($request->has('sex')) {
-            $sex = $request->get('sex');
-            $query->whereIn('sex', $sex);
-        }
-        if ($request->has('city_ids')) {
-            $city_ids = $request->get('city_ids');
-            $query->whereIn('city', $city_ids);
-        }
+
+        // جلب جميع القيم الضرورية لعرضها في النموذج
         $jobs = Jobsname::all();
         $specialists = Specialist::all();
         $citizen = City::all();
-        $users = $query->where('job_name','!=','')->where('profession_specialist','!=','')->where('city','!=','')->paginate(5);
-        return view('website.talents', compact('users', 'jobs', 'specialists','citizen'));
+
+        // تنفيذ الاستعلام مع التصفية حسب الحقول المطلوبة
+        $users = $query->where('job_name', '!=', '')->where('profession_specialist', '!=', '')->where('city', '!=', '')->paginate(5);
+
+        // عرض النتيجة في صفحة المواهب
+        return view('website.talents', compact('users', 'jobs', 'specialists', 'citizen'));
     }
+
 
     public function talent_details($username)
     {

@@ -121,6 +121,8 @@
 <script src="{{asset('assets/website/js/swiper-bundle.min.js')}}"></script><!-- Swiper JS -->
 <script src="{{asset('assets/website/js/custom.js')}}"></script><!-- CUSTOM FUCTIONS  -->
 <script src="{{asset('assets/website/js/switcher.js')}}"></script><!-- SHORTCODE FUCTIONS  -->
+<!-- Internal Select2.min js -->
+<script src="{{ URL::asset('assets/admin/plugins/select2/js/select2.min.js') }}"></script>
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 @notifyJs

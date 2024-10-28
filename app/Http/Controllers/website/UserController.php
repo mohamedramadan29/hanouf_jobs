@@ -389,6 +389,7 @@ class UserController extends Controller
                     'profession_specialist' => 'required',
                     'notification_timeslot' => 'required',
                     'salary' => 'required',
+                    'academy_certificate'=>'required'
                 ];
                 $messages = [
                     'nationality.required' => ' من فضلك حدد الجنسية  ',
@@ -413,6 +414,7 @@ class UserController extends Controller
                     'profession_specialist' => $data['profession_specialist'],
                     'notification_timeslot' => $data['notification_timeslot'],
                     'salary' => $data['salary'],
+                    'academy_certificate'=>$data['academy_certificate']
                 ]);
                 return $this->success_message('  تم تعديل البيانات الخاصة بك بنجاح  !!  ');
             }

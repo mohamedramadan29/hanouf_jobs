@@ -43,7 +43,7 @@
 }
 
 .site-bg-gray {
-    background-color: #f9fcff;
+    background-color:#f9f9f9;
 }
 
 .site-bg-light {
@@ -6683,9 +6683,9 @@ button.scroltop span {
     width: 100%;
     height: 45px;
     padding: 20px;
-    border: none;
-    background-color: #f8fbff;
-    border-radius: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #e1e1e1;
 }
 
 .form-control:focus {
@@ -7951,11 +7951,11 @@ ol.comment-list li.comment .comment-respond .comment-form p {
 }
 
 .form-select {
-    height: 50px;
+    height: 45px;
     font-size: 13px;
     line-height: 20px;
     padding: 10px;
-    border-radius: 0px;
+    border-radius: 5px;
     color: #6c757d;
 }
 
@@ -13493,7 +13493,15 @@ strong {
 }
 
 .ls-inputicon-box .form-control {
-    padding-left: 35px;
+
+    height: 45px;
+    font-size: 13px;
+    line-height: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    color: #6c757d;
+    border: 1px solid #dbdbdb;
+    background: #fff;
 }
 
 .ls-inputicon-box .bootstrap-select .dropdown-toggle {
@@ -13543,8 +13551,11 @@ strong {
 
 .dropdown.bootstrap-select.wt-select-box .dropdown-toggle {
     height: 45px;
-    border-radius: 10px;
+    background: #fff;
+    border-radius: 5px;
     font-size: 14px;
+    border-color: #dfdfdf;
+
 }
 
 .dropdown.bootstrap-select.wt-select-box .dropdown-toggle:focus {
@@ -16739,7 +16750,7 @@ strong {
 
 /*Candidate pages start------------------------------------------------------------*/
 .side-bar-st-1 {
-    background: #d4e6ff;
+    background:#f9f9f9;
     padding: 30px;
     border-radius: 10px;
 }
@@ -28512,4 +28523,9 @@ form label {
     margin-right: 20px;
     border-radius: 9px;
     border-color: var(--main-color);
+}
+
+.bootstrap-select .dropdown-menu li a{
+    font-size: 14px;
+    line-height: 2;
 }

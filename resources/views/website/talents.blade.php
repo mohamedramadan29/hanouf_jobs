@@ -1,6 +1,6 @@
 @extends('website.layouts.master')
 @section('title')
-    ابحث عن خبراء
+    الباحثين عن العمل
 @endsection
 @section('content')
 
@@ -15,7 +15,7 @@
                 <div class="wt-bnr-inr-entry">
                     <div class="banner-title-outer">
                         <div class="banner-title-name">
-                            <h2 class="wt-title"> خبراء تخير </h2>
+                            <h2 class="wt-title"> الباحثين عن العمل </h2>
                         </div>
                     </div>
                     <!-- BREADCRUMB ROW -->
@@ -23,7 +23,7 @@
                     <div>
                         <ul class="wt-breadcrumb breadcrumb-style-2">
                             <li><a href="{{url('/')}}"> الرئيسية </a></li>
-                            <li> خبراء تخير</li>
+                            <li> الباحثين عن العمل</li>
                         </ul>
                     </div>
 
@@ -51,75 +51,48 @@
                                     <form method="get" action="{{ url('talents') }}">
                                         @csrf
 
+                                        <!-- المسمي الوظيفي -->
                                         <div class="twm-sidebar-ele-filter">
-                                            <h4 class="section-head-small mb-4"> المسمي الوظيفي </h4>
-                                            <select class="wt-select-bar-large selectpicker" name="job_ids[]" multiple
-                                                    data-live-search="true" data-bv-field="size">
-                                                <option value="" disabled> -- حدد المسمي الوظيفي --</option>
+                                            <h4 class="section-head-small mb-4">المسمي الوظيفي</h4>
+                                            <select class="wt-select-box selectpicker" name="job_ids" data-live-search="true" title="اختر المسمي الوظيفي">
+                                                <option value="">عرض الكل</option>
                                                 @foreach($jobs as $job)
-                                                    <option
-                                                        {{ in_array($job['id'], request('job_ids', [])) ? 'selected' : '' }} value="{{ $job['id'] }}">  {{ $job['title'] }} </option>
+                                                    <option value="{{ $job['id'] }}" {{ request('job_ids') == $job['id'] ? 'selected' : '' }}>
+                                                        {{ $job['title'] }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
 
+                                        <!-- التخصص المهني -->
                                         <div class="twm-sidebar-ele-filter">
-                                            <h4 class="section-head-small mb-4"> التخصص المهني </h4>
-                                            <select class="wt-select-bar-large selectpicker" name="special_ids[]"
-                                                    multiple
-                                                    data-live-search="true" data-bv-field="size">
-                                                <option value="" disabled> -- حدد التخصصني المهني --</option>
+                                            <h4 class="section-head-small mb-4">التخصص المهني</h4>
+                                            <select class="wt-select-box selectpicker" name="special_ids" data-live-search="true" title="اختر التخصص المهني">
+                                                <option value="">عرض الكل</option>
                                                 @foreach($specialists as $special)
-                                                    <option
-                                                        {{ in_array($special['id'], request('special_ids', [])) ? 'selected' : '' }} value="{{ $special['id'] }}">  {{ $special['name'] }} </option>
+                                                    <option value="{{ $special['id'] }}" {{ request('special_ids') == $special['id'] ? 'selected' : '' }}>
+                                                        {{ $special['name'] }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
 
+                                        <!-- المؤهل العلمي -->
                                         <div class="twm-sidebar-ele-filter">
-                                            <h4 class="section-head-small mb-4">  الجنسية  </h4>
-                                            <select class="wt-select-bar-large selectpicker" name="nationality[]"
-                                                    multiple
-                                                    data-live-search="true" data-bv-field="size">
-                                                <option value="" disabled>  --  حدد الجنسية  -- </option>
-
-                                                    <option value="مصري"> مصري </option>
-                                                    <option value="سعودي"> سعودي </option>
-
-                                            </select>
-                                        </div>
-                                        <div class="twm-sidebar-ele-filter">
-                                            <h4 class="section-head-small mb-4">  الجنس   </h4>
-                                            <select class="wt-select-bar-large selectpicker" name="sex[]"
-                                                    multiple
-                                                    data-live-search="true" data-bv-field="size">
-                                                <option value="" disabled>  --  حدد الجنس   -- </option>
-                                                    <option value="ذكر"> ذكر
-                                                    </option>
-                                                    <option   value="انثي"> انثي
-                                                    </option>
+                                            <h4 class="section-head-small mb-4">المؤهل العلمي</h4>
+                                            <select class="wt-select-box selectpicker" name="academy_certificate">
+                                                <option value="">عرض الكل</option>
+                                                <option value="ثانوي" {{ request('academy_certificate') == 'ثانوي' ? 'selected' : '' }}>ثانوي</option>
+                                                <option value="دبلوم" {{ request('academy_certificate') == 'دبلوم' ? 'selected' : '' }}>دبلوم</option>
+                                                <option value="بكالوريوس" {{ request('academy_certificate') == 'بكالوريوس' ? 'selected' : '' }}>بكالوريوس</option>
+                                                <option value="ماستر" {{ request('academy_certificate') == 'ماستر' ? 'selected' : '' }}>ماستر</option>
+                                                <option value="دكتوراة" {{ request('academy_certificate') == 'دكتوراة' ? 'selected' : '' }}>دكتوراة</option>
                                             </select>
                                         </div>
 
-                                        <div class="twm-sidebar-ele-filter">
-                                            <h4 class="section-head-small mb-4"> المدينة  </h4>
-                                            <select class="wt-select-bar-large selectpicker" name="city_ids[]"
-                                                    multiple
-                                                    data-live-search="true" data-bv-field="size">
-                                                <option value="" disabled> -- حدد المدينة  --</option>
-                                                @foreach($citizen as $city)
-                                                    <option
-                                                        {{ in_array($city['id'], request('city_ids', [])) ? 'selected' : '' }} value="{{ $city['id'] }}">  {{ $city['name'] }} </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-
-
-                                        <div class="">
-                                            <button style="display: block;width: 100%" type="submit"
-                                                    class="site-button m-r5">بحث
-                                            </button>
+                                        <!-- زر البحث -->
+                                        <div>
+                                            <button type="submit" class="site-button" style="display: block; width: 100%">بحث</button>
                                         </div>
                                     </form>
                                 </div>

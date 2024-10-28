@@ -1,6 +1,6 @@
 @extends('website.layouts.master')
 @section('title')
-    الوظائف | تخير
+    اعلانات وظيفية  | تخير
 @endsection
 @section('content')
 
@@ -48,32 +48,49 @@
                             <div class="sidebar-elements search-bx">
                                 <form method="get" action="{{ url('jobs') }}">
                                     @csrf
-                                    <div class="form-group mb-4">
-                                        <h4 class="section-head-small mb-4"> بحث </h4>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="keyword" placeholder="عنوان الوظيفة أو الكلمة الرئيسية" value="{{ request('keyword') }}">
-                                            <button class="btn" type="submit"><i class="feather-search"></i></button>
-                                        </div>
-                                    </div>
 
+                                    <!-- المسمي الوظيفي -->
                                     <div class="twm-sidebar-ele-filter">
-                                        <h4 class="section-head-small mb-4"> المسمي الوظيفي </h4>
-                                        <ul>
+                                        <h4 class="section-head-small mb-4">المسمي الوظيفي</h4>
+                                        <select class="wt-select-box selectpicker" name="job_ids" data-live-search="true" title="اختر المسمي الوظيفي">
+                                            <option value="">عرض الكل</option>
                                             @foreach($jobs as $job)
-                                                <li>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" name="job_ids[]" value="{{ $job['id'] }}" class="form-check-input" id="job_{{ $job['id'] }}" {{ in_array($job['id'], request('job_ids', [])) ? 'checked' : '' }}>
-                                                        <label class="form-check-label" for="job_{{ $job['id'] }}">
-                                                            {{ $job['title'] }}
-                                                        </label>
-                                                    </div>
-                                                </li>
+                                                <option value="{{ $job['id'] }}" {{ request('job_ids') == $job['id'] ? 'selected' : '' }}>
+                                                    {{ $job['title'] }}
+                                                </option>
                                             @endforeach
-                                        </ul>
+                                        </select>
                                     </div>
 
-                                    <div class="">
-                                        <button style="display: block;width: 100%" type="submit" class="site-button m-r5">بحث</button>
+                                    <!-- التخصص المهني -->
+                                    <div class="twm-sidebar-ele-filter">
+                                        <h4 class="section-head-small mb-4">التخصص المهني</h4>
+                                        <select class="wt-select-box selectpicker" name="special_ids" data-live-search="true" title="اختر التخصص المهني">
+                                            <option value="">عرض الكل</option>
+                                            @foreach($specialists as $special)
+                                                <option value="{{ $special['id'] }}" {{ request('special_ids') == $special['id'] ? 'selected' : '' }}>
+                                                    {{ $special['name'] }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <!-- المؤهل العلمي -->
+                                    <div class="twm-sidebar-ele-filter">
+                                        <h4 class="section-head-small mb-4">المؤهل العلمي</h4>
+                                        <select class="wt-select-box selectpicker" name="academy_certificate">
+                                            <option value="">عرض الكل</option>
+                                            <option value="ثانوي" {{ request('academy_certificate') == 'ثانوي' ? 'selected' : '' }}>ثانوي</option>
+                                            <option value="دبلوم" {{ request('academy_certificate') == 'دبلوم' ? 'selected' : '' }}>دبلوم</option>
+                                            <option value="بكالوريوس" {{ request('academy_certificate') == 'بكالوريوس' ? 'selected' : '' }}>بكالوريوس</option>
+                                            <option value="ماستر" {{ request('academy_certificate') == 'ماستر' ? 'selected' : '' }}>ماستر</option>
+                                            <option value="دكتوراة" {{ request('academy_certificate') == 'دكتوراة' ? 'selected' : '' }}>دكتوراة</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- زر البحث -->
+                                    <div>
+                                        <button type="submit" class="site-button" style="display: block; width: 100%">بحث</button>
                                     </div>
                                 </form>
                             </div>

@@ -9,17 +9,16 @@
 
         @if (Session::has('Success_message'))
             @php
-                emotify('success', \Illuminate\Support\Facades\Session::get('Success_message'));
+                toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
             @endphp
         @endif
         @if ($errors->any())
             @foreach ($errors->all() as $error)
                 @php
-                    emotify('error', $error);
+                    toastify()->error($error);
                 @endphp
             @endforeach
         @endif
-
         <!-- INNER PAGE BANNER -->
         <div class="wt-bnr-inr overlay-wraper bg-center"
              style="background-image:url({{asset('assets/website/images/banner/1.jpg')}});">
@@ -206,6 +205,25 @@
                                                             </option>
                                                         </select>
                                                     </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-12 col-lg-12 col-md-12">
+                                                <div class="form-group">
+                                                    <label> المؤهل العلمي  </label>
+                                                    <select class="form-select" name="academy_certificate">
+                                                        <option selected disabled> -- حدد -- </option>
+                                                        <option @if($adv['academy_certificate'] == 'ثانوي') selected
+                                                                @endif value="ثانوي">ثانوي </option>
+                                                        <option @if($adv['academy_certificate'] == 'دبلوم') selected
+                                                                @endif value="دبلوم">دبلوم </option>
+                                                        <option @if($adv['academy_certificate'] == 'بكالوريوس') selected
+                                                                @endif value="بكالوريوس">بكالوريوس</option>
+                                                        <option @if($adv['academy_certificate'] == 'ماستر') selected
+                                                                @endif value="ماستر">ماستر </option>
+                                                        <option @if($adv['academy_certificate'] == 'دكتوراة') selected
+                                                                @endif value="دكتوراة">دكتوراة </option>
+                                                    </select>
                                                 </div>
                                             </div>
 

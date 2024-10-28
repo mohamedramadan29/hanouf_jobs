@@ -347,6 +347,7 @@ class CompanyController extends Controller
                     'title' => 'required',
                     'new_work_time' => 'required',
                     'new_age' => 'required',
+                    'academy_certificate'=>'required'
 
                 ];
                 $messages = [
@@ -384,6 +385,7 @@ class CompanyController extends Controller
                     'new_work_time' => $data['new_work_time'],
                     'new_work_place' => $data['new_work_place'],
                     'new_age' => $data['new_age'],
+                    'academy_certificate'=>$data['academy_certificate'],
                 ]);
                 return $this->success_message('  تم اضافة الاعلان بنجاح من فضلك انتظر التفعيل من الادارة !!  ');
             }
@@ -396,6 +398,7 @@ class CompanyController extends Controller
 
     public function jobs()
     {
+
         $jobs = Advertisment::where('company_id', Auth::guard('company')->user()->id)->get();
 
         return view('website.companies.jobs', compact('jobs'));
@@ -447,6 +450,7 @@ class CompanyController extends Controller
                     'title' => 'required',
                     'new_work_time' => 'required',
                     'new_age' => 'required',
+                    'academy_certificate'=>'required'
                 ];
                 $messages = [
                     'nationality.required' => ' من فضلك حدد الجنسية  ',
@@ -479,6 +483,7 @@ class CompanyController extends Controller
                     'new_work_time' => $data['new_work_time'],
                     'new_work_place' => $data['new_work_place'],
                     'new_age' => $data['new_age'],
+                    'academy_certificate'=>$data['academy_certificate'],
                     'status' => 0,
                 ]);
                 return $this->success_message('  تم تعديل الاعلان بنجاح من فضلك انتظر التفعيل من الادارة !!  ');

@@ -23,10 +23,21 @@ class AdvertisementController extends Controller
             $query->where('title', 'like', "%{$keyword}%");
         }
 
-        if ($request->has('job_ids')) {
-            $jobIds = $request->get('job_ids');
-            $query->whereIn('job_name', $jobIds);
+        // شرط البحث على أساس المسمي الوظيفي
+        if ($request->filled('job_ids')) {
+            $query->where('job_name', $request->job_ids);
         }
+
+        // شرط البحث على أساس التخصص المهني
+        if ($request->filled('special_ids')) {
+            $query->where('profession_specialist', $request->special_ids);
+        }
+
+        // شرط البحث على أساس المؤهل العلمي
+        if ($request->filled('academy_certificate')) {
+            $query->where('academy_certificate', $request->academy_certificate);
+        }
+
 
         if ($request->has('sort')) {
             $sortOrder = $request->get('sort', 'desc');

@@ -9,13 +9,13 @@
 
         @if (Session::has('Success_message'))
             @php
-                emotify('success', \Illuminate\Support\Facades\Session::get('Success_message'));
+                toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
             @endphp
         @endif
         @if ($errors->any())
             @foreach ($errors->all() as $error)
                 @php
-                    emotify('error', $error);
+                    toastify()->error($error);
                 @endphp
             @endforeach
         @endif
@@ -192,9 +192,23 @@
                                                 </div>
                                             </div>
 
+                                            <div class="col-xl-12 col-lg-12 col-md-12">
+                                                <div class="form-group">
+                                                    <label> المؤهل العلمي  </label>
+                                                    <select class="wt-select-box selectpicker" data-live-search="true" name="academy_certificate">
+                                                        <option selected disabled> -- حدد -- </option>
+                                                        <option   value="ثانوي">ثانوي </option>
+                                                        <option  value="دبلوم">دبلوم </option>
+                                                        <option   value="بكالوريوس">بكالوريوس</option>
+                                                        <option   value="ماستر">ماستر </option>
+                                                        <option   value="دكتوراة">دكتوراة </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label> حدد تصنيف المسمي الوظيفي </label>
+                                                    <label>   تصنيف المسمي الوظيفي </label>
                                                     <div class="ls-inputicon-box">
                                                         <select class="wt-select-box selectpicker"
                                                                 name="job-category"
@@ -246,7 +260,7 @@
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label> حدد تصنيف التخصص المهني </label>
+                                                    <label>   تصنيف التخصص المهني </label>
                                                     <div class="ls-inputicon-box">
                                                         <select required class="wt-select-box selectpicker"
                                                                 name="special_category"

@@ -9,15 +9,28 @@
 
     <!-- CONTENT START -->
     <div class="page-content">
+{{--        @if (Session::has('Success_message'))--}}
+{{--            @php--}}
+{{--                emotify('success', \Illuminate\Support\Facades\Session::get('Success_message'));--}}
+{{--            @endphp--}}
+{{--        @endif--}}
+{{--        @if ($errors->any())--}}
+{{--            @foreach ($errors->all() as $error)--}}
+{{--                @php--}}
+{{--                    emotify('error', $error);--}}
+{{--                @endphp--}}
+{{--            @endforeach--}}
+{{--        @endif--}}
+
         @if (Session::has('Success_message'))
             @php
-                emotify('success', \Illuminate\Support\Facades\Session::get('Success_message'));
+                toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
             @endphp
         @endif
         @if ($errors->any())
             @foreach ($errors->all() as $error)
                 @php
-                    emotify('error', $error);
+                    toastify()->error($error);
                 @endphp
             @endforeach
         @endif
@@ -116,7 +129,7 @@
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> حدد الجنسية </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker"
+                                                        <select required class="form-select"
                                                                 name="nationality"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
@@ -137,7 +150,7 @@
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> حدد الجنس </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker سثمث"
+                                                        <select required class="form-select"
                                                                 name="sex"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
@@ -157,7 +170,7 @@
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> المدينة </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker" name="city"
+                                                        <select required class="form-select" name="city"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد المدينة</option>
@@ -174,7 +187,7 @@
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> إمكانية التنقل من مدينة أخرى للعمل </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker"
+                                                        <select required class="form-select"
                                                                 name="can_placed_from_to_another"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
@@ -192,11 +205,29 @@
                                                 </div>
                                             </div>
 
+                                            <div class="col-xl-12 col-lg-12 col-md-12">
+                                                <div class="form-group">
+                                                    <label> المؤهل العلمي  </label>
+                                                    <select class="form-select" name="academy_certificate">
+                                                        <option selected disabled> -- حدد -- </option>
+                                                        <option @if($user['academy_certificate'] == 'ثانوي') selected
+                                                                @endif value="ثانوي">ثانوي </option>
+                                                        <option @if($user['academy_certificate'] == 'دبلوم') selected
+                                                                @endif value="دبلوم">دبلوم </option>
+                                                        <option @if($user['academy_certificate'] == 'بكالوريوس') selected
+                                                                @endif value="بكالوريوس">بكالوريوس</option>
+                                                        <option @if($user['academy_certificate'] == 'ماستر') selected
+                                                                @endif value="ماستر">ماستر </option>
+                                                        <option @if($user['academy_certificate'] == 'دكتوراة') selected
+                                                                @endif value="دكتوراة">دكتوراة </option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> حدد تصنيف المسمي الوظيفي </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select class="wt-select-box selectpicker"
+                                                        <select class="form-select"
                                                                 name="job_category"
                                                                 data-live-search="true" title="" id="job-category"
                                                                 data-bv-field="size">
@@ -213,7 +244,7 @@
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> المسمي الوظيفي </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="form-control"
+                                                        <select required class="form-select"
                                                                 name="job_name"  title="" id="job-name">
                                                             @if($user['job_name'] !='')
                                                                 <option selected value="{{$user['job_name']}}">{{$user['jobs_name']['title']}}</option>
@@ -251,7 +282,7 @@
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> حدد تصنيف التخصص المهني </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="wt-select-box selectpicker"
+                                                        <select required class="form-select"
                                                                 name="special_category"
                                                                 data-live-search="true" title="" id="specialistCategory"
                                                                 data-bv-field="size">
@@ -269,7 +300,7 @@
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> ماهي تخصصك المهني ؟ </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="form-control"
+                                                        <select required class="form-select"
                                                                 name="profession_specialist"  id="specialist_name">
                                                             @if($user['profession_specialist'] !='')
                                                                 <option selected value="{{$user['profession_specialist']}}">{{$user['specialist']['name']}}</option>

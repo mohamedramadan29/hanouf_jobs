@@ -37,17 +37,16 @@
             <div class="section-content">
                 <div class="container">
                     @if (Session::has('Success_message'))
-                        <div class="alert alert-success"> {{ Session::get('Success_message') }} </div>
+                        @php
+                            toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
+                        @endphp
                     @endif
-
                     @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
+                        @foreach ($errors->all() as $error)
+                            @php
+                                toastify()->error($error);
+                            @endphp
+                        @endforeach
                     @endif
                     <!-- CONTACT FORM-->
                     <div class="contact-one-inner">
