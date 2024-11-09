@@ -12,11 +12,11 @@
              style="background-image:url({{asset('assets/website/images/main_background.jpg')}})">
             <div class="twm-home3-inner-section">
                 <div class="twm-bnr-mid-section">
-                    <div class="twm-bnr-title-large"> اكتشف فرص العمل التي تناسب مهاراتك</div>
-                    <div class="twm-bnr-title-light"> انضم إلى أفضل الكفاءات والخبرات في العالم العربي</div>
-                    <div class="hero_buttons">
-                        <a href="{{url('jobs')}}" class="twm-jobs-browse btn"> تصفح افضل الوظائف </a>
-                    </div>
+                    <div class="twm-bnr-title-large">  تخيَّر للتوظيف </div>
+                    <div class="twm-bnr-title-light">  لأن التميز يبدأ بالاختيار الصحيح للكفاءات والفرص العمل نحو شراكة ناجحة </div>
+{{--                    <div class="hero_buttons">--}}
+{{--                        <a href="{{url('jobs')}}" class="twm-jobs-browse btn"> تصفح افضل الوظائف </a>--}}
+{{--                    </div>--}}
                 </div>
             </div>
 
@@ -36,12 +36,12 @@
                             <div class="twm-how-t-get-section-left">
                                 <div class="section-head left wt-small-separator-outer">
                                     <div class="wt-small-separator site-text-primary">
-                                        <div>كيف تحصل على وظيفتك</div>
+                                        <div> ابدأ رحلتك نحو التوظيف المثالي، سواء كنت تبحث عن كفاءات أو عن فرصة وظيفية  </div>
                                     </div>
-                                    <h2 class="wt-title">قم بإنشاء ملف تعريف حسابك الشخصي</h2>
-                                    <p>قم بإنشاء حساب لمعلومات الوظيفة التي تريدها ، واحصل على إشعار
-                                        كل يوم ويمكنك التقدم بسهولة إلى الشركة التي تريدها
-                                        قم بإنشاء وحساب الآن مجانًا.</p>
+
+                                    <p> إذا كنت شركة تسعى لاختيار أفضل الكفاءات أو محترفاً يبحث عن فرصة تليق بمهاراته، فمنصة "تخيَّر" تجمعك بالطرف المناسب بكل سهولة. أنشئ حسابك اليوم للحصول على إشعارات يومية مخصصة لتلبي احتياجاتك. </p>
+                                    <h2 class="wt-title"> لأصحاب الأعمال: أحصل على المرشحين المثاليين لمتطلبات شركتك. </h2>
+                                    <h2 class="wt-title"> للباحثين عن العمل: أكتشف فرصًا جديدة وقدم عليها بسهولة من خلال حسابك </h2>
                                 </div>
                                 <div class="twm-how-t-get-bottom">
 
@@ -136,6 +136,69 @@
                                         للوظيفة المناسبة </h4>
                                 </div>
                                 <p> اقرأ وصف الوظيفة واكتب خطاب التوظيف ثم قدم الطلب. </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- HOW IT WORK SECTION END -->
+
+        <!-- HOW IT WORK SECTION START -->
+        <div class="section-full p-t120 p-b90 site-bg-white twm-how-it-work-area step_to_join_job">
+
+            <div class="container">
+
+                <!-- TITLE START-->
+                <div class="section-head center wt-small-separator-outer">
+                    <div class="wt-small-separator site-text-primary">
+                        <div>
+                            <h2 class="sec_title">كيف تحصل على الكفاءات ؟</h2>
+                        </div>
+                    </div>
+                </div>
+                <!-- TITLE END-->
+
+                <div class="twm-how-it-work-section">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-6 col-md-6">
+                            <div class="twm-w-process-steps">
+                                <span class="twm-large-number">01</span>
+                                <div class="twm-w-pro-top bg-clr-sky">
+                                    <div class="twm-media">
+                                        <span><img src="{{asset('assets/website/images/work-process/icon1.png')}}" alt="icon1"></span>
+                                    </div>
+                                    <h4 class="twm-title">أنشئ <br> حساب شركتك</h4>
+                                </div>
+                                <p>أنشئ حسابًا لشركتك واملأ ملفك ببياناتك الأساسية وأهدافك لتتمكن من جذب الكفاءات المناسبة.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-6 col-md-6">
+                            <div class="twm-w-process-steps">
+                                <span class="twm-large-number">02</span>
+                                <div class="twm-w-pro-top bg-clr-pink">
+                                    <div class="twm-media">
+                                        <span><img src="{{asset('assets/website/images/work-process/icon2.png')}}" alt="icon1"></span>
+                                    </div>
+                                    <h4 class="twm-title">أعلن عن الوظائف</h4>
+                                </div>
+                                <p>انشر إعلانات الوظائف وحدد التخصصات المطلوبة لجذب أفضل المرشحين لشركتك.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-6 col-md-6">
+                            <div class="twm-w-process-steps">
+                                <span class="twm-large-number">03</span>
+                                <div class="twm-w-pro-top bg-clr-green">
+                                    <div class="twm-media">
+                                        <span><img src="{{asset('assets/website/images/work-process/icon3.png')}}" alt="icon1"></span>
+                                    </div>
+                                    <h4 class="twm-title">اختر المرشحين</h4>
+                                </div>
+                                <p>راجع ملفات المرشحين وتواصل مع أفضلهم لتعيينهم في شركتك.</p>
                             </div>
                         </div>
 

@@ -51,9 +51,9 @@ class jobOfferController extends Controller
 
         if ($request->hasFile('cover_files')) {
             foreach ($request->file('cover_files') as $file) {
-                $filePath = $file->store('uploads/JobOfferFiles', 'public');
+                //$filePath = $file->store('uploads/JobOfferFiles', 'public');
+                $filePath = $this->saveImage($file,public_path('assets/uploads/JobOfferFiles'));
                 $fileImages[] = $filePath;
-               // $fileImages[] = $this->saveImage($file, public_path('assets/uploads/JobOfferFiles'));
             }
         }
 

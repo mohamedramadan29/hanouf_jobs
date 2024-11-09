@@ -8,6 +8,7 @@ use App\Models\admin\City;
 use App\Models\admin\Jobsname;
 use App\Models\admin\Specialist;
 use App\Models\website\Joboffer;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -80,35 +81,25 @@ class AdvertisementController extends Controller
         $offers = Joboffer::where(['adv_id' => $adv['id'], 'user_id' => Auth::id()])->count();
         $CountAllOffers = Joboffer::count();
         $CityName = City::where('id', $adv['city'])->first();
-        ///// When Open Make The Notification Read
         if (Auth::check()) {
             // تحقق من إشعار المستخدم العادي
-            $notification_id = DB::table('notifications')
-                ->where('data->adv_id', $id)
+            $notification = DatabaseNotification::where('data->adv_id', $id)
                 ->where('notifiable_id', Auth::id())
-                ->pluck('id')
                 ->first();
-            if ($notification_id) {
-//                dd($notification_id);
-                DB::table('notifications')->where('id', $notification_id)->update([
-                    'read_at' => now()
-                ]);
+
+            if ($notification) {
+                $notification->markAsRead();
             }
         } else if (Auth::guard('company')->check()) {
             // تحقق من إشعار مستخدم الشركة
-            $notification_id = DB::table('notifications')
-                ->where('data->adv_id', $id)
+            $notification = DatabaseNotification::where('data->adv_id', $id)
                 ->where('notifiable_id', Auth::guard('company')->id())
-                ->pluck('id')
                 ->first();
-            if ($notification_id) {
-                //  dd($notification_id);
-                DB::table('notifications')->where('id', $notification_id)->update([
-                    'read_at' => now()
-                ]);
+
+            if ($notification) {
+                $notification->markAsRead();
             }
         }
-
 
         ///////////
 

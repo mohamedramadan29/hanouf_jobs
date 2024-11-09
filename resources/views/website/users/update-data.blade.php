@@ -417,6 +417,62 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                                <div class="form-group">
+                                                    <label> نوع العمل </label>
+                                                    <div class="ls-inputicon-box">
+                                                        <select required class="wt-select-box selectpicker"
+                                                                name="new_work_time"
+                                                                data-live-search="true" title="" id="work-type-select"
+                                                                data-bv-field="size">
+                                                            <option disabled selected value=""> حدد</option>
+                                                            <option
+                                                                value="جزئي" {{ $user['new_work_time'] == 'جزئي' ? 'selected' : '' }}>
+                                                                جزئي
+                                                            </option>
+                                                            <option
+                                                                value="كامل" {{ $user['new_work_time'] == 'كامل' ? 'selected' : '' }}>
+                                                                كامل
+                                                            </option>
+                                                            <option
+                                                                value="مؤقت" {{ $user['new_work_time'] == 'مؤقت' ? 'selected' : '' }}>
+                                                                مؤقت
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                                <div class="form-group">
+                                                    <label> العمر   </label>
+                                                    <div class="ls-inputicon-box">
+                                                        <select required class="wt-select-box selectpicker"
+                                                                name="new_age"
+                                                                data-live-search="true" title="" id="age-select"
+                                                                data-bv-field="size">
+                                                            <option disabled selected value=""> حدد</option>
+                                                            <option
+                                                                value="18-24" {{ $user['new_age'] == '18-24' ? 'selected' : '' }}>
+                                                                18-24
+                                                            </option>
+                                                            <option
+                                                                value="25-29" {{ $user['new_age'] == '25-29' ? 'selected' : '' }}>
+                                                                25-29
+                                                            </option>
+                                                            <option
+                                                                value="30-39" {{ $user['new_age'] == '30-39' ? 'selected' : '' }}>
+                                                                30-39
+                                                            </option>
+                                                            <option
+                                                                value="+40" {{ $user['new_age'] == '+40' ? 'selected' : '' }}>
+                                                                +40
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group">

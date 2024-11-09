@@ -21,6 +21,7 @@ use App\Notifications\NewMessage;
 use App\Notifications\SendAcceptedOffer;
 use App\Notifications\SendUnaccepedOfferToUser;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -341,17 +342,34 @@ class CompanyController extends Controller
                     'language_level' => 'required',
                     'profession_specialist' => 'required',
                     'notification_timeslot' => 'required',
-                    'salary' => 'required',
+                    //'salary' => 'required',
                     'description' => 'required',
                     'new_work_place' => 'required',
                     'title' => 'required',
                     'new_work_time' => 'required',
                     'new_age' => 'required',
-                    'academy_certificate'=>'required'
+                    'academy_certificate' => 'required'
 
                 ];
                 $messages = [
                     'nationality.required' => ' من فضلك حدد الجنسية  ',
+                    'sex.required' => ' من فضلك حدد الجنس  ',
+                    'city.required' => ' من فضلك حدد المدنية  ',
+                    'available_work_from_another_place.required' => ' من فضلك حدد امكانية العمل  ',
+                    'job_name.required' => ' من فضلك حدد المسمي الوظيفي  ',
+//                    'work_type' => 'required',
+                    'experience.required' => ' من فضلك حدد عدد سنين الخبرة  ',
+                    'language.required' => ' من فضلك حدد اللغة ',
+                    'language_level.required' => 'من فضلك حدد مستوي الخبرة',
+                    'profession_specialist.required' => ' من فضلك حدد التخصص المهني المطلوب  ',
+                    'notification_timeslot.required' => 'من فضلك حدد متى احتياجك لأغلاق الشاغر ',
+                    //'salary' => 'required',
+                    'description.required' => 'من فضلك ادخل الوصف ',
+                    'new_work_place.required' => ' من فضلك حدد موقع العمل  ',
+                    'title.required' => ' من فضلك ادخل عنوان الاعلان الوظيفي  ',
+                    'new_work_time.required' => ' من فضلك حدد نوع العمل ',
+                    'new_age.required' => ' من فضلك حدد العمر المطلوب  ',
+                    'academy_certificate.required' => ' من فضلك حدد المؤهل العلمي  '
                 ];
                 $validator = Validator::make($data, $rules, $messages);
                 if ($validator->fails()) {
@@ -365,13 +383,13 @@ class CompanyController extends Controller
                     'sex' => $data['sex'],
                     'city' => $data['city'],
                     'available_work_from_another_place' => $data['available_work_from_another_place'],
-                    'job-category'=>$data['job-category'],
+                    'job-category' => $data['job-category'],
                     'job_name' => $data['job_name'],
 //                    'work_type' => $work_type,
                     'experience' => $data['experience'],
                     'language' => $language,
                     'language_level' => $data['language_level'],
-                    'special_category'=>$data['special_category'],
+                    'special_category' => $data['special_category'],
                     'profession_specialist' => $data['profession_specialist'],
                     'notification_timeslot' => $data['notification_timeslot'],
                     'salary' => $data['salary'],
@@ -385,7 +403,7 @@ class CompanyController extends Controller
                     'new_work_time' => $data['new_work_time'],
                     'new_work_place' => $data['new_work_place'],
                     'new_age' => $data['new_age'],
-                    'academy_certificate'=>$data['academy_certificate'],
+                    'academy_certificate' => $data['academy_certificate'],
                 ]);
                 return $this->success_message('  تم اضافة الاعلان بنجاح من فضلك انتظر التفعيل من الادارة !!  ');
             }
@@ -393,7 +411,7 @@ class CompanyController extends Controller
             return $this->exception_message($e);
         }
 
-        return view('website.companies.add_job', compact('citizen', 'specialists', 'JobsNames','nameJobsCategories','specialistsCategories'));
+        return view('website.companies.add_job', compact('citizen', 'specialists', 'JobsNames', 'nameJobsCategories', 'specialistsCategories'));
     }
 
     public function jobs()
@@ -403,6 +421,7 @@ class CompanyController extends Controller
 
         return view('website.companies.jobs', compact('jobs'));
     }
+
     public function getJobsByCategory($categoryId)
     {
         $jobs = Jobsname::where('cat_id', $categoryId)->get(['id', 'title']);
@@ -414,6 +433,7 @@ class CompanyController extends Controller
         $specialists = Specialist::where('cat_id', $categoryId)->get(['id', 'name']);
         return response()->json($specialists);
     }
+
     public function update_job(Request $request, $id)
     {
         $JobsNames = Jobsname::all();
@@ -444,16 +464,35 @@ class CompanyController extends Controller
                     'language_level' => 'required',
                     'profession_specialist' => 'required',
                     'notification_timeslot' => 'required',
-                    'salary' => 'required',
+                    //'salary' => 'required',
                     'description' => 'required',
                     'new_work_place' => 'required',
                     'title' => 'required',
                     'new_work_time' => 'required',
                     'new_age' => 'required',
-                    'academy_certificate'=>'required'
+                    'academy_certificate' => 'required'
                 ];
                 $messages = [
                     'nationality.required' => ' من فضلك حدد الجنسية  ',
+
+                    'sex.required' => ' من فضلك حدد الجنس  ',
+                    'city.required' => ' من فضلك حدد المدنية  ',
+                    'available_work_from_another_place.required' => ' من فضلك حدد امكانية العمل  ',
+                    'job_name.required' => ' من فضلك حدد المسمي الوظيفي  ',
+//                    'work_type' => 'required',
+                    'experience.required' => ' من فضلك حدد عدد سنين الخبرة  ',
+                    'language.required' => ' من فضلك حدد اللغة ',
+                    'language_level.required' => 'من فضلك حدد مستوي الخبرة',
+                    'profession_specialist.required' => ' من فضلك حدد التخصص المهني المطلوب  ',
+                    'notification_timeslot.required' => 'من فضلك حدد متى احتياجك لأغلاق الشاغر ',
+                    //'salary' => 'required',
+                    'description.required' => 'من فضلك ادخل الوصف ',
+                    'new_work_place.required' => ' من فضلك حدد موقع العمل  ',
+                    'title.required' => ' من فضلك ادخل عنوان الاعلان الوظيفي  ',
+                    'new_work_time.required' => ' من فضلك حدد نوع العمل ',
+                    'new_age.required' => ' من فضلك حدد العمر المطلوب  ',
+                    'academy_certificate.required' => ' من فضلك حدد المؤهل العلمي  '
+
                 ];
                 $validator = Validator::make($data, $rules, $messages);
                 if ($validator->fails()) {
@@ -464,13 +503,13 @@ class CompanyController extends Controller
                     'sex' => $data['sex'],
                     'city' => $data['city'],
                     'available_work_from_another_place' => $data['available_work_from_another_place'],
-                    'job-category'=>$data['job-category'],
+                    'job-category' => $data['job-category'],
                     'job_name' => $data['job_name'],
 //                    'work_type' => $work_type,
                     'experience' => $data['experience'],
                     'language' => $language,
                     'language_level' => $data['language_level'],
-                    'special_category'=>$data['special_category'],
+                    'special_category' => $data['special_category'],
                     'profession_specialist' => $data['profession_specialist'],
                     'notification_timeslot' => $data['notification_timeslot'],
                     'salary' => $data['salary'],
@@ -483,7 +522,7 @@ class CompanyController extends Controller
                     'new_work_time' => $data['new_work_time'],
                     'new_work_place' => $data['new_work_place'],
                     'new_age' => $data['new_age'],
-                    'academy_certificate'=>$data['academy_certificate'],
+                    'academy_certificate' => $data['academy_certificate'],
                     'status' => 0,
                 ]);
                 return $this->success_message('  تم تعديل الاعلان بنجاح من فضلك انتظر التفعيل من الادارة !!  ');
@@ -491,7 +530,7 @@ class CompanyController extends Controller
         } catch (\Exception $e) {
             return $this->exception_message($e);
         }
-        return view('website.companies.update-job', compact('adv', 'citizen', 'specialists', 'JobsNames','specialistsCategories','nameJobsCategories'));
+        return view('website.companies.update-job', compact('adv', 'citizen', 'specialists', 'JobsNames', 'specialistsCategories', 'nameJobsCategories'));
     }
 
     public function delete_job($id)
@@ -521,7 +560,7 @@ class CompanyController extends Controller
             //  dd($job);
             if (Auth::guard('company')->user()->id == $job['company_id']) {
                 $job->update([
-                    'status'=> 0,
+                    'status' => 0,
                 ]);
                 return $this->success_message(' تم ايقاف الاعلان بنجاح ');
             } else {
@@ -545,20 +584,24 @@ class CompanyController extends Controller
             $company_id = $adv['company_id'];
             if (Auth::guard('company')->id() == $company_id) {
                 $offers = Joboffer::with('user')->where('adv_id', $id)->paginate(5);
-
                 $count_offers = Joboffer::where('adv_id', $id)->count();
 
-                //////////////// Update red In Notification Table
-                ///
-                $notifications = DB::table('notifications')
-                    ->where('notifiable_id', $company_id)
-                    ->where('type', 'App\Notifications\NewOfferRequestToCompanyJob')->update(['read_at' => now()]);
+                // تحديث حالة الإشعارات إلى "مقروءة"
+                $notifications = DatabaseNotification::where('notifiable_id', $company_id)
+                    ->where('type', 'App\Notifications\NewOfferRequestToCompanyJob')
+                    ->whereNull('read_at')
+                    ->get();
+
+                foreach ($notifications as $notification) {
+                    $notification->markAsRead();
+                }
+
                 return view('website.companies.talent-offers', compact('offers', 'adv', 'count_offers'));
             } else {
-                abort('404');
+                abort(404);
             }
         } else {
-            abort('404');
+            abort(404);
         }
 
 
@@ -583,14 +626,14 @@ class CompanyController extends Controller
             ///////// Update Offer Table To Refused
             $offer->update([
                 'offer_status' => 'مرفوض',
-                'refuse_reason'=>$data['refuse_reason'],
-                'more_refuse_info'=>$data['more_refuse_info'],
+                'refuse_reason' => $data['refuse_reason'],
+                'more_refuse_info' => $data['more_refuse_info'],
 
             ]);
 
             ///////// Send Notification To User For Refused
 
-            Notification::send($user, new SendUnaccepedOfferToUser($user_id, $adv_id, $adv_slug, $adv_name,$refuse_reason,$more_refuse_info));
+            Notification::send($user, new SendUnaccepedOfferToUser($user_id, $adv_id, $adv_slug, $adv_name, $refuse_reason, $more_refuse_info));
 
             return $this->success_message(' تم رفض العرض من المتقدم  ');
 
@@ -601,7 +644,7 @@ class CompanyController extends Controller
 
     }
 
-    public function offer_unacceptedafterchat(Request $request,$conversation_id)
+    public function offer_unacceptedafterchat(Request $request, $conversation_id)
     {
         /////////// ١ - Get the Offer Data From Conversation
         ///
@@ -615,7 +658,7 @@ class CompanyController extends Controller
         $offer->update([
             'offer_status' => 'مرفوض',
 //            'refuse_reason'=>$data['refuse_reason'],
-            'more_refuse_info'=>$data['more_refuse_info'],
+            'more_refuse_info' => $data['more_refuse_info'],
         ]);
         ////// Send Notification To User
         ///
@@ -626,7 +669,7 @@ class CompanyController extends Controller
         $adv = Advertisment::where('id', $adv_id)->first();
         $adv_slug = $adv['slug'];
         $adv_name = $adv['title'];
-        Notification::send($user, new SendUnaccepedOfferToUser($user_id, $adv_id, $adv_slug, $adv_name,$more_refuse_info));
+        Notification::send($user, new SendUnaccepedOfferToUser($user_id, $adv_id, $adv_slug, $adv_name, $more_refuse_info));
 
         // Delete The Conversation Between User And Company
         ///
@@ -796,20 +839,20 @@ class CompanyController extends Controller
 
 
     ////// Search In Offers
-    public function offer_search(Request $request,$id)
+    public function offer_search(Request $request, $id)
     {
         $data = $request->all();
         $adv = Advertisment::findOrFail($id);
         $count_offers = Joboffer::where('adv_id', $id)->count();
 
         $query = Joboffer::where('adv_id', $id);
-        if ($request->isMethod('get')){
-            $query->where('offer_status',$data['offer_status']);
+        if ($request->isMethod('get')) {
+            $query->where('offer_status', $data['offer_status']);
         }
         $offers = $query->paginate(5);
         $count_offers_after_search = $query->count();
 
-        return view('website.companies.talent-offers',compact('offers','adv','count_offers','count_offers_after_search'));
+        return view('website.companies.talent-offers', compact('offers', 'adv', 'count_offers', 'count_offers_after_search'));
 
     }
 

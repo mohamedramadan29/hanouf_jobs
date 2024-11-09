@@ -133,7 +133,6 @@
                                         @endif
                                     </div>
                                 </div>
-
                                 <div class="single-user-msg-time"> {{$message->created_at->diffForHumans()}} </div>
                             </div>
                         </div>

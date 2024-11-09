@@ -43,31 +43,34 @@
                                 <h4 style="font-weight: bold" class="twm-s-title m-t0">ْعَنِّي</h4>
                                 <p> {{$talent['info']}} </p>
                                 <br>
-                                @if($talent['cv'] !='')
-                                    <h4 style="font-weight: bold" class="twm-s-title m-t0"> السيرة الذاتية </h4>
-                                    <a target="_blank" href="{{asset('assets/uploads/userscv/'.$talent->cv)}}"
-                                       type="button"
-                                       class="btn btn-primary uploadFiles"> مشاهدة السيرة الذاتية <i
-                                            class="fa fa-download"></i>
-                                    </a>
-                                    <style>
-                                        .uploadFiles {
-                                            padding: 10px 20px;
-                                            border-radius: 5px;
-                                            cursor: pointer;
-                                            background: transparent;
-                                            color: var(--main-color);
-                                            border-color: var(--main-color);
-                                            outline: none;
-                                        }
+                                @if(Auth::check())
+                                    @if($talent['cv'] !='')
+                                        <h4 style="font-weight: bold" class="twm-s-title m-t0"> السيرة الذاتية </h4>
+                                        <a target="_blank" href="{{asset('assets/uploads/userscv/'.$talent->cv)}}"
+                                           type="button"
+                                           class="btn btn-primary uploadFiles"> مشاهدة السيرة الذاتية <i
+                                                class="fa fa-download"></i>
+                                        </a>
+                                        <style>
+                                            .uploadFiles {
+                                                padding: 10px 20px;
+                                                border-radius: 5px;
+                                                cursor: pointer;
+                                                background: transparent;
+                                                color: var(--main-color);
+                                                border-color: var(--main-color);
+                                                outline: none;
+                                            }
 
-                                        .uploadFiles:hover {
-                                            background: transparent;
-                                            color: var(--main-color);
-                                            border-color: var(--main-color);
-                                        }
-                                    </style>
+                                            .uploadFiles:hover {
+                                                background: transparent;
+                                                color: var(--main-color);
+                                                border-color: var(--main-color);
+                                            }
+                                        </style>
+                                    @endif
                                 @endif
+
                                 <div class="twm-s-info-wrap mb-5">
                                     <br>
                                     <h4 style="font-weight: bold" class="section-head-small mb-4"> معلومات الموظف </h4>

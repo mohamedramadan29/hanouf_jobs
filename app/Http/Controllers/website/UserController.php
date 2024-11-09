@@ -15,6 +15,7 @@ use App\Models\admin\SpecialCategory;
 use App\Models\admin\Specialist;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -414,7 +415,9 @@ class UserController extends Controller
                     'profession_specialist' => $data['profession_specialist'],
                     'notification_timeslot' => $data['notification_timeslot'],
                     'salary' => $data['salary'],
-                    'academy_certificate'=>$data['academy_certificate']
+                    'academy_certificate'=>$data['academy_certificate'],
+                    'new_work_time'=>$data['new_work_time'],
+                    'new_age'=>$data['new_age'],
                 ]);
                 return $this->success_message('  تم تعديل البيانات الخاصة بك بنجاح  !!  ');
             }
@@ -475,12 +478,13 @@ class UserController extends Controller
 
     public function suggested_jobs()
     {
-        $notifications = DB::table('notifications')->where('type', 'App\Notifications\SendNewSujestJob')->where('notifiable_id', Auth::user()->id)->get();
+        $notifications = DatabaseNotification::where('type', 'App\Notifications\SendNewSujestJob')
+            ->where('notifiable_id', Auth::user()->id)
+            ->whereNull('read_at')
+            ->get();
 
-        foreach ($notifications as $notify) {
-            $notify->update([
-                'read_at' => now(),
-            ]);
+        foreach ($notifications as $notification) {
+            $notification->markAsRead();
         }
 
         return view('website.users.suggested-jobs', compact('notifications'));
@@ -488,10 +492,20 @@ class UserController extends Controller
 
     public function alerts()
     {
-        $notifications = DB::table('notifications')->where('notifiable_id', Auth::user()->id)->get();
+        // جلب كل الإشعارات للمستخدم الحالي
+        $notifications = DatabaseNotification::where('notifiable_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // تحديث الإشعارات غير المقروءة فقط إلى "مقروءة"
+        foreach ($notifications as $notification) {
+            if (is_null($notification->read_at)) {
+                $notification->markAsRead();
+            }
+        }
+
         return view('website.users.alerts', compact('notifications'));
     }
-
     public function delete_alert($id)
     {
         $notification = DB::table('notifications')->where('id', $id)->delete();

@@ -127,6 +127,11 @@ class Sendmessage extends Component
         }
     }
 
+
+    public function removeFile()
+    {
+        $this->file = null;
+    }
     public function render()
     {
         return view('livewire.chat.sendmessage');

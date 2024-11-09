@@ -137,7 +137,7 @@
                                                                 @if($job['status'] == 1)
                                                                     <span class="badge badge-success bg-success">نشيط</span>
                                                                 @else
-                                                                    <span class="badge badge-danger bg-danger"> غير نشيط  </span>
+                                                                    <span class="badge badge-danger bg-danger"> تحت المراجعه  </span>
                                                                 @endif
                                                             </td>
                                                             <td>

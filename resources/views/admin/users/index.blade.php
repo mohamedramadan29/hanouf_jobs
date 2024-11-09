@@ -70,7 +70,7 @@
                                         <td> {{$user['mobile']}} </td>
                                         <td> {{$user['nationality']}} </td>
 
-                                        <td> {{$user['location']['name']}} </td>
+                                        <td> {{ optional($user['location']['name'])}} </td>
                                         <td> {{$user['wherelisting']}} </td>
 
                                         <td>

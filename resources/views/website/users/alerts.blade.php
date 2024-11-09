@@ -106,7 +106,6 @@
                                 <span class="woocommerce-result-count-left">تنبيهات مهمة</span>
                             </div>
 
-                            @if(Auth::user()->unreadNotifications->count() > 0)
                                 <div class="table-responsive">
                                     <table class="table twm-table table-striped table-borderless">
                                         <thead>
@@ -168,6 +167,26 @@
                                                     </td>
                                                 </tr>
 
+                                            @elseif($notification['type'] == 'App\Notifications\SendAcceptedOffer')
+                                                <tr>
+                                                    <td>  {{$notification['data']['title']}}
+                                                        : {{$notification['data']['adv_name']}}
+                                                    </td>
+                                                    <td>  {{$notification->created_at->diffForHumans()}}   </td>
+                                                    <td>
+                                                        <a href="{{url('job/'.$notification['data']['adv_id'].'-'.$notification['data']['adv_slug'])}}"
+                                                           role="button" class="custom-toltip">
+                                                            <span class="fa fa-eye"></span>
+                                                            <span class="custom-toltip-block"> مشاهدة التفاصيل  </span>
+                                                        </a>
+                                                        <a onclick="confirm('هل انت تاكد من عملية الحذف !!')"
+                                                           href="{{url('user/alert/delete/'.$notification['id'])}}"
+                                                           title="حذف " data-bs-toggle="tooltip"
+                                                           data-bs-placement="top"><i class="fa fa-trash-alt"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+
                                             @endif
 
                                         @empty
@@ -180,9 +199,6 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            @else
-                                <div class="alert alert-info"> لا يوجد لديك اشعارات في الوقت الحالي !!</div>
-                            @endif
 
 
                         </div>

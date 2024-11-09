@@ -116,7 +116,8 @@
                                                 <div class="form-group">
                                                     <label> عنوان الإعلان الوظيفي </label>
                                                     <div class="ls-inputicon-box">
-                                                        <input required class="form-control" name="title" type="text">
+                                                        <input required class="form-control" name="title" type="text"
+                                                               value="{{old('title')}}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -127,13 +128,22 @@
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> حدد الجنسية </label>
                                                     <div class="ls-inputicon-box">
+
                                                         <select required class="wt-select-box selectpicker"
-                                                                name="nationality"
-                                                                data-live-search="true" title="" id="j-category"
-                                                                data-bv-field="size">
-                                                            <option disabled selected value=""> حدد الجنسية</option>
-                                                            <option value="مصري"> مصري</option>
-                                                            <option value="سعودي"> سعودي</option>
+                                                                name="nationality" data-live-search="true" title=""
+                                                                id="j-category" data-bv-field="size">
+                                                            <option disabled
+                                                                    {{ old('nationality') == '' ? 'selected' : '' }} value="">
+                                                                حدد الجنسية
+                                                            </option>
+                                                            <option
+                                                                value="مصري" {{ old('nationality') == 'مصري' ? 'selected' : '' }}>
+                                                                مصري
+                                                            </option>
+                                                            <option
+                                                                value="سعودي" {{ old('nationality') == 'سعودي' ? 'selected' : '' }}>
+                                                                سعودي
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -146,11 +156,24 @@
                                                         <select required class="wt-select-box selectpicker" name="sex"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
-                                                            <option disabled selected value=""> حدد الجنس</option>
-                                                            <option value="ذكر"> ذكر</option>
-                                                            <option value="انثي"> انثى</option>
-                                                            <option value="كلاهما"> كلاهما</option>
+                                                            <option disabled
+                                                                    {{ old('sex') == '' ? 'selected' : '' }} value="">
+                                                                حدد الجنس
+                                                            </option>
+                                                            <option
+                                                                value="ذكر" {{ old('sex') == 'ذكر' ? 'selected' : '' }}>
+                                                                ذكر
+                                                            </option>
+                                                            <option
+                                                                value="انثى" {{ old('sex') == 'انثى' ? 'selected' : '' }}>
+                                                                انثى
+                                                            </option>
+                                                            <option
+                                                                value="كلاهما" {{ old('sex') == 'كلاهما' ? 'selected' : '' }}>
+                                                                كلاهما
+                                                            </option>
                                                         </select>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -162,12 +185,13 @@
                                                         <select required class="wt-select-box selectpicker" name="city"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
-                                                            <option disabled selected value=""> حدد المدينة</option>
+                                                            <option disabled
+                                                                    {{ old('city') == '' ? 'selected' : '' }} value="">
+                                                                حدد المدينة
+                                                            </option>
                                                             @foreach($citizen as $city)
-
                                                                 <option
-                                                                    value="{{$city['id']}}"> {{$city['name']}} </option>
-
+                                                                    value="{{ $city['id'] }}" {{ old('city') == $city['id'] ? 'selected' : '' }}>{{ $city['name'] }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -184,9 +208,18 @@
                                                                 name="available_work_from_another_place"
                                                                 data-live-search="true" title="" id="j-category"
                                                                 data-bv-field="size">
-                                                            <option disabled selected value=""> حدد</option>
-                                                            <option value="1">نعم</option>
-                                                            <option value="2">لا</option>
+                                                            <option disabled
+                                                                    {{ old('available_work_from_another_place') == '' ? 'selected' : '' }} value="">
+                                                                حدد
+                                                            </option>
+                                                            <option
+                                                                value="1" {{ old('available_work_from_another_place') == 1 ? 'selected' : '' }}>
+                                                                نعم
+                                                            </option>
+                                                            <option
+                                                                value="2" {{ old('available_work_from_another_place') == 2 ? 'selected' : '' }}>
+                                                                لا
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -194,21 +227,37 @@
 
                                             <div class="col-xl-12 col-lg-12 col-md-12">
                                                 <div class="form-group">
-                                                    <label> المؤهل العلمي  </label>
-                                                    <select class="wt-select-box selectpicker" data-live-search="true" name="academy_certificate">
-                                                        <option selected disabled> -- حدد -- </option>
-                                                        <option   value="ثانوي">ثانوي </option>
-                                                        <option  value="دبلوم">دبلوم </option>
-                                                        <option   value="بكالوريوس">بكالوريوس</option>
-                                                        <option   value="ماستر">ماستر </option>
-                                                        <option   value="دكتوراة">دكتوراة </option>
+                                                    <label> المؤهل العلمي </label>
+                                                    <select class="wt-select-box selectpicker" data-live-search="true"
+                                                            name="academy_certificate">
+                                                        <option selected disabled>-- حدد --</option>
+                                                        <option
+                                                            value="ثانوي" {{ old('academy_certificate') == 'ثانوي' ? 'selected' : '' }}>
+                                                            ثانوي
+                                                        </option>
+                                                        <option
+                                                            value="دبلوم" {{ old('academy_certificate') == 'دبلوم' ? 'selected' : '' }}>
+                                                            دبلوم
+                                                        </option>
+                                                        <option
+                                                            value="بكالوريوس" {{ old('academy_certificate') == 'بكالوريوس' ? 'selected' : '' }}>
+                                                            بكالوريوس
+                                                        </option>
+                                                        <option
+                                                            value="ماستر" {{ old('academy_certificate') == 'ماستر' ? 'selected' : '' }}>
+                                                            ماستر
+                                                        </option>
+                                                        <option
+                                                            value="دكتوراة" {{ old('academy_certificate') == 'دكتوراة' ? 'selected' : '' }}>
+                                                            دكتوراة
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label>   تصنيف المسمى الوظيفي </label>
+                                                    <label> تصنيف المسمى الوظيفي </label>
                                                     <div class="ls-inputicon-box">
                                                         <select class="wt-select-box selectpicker"
                                                                 name="job-category"
@@ -217,7 +266,9 @@
                                                             <option disabled selected value=""> حدد</option>
                                                             @foreach($nameJobsCategories as $jobcategory)
                                                                 <option
-                                                                    value="{{$jobcategory['id']}}">{{$jobcategory['name']}}</option>
+                                                                    value="{{$jobcategory['id']}}" {{ old('job-category') == $jobcategory['id'] ? 'selected' : '' }}>
+                                                                    {{$jobcategory['name']}}
+                                                                </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -228,39 +279,60 @@
                                                 <div class="form-group city-outer-bx has-feedback">
                                                     <label> المسمى الوظيفي </label>
                                                     <div class="ls-inputicon-box">
-                                                        <select required class="form-control" name="job_name"
-                                                                title="" id="job-name">
+                                                        <select required class="form-control" name="job_name" title=""
+                                                                id="job-name">
                                                             <option disabled selected value=""> حدد</option>
+                                                            <!-- Options will be populated dynamically -->
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <script>
-                                                document.getElementById('job-category').addEventListener('change', function () {
-                                                    let categoryId = this.value;
-                                                    fetch(`/get-jobs-by-category/${categoryId}`)
-                                                        .then(response => response.json())
-                                                        .then(data => {
-                                                            let jobNameSelect = document.getElementById('job-name');
-                                                            jobNameSelect.innerHTML = '<option disabled selected value=""> حدد</option>';
+                                                document.addEventListener('DOMContentLoaded', function () {
+                                                    const jobCategorySelect = document.getElementById('job-category');
+                                                    const jobNameSelect = document.getElementById('job-name');
+                                                    const oldJobName = "{{ old('job_name') }}";
 
-                                                            data.forEach(job => {
-                                                                let option = document.createElement('option');
-                                                                option.value = job.id;
-                                                                option.textContent = job.title;
-                                                                jobNameSelect.appendChild(option);
-                                                            });
+                                                    // Fetch job names on page load if there's an old value for job-category
+                                                    if (jobCategorySelect.value) {
+                                                        fetchJobs(jobCategorySelect.value);
+                                                    }
 
-                                                            // Refresh the selectpicker to apply changes
-                                                            //$('.selectpicker').selectpicker('refresh');
-                                                        })
-                                                        .catch(error => console.error('Error:', error));
+                                                    jobCategorySelect.addEventListener('change', function () {
+                                                        fetchJobs(this.value);
+                                                    });
+
+                                                    function fetchJobs(categoryId) {
+                                                        fetch(`/get-jobs-by-category/${categoryId}`)
+                                                            .then(response => response.json())
+                                                            .then(data => {
+                                                                jobNameSelect.innerHTML = '<option disabled selected value=""> حدد</option>';
+                                                                data.forEach(job => {
+                                                                    let option = document.createElement('option');
+                                                                    option.value = job.id;
+                                                                    option.textContent = job.title;
+
+                                                                    // Set the old selected value if it matches
+                                                                    if (job.id == oldJobName) {
+                                                                        option.selected = true;
+                                                                    }
+
+                                                                    jobNameSelect.appendChild(option);
+                                                                });
+
+                                                                // Optional: Refresh the selectpicker to apply changes
+                                                                // $('.selectpicker').selectpicker('refresh');
+                                                            })
+                                                            .catch(error => console.error('Error:', error));
+                                                    }
                                                 });
                                             </script>
 
+
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label>   تصنيف التخصص المهني </label>
+                                                    <label> تصنيف التخصص المهني </label>
                                                     <div class="ls-inputicon-box">
                                                         <select required class="wt-select-box selectpicker"
                                                                 name="special_category"
@@ -269,7 +341,9 @@
                                                             <option disabled selected value=""> حدد</option>
                                                             @foreach($specialistsCategories as $specialcategory)
                                                                 <option
-                                                                    value="{{$specialcategory['id']}}"> {{$specialcategory['name']}} </option>
+                                                                    value="{{$specialcategory['id']}}" {{ old('special_category') == $specialcategory['id'] ? 'selected' : '' }}>
+                                                                    {{$specialcategory['name']}}
+                                                                </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -284,56 +358,59 @@
                                                                 name="profession_specialist" title=""
                                                                 id="specialist_name">
                                                             <option disabled selected value=""> حدد</option>
+                                                            <!-- Options will be populated dynamically -->
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <script>
-                                                document.getElementById('specialistCategory').addEventListener('change', function () {
-                                                    let categoryId = this.value;
-                                                    fetch(`/get-specialist-by-category/${categoryId}`)
-                                                        .then(response => response.json())
-                                                        .then(data => {
-                                                            let specialNameSelect = document.getElementById('specialist_name');
-                                                            specialNameSelect.innerHTML = '<option disabled selected value=""> حدد</option>';
+                                                document.addEventListener('DOMContentLoaded', function () {
+                                                    const specialistCategorySelect = document.getElementById('specialistCategory');
+                                                    const specialistNameSelect = document.getElementById('specialist_name');
+                                                    const oldSpecialist = "{{ old('profession_specialist') }}";
 
-                                                            data.forEach(special => {
-                                                                let option = document.createElement('option');
-                                                                option.value = special.id;
-                                                                option.textContent = special.name;
-                                                                specialNameSelect.appendChild(option);
-                                                            });
+                                                    // Fetch specialist names on page load if there's an old value for special_category
+                                                    if (specialistCategorySelect.value) {
+                                                        fetchSpecialists(specialistCategorySelect.value);
+                                                    }
 
-                                                            // Refresh the selectpicker to apply changes
-                                                            //$('.selectpicker').selectpicker('refresh');
-                                                        })
-                                                        .catch(error => console.error('Error:', error));
+                                                    specialistCategorySelect.addEventListener('change', function () {
+                                                        fetchSpecialists(this.value);
+                                                    });
+
+                                                    function fetchSpecialists(categoryId) {
+                                                        fetch(`/get-specialist-by-category/${categoryId}`)
+                                                            .then(response => response.json())
+                                                            .then(data => {
+                                                                specialistNameSelect.innerHTML = '<option disabled selected value=""> حدد</option>';
+                                                                data.forEach(special => {
+                                                                    let option = document.createElement('option');
+                                                                    option.value = special.id;
+                                                                    option.textContent = special.name;
+
+                                                                    // Set the old selected value if it matches
+                                                                    if (special.id == oldSpecialist) {
+                                                                        option.selected = true;
+                                                                    }
+
+                                                                    specialistNameSelect.appendChild(option);
+                                                                });
+
+                                                                // Optional: Refresh the selectpicker to apply changes
+                                                                // $('.selectpicker').selectpicker('refresh');
+                                                            })
+                                                            .catch(error => console.error('Error:', error));
+                                                    }
                                                 });
                                             </script>
-
-
-                                            {{--                                            <div class="col-xl-4 col-lg-6 col-md-12">--}}
-                                            {{--                                                <div class="form-group city-outer-bx has-feedback">--}}
-                                            {{--                                                    <label>  طبيعة العمل  </label>--}}
-                                            {{--                                                    <div class="ls-inputicon-box">--}}
-                                            {{--                                                        <select required multiple class="wt-select-box selectpicker" name="work_type[]"--}}
-                                            {{--                                                                data-live-search="true" title="" id="j-category"--}}
-                                            {{--                                                                data-bv-field="size">--}}
-
-                                            {{--                                                            <option value="هاتفي">هاتفي</option>--}}
-                                            {{--                                                            <option value="ميداني">ميداني</option>--}}
-                                            {{--                                                            <option value="مكتبي">مكتبي</option>--}}
-                                            {{--                                                        </select>--}}
-                                            {{--                                                    </div>--}}
-                                            {{--                                                </div>--}}
-                                            {{--                                            </div>--}}
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group">
                                                     <label> عدد سنوات الخبرة </label>
                                                     <div class="ls-inputicon-box">
                                                         <input required class="form-control" min="1" name="experience"
-                                                               type="number">
+                                                               type="number" value="{{ old('experience') }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -344,15 +421,20 @@
                                                     <div class="ls-inputicon-box">
                                                         <select required class="wt-select-box selectpicker" multiple
                                                                 name="language[]"
-                                                                data-live-search="true" title="" id="j-category"
-                                                                data-bv-field="size">
-                                                            <option value="عربي">عربي</option>
-                                                            <option value="انجليزي">انجليزي</option>
+                                                                data-live-search="true" title="حدد اللغة المطلوبة" id="language-select"
+                                                                data-bv-field="size" >
+                                                            <option
+                                                                value="عربي" {{ in_array('عربي', old('language', [])) ? 'selected' : '' }}>
+                                                                عربي
+                                                            </option>
+                                                            <option
+                                                                value="انجليزي" {{ in_array('انجليزي', old('language', [])) ? 'selected' : '' }}>
+                                                                انجليزي
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
-
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
@@ -360,35 +442,43 @@
                                                     <div class="ls-inputicon-box">
                                                         <select required class="wt-select-box selectpicker"
                                                                 name="language_level"
-                                                                data-live-search="true" title="" id="j-category"
+                                                                data-live-search="true" title=""
+                                                                id="language-level-select"
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد</option>
-                                                            <option value="مبتدأ">مبتدأ</option>
-                                                            <option value="متوسط">متوسط</option>
-                                                            <option value="متقدم">متقدم</option>
+                                                            <option
+                                                                value="مبتدأ" {{ old('language_level') == 'مبتدأ' ? 'selected' : '' }}>
+                                                                مبتدأ
+                                                            </option>
+                                                            <option
+                                                                value="متوسط" {{ old('language_level') == 'متوسط' ? 'selected' : '' }}>
+                                                                متوسط
+                                                            </option>
+                                                            <option
+                                                                value="متقدم" {{ old('language_level') == 'متقدم' ? 'selected' : '' }}>
+                                                                متقدم
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
-
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group">
                                                     <label> الراتب المحدد </label>
                                                     <div class="ls-inputicon-box">
                                                         <input class="form-control" min="1" name="salary"
-                                                               type="number">
+                                                               type="number" value="{{ old('salary') }}">
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group">
-                                                    <label>موقع العمل <span
-                                                            class="badge badge-danger bg-danger"> [ دولة ، مدينة  ] </span>  </label>
+                                                    <label>موقع العمل <span class="badge badge-danger bg-danger"> [ دولة ، مدينة  ] </span></label>
                                                     <div class="ls-inputicon-box">
                                                         <input required class="form-control" name="new_work_place"
-                                                               type="text">
+                                                               type="text" value="{{ old('new_work_place') }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -399,12 +489,21 @@
                                                     <div class="ls-inputicon-box">
                                                         <select required class="wt-select-box selectpicker"
                                                                 name="new_work_time"
-                                                                data-live-search="true" title="" id="j-category"
+                                                                data-live-search="true" title="" id="work-type-select"
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد</option>
-                                                            <option value="جزئي">جزئي</option>
-                                                            <option value="كامل">كامل</option>
-                                                            <option value="مؤقت">مؤقت</option>
+                                                            <option
+                                                                value="جزئي" {{ old('new_work_time') == 'جزئي' ? 'selected' : '' }}>
+                                                                جزئي
+                                                            </option>
+                                                            <option
+                                                                value="كامل" {{ old('new_work_time') == 'كامل' ? 'selected' : '' }}>
+                                                                كامل
+                                                            </option>
+                                                            <option
+                                                                value="مؤقت" {{ old('new_work_time') == 'مؤقت' ? 'selected' : '' }}>
+                                                                مؤقت
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -416,32 +515,56 @@
                                                     <div class="ls-inputicon-box">
                                                         <select required class="wt-select-box selectpicker"
                                                                 name="new_age"
-                                                                data-live-search="true" title="" id="j-category"
+                                                                data-live-search="true" title="" id="age-select"
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد</option>
-                                                            <option value="18-24">18-24</option>
-                                                            <option value="25-29"> 25-29</option>
-                                                            <option value="30-39">30-39</option>
-                                                            <option value="+40">+40</option>
-                                                            <option value="لايهم">لايهم</option>
+                                                            <option
+                                                                value="18-24" {{ old('new_age') == '18-24' ? 'selected' : '' }}>
+                                                                18-24
+                                                            </option>
+                                                            <option
+                                                                value="25-29" {{ old('new_age') == '25-29' ? 'selected' : '' }}>
+                                                                25-29
+                                                            </option>
+                                                            <option
+                                                                value="30-39" {{ old('new_age') == '30-39' ? 'selected' : '' }}>
+                                                                30-39
+                                                            </option>
+                                                            <option
+                                                                value="+40" {{ old('new_age') == '+40' ? 'selected' : '' }}>
+                                                                +40
+                                                            </option>
+                                                            <option
+                                                                value="لايهم" {{ old('new_age') == 'لايهم' ? 'selected' : '' }}>
+                                                                لايهم
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
 
-
                                             <div class="col-xl-12 col-lg-12 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
-                                                    <label> متى احتياجك لأغلاق الشاغر  </label>
+                                                    <label> متى احتياجك لأغلاق الشاغر </label>
                                                     <div class="ls-inputicon-box">
                                                         <select required class="wt-select-box selectpicker"
                                                                 name="notification_timeslot"
-                                                                data-live-search="true" title="" id="j-category"
+                                                                data-live-search="true" title=""
+                                                                id="notification_timeslot"
                                                                 data-bv-field="size">
                                                             <option disabled selected value=""> حدد</option>
-                                                            <option value="فوري"> فوري</option>
-                                                            <option value="خلال شهر">خلال شهر</option>
-                                                            <option value="خلال شهرين">خلال شهرين</option>
+                                                            <option
+                                                                value="فوري" {{ old('notification_timeslot') == 'فوري' ? 'selected' : '' }}>
+                                                                فوري
+                                                            </option>
+                                                            <option
+                                                                value="خلال شهر" {{ old('notification_timeslot') == 'خلال شهر' ? 'selected' : '' }}>
+                                                                خلال شهر
+                                                            </option>
+                                                            <option
+                                                                value="خلال شهرين" {{ old('notification_timeslot') == 'خلال شهرين' ? 'selected' : '' }}>
+                                                                خلال شهرين
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -451,7 +574,7 @@
                                                 <div class="form-group">
                                                     <label> الوصف الوظيفي </label>
                                                     <textarea required class="form-control" rows="3"
-                                                              name="description"></textarea>
+                                                              name="description">{{ old('description') }}</textarea>
                                                 </div>
                                             </div>
 
@@ -460,7 +583,7 @@
                                                     <label> المهام الوظيفية <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span>
                                                     </label>
                                                     <textarea class="form-control" rows="3"
-                                                              name="job_requirements"></textarea>
+                                                              name="job_requirements">{{ old('job_requirements') }}</textarea>
                                                 </div>
                                             </div>
 
@@ -470,7 +593,7 @@
                                                             class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span>
                                                     </label>
                                                     <textarea class="form-control" rows="3"
-                                                              name="job_experience"></textarea>
+                                                              name="job_experience">{{ old('job_experience') }}</textarea>
                                                 </div>
                                             </div>
 
@@ -479,17 +602,17 @@
                                                     <label> مميزات العمل <span class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span>
                                                     </label>
                                                     <textarea class="form-control" rows="3"
-                                                              name="job_advantage"></textarea>
+                                                              name="job_advantage">{{ old('job_advantage') }}</textarea>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label> البيانات المطلوبة للتقديم   <span
+                                                    <label> البيانات المطلوبة للتقديم <span
                                                             class="badge badge-danger bg-danger"> افصل بين كل نقطة والاخري ب (,) </span>
                                                     </label>
                                                     <textarea class="form-control" rows="3"
-                                                              name="job_needed"></textarea>
+                                                              name="job_needed">{{ old('job_needed') }}</textarea>
                                                 </div>
                                             </div>
 

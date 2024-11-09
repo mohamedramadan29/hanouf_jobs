@@ -65,7 +65,7 @@
 
                             <div>
                                 <a href="{{ route('offers.export', ['id' => $adv->id]) }}" class="btn btn-success">
-                                    تحميل تقرير عن العروض <i class="fa fa-file"></i></a>
+                                    تحميل ملف المتقدمين<i class="fa fa-file"></i></a>
                             </div>
                         </div>
                         @if($count_offers > 0 )
@@ -140,7 +140,7 @@
 {{--                                                                                        class="fa fa-file"></i> </a>--}}
                                                                             <a style="margin:5px"
                                                                                class="btn btn-secondary btn-sm"
-                                                                               href="{{ asset('storage/' . $file) }}"
+                                                                               href="{{asset('assets/uploads/JobOfferFiles/'.$file)}}"
                                                                                target="_blank">{{ basename($file) }} <i
                                                                                     class="fa fa-file"></i> </a>
 
