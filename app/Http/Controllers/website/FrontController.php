@@ -23,10 +23,14 @@ class FrontController extends Controller
 {
     use Message_Trait;
 
-//    public function index()
-//    {
-//        return view('website.index',compact(''));
-//    }
+    public function index()
+    {
+        $employesfaqs = Faq::where('type','موظف')->get();
+        $specialists = Specialist::all();
+        return view('website.index',compact('employesfaqs','specialists'));
+    }
+
+
     function contact()
     {
         return view('website.contact');

@@ -397,6 +397,22 @@
 
                                             <div class="col-xl-6 col-lg-6 col-md-12">
                                                 <div class="form-group city-outer-bx has-feedback">
+                                                    <label> طلب وظيفة  </label>
+                                                    <div class="ls-inputicon-box">
+                                                        <select required class="wt-select-box selectpicker"
+                                                                name="job_specialist_select"
+                                                                data-live-search="true" title="" id="j-category"
+                                                                data-bv-field="size">
+                                                            <option disabled selected value=""> حدد</option>
+                                                            <option @if($user['job_specialist_select'] == 'نفس التخصص') selected @endif value="نفس التخصص"> نفس التخصص </option>
+                                                            <option @if($user['job_specialist_select'] == 'لا يهم') selected @endif value="لا يهم"> لا يهم </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                                <div class="form-group city-outer-bx has-feedback">
                                                     <label> مستوي اللغة </label>
                                                     <div class="ls-inputicon-box">
                                                         <select required class="wt-select-box selectpicker"

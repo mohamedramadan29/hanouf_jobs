@@ -12,10 +12,10 @@ use \App\Livewire\Chat\Createchat;
 
 use App\Exports\OffersExport;
 use Maatwebsite\Excel\Facades\Excel;
-Route::get('/', function () {
-    $employesfaqs = Faq::where('type','موظف')->get();
-    return view('website.index',compact('employesfaqs'));
-});
+//Route::get('/', function () {
+//
+//    return view('website.index',compact('employesfaqs'));
+//});
 
 /////////////////////////// User Controller //////////////////////
 ///
@@ -98,6 +98,7 @@ Route::controller(AdvertisementController::class)->group(function () {
 });
 
 Route::controller(FrontController::class)->group(function () {
+    Route::get('/','index');
     Route::get('contact', 'contact');
     Route::get('faqs', 'faqs');
     Route::get('terms', 'terms');

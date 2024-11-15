@@ -418,6 +418,7 @@ class UserController extends Controller
                     'academy_certificate'=>$data['academy_certificate'],
                     'new_work_time'=>$data['new_work_time'],
                     'new_age'=>$data['new_age'],
+                    'job_specialist_select'=>$data['job_specialist_select'],
                 ]);
                 return $this->success_message('  تم تعديل البيانات الخاصة بك بنجاح  !!  ');
             }
