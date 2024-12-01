@@ -119,7 +119,7 @@
                                                        class="twm-job-title">
                                                         <h4>  {{$user['name']}} </h4>
                                                     </a>
-                                                    <p> {{$user['jobs_name']['title']}} </p>
+                                                    <p> {{ !optional($user['jobs_name']['title'])}} </p>
 
                                                     <div class="twm-fot-content">
                                                         <div class="twm-left-info">

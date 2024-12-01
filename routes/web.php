@@ -11,6 +11,7 @@ use \App\Http\Controllers\website\jobOfferController;
 use \App\Livewire\Chat\Createchat;
 
 use App\Exports\OffersExport;
+use App\Http\Controllers\Auth\SocialLoginController;
 use Maatwebsite\Excel\Facades\Excel;
 //Route::get('/', function () {
 //
@@ -50,7 +51,7 @@ Route::controller(UserController::class)->group(function () {
 Route::controller(CompanyController::class)->group(function () {
     Route::post('company/register', 'register');
     Route::get('company/confirm/{code}', 'CompanyConfirm');
-    Route::match(['post','get'],'company/login', 'login')->name('company_login');
+    Route::match(['post', 'get'], 'company/login', 'login')->name('company_login');
     //////////Forget Password
     ///
     Route::match(['post', 'get'], 'company/forget-password', 'forget_password');
@@ -80,13 +81,13 @@ Route::controller(CompanyController::class)->group(function () {
         Route::post('company/offer/unacceptedOffer/{conversation_id}', 'offer_unacceptedafterchat');
         /////////// Start Conversation
         ///
-        Route::get('company/chat/{adv_id}-{username}','start_conversation');
-       // Route::get('company/chat/{adv_id}-{username}', [ChatController::class, 'showChat']);
+        Route::get('company/chat/{adv_id}-{username}', 'start_conversation');
+        // Route::get('company/chat/{adv_id}-{username}', [ChatController::class, 'showChat']);
         Route::get('/get-jobs-by-category/{categoryId}', 'getJobsByCategory');
         Route::get('/get-specialist-by-category/{categoryId}', 'getSpecialistByCategory');
     });
 
-    Route::get('chat-main',\App\Livewire\Chat\Main::class);
+    Route::get('chat-main', \App\Livewire\Chat\Main::class);
     Route::get('company/plan', 'plans');
     Route::get('company/chat', 'chat');
     Route::get('company/job-users', 'job_users'); // رابط المتقدمين للوظيفة
@@ -98,7 +99,7 @@ Route::controller(AdvertisementController::class)->group(function () {
 });
 
 Route::controller(FrontController::class)->group(function () {
-    Route::get('/','index');
+    Route::get('/', 'index');
     Route::get('contact', 'contact');
     Route::get('faqs', 'faqs');
     Route::get('terms', 'terms');
@@ -118,11 +119,17 @@ Route::view('404', 'website.404');
 /////////////////////// Start Chat With LiveWire
 
 Route::get('lists', \App\Livewire\Chat\Chatlist::class);
-Route::get('create-chat',Createchat::class);
+Route::get('create-chat', Createchat::class);
 Route::get('counter', \App\Livewire\Counter::class);
 ///////////// Export Offers
-Route::get('/offers/export/{id}', function($id) {
+Route::get('/offers/export/{id}', function ($id) {
     return Excel::download(new OffersExport($id), 'offers.xlsx');
 })->name('offers.export');
+
+
+Route::get('auth/{provider}/redirect', [SocialLoginController::class, 'redirect'])->name('auth.google.redirect');
+Route::get('auth/{provider}/callback', [SocialLoginController::class, 'callback'])->name('auth.google.callback');
+
+
 
 include 'admin.php';

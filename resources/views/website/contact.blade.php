@@ -116,25 +116,16 @@
                                         <div class="contact-info-section">
 
                                             <div class="c-info-column">
-                                                <div class="c-info-icon"><i class=" fas fa-map-marker-alt"></i></div>
-                                                <h3 class="twm-title">في منطقة الخليج؟</h3>
-                                                <p>1363-1385 غروب الشمس الجادة لوس أنجلوس, كاليفورنيا 90026 ، الولايات
-                                                    المتحدة الأمريكية</p>
-                                            </div>
-
-                                            <div class="c-info-column">
                                                 <div class="c-info-icon custome-size"><i class="fas fa-mobile-alt"></i>
                                                 </div>
                                                 <h3 class="twm-title">لا تتردد في الاتصال بنا</h3>
-                                                <p><a href="tel:+216-761-8331">+2 900 234 4241</a></p>
-                                                <p><a href="tel:+216-761-8331">+2 900 234 3219</a></p>
+                                                <p><a href="tel:+966731 9189">  731 9189 966</a></p>
                                             </div>
 
                                             <div class="c-info-column">
                                                 <div class="c-info-icon"><i class="fas fa-envelope"></i></div>
-                                                <h3 class="twm-title">يدعم</h3>
-                                                <p>infohelp@gmail.com</p>
-                                                <p>support12@gmail.com</p>
+                                                <h3 class="twm-title"> البريد الالكتروني  </h3>
+                                                <p> info@takhair.site </p>
                                             </div>
 
                                         </div>
