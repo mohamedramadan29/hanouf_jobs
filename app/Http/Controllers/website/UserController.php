@@ -115,7 +115,6 @@ class UserController extends Controller
 
                 DB::commit();
                 return $this->success_message('تم انشاء الحساب بنجاح من فضلك فعل حسابك من خلال البريد المرسل  ⚡️');
-
             } catch (\Exception $e) {
                 return $this->exception_message($e);
             }
@@ -145,7 +144,6 @@ class UserController extends Controller
         } else {
             abort(404);
         }
-
     }
 
     public function login(Request $request)
@@ -179,20 +177,22 @@ class UserController extends Controller
                     } else {
                         return Redirect::back()->withInput()->withErrors('لا يوجد حساب بهذه البيانات  ');
                     }
-                } elseif ($company_mails->count() > 0) {
-//                    return Redirect::route('company_login');
-                    if (Auth::guard('company')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
-                        if (Auth::guard('company')->user()->email_confirm == 0) {
-                            Auth::guard('company')->logout();
-                            return Redirect::back()->withInput()->withErrors('  من فضلك يجب تفعيل الحساب الخاص بك اولا  ');
-                        }
-                        return \redirect('company/dashboard');
-                    } else {
-                        return Redirect::back()->withInput()->withErrors('لا يوجد حساب بهذه البيانات  ');
-                    }
-                } else {
-                    return Redirect::back()->withInput()->withErrors('لا يوجد حساب بهذه البيانات  ');
                 }
+
+                //                 elseif ($company_mails->count() > 0) {
+                // //                    return Redirect::route('company_login');
+                //                     if (Auth::guard('company')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
+                //                         if (Auth::guard('company')->user()->email_confirm == 0) {
+                //                             Auth::guard('company')->logout();
+                //                             return Redirect::back()->withInput()->withErrors('  من فضلك يجب تفعيل الحساب الخاص بك اولا  ');
+                //                         }
+                //                         return \redirect('company/dashboard');
+                //                     } else {
+                //                         return Redirect::back()->withInput()->withErrors('لا يوجد حساب بهذه البيانات  ');
+                //                     }
+                //                 } else {
+                //                     return Redirect::back()->withInput()->withErrors('لا يوجد حساب بهذه البيانات  ');
+                //                 }
 
 
             } catch (\Exception $e) {
@@ -207,8 +207,7 @@ class UserController extends Controller
 
     public function forget_password(Request $request)
     {
-        if
-        ($request->isMethod('post')) {
+        if ($request->isMethod('post')) {
             $data = $request->all();
             // dd($data);
             $email = $data['email'];
@@ -375,7 +374,7 @@ class UserController extends Controller
             if ($request->isMethod('post')) {
                 $data = $request->all();
                 // dd($data);
-//                $work_type = implode(',', $data['work_type']);
+                //                $work_type = implode(',', $data['work_type']);
                 $language = implode(',', $data['language']);
                 $rules = [
                     'nationality' => 'required',
@@ -383,14 +382,14 @@ class UserController extends Controller
                     'city' => 'required',
                     'can_placed_from_to_another' => 'required',
                     'job_name' => 'required',
-//                    'work_type' => 'required',
+                    //                    'work_type' => 'required',
                     'experience' => 'required',
                     'language' => 'required',
                     'language_level' => 'required',
                     'profession_specialist' => 'required',
                     'notification_timeslot' => 'required',
                     'salary' => 'required',
-                    'academy_certificate'=>'required'
+                    'academy_certificate' => 'required'
                 ];
                 $messages = [
                     'nationality.required' => ' من فضلك حدد الجنسية  ',
@@ -407,7 +406,7 @@ class UserController extends Controller
                     'can_placed_from_to_another' => $data['can_placed_from_to_another'],
                     'job_category' => $data['job_category'],
                     'job_name' => $data['job_name'],
-//                    'work_type' => $work_type,
+                    //                    'work_type' => $work_type,
                     'experience' => $data['experience'],
                     'language' => $language,
                     'language_level' => $data['language_level'],
@@ -415,10 +414,10 @@ class UserController extends Controller
                     'profession_specialist' => $data['profession_specialist'],
                     'notification_timeslot' => $data['notification_timeslot'],
                     'salary' => $data['salary'],
-                    'academy_certificate'=>$data['academy_certificate'],
-                    'new_work_time'=>$data['new_work_time'],
-                    'new_age'=>$data['new_age'],
-                    'job_specialist_select'=>$data['job_specialist_select'],
+                    'academy_certificate' => $data['academy_certificate'],
+                    'new_work_time' => $data['new_work_time'],
+                    'new_age' => $data['new_age'],
+                    'job_specialist_select' => $data['job_specialist_select'],
                 ]);
                 return $this->success_message('  تم تعديل البيانات الخاصة بك بنجاح  !!  ');
             }
@@ -469,7 +468,6 @@ class UserController extends Controller
                 } else {
                     return Redirect::back()->withInput()->withErrors(['  كلمة المرور القديمة غير صحيحة !!!!!  ']);
                 }
-
             }
         } catch (\Exception $e) {
             return $this->exception_message($e);

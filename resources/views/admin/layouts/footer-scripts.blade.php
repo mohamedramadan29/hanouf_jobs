@@ -50,3 +50,4 @@
 <!-- custom js -->
 <script src="{{ URL::asset('assets/admin/js/custom.js') }}"></script><!-- Left-menu js-->
 <script src="{{ URL::asset('assets/admin/plugins/side-menu/sidemenu.js') }}"></script>
+<script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>

@@ -5,6 +5,7 @@ use \App\Http\Controllers\admin\AdminController;
 use \App\Http\Controllers\admin\PlanController;
 use \App\Http\Controllers\admin\CompanyController;
 use \App\Http\Controllers\admin\AdvertesmentController;
+use App\Http\Controllers\admin\BlogController;
 use \App\Http\Controllers\admin\UserController;
 use \App\Http\Controllers\admin\FaqController;
 use \App\Http\Controllers\admin\TermsController;
@@ -108,6 +109,14 @@ Route::group(['prefix' => 'admin'], function () {
             Route::match(['post', 'get'], 'special/add', 'add');
             Route::match(['post', 'get'], 'special/update/{id}', 'update');
             Route::post('special/delete/{id}', 'delete');
+        });
+
+        /////////////////////   Startt Blog Controller
+        Route::controller(BlogController::class)->group(function () {
+            Route::get('blog', 'index');
+            Route::match(['post', 'get'], 'blog/add', 'store');
+            Route::match(['post', 'get'], 'blog/update/{id}', 'update');
+            Route::post('blog/delete/{id}', 'delete');
         });
     });
 });

@@ -11,7 +11,9 @@ use \App\Http\Controllers\website\jobOfferController;
 use \App\Livewire\Chat\Createchat;
 
 use App\Exports\OffersExport;
+use App\Http\Controllers\Auth\CompanySocialLoginController;
 use App\Http\Controllers\Auth\SocialLoginController;
+use App\Http\Controllers\website\BlogController;
 use Maatwebsite\Excel\Facades\Excel;
 //Route::get('/', function () {
 //
@@ -31,7 +33,7 @@ Route::controller(UserController::class)->group(function () {
     Route::match(['post', 'get'], 'user/change-forget-password/{code}', 'change_forget_password');
     Route::post('user/update_forget_password', 'update_forget_password');
     Route::group(['middleware' => 'auth'], function () {
-        Route::get('user/dashboard', 'index');
+        Route::get('user/dashboard', 'index')->name('user.dashboard');
         Route::post('user/update_info', 'update_info');
         Route::match(['get', 'post'], 'user/update', 'update_data');
         Route::get('user/alerts', 'alerts');
@@ -49,7 +51,7 @@ Route::controller(UserController::class)->group(function () {
 /////////////////////// Company Controller //////////////////////
 ///
 Route::controller(CompanyController::class)->group(function () {
-    Route::post('company/register', 'register');
+    Route::match(['post', 'get'], 'company/register', 'register');
     Route::get('company/confirm/{code}', 'CompanyConfirm');
     Route::match(['post', 'get'], 'company/login', 'login')->name('company_login');
     //////////Forget Password
@@ -59,7 +61,7 @@ Route::controller(CompanyController::class)->group(function () {
     Route::post('company/update_forget_password', 'update_forget_password');
 
     Route::group(['middleware' => 'company'], function () {
-        Route::get('company/dashboard', 'index');
+        Route::get('company/dashboard', 'index')->name('company.dashboard');
         Route::post('company/update_info', 'update_info');
         Route::match(['post', 'get'], 'company/add-job', 'add_job');
         Route::get('company/jobs', 'jobs');
@@ -126,10 +128,19 @@ Route::get('/offers/export/{id}', function ($id) {
     return Excel::download(new OffersExport($id), 'offers.xlsx');
 })->name('offers.export');
 
+//////// User Social Login
 
-Route::get('auth/{provider}/redirect', [SocialLoginController::class, 'redirect'])->name('auth.google.redirect');
-Route::get('auth/{provider}/callback', [SocialLoginController::class, 'callback'])->name('auth.google.callback');
+/////////////// Start Blog Contoller
 
+Route::controller(BlogController::class)->group(function () {
+
+    Route::get('blog', 'index');
+    Route::get('blog/{slug}', 'blog_details');
+});
+
+
+Route::get('auth/google/redirect', [SocialLoginController::class, 'redirect'])->name('auth.google.redirect');
+Route::get('auth/google/callback', [SocialLoginController::class, 'callback'])->name('auth.google.callback');
 
 
 include 'admin.php';

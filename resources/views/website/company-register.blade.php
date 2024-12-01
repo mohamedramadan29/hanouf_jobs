@@ -5,18 +5,6 @@
 @section('content')
     <!-- CONTENT START -->
     <div class="page-content">
-        @if (Session::has('Success_message'))
-            @php
-                toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
-            @endphp
-        @endif
-        @if ($errors->any())
-            @foreach ($errors->all() as $error)
-                @php
-                    toastify()->error($error);
-                @endphp
-            @endforeach
-        @endif
         <!-- Login Section Start -->
         <div class="section-full site-bg-white">
             <div class="container-fluid">
@@ -43,13 +31,13 @@
 
                                         <!--Login Candidate-->
                                         <li class="nav-item">
-                                            <a href="{{ url('register') }}" class="nav-link active" type="button"><i
+                                            <a href="{{ url('register') }}" class="nav-link" type="button"><i
                                                     class="fas fa-user-tie"></i> موظف
                                             </a>
                                         </li>
                                         <!--Login Employer-->
                                         <li class="nav-item">
-                                            <a href="{{ url('company/register') }}" class="nav-link" type="button"><i
+                                            <a href="{{ url('company/register') }}" class="nav-link active" type="button"><i
                                                     class="fas fa-building"></i>صاحب العمل
                                             </a>
                                         </li>
@@ -58,11 +46,12 @@
 
                                     <div class="twm-log-reg-head">
                                         <div class="twm-log-reg-logo">
-                                            <span class="log-reg-form-title" style="font-size:18px"> حساب جديد موظف </span>
+                                            <span class="log-reg-form-title" style="font-size:18px"> حساب جديد صاحب عمل </span>
                                         </div>
                                     </div>
 
                                     <div class="tab-content" id="myTab2Content">
+
                                         <div class="col-lg-12">
                                             <div>
                                                 <div class="google_login">
@@ -73,9 +62,23 @@
                                                 <br>
                                             </div>
                                         </div>
-                                        <!--Login Candidate Content-->
-                                        <div class="tab-pane fade show active" id="twm-login-candidate">
-                                            <form id="UserRegister" action="{{ url('user/register') }}" method="post">
+
+                                        <!--Login Employer Content-->
+                                        <div class="tab-pane fade show active" id="twm-login-Employer">
+                                            @if (Session::has('Success_message'))
+                                            @php
+                                                toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
+                                            @endphp
+                                        @endif
+                                        @if ($errors->any())
+                                            @foreach ($errors->all() as $error)
+                                                @php
+                                                    toastify()->error($error);
+                                                @endphp
+                                            @endforeach
+                                        @endif
+                                            <form id="CompanyRegister" action="{{ url('company/register') }}"
+                                                method="post">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-lg-12">
@@ -156,29 +159,34 @@
                                                             </label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <button id="submitBtnUser" type="submit"
-                                                                class="site-button"> حساب جديد
-                                                            </button>
-                                                            <span class="loader" id="loaderUser"
-                                                                style="display: none;">جاري الإرسال...</span>
-                                                        </div>
-                                                    </div>
 
+                                                    <div class="form-group">
+                                                        <button id="submitBtncompany" type="submit" class="site-button">
+                                                            حساب جديد
+                                                        </button>
+                                                        <span class="loader" id="loaderCompany"
+                                                            style="display: none;">جاري الإرسال...</span>
+                                                    </div>
                                                 </div>
                                             </form>
 
+
+                                            <script>
+                                                document.getElementById('CompanyRegister').addEventListener('submit', function(event) {
+                                                    document.getElementById('submitBtncompany').disabled = true; // تعطيل زر الإرسال
+                                                    document.getElementById('submitBtncompany').style.display = 'none'; // إخفاء زر الإرسال
+                                                    document.getElementById('loaderCompany').style.display = 'inline'; // إظهار مؤشر التحميل
+                                                });
+                                            </script>
+
+
+                                            <style>
+                                                .loader {
+                                                    font-size: 16px;
+                                                    color: var(--main-color);
+                                                }
+                                            </style>
                                         </div>
-
-                                        <script>
-                                            document.getElementById('UserRegister').addEventListener('submit', function(event) {
-                                                document.getElementById('submitBtnUser').disabled = true; // تعطيل زر الإرسال
-                                                document.getElementById('submitBtnUser').style.display = 'none'; // إخفاء زر الإرسال
-                                                document.getElementById('loaderUser').style.display = 'inline'; // إظهار مؤشر التحميل
-                                            });
-                                        </script>
-
 
                                     </div>
                                 </div>

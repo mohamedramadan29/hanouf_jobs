@@ -26,3 +26,4 @@
     <link href="{{ URL::asset('assets/admin/css-rtl/style-dark.css') }}" rel="stylesheet">
     <!---Skinmodes css-->
     <link href="{{ URL::asset('assets/admin/css-rtl/skin-modes.css') }}" rel="stylesheet">
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">

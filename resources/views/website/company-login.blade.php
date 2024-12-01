@@ -1,25 +1,10 @@
 @extends('website.layouts.master_login')
 @section('title')
-    تسجيل دخول الباحث عن العمل
+    تسجيل دخول الشركات
 @endsection
 @section('content')
     <!-- CONTENT START -->
     <div class="page-content">
-        {{--        @if (Session::has('Success_message')) --}}
-        {{--            @php --}}
-        {{--                emotify('success', \Illuminate\Support\Facades\Session::get('Success_message')); --}}
-        {{--            @endphp --}}
-        {{--        @endif --}}
-        {{--        @if ($errors->any()) --}}
-        {{--            @foreach ($errors->all() as $error) --}}
-        {{--                @php --}}
-        {{--                    emotify('error', $error); --}}
-        {{--                @endphp --}}
-        {{--            @endforeach --}}
-        {{--        @endif --}}
-
-
-
         @if (Session::has('Success_message'))
             @php
                 toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
@@ -53,34 +38,33 @@
 
                             <div class="twm-log-reg-inner">
                                 <div class="twm-tabs-style-2">
-
                                     <ul class="nav nav-tabs" id="myTab2" role="tablist">
 
                                         <!--Login Candidate-->
                                         <li class="nav-item">
-                                            <a href="{{ url('login') }}" class="nav-link active"   type="button"><i
+                                            <a href="{{ url('login') }}" class="nav-link" type="button"><i
                                                     class="fas fa-user-tie"></i> موظف
                                             </a>
                                         </li>
                                         <!--Login Employer-->
                                         <li class="nav-item">
-                                            <a href="{{ url('company/login') }}" class="nav-link" type="button"><i
+                                            <a href="{{ url('company/login') }}" class="nav-link active" type="button"><i
                                                     class="fas fa-building"></i>صاحب العمل
-                                        </a>
+                                            </a>
                                         </li>
 
                                     </ul>
 
                                     <div class="twm-log-reg-head">
                                         <div class="twm-log-reg-logo">
-                                            <span class="log-reg-form-title" style="font-size:18px"> تسجيل دخول موظف </span>
+                                            <span class="log-reg-form-title" style="font-size:18px"> تسجيل دخول صاحب العمل </span>
                                         </div>
                                     </div>
 
                                     <div class="tab-content" id="myTab2Content">
                                         <!--Login Candidate Content-->
                                         <div class="tab-pane fade show active" id="twm-login-candidate">
-                                            <form action="{{ route('login') }}" method="post">
+                                            <form action="{{ route('company_login') }}" method="post">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-lg-12">

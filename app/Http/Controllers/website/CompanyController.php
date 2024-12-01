@@ -38,73 +38,80 @@ class CompanyController extends Controller
 
     public function register(Request $request)
     {
-        try {
-            DB::beginTransaction();
-            $data = $request->all();
-            $username = $this->CustomeSlug($data['name']);
-            $checkUsername = Company::where('username', $username)->count();
-            if ($checkUsername > 0) {
-                return redirect()->back()->withErrors([' الاسم  متواجد من قبل من فضلك ادخل اسم جديد  '])->withInput();
+
+        if($request->isMethod("post")){
+            try {
+                DB::beginTransaction();
+                $data = $request->all();
+                $username = $this->CustomeSlug($data['name']);
+                $checkUsername = Company::where('username', $username)->count();
+                if ($checkUsername > 0) {
+                    return redirect()->back()->withErrors([' الاسم  متواجد من قبل من فضلك ادخل اسم جديد  '])->withInput();
+                }
+                $checkusernameusers = User::where('username', $username)->count();
+                if ($checkusernameusers > 0) {
+                    return redirect()->back()->withErrors([' الاسم  متواجد من قبل من فضلك ادخل اسم جديد  '])->withInput();
+                }
+
+                $rules = [
+                    'name' => 'required',
+                    'email' => 'required|email|unique:companies,email|max:150',
+                    'mobile' => 'required|numeric|unique:companies,mobile|digits_between:8,16',
+                    'password' => 'required|min:8',
+                    'confirm_password' => 'required|same:password'
+                ];
+                $messages = [
+                    'name.required' => 'من فضلك ادخل اسم الشركة',
+                    'email.required' => 'من فضلك ادخل البريد الالكتروني ',
+                    'email.unique' => 'البريد الالكتروني مستخدم بالفعل ',
+                    'email.email' => 'من فضلك ادخل بريد الكتروني بشكل صحيح ',
+                    'email.max' => 'من فضلك ادخل بريد الكتروني اقل من 150 حرف ',
+                    'mobile.required' => 'رقم الهاتف مطلوب.',
+                    'mobile.numeric' => 'رقم الهاتف يجب أن يكون أرقام فقط.',
+                    'mobile.unique' => 'رقم الهاتف مسجل بالفعل.',
+                    'mobile.digits_between' => 'يجب أن يكون رقم الهاتف بين 8 و 16 رقمًا.',
+                    'password.required' => 'من فضلك ادخل كلمة المرور ',
+                    'password.min' => ' من فضلك ادخل كلمة مرور قوية اكثر من 8 احرف وارقام ',
+                    'confirm_password.same' => 'من فضلك اكد كلمة المرور بشكل صحيح ',
+                ];
+
+                $validator = Validator::make($data, $rules, $messages);
+                if ($validator->fails()) {
+                    return redirect()->back()->withErrors($validator)->withInput();
+                }
+                $company = Company::create([
+                    'name' => $data['name'],
+                    'username' => $username,
+                    'email' => $data['email'],
+                    'mobile' => $data['mobile'],
+                    'password' => Hash::make($data['password']),
+                    'wherelisting' => $data['wherelisting'],
+                ]);
+                ////////////////////// Send Confirmation Email ///////////////////////////////
+                ///
+                $email = $data['email'];
+
+                $MessageDate = [
+                    'name' => $data['name'],
+                    "email" => $data['email'],
+                    'mobile' => $data['mobile'],
+                    'code' => base64_encode($email)
+                ];
+                Mail::send('website.mails.CompanyActivationEmail', $MessageDate, function ($message) use ($email) {
+                    $message->to($email)->subject(' تفعيل الحساب الخاص بك  ');
+                });
+
+                DB::commit();
+                return $this->success_message('تم انشاء الحساب بنجاح من فضلك فعل حسابك من خلال البريد المرسل  ⚡️');
+
+            } catch (\Exception $e) {
+                return $this->exception_message($e);
             }
-            $checkusernameusers = User::where('username', $username)->count();
-            if ($checkusernameusers > 0) {
-                return redirect()->back()->withErrors([' الاسم  متواجد من قبل من فضلك ادخل اسم جديد  '])->withInput();
-            }
 
-            $rules = [
-                'name' => 'required',
-                'email' => 'required|email|unique:companies,email|max:150',
-                'mobile' => 'required|numeric|unique:companies,mobile|digits_between:8,16',
-                'password' => 'required|min:8',
-                'confirm_password' => 'required|same:password'
-            ];
-            $messages = [
-                'name.required' => 'من فضلك ادخل اسم الشركة',
-                'email.required' => 'من فضلك ادخل البريد الالكتروني ',
-                'email.unique' => 'البريد الالكتروني مستخدم بالفعل ',
-                'email.email' => 'من فضلك ادخل بريد الكتروني بشكل صحيح ',
-                'email.max' => 'من فضلك ادخل بريد الكتروني اقل من 150 حرف ',
-                'mobile.required' => 'رقم الهاتف مطلوب.',
-                'mobile.numeric' => 'رقم الهاتف يجب أن يكون أرقام فقط.',
-                'mobile.unique' => 'رقم الهاتف مسجل بالفعل.',
-                'mobile.digits_between' => 'يجب أن يكون رقم الهاتف بين 8 و 16 رقمًا.',
-                'password.required' => 'من فضلك ادخل كلمة المرور ',
-                'password.min' => ' من فضلك ادخل كلمة مرور قوية اكثر من 8 احرف وارقام ',
-                'confirm_password.same' => 'من فضلك اكد كلمة المرور بشكل صحيح ',
-            ];
-
-            $validator = Validator::make($data, $rules, $messages);
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
-            $company = Company::create([
-                'name' => $data['name'],
-                'username' => $username,
-                'email' => $data['email'],
-                'mobile' => $data['mobile'],
-                'password' => Hash::make($data['password']),
-                'wherelisting' => $data['wherelisting'],
-            ]);
-            ////////////////////// Send Confirmation Email ///////////////////////////////
-            ///
-            $email = $data['email'];
-
-            $MessageDate = [
-                'name' => $data['name'],
-                "email" => $data['email'],
-                'mobile' => $data['mobile'],
-                'code' => base64_encode($email)
-            ];
-            Mail::send('website.mails.CompanyActivationEmail', $MessageDate, function ($message) use ($email) {
-                $message->to($email)->subject(' تفعيل الحساب الخاص بك  ');
-            });
-
-            DB::commit();
-            return $this->success_message('تم انشاء الحساب بنجاح من فضلك فعل حسابك من خلال البريد المرسل  ⚡️');
-
-        } catch (\Exception $e) {
-            return $this->exception_message($e);
         }
+
+        return view('website.company-register');
+
 
     }
 
@@ -167,6 +174,7 @@ class CompanyController extends Controller
                 return $this->exception_message($e);
             }
         }
+        return view('website.company-login');
         if (Auth::guard('company')->user()) {
             return \redirect('company/dashboard');
         }
