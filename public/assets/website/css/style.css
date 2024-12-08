@@ -28544,3 +28544,9 @@ form label {
     color: #fff;
     font-size: 23px;
 }
+
+
+
+.a2a_default_style:not(.a2a_flex_style) a{
+    float: right !important;
+}

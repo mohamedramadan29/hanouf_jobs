@@ -29,10 +29,11 @@
 
                         <ul class=" nav navbar-nav">
                             <li class="has-mega-menu"><a href="{{ url('/') }}"> الرئيسية </a></li>
-                            <li class="has-mega-menu"><a href="{{ url('jobs') }}"> إعلانات وظيفية  </a></li>
-                            <li class="has-child"><a href="{{ url('talents') }}"> الباحثين عن العمل  </a></li>
-{{--                            <li class="has-child"><a href="{{ url('employers') }}"> لاصحاب الوظائف </a></li>--}}
+                            <li class="has-mega-menu"><a href="{{ url('jobs') }}"> إعلانات وظيفية </a></li>
+                            <li class="has-child"><a href="{{ url('talents') }}"> الباحثين عن العمل </a></li>
+                            {{--                            <li class="has-child"><a href="{{ url('employers') }}"> لاصحاب الوظائف </a></li> --}}
                             <li class="has-child"><a href="{{ url('contact') }}"> اتصل بنا </a></li>
+                            <li class="has-child"><a href="{{ url('blog') }}"> المدونة  </a></li>
                         </ul>
 
                     </div>
@@ -162,7 +163,8 @@
                                         <button class="dropdown-toggle" type="button" id="dropdownMenuButton1"
                                             data-bs-toggle="dropdown" aria-expanded="false">
                                             @if (Auth::user()->unreadNotifications->where('type', 'App\Notifications\NewMessage')->count() > 0)
-                                                <span class="my_counter"> {{ Auth::user()->unreadNotifications->count() }}
+                                                <span class="my_counter">
+                                                    {{ Auth::user()->unreadNotifications->count() }}
                                                 </span>
                                             @endif
                                             <i class="fa fa-envelope"></i>
@@ -234,8 +236,7 @@
                                                     </li>
                                                     <hr>
                                                 @elseif($notification['type'] == 'App\Notifications\SendUnaccepedOfferToUser')
-                                                    <li><a class="dropdown-item"
-                                                            href="{{url('user/alerts')}}">
+                                                    <li><a class="dropdown-item" href="{{ url('user/alerts') }}">
                                                             {{ $notification['data']['title'] }}
                                                             : {{ $notification['data']['adv_name'] }}
                                                             <br>
