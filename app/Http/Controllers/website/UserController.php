@@ -69,7 +69,8 @@ class UserController extends Controller
                     'email' => 'required|email|unique:users,email|max:150',
                     'mobile' => 'required|numeric|unique:users,mobile|digits_between:8,16',
                     'password' => 'required|min:8',
-                    'confirm_password' => 'required|same:password'
+                    'confirm_password' => 'required|same:password',
+                    'g-recaptcha-response'=>'required','captcha',
                 ];
                 $messages = [
                     'name.required' => 'من فضلك ادخل  الاسم',
@@ -84,6 +85,7 @@ class UserController extends Controller
                     'password.required' => 'من فضلك ادخل كلمة المرور ',
                     'password.min' => ' من فضلك ادخل كلمة مرور قوية اكثر من 8 احرف وارقام ',
                     'confirm_password.same' => 'من فضلك اكد كلمة المرور بشكل صحيح ',
+                    'g-recaptcha-response.required'=>'يجب تاكيد انك لست روبت '
                 ];
 
                 $validator = Validator::make($data, $rules, $messages);

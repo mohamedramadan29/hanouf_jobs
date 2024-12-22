@@ -156,6 +156,14 @@
                                                             </label>
                                                         </div>
                                                     </div>
+                                                    <div class="col-12">
+                                                        {!! NoCaptcha::display() !!}
+                                                        @if ($errors->has('g-recaptcha-response'))
+                                                            <span class="help-block">
+                                                                <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                                                            </span>
+                                                        @endif
+                                                    </div>
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <button id="submitBtnUser" type="submit"
