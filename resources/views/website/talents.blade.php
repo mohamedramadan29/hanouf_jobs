@@ -9,7 +9,7 @@
 
         <!-- INNER PAGE BANNER -->
         <div class="wt-bnr-inr overlay-wraper bg-center"
-             style="background-image:url({{asset('assets/website/images/main_banner.jpg')}});">
+            style="background-image:url({{ asset('assets/website/images/main_banner.jpg') }});">
             <div class="overlay-main site-bg-white opacity-01"></div>
             <div class="container">
                 <div class="wt-bnr-inr-entry">
@@ -22,7 +22,7 @@
 
                     <div>
                         <ul class="wt-breadcrumb breadcrumb-style-2">
-                            <li><a href="{{url('/')}}"> الرئيسية </a></li>
+                            <li><a href="{{ url('/') }}"> الرئيسية </a></li>
                             <li> الباحثين عن العمل</li>
                         </ul>
                     </div>
@@ -54,10 +54,12 @@
                                         <!-- المسمي الوظيفي -->
                                         <div class="twm-sidebar-ele-filter">
                                             <h4 class="section-head-small mb-4">المسمي الوظيفي</h4>
-                                            <select class="wt-select-box selectpicker" name="job_ids" data-live-search="true" title="اختر المسمي الوظيفي">
+                                            <select class="wt-select-box selectpicker" name="job_ids"
+                                                data-live-search="true" title="اختر المسمي الوظيفي">
                                                 <option value="">عرض الكل</option>
-                                                @foreach($jobs as $job)
-                                                    <option value="{{ $job['id'] }}" {{ request('job_ids') == $job['id'] ? 'selected' : '' }}>
+                                                @foreach ($jobs as $job)
+                                                    <option value="{{ $job['id'] }}"
+                                                        {{ request('job_ids') == $job['id'] ? 'selected' : '' }}>
                                                         {{ $job['title'] }}
                                                     </option>
                                                 @endforeach
@@ -67,10 +69,12 @@
                                         <!-- التخصص المهني -->
                                         <div class="twm-sidebar-ele-filter">
                                             <h4 class="section-head-small mb-4">التخصص المهني</h4>
-                                            <select class="wt-select-box selectpicker" name="special_ids" data-live-search="true" title="اختر التخصص المهني">
+                                            <select class="wt-select-box selectpicker" name="special_ids"
+                                                data-live-search="true" title="اختر التخصص المهني">
                                                 <option value="">عرض الكل</option>
-                                                @foreach($specialists as $special)
-                                                    <option value="{{ $special['id'] }}" {{ request('special_ids') == $special['id'] ? 'selected' : '' }}>
+                                                @foreach ($specialists as $special)
+                                                    <option value="{{ $special['id'] }}"
+                                                        {{ request('special_ids') == $special['id'] ? 'selected' : '' }}>
                                                         {{ $special['name'] }}
                                                     </option>
                                                 @endforeach
@@ -82,17 +86,28 @@
                                             <h4 class="section-head-small mb-4">المؤهل العلمي</h4>
                                             <select class="wt-select-box selectpicker" name="academy_certificate">
                                                 <option value="">عرض الكل</option>
-                                                <option value="ثانوي" {{ request('academy_certificate') == 'ثانوي' ? 'selected' : '' }}>ثانوي</option>
-                                                <option value="دبلوم" {{ request('academy_certificate') == 'دبلوم' ? 'selected' : '' }}>دبلوم</option>
-                                                <option value="بكالوريوس" {{ request('academy_certificate') == 'بكالوريوس' ? 'selected' : '' }}>بكالوريوس</option>
-                                                <option value="ماستر" {{ request('academy_certificate') == 'ماستر' ? 'selected' : '' }}>ماستر</option>
-                                                <option value="دكتوراة" {{ request('academy_certificate') == 'دكتوراة' ? 'selected' : '' }}>دكتوراة</option>
+                                                <option value="ثانوي"
+                                                    {{ request('academy_certificate') == 'ثانوي' ? 'selected' : '' }}>ثانوي
+                                                </option>
+                                                <option value="دبلوم"
+                                                    {{ request('academy_certificate') == 'دبلوم' ? 'selected' : '' }}>دبلوم
+                                                </option>
+                                                <option value="بكالوريوس"
+                                                    {{ request('academy_certificate') == 'بكالوريوس' ? 'selected' : '' }}>
+                                                    بكالوريوس</option>
+                                                <option value="ماستر"
+                                                    {{ request('academy_certificate') == 'ماستر' ? 'selected' : '' }}>ماستر
+                                                </option>
+                                                <option value="دكتوراة"
+                                                    {{ request('academy_certificate') == 'دكتوراة' ? 'selected' : '' }}>
+                                                    دكتوراة</option>
                                             </select>
                                         </div>
 
                                         <!-- زر البحث -->
                                         <div>
-                                            <button type="submit" class="site-button" style="display: block; width: 100%">بحث</button>
+                                            <button type="submit" class="site-button"
+                                                style="display: block; width: 100%">بحث</button>
                                         </div>
                                     </form>
                                 </div>
@@ -103,36 +118,41 @@
                     <div class="col-lg-8 col-md-12">
                         <div class="twm-candidates-list-wrap talent_page">
                             <ul>
-                                @foreach($users as $user)
-                                    <a href="{{url('talent-details/'.$user['username'])}}">
+                                @foreach ($users as $user)
+                                    <a href="{{ url('talent-details/' . $user['username']) }}">
                                         <li>
                                             <div class="twm-candidates-list-style1 mb-5">
                                                 <div class="twm-media">
                                                     <div class="twm-media-pic">
-                                                        <img src="{{asset('assets/uploads/users/'.$user['logo'])}}"
-                                                             alt="#">
+                                                        @if($user['logo'] != '')
+                                                            <img src="{{ asset('assets/uploads/users/' . $user['logo']) }}" alt="#">
+                                                        @else
+                                                            <img src="{{ asset('assets/website/images/user.png') }}">
+                                                        @endif
                                                     </div>
 
                                                 </div>
                                                 <div class="twm-mid-content">
-                                                    <a href="{{url('talent-details/'.$user['username'])}}"
-                                                       class="twm-job-title">
-                                                        <h4>  {{$user['name']}} </h4>
+                                                    <a href="{{ url('talent-details/' . $user['username']) }}"
+                                                        class="twm-job-title">
+                                                        <h4> {{ $user['name'] }} </h4>
                                                     </a>
-                                                    <p> {{ !optional($user['jobs_name']['title'])}} </p>
+                                                    <p> {{ !optional($user['jobs_name']['title']) }} </p>
 
                                                     <div class="twm-fot-content">
                                                         <div class="twm-left-info">
-                                                            <p class="twm-candidate-address">{{$user['location']['name']}}
-                                                                <i
-                                                                    class="feather-map-pin"></i>
+                                                            <p class="twm-candidate-address">
+                                                                {{ $user['location']['name'] }}
+                                                                <i class="feather-map-pin"></i>
                                                             </p>
                                                             <div>
                                                                 @php
-                                                                    $desc_words = explode(' ',$user['info']);
-                                                           $short_description = implode(' ', array_slice($desc_words, 0, 20)) . '...';
+                                                                    $desc_words = explode(' ', $user['info']);
+                                                                    $short_description =
+                                                                        implode(' ', array_slice($desc_words, 0, 20)) .
+                                                                        '...';
                                                                 @endphp
-                                                                {{$short_description}} </div>
+                                                                {{ $short_description }} </div>
                                                         </div>
                                                     </div>
                                                 </div>
