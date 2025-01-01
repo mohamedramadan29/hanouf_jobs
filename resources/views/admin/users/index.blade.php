@@ -45,7 +45,7 @@
                     @endif
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table text-md-nowrap" id="example2">
+                            <table class="table text-md-nowrap" id="example">
                                 <thead>
                                 <tr>
                                     <th class="wd-15p border-bottom-0"> #</th>
@@ -70,7 +70,7 @@
                                         <td> {{$user['mobile']}} </td>
                                         <td> {{$user['nationality']}} </td>
 
-                                        <td> {{ optional($user['location']['name'])}} </td>
+                                       <td>{{ $user['location']['name'] ?? 'غير متوفر' }}</td>
                                         <td> {{$user['wherelisting']}} </td>
 
                                         <td>
@@ -106,9 +106,15 @@
     <script src="{{ URL::asset('assets/admin/plugins/datatable/js/jquery.dataTables.js') }}"></script>
     <script src="{{ URL::asset('assets/admin/plugins/datatable/js/dataTables.bootstrap4.js') }}"></script>
     <script src="{{ URL::asset('assets/admin/plugins/datatable/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/admin/plugins/datatable/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/admin/plugins/datatable/js/jszip.min.js') }}"></script>
+    <script src="{{asset('assets/admin/newdatatable/pdfmake.js')}}"></script>
+    <script src="{{asset('assets/admin/newdatatable/vfs_fonts.js')}}"></script>
+    <script src="{{ URL::asset('assets/admin/plugins/datatable/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/admin/plugins/datatable/js/buttons.print.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/admin/plugins/datatable/js/buttons.colVis.min.js') }}"></script>
     <script src="{{ URL::asset('assets/admin/plugins/datatable/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ URL::asset('assets/admin/plugins/datatable/js/responsive.bootstrap4.min.js') }}"></script>
     <!--Internal  Datatable js -->
     <script src="{{ URL::asset('assets/admin/js/table-data.js') }}"></script>
-    <script src="{{URL::asset('assets/admin/js/modal.js')}}"></script>
 @endsection
