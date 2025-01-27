@@ -33,7 +33,7 @@
                             <li class="has-child"><a href="{{ url('talents') }}"> الباحثين عن العمل </a></li>
                             {{--                            <li class="has-child"><a href="{{ url('employers') }}"> لاصحاب الوظائف </a></li> --}}
                             <li class="has-child"><a href="{{ url('contact') }}"> اتصل بنا </a></li>
-                            <li class="has-child"><a href="{{ url('blog') }}"> المدونة  </a></li>
+                            <li class="has-child"><a href="{{ url('blog') }}"> المدونة </a></li>
                         </ul>
 
                     </div>

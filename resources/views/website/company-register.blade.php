@@ -37,8 +37,8 @@
                                         </li>
                                         <!--Login Employer-->
                                         <li class="nav-item">
-                                            <a href="{{ url('company/register') }}" class="nav-link active" type="button"><i
-                                                    class="fas fa-building"></i>صاحب العمل
+                                            <a href="{{ url('company/register') }}" class="nav-link active"
+                                                type="button"><i class="fas fa-building"></i>صاحب العمل
                                             </a>
                                         </li>
 
@@ -46,7 +46,8 @@
 
                                     <div class="twm-log-reg-head">
                                         <div class="twm-log-reg-logo">
-                                            <span class="log-reg-form-title" style="font-size:18px"> حساب جديد صاحب عمل </span>
+                                            <span class="log-reg-form-title" style="font-size:18px"> حساب جديد صاحب عمل
+                                            </span>
                                         </div>
                                     </div>
 
@@ -66,17 +67,19 @@
                                         <!--Login Employer Content-->
                                         <div class="tab-pane fade show active" id="twm-login-Employer">
                                             @if (Session::has('Success_message'))
-                                            @php
-                                                toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
-                                            @endphp
-                                        @endif
-                                        @if ($errors->any())
-                                            @foreach ($errors->all() as $error)
                                                 @php
-                                                    toastify()->error($error);
+                                                    toastify()->success(
+                                                        \Illuminate\Support\Facades\Session::get('Success_message'),
+                                                    );
                                                 @endphp
-                                            @endforeach
-                                        @endif
+                                            @endif
+                                            @if ($errors->any())
+                                                @foreach ($errors->all() as $error)
+                                                    @php
+                                                        toastify()->error($error);
+                                                    @endphp
+                                                @endforeach
+                                            @endif
                                             <form id="CompanyRegister" action="{{ url('company/register') }}"
                                                 method="post">
                                                 @csrf
@@ -159,7 +162,14 @@
                                                             </label>
                                                         </div>
                                                     </div>
-
+                                                    <div class="col-12">
+                                                        {!! NoCaptcha::display() !!}
+                                                        @if ($errors->has('g-recaptcha-response'))
+                                                            <span class="help-block">
+                                                                <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                                                            </span>
+                                                        @endif
+                                                    </div>
                                                     <div class="form-group">
                                                         <button id="submitBtncompany" type="submit" class="site-button">
                                                             حساب جديد

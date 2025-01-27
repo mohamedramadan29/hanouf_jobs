@@ -136,16 +136,8 @@
 
                                             <div class="col-md-6">
                                                 <div class="twm-s-info-inner">
-
                                                     <span class="twm-title"> طبيعة العمل </span>
-                                                    @php
-                                                        $work_types = explode(',', $talent['work_type']);
-                                                    @endphp
-                                                    <div class="twm-s-info-discription">
-                                                        @foreach ($work_types as $work_type)
-                                                            {{ $work_type }} |
-                                                        @endforeach
-                                                    </div>
+                                                    <div class="twm-s-info-discription"> {{ $talent['new_work_time'] }} </div>
                                                 </div>
                                             </div>
 

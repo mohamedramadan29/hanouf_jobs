@@ -8,7 +8,8 @@
     <div class="page-content">
 
         <!-- INNER PAGE BANNER -->
-        <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url({{asset('assets/website/images/banner/1.jpg')}});">
+        <div class="wt-bnr-inr overlay-wraper bg-center"
+            style="background-image:url({{ asset('assets/website/images/banner/1.jpg') }});">
             <div class="overlay-main site-bg-white opacity-01"></div>
             <div class="container">
                 <div class="wt-bnr-inr-entry">
@@ -21,7 +22,7 @@
 
                     <div>
                         <ul class="wt-breadcrumb breadcrumb-style-2">
-                            <li><a href="{{url('/')}}">  الرئيسية    </a></li>
+                            <li><a href="{{ url('/') }}"> الرئيسية </a></li>
                             <li>اتصل بنا</li>
                         </ul>
                     </div>
@@ -63,42 +64,50 @@
                                     <!-- TITLE END-->
 
                                     <form class="cons-contact-form" method="post"
-                                          action="{{url('add_contact_message')}}">
+                                        action="{{ url('add_contact_message') }}">
                                         @csrf
                                         <div class="row">
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="form-group mb-3">
                                                     <input name="name" type="text" required class="form-control"
-                                                           placeholder="اسم" value="{{old('name')}}">
+                                                        placeholder="اسم" value="{{ old('name') }}">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="form-group mb-3">
                                                     <input name="email" type="email" class="form-control" required
-                                                           placeholder="بريد إلكتروني"  value="{{old('email')}}">
+                                                        placeholder="بريد إلكتروني" value="{{ old('email') }}">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="form-group mb-3">
                                                     <input name="phone" type="text" class="form-control" required
-                                                           placeholder="هاتف"  value="{{old('phone')}}">
+                                                        placeholder="هاتف" value="{{ old('phone') }}">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="form-group mb-3">
                                                     <input name="subject" type="text" class="form-control" required
-                                                           placeholder="موضوع"  value="{{old('subject')}}">
+                                                        placeholder="موضوع" value="{{ old('subject') }}">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-12">
                                                 <div class="form-group mb-3">
-                                                    <textarea name="message" class="form-control" rows="3"
-                                                              placeholder="رسالة">{{old('message')}}</textarea>
+                                                    <textarea name="message" class="form-control" rows="3" placeholder="رسالة">{{ old('message') }}</textarea>
                                                 </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                {!! NoCaptcha::display() !!}
+                                                @if ($errors->has('g-recaptcha-response'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
 
                                             <div class="col-md-12">
@@ -119,12 +128,12 @@
                                                 <div class="c-info-icon custome-size"><i class="fas fa-mobile-alt"></i>
                                                 </div>
                                                 <h3 class="twm-title">لا تتردد في الاتصال بنا</h3>
-                                                <p><a href="tel:+966731 9189">  731 9189 966</a></p>
+                                                <p><a href="tel:+966731 9189"> 731 9189 966</a></p>
                                             </div>
 
                                             <div class="c-info-column">
                                                 <div class="c-info-icon"><i class="fas fa-envelope"></i></div>
-                                                <h3 class="twm-title"> البريد الالكتروني  </h3>
+                                                <h3 class="twm-title"> البريد الالكتروني </h3>
                                                 <p> info@takhair.site </p>
                                             </div>
 
