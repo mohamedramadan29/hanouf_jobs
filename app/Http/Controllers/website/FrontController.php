@@ -84,6 +84,18 @@ class FrontController extends Controller
                 return Redirect::back()->withInput()->withErrors($validator);
             }
 
+            if (!empty(request('honeypot'))) {
+                abort(403, 'تم اكتشاف محاولة تسجيل مريبة.');
+            }
+
+            $blockedDomains = ['mailinator.com', 'guerrillamail.com', '10minutemail.com'];
+
+            $emailDomain = substr(strrchr(request('email'), "@"), 1);
+
+            if (in_array($emailDomain, $blockedDomains)) {
+                return Redirect()->back()->withInput()->withErrors('يرجى استخدام بريد إلكتروني صالح');
+            }
+
             $new_message = new ContactMessage();
 
             $new_message->create([

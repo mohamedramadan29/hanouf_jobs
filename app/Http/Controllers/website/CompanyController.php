@@ -39,7 +39,7 @@ class CompanyController extends Controller
     public function register(Request $request)
     {
 
-        if($request->isMethod("post")){
+        if ($request->isMethod("post")) {
             try {
                 DB::beginTransaction();
                 $data = $request->all();
@@ -59,7 +59,8 @@ class CompanyController extends Controller
                     'mobile' => 'required|numeric|unique:companies,mobile|digits_between:8,16',
                     'password' => 'required|min:8',
                     'confirm_password' => 'required|same:password',
-                    'g-recaptcha-response'=>'required','captcha',
+                    'g-recaptcha-response' => 'required',
+                    'captcha',
                 ];
                 $messages = [
                     'name.required' => 'من فضلك ادخل اسم الشركة',
@@ -74,12 +75,24 @@ class CompanyController extends Controller
                     'password.required' => 'من فضلك ادخل كلمة المرور ',
                     'password.min' => ' من فضلك ادخل كلمة مرور قوية اكثر من 8 احرف وارقام ',
                     'confirm_password.same' => 'من فضلك اكد كلمة المرور بشكل صحيح ',
-                    'g-recaptcha-response.required'=>'يجب تاكيد انك لست روبت '
+                    'g-recaptcha-response.required' => 'يجب تاكيد انك لست روبت '
                 ];
 
                 $validator = Validator::make($data, $rules, $messages);
                 if ($validator->fails()) {
                     return redirect()->back()->withErrors($validator)->withInput();
+                }
+
+                if (!empty(request('honeypot'))) {
+                    abort(403, 'تم اكتشاف محاولة تسجيل مريبة.');
+                }
+
+                $blockedDomains = ['mailinator.com', 'guerrillamail.com', '10minutemail.com'];
+
+                $emailDomain = substr(strrchr(request('email'), "@"), 1);
+
+                if (in_array($emailDomain, $blockedDomains)) {
+                    return Redirect()->back()->withInput()->withErrors('يرجى استخدام بريد إلكتروني صالح');
                 }
                 $company = Company::create([
                     'name' => $data['name'],
@@ -346,7 +359,7 @@ class CompanyController extends Controller
                     'city' => 'required',
                     'available_work_from_another_place' => 'required',
                     'job_name' => 'required',
-//                    'work_type' => 'required',
+                    //                    'work_type' => 'required',
                     'experience' => 'required',
                     'language' => 'required',
                     'language_level' => 'required',
@@ -367,7 +380,7 @@ class CompanyController extends Controller
                     'city.required' => ' من فضلك حدد المدنية  ',
                     'available_work_from_another_place.required' => ' من فضلك حدد امكانية العمل  ',
                     'job_name.required' => ' من فضلك حدد المسمي الوظيفي  ',
-//                    'work_type' => 'required',
+                    //                    'work_type' => 'required',
                     'experience.required' => ' من فضلك حدد عدد سنين الخبرة  ',
                     'language.required' => ' من فضلك حدد اللغة ',
                     'language_level.required' => 'من فضلك حدد مستوي الخبرة',
@@ -395,7 +408,7 @@ class CompanyController extends Controller
                     'available_work_from_another_place' => $data['available_work_from_another_place'],
                     'job-category' => $data['job-category'],
                     'job_name' => $data['job_name'],
-//                    'work_type' => $work_type,
+                    //                    'work_type' => $work_type,
                     'experience' => $data['experience'],
                     'language' => $language,
                     'language_level' => $data['language_level'],
@@ -468,7 +481,7 @@ class CompanyController extends Controller
                     'city' => 'required',
                     'available_work_from_another_place' => 'required',
                     'job_name' => 'required',
-//                    'work_type' => 'required',
+                    //                    'work_type' => 'required',
                     'experience' => 'required',
                     'language' => 'required',
                     'language_level' => 'required',
@@ -489,7 +502,7 @@ class CompanyController extends Controller
                     'city.required' => ' من فضلك حدد المدنية  ',
                     'available_work_from_another_place.required' => ' من فضلك حدد امكانية العمل  ',
                     'job_name.required' => ' من فضلك حدد المسمي الوظيفي  ',
-//                    'work_type' => 'required',
+                    //                    'work_type' => 'required',
                     'experience.required' => ' من فضلك حدد عدد سنين الخبرة  ',
                     'language.required' => ' من فضلك حدد اللغة ',
                     'language_level.required' => 'من فضلك حدد مستوي الخبرة',
@@ -515,7 +528,7 @@ class CompanyController extends Controller
                     'available_work_from_another_place' => $data['available_work_from_another_place'],
                     'job-category' => $data['job-category'],
                     'job_name' => $data['job_name'],
-//                    'work_type' => $work_type,
+                    //                    'work_type' => $work_type,
                     'experience' => $data['experience'],
                     'language' => $language,
                     'language_level' => $data['language_level'],
@@ -659,7 +672,7 @@ class CompanyController extends Controller
         /////////// ١ - Get the Offer Data From Conversation
         ///
         $data = $request->all();
-//        $refuse_reason = $data['refuse_reason'];
+        //        $refuse_reason = $data['refuse_reason'];
         $more_refuse_info = $data['more_refuse_info'];
         $conversation = Coversation::findOrFail($conversation_id);
         $offer_id = $conversation['offer_id'];
@@ -667,7 +680,7 @@ class CompanyController extends Controller
         ///// Update offer Status
         $offer->update([
             'offer_status' => 'مرفوض',
-//            'refuse_reason'=>$data['refuse_reason'],
+            //            'refuse_reason'=>$data['refuse_reason'],
             'more_refuse_info' => $data['more_refuse_info'],
         ]);
         ////// Send Notification To User
@@ -762,12 +775,12 @@ class CompanyController extends Controller
         $advertiment_title = $advertiment_data['title'];
         /////////// chat If this Users Sender And Reciever Have Conversation Or Not
         $count_conversations = Coversation::where('sender_username', $sender_username)->
-        where('receiver_username', $reciever_username)->
-        where('offer_id', $job_id)->
-        OrWhere('sender_username', $reciever_username)->
-        where('receiver_username', $sender_username)->
-        where('offer_id', $job_id)->
-        count();
+            where('receiver_username', $reciever_username)->
+            where('offer_id', $job_id)->
+            OrWhere('sender_username', $reciever_username)->
+            where('receiver_username', $sender_username)->
+            where('offer_id', $job_id)->
+            count();
         if ($count_conversations > 0) {
             return Redirect::to('chat-main');
             // return view('website.companies.chat');

@@ -85,7 +85,6 @@
                                                                 value="{{ old('name') }}">
                                                         </div>
                                                     </div>
-
                                                     <div class="col-lg-12">
                                                         <div class="form-group mb-3">
                                                             <input name="email" type="email" required=""
@@ -93,13 +92,42 @@
                                                                 value="{{ old('email') }}">
                                                         </div>
                                                     </div>
-
                                                     <div class="col-lg-12">
                                                         <div class="form-group mb-3">
-                                                            <input name="mobile" type="text" required=""
-                                                                class="form-control" placeholder=" رقم الهاتف  *"
-                                                                value="{{ old('mobile') }}">
+                                                            <input name="mobile" type="text" required="" id="phone"
+                                                                class="form-control" placeholder="مثال: 0500000000"
+                                                                value="{{ old('mobile') }}" maxlength="10" oninput="validatePhoneNumber(this)">
+                                                                <small id="phone-error" class="text-danger"
+                                                                style="display: none;">يجب أن يكون الرقم مكونًا من 10 أرقام
+                                                                ويبدأ بـ 0</small>
                                                         </div>
+
+                                                        <script>
+                                                            function validatePhoneNumber(input) {
+                                                                let phone = input.value;
+                                                                let errorMsg = document.getElementById("phone-error");
+
+                                                                // السماح فقط بالأرقام
+                                                                input.value = input.value.replace(/\D/g, '');
+
+                                                                // التأكد من أن الرقم يبدأ بـ 0
+                                                                if (input.value.length > 0 && input.value.charAt(0) !== '0') {
+                                                                    input.value = '0';
+                                                                }
+
+                                                                // منع تجاوز 10 أرقام
+                                                                if (input.value.length > 10) {
+                                                                    input.value = input.value.slice(0, 10);
+                                                                }
+
+                                                                // إظهار رسالة الخطأ إن لم يكن الرقم صحيحًا
+                                                                if (!/^0\d{9}$/.test(input.value)) {
+                                                                    errorMsg.style.display = "block";
+                                                                } else {
+                                                                    errorMsg.style.display = "none";
+                                                                }
+                                                            }
+                                                        </script>
                                                     </div>
 
                                                     <div class="col-lg-12">
@@ -144,6 +172,7 @@
                                                                 </option>
                                                             </select>
                                                         </div>
+                                                        <input type="text" name="honeypot" style="display: none;">
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-check d-flex">
