@@ -21,7 +21,7 @@ class CompanyController extends Controller
 
     public function index()
     {
-        $companies = Company::all();
+        $companies = Company::where('email_confirm', 1)->orderBy('id', 'desc')->get();
         return view('admin.companies.index', compact('companies'));
     }
 
@@ -39,7 +39,7 @@ class CompanyController extends Controller
                 $rules = [
                     'name' => 'required',
                     'email' => 'required|email|unique:companies,email|max:150',
-//                    'mobile' => 'required|numeric|unique:companies,mobile|min:8|max:16',
+                    //                    'mobile' => 'required|numeric|unique:companies,mobile|min:8|max:16',
                     'mobile' => 'required|numeric|unique:companies,mobile|digits_between:8,16',
                     'password' => 'required|min:8',
                     'confirm_password' => 'required|same:password'

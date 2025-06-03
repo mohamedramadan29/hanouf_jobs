@@ -23,7 +23,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::with('location')->get();
+        $users = User::with('location')->where('email_confirm',1)->orderBy('id','desc')->get();
         return view('admin.users.index', compact('users'));
     }
 

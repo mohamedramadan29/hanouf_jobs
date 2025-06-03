@@ -15,6 +15,8 @@ use App\Http\Controllers\Auth\CompanySocialLoginController;
 use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\website\BlogController;
 use Maatwebsite\Excel\Facades\Excel;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
 //Route::get('/', function () {
 //
 //    return view('website.index',compact('employesfaqs'));
@@ -142,5 +144,19 @@ Route::controller(BlogController::class)->group(function () {
 Route::get('auth/google/redirect', [SocialLoginController::class, 'redirect'])->name('auth.google.redirect');
 Route::get('auth/google/callback', [SocialLoginController::class, 'callback'])->name('auth.google.callback');
 
+
+Route::get('/generate-sitemap', function () {
+    Sitemap::create()
+        ->add(Url::create('https://takhair.site/'))
+        ->add(Url::create('https://takhair.site/jobs'))
+        ->add(Url::create('https://takhair.site/talents'))
+        ->add(Url::create('https://takhair.site/contact'))
+        ->add(Url::create('https://takhair.site/blog'))
+        ->add(Url::create('https://takhair.site/faqs'))
+        ->add(Url::create('https://takhair.site/terms'))
+        ->writeToFile(public_path('sitemap.xml'));
+
+    return 'Sitemap generated!';
+});
 
 include 'admin.php';
