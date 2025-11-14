@@ -9,11 +9,11 @@
 
         <!--Banner Start-->
         <div class="twm-home3-banner-section site-bg-white bg-cover"
-             style="background-image:url({{asset('assets/website/images/main_background.jpg')}})">
+             style="background-image:url({{asset('assets/uploads/contents/'.$content->hero_image)}})">
             <div class="twm-home3-inner-section">
                 <div class="twm-bnr-mid-section">
-                    <div class="twm-bnr-title-large">  تخيَّر للتوظيف </div>
-                    <div class="twm-bnr-title-light">  لأن التميز يبدأ بالاختيار الصحيح للكفاءات والفرص العمل نحو شراكة ناجحة </div>
+                    <div class="twm-bnr-title-large"> {{ $content['hero_title'] }} </div>
+                    <div class="twm-bnr-title-light">  {{ $content->hero_desc }} </div>
 {{--                    <div class="hero_buttons">--}}
 {{--                        <a href="{{url('jobs')}}" class="twm-jobs-browse btn"> تصفح افضل الوظائف </a>--}}
 {{--                    </div>--}}
@@ -36,12 +36,13 @@
                             <div class="twm-how-t-get-section-left">
                                 <div class="section-head left wt-small-separator-outer">
                                     <div class="wt-small-separator site-text-primary">
-                                        <div> ابدأ رحلتك نحو التوظيف المثالي، سواء كنت تبحث عن كفاءات أو عن فرصة وظيفية  </div>
+                                        <div>  {{ $content->about_title }} </div>
                                     </div>
 
-                                    <p> إذا كنت شركة تسعى لاختيار أفضل الكفاءات أو محترفاً يبحث عن فرصة تليق بمهاراته، فمنصة "تخيَّر" تجمعك بالطرف المناسب بكل سهولة. أنشئ حسابك اليوم للحصول على إشعارات يومية مخصصة لتلبي احتياجاتك. </p>
-                                    <h2 class="wt-title"> لأصحاب الأعمال: أحصل على المرشحين المثاليين لمتطلبات شركتك. </h2>
+                                    <p> {{ $content->about_section }} </p>
+                                    {{-- <h2 class="wt-title"> لأصحاب الأعمال: أحصل على المرشحين المثاليين لمتطلبات شركتك. </h2>
                                     <h2 class="wt-title"> للباحثين عن العمل: أكتشف فرصًا جديدة وقدم عليها بسهولة من خلال حسابك </h2>
+                                --}}
                                 </div>
                                 <div class="twm-how-t-get-bottom">
 
@@ -61,7 +62,7 @@
                         <div class="col-xl-7 col-lg-7 col-md-12">
                             <div class="twm-how-t-get-section-right">
                                 <div class="twm-media">
-                                    <img src="{{asset('assets/website/images/search_job.svg')}}" alt="#">
+                                    <img src="{{asset('assets/uploads/contents/'.$content->about_image)}}" alt="#">
                                 </div>
 
                             </div>
@@ -102,10 +103,9 @@
                                         <span><img src="{{asset('assets/website/images/work-process/icon1.png')}}"
                                                    alt="icon1"></span>
                                     </div>
-                                    <h4 class="twm-title">  أنشئ  <br>
-                                        ملفك الشخصي </h4>
+                                    <h4 class="twm-title">  {{ $content->job_step1_title }} </h4>
                                 </div>
-                                <p>  أنشئ حساب وأضف مهاراتك وخبراتك ونماذج أعمالك السابقة في ملفك الشخصي. </p>
+                                <p>  {{ $content->job_step1_desc }} </p>
                             </div>
                         </div>
 
@@ -117,10 +117,9 @@
                                         <span><img src="{{asset('assets/website/images/work-process/icon2.png')}}"
                                                    alt="icon1"></span>
                                     </div>
-                                    <h4 class="twm-title"> تصفح <br>
-                                          الوظائف </h4>
+                                    <h4 class="twm-title">  {{ $content->job_step2_title }} </h4>
                                 </div>
-                                <p>  اطلع على الوظائف بمختلف التخصصات وتصفح ملفات الشركات التي لديها شواغر. </p>
+                                <p>  {{ $content->job_step2_desc }}  </p>
                             </div>
                         </div>
 
@@ -132,10 +131,9 @@
                                         <span><img src="{{asset('assets/website/images/work-process/icon3.png')}}"
                                                    alt="icon1"></span>
                                     </div>
-                                    <h4 class="twm-title"> تقدم   <br>
-                                        للوظيفة المناسبة </h4>
+                                    <h4 class="twm-title"> {{ $content->job_step3_title }} </h4>
                                 </div>
-                                <p> اقرأ وصف الوظيفة واكتب خطاب التوظيف ثم قدم الطلب. </p>
+                                <p>  {{ $content->job_step3_desc }} </p>
                             </div>
                         </div>
 
@@ -170,9 +168,9 @@
                                     <div class="twm-media">
                                         <span><img src="{{asset('assets/website/images/work-process/icon1.png')}}" alt="icon1"></span>
                                     </div>
-                                    <h4 class="twm-title">أنشئ <br> حساب شركتك</h4>
+                                    <h4 class="twm-title"> {{ $content->exper_step1_title }} </h4>
                                 </div>
-                                <p>أنشئ حسابًا لشركتك واملأ ملفك ببياناتك الأساسية وأهدافك لتتمكن من جذب الكفاءات المناسبة.</p>
+                                <p> {{ $content->exper_step1_desc }} </p>
                             </div>
                         </div>
 
@@ -183,9 +181,9 @@
                                     <div class="twm-media">
                                         <span><img src="{{asset('assets/website/images/work-process/icon2.png')}}" alt="icon1"></span>
                                     </div>
-                                    <h4 class="twm-title">أعلن عن الوظائف</h4>
+                                    <h4 class="twm-title">  {{ $content->exper_step2_title }}  </h4>
                                 </div>
-                                <p>انشر إعلانات الوظائف وحدد التخصصات المطلوبة لجذب أفضل المرشحين لشركتك.</p>
+                                <p>  {{ $content->exper_step2_desc }} </p>
                             </div>
                         </div>
 
@@ -196,9 +194,9 @@
                                     <div class="twm-media">
                                         <span><img src="{{asset('assets/website/images/work-process/icon3.png')}}" alt="icon1"></span>
                                     </div>
-                                    <h4 class="twm-title">اختر المرشحين</h4>
+                                    <h4 class="twm-title">  {{ $content->exper_step3_title }}   </h4>
                                 </div>
-                                <p>راجع ملفات المرشحين وتواصل مع أفضلهم لتعيينهم في شركتك.</p>
+                                <p>  {{ $content->exper_step3_desc }} </p>
                             </div>
                         </div>
 
@@ -262,224 +260,6 @@
 
         </div>
 
-
-        <!-- PRICING TABLE SECTION START -->
-{{--        <div class="section-full p-t120 p-b90 site-bg-white tw-pricing-area">--}}
-
-{{--            <div class="container">--}}
-
-{{--                <!-- TITLE START-->--}}
-{{--                <div class="section-head left wt-small-separator-outer">--}}
-{{--                    <div class="wt-small-separator site-text-primary">--}}
-{{--                        <div>اختر خطتك</div>--}}
-{{--                    </div>--}}
-{{--                    <h2 class="wt-title"> حدد الخطة المناسبة لك </h2>--}}
-{{--                </div>--}}
-{{--                <!-- TITLE END-->--}}
-{{--                <div class="section-content">--}}
-{{--                    <div class="twm-tabs-style-1">--}}
-{{--                        <div class="tab-content" id="myTab3Content">--}}
-{{--                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="Monthly">--}}
-{{--                                <div class="pricing-block-outer">--}}
-{{--                                    <div class="row justify-content-center">--}}
-{{--                                        <div class="col-lg-4 col-md-6 m-b30">--}}
-{{--                                            <div class="pricing-table-1">--}}
-{{--                                                <div class="p-table-title">--}}
-{{--                                                    <h4 class="wt-title">--}}
-{{--                                                        أساسي--}}
-{{--                                                    </h4>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="p-table-inner">--}}
-{{--                                                    <div class="p-table-price">--}}
-{{--                                                        <span>$90/</span>--}}
-{{--                                                        <p>شهريا</p>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="p-table-list">--}}
-{{--                                                        <ul>--}}
-{{--                                                            <li><i class="feather-check"></i>1 نشر الوظيفة</li>--}}
-{{--                                                            <li class="disable"><i class="feather-x"></i>0 وظيفة مميزة--}}
-{{--                                                            </li>--}}
-{{--                                                            <li class="disable"><i class="feather-x"></i>عرض الوظيفة--}}
-{{--                                                                لمدة 20 يومًا--}}
-{{--                                                            </li>--}}
-{{--                                                            <li class="disable"><i class="feather-x"></i>دعم قسط 24/7--}}
-{{--                                                            </li>--}}
-{{--                                                        </ul>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="p-table-btn">--}}
-{{--                                                        <a href="about-1.html" class="site-button">شراء الآن</a>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-
-{{--                                        <div class="col-lg-4 col-md-6 p-table-highlight m-b30">--}}
-{{--                                            <div class="pricing-table-1 circle-yellow">--}}
-{{--                                                <div class="p-table-recommended">Recommended</div>--}}
-{{--                                                <div class="p-table-title">--}}
-{{--                                                    <h4 class="wt-title">--}}
-{{--                                                        معيار--}}
-{{--                                                    </h4>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="p-table-inner">--}}
-
-{{--                                                    <div class="p-table-price">--}}
-{{--                                                        <span>$248/</span>--}}
-{{--                                                        <p>شهريا</p>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="p-table-list">--}}
-{{--                                                        <ul>--}}
-{{--                                                            <li><i class="feather-check"></i>1 نشر الوظيفة</li>--}}
-{{--                                                            <li><i class="feather-check"></i>0 وظيفة مميزة</li>--}}
-{{--                                                            <li><i class="feather-check"></i>عرض الوظيفة لمدة 20 يومًا--}}
-{{--                                                            </li>--}}
-{{--                                                            <li class="disable"><i class="feather-x"></i>دعم قسط 24/7--}}
-{{--                                                            </li>--}}
-{{--                                                        </ul>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="p-table-btn">--}}
-{{--                                                        <a href="about-1.html" class="site-button">شراء الآن</a>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-
-{{--                                        <div class="col-lg-4 col-md-6 m-b30">--}}
-{{--                                            <div class="pricing-table-1 circle-pink">--}}
-{{--                                                <div class="p-table-title">--}}
-{{--                                                    <h4 class="wt-title">--}}
-{{--                                                        ممتد--}}
-{{--                                                    </h4>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="p-table-inner">--}}
-{{--                                                    <div class="p-table-price">--}}
-{{--                                                        <span>$499/</span>--}}
-{{--                                                        <p>شهريا</p>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="p-table-list">--}}
-{{--                                                        <ul>--}}
-{{--                                                            <li><i class="feather-check"></i>1 نشر الوظيفة</li>--}}
-{{--                                                            <li><i class="feather-check"></i>0 وظيفة مميزة</li>--}}
-{{--                                                            <li><i class="feather-check"></i>عرض الوظيفة لمدة 20 يومًا--}}
-{{--                                                            </li>--}}
-{{--                                                            <li><i class="feather-check"></i>دعم قسط 24/7</li>--}}
-{{--                                                        </ul>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="p-table-btn">--}}
-{{--                                                        <a href="about-1.html" class="site-button">شراء الآن</a>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="annual">--}}
-{{--                                <div class="pricing-block-outer">--}}
-{{--                                    <div class="row justify-content-center">--}}
-{{--                                        <div class="col-lg-4 col-md-6 m-b30">--}}
-{{--                                            <div class="pricing-table-1">--}}
-{{--                                                <div class="p-table-title">--}}
-{{--                                                    <h4 class="wt-title">--}}
-{{--                                                        Basic--}}
-{{--                                                    </h4>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="p-table-inner">--}}
-{{--                                                    <div class="p-table-price">--}}
-{{--                                                        <span>$149/</span>--}}
-{{--                                                        <p>شهريا</p>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="p-table-list">--}}
-{{--                                                        <ul>--}}
-{{--                                                            <li><i class="feather-check"></i>1 نشر الوظيفة</li>--}}
-{{--                                                            <li class="disable"><i class="feather-x"></i>0 وظيفة مميزة--}}
-{{--                                                            </li>--}}
-{{--                                                            <li class="disable"><i class="feather-x"></i>عرض الوظيفة--}}
-{{--                                                                لمدة 20 يومًا--}}
-{{--                                                            </li>--}}
-{{--                                                            <li class="disable"><i class="feather-x"></i>دعم قسط 24/7--}}
-{{--                                                            </li>--}}
-{{--                                                        </ul>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="p-table-btn">--}}
-{{--                                                        <a href="about-1.html" class="site-button">شراء الآن</a>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-
-{{--                                        <div class="col-lg-4 col-md-6 p-table-highlight m-b30">--}}
-{{--                                            <div class="pricing-table-1 circle-yellow">--}}
-{{--                                                <div class="p-table-recommended">مُستَحسَن</div>--}}
-{{--                                                <div class="p-table-title">--}}
-{{--                                                    <h4 class="wt-title">--}}
-{{--                                                        معيار--}}
-{{--                                                    </h4>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="p-table-inner">--}}
-
-{{--                                                    <div class="p-table-price">--}}
-{{--                                                        <span>$499/</span>--}}
-{{--                                                        <p>شهريا</p>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="p-table-list">--}}
-{{--                                                        <ul>--}}
-{{--                                                            <li><i class="feather-check"></i>1 نشر الوظيفة</li>--}}
-{{--                                                            <li><i class="feather-check"></i>0 وظيفة مميزة</li>--}}
-{{--                                                            <li><i class="feather-check"></i>عرض الوظيفة لمدة 20 يومًا--}}
-{{--                                                            </li>--}}
-{{--                                                            <li class="disable"><i class="feather-x"></i>دعم قسط 24/7--}}
-{{--                                                            </li>--}}
-{{--                                                        </ul>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="p-table-btn">--}}
-{{--                                                        <a href="about-1.html" class="site-button">شراء الآن</a>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-
-{{--                                        <div class="col-lg-4 col-md-6 m-b30">--}}
-{{--                                            <div class="pricing-table-1 circle-pink">--}}
-{{--                                                <div class="p-table-title">--}}
-{{--                                                    <h4 class="wt-title">--}}
-{{--                                                        ممتد--}}
-{{--                                                    </h4>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="p-table-inner">--}}
-{{--                                                    <div class="p-table-price">--}}
-{{--                                                        <span>$1499/</span>--}}
-{{--                                                        <p>شهريا</p>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="p-table-list">--}}
-{{--                                                        <ul>--}}
-{{--                                                            <li><i class="feather-check"></i>1 نشر الوظيفة</li>--}}
-{{--                                                            <li><i class="feather-check"></i>0 وظيفة مميزة</li>--}}
-{{--                                                            <li><i class="feather-check"></i>عرض الوظيفة لمدة 20 يومًا--}}
-{{--                                                            </li>--}}
-{{--                                                            <li><i class="feather-check"></i>دعم قسط 24/7</li>--}}
-{{--                                                        </ul>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="p-table-btn">--}}
-{{--                                                        <a href="about-1.html" class="site-button">شراء الآن</a>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-
-{{--                        </div>--}}
-{{--                    </div>--}}
-
-
-{{--                </div>--}}
-
-{{--            </div>--}}
-{{--        </div>--}}
         <!-- PRICING TABLE SECTION END -->
 
 

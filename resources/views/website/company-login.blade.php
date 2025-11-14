@@ -38,26 +38,11 @@
 
                             <div class="twm-log-reg-inner">
                                 <div class="twm-tabs-style-2">
-                                    <ul class="nav nav-tabs" id="myTab2" role="tablist">
-
-                                        <!--Login Candidate-->
-                                        <li class="nav-item">
-                                            <a href="{{ url('login') }}" class="nav-link" type="button"><i
-                                                    class="fas fa-user-tie"></i> موظف
-                                            </a>
-                                        </li>
-                                        <!--Login Employer-->
-                                        <li class="nav-item">
-                                            <a href="{{ url('company/login') }}" class="nav-link active" type="button"><i
-                                                    class="fas fa-building"></i>صاحب العمل
-                                            </a>
-                                        </li>
-
-                                    </ul>
 
                                     <div class="twm-log-reg-head">
                                         <div class="twm-log-reg-logo">
-                                            <span class="log-reg-form-title" style="font-size:18px"> تسجيل دخول صاحب العمل </span>
+                                            <span class="log-reg-form-title" style="font-size:18px"> تسجيل دخول الشركات
+                                            </span>
                                         </div>
                                     </div>
 
@@ -108,6 +93,9 @@
                                             <div class="col-lg-12">
                                                 <div>
                                                     <div class="google_login">
+                                                        <p style="color: #6c6969;margin-bottom: 10px;"> ليس لديك حساب ؟ <a
+                                                                style="color: #2980b9" href="{{ url('company/register') }}">
+                                                                حساب جديد </a> </p>
                                                         <h6> او سجل عبر </h6>
                                                         <a
                                                             href="{{ route('auth.google.redirect', ['type' => 'company']) }}">

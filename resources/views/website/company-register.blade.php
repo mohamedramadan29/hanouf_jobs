@@ -1,6 +1,6 @@
 @extends('website.layouts.master_login')
 @section('title')
-    حساب جديد
+    حساب جديد لشركة
 @endsection
 @section('content')
     <!-- CONTENT START -->
@@ -27,26 +27,11 @@
                             <div class="twm-log-reg-inner">
                                 <div class="twm-tabs-style-2">
 
-                                    <ul class="nav nav-tabs" id="myTab2" role="tablist">
 
-                                        <!--Login Candidate-->
-                                        <li class="nav-item">
-                                            <a href="{{ url('register') }}" class="nav-link" type="button"><i
-                                                    class="fas fa-user-tie"></i> موظف
-                                            </a>
-                                        </li>
-                                        <!--Login Employer-->
-                                        <li class="nav-item">
-                                            <a href="{{ url('company/register') }}" class="nav-link active"
-                                                type="button"><i class="fas fa-building"></i>صاحب العمل
-                                            </a>
-                                        </li>
-
-                                    </ul>
 
                                     <div class="twm-log-reg-head">
                                         <div class="twm-log-reg-logo">
-                                            <span class="log-reg-form-title" style="font-size:18px"> حساب جديد صاحب عمل
+                                            <span class="log-reg-form-title" style="font-size:18px"> حساب جديد شركة
                                             </span>
                                         </div>
                                     </div>
@@ -57,7 +42,7 @@
                                             <div>
                                                 <div class="google_login">
 
-                                                    <a href="{{ route('auth.google.redirect', ['type' => 'user']) }}">
+                                                    <a href="{{ route('auth.google.redirect', ['type' => 'company']) }}">
                                                         <i class="fab fa-google"></i> </a>
                                                 </div>
                                                 <br>
@@ -185,11 +170,10 @@
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-check d-flex">
-                                                            <input class="form-check-input" type="checkbox"
-                                                                value="" id="flexCheckChecked" checked>
+                                                            <input class="form-check-input" type="checkbox" value=""
+                                                                id="flexCheckChecked" checked>
                                                             <label class="form-check-label" for="flexCheckChecked">
-                                                                الموافقة علي <a target="_blank"
-                                                                    href="{{ url('terms') }}"
+                                                                الموافقة علي <a target="_blank" href="{{ url('terms') }}"
                                                                     style="color:var(--main-color)"> الشروط والاحكام </a>
                                                             </label>
                                                         </div>
@@ -211,6 +195,8 @@
                                                     </div>
                                                 </div>
                                             </form>
+                                            <p style="color: #6c6969;margin-bottom: 10px;"> لديك حساب ؟ <a style="color: #2980b9" href="{{ url('company/login') }}"> تسجيل الدخول  </a> </p>
+
 
 
                                             <script>

@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers\website;
 
-use App\Http\Controllers\Controller;
-use App\Http\Traits\Message_Trait;
-use App\Models\admin\Advertisment;
-use App\Models\admin\City;
+use App\Models\User;
 use App\Models\admin\Faq;
+use App\Models\admin\City;
+use App\Models\admin\Terms;
+use Illuminate\Http\Request;
+use App\Models\admin\Company;
 use App\Models\admin\Jobsname;
 use App\Models\admin\Specialist;
-use App\Models\admin\Terms;
-use App\Models\User;
-use App\Models\website\ContactMessage;
-use Illuminate\Http\Request;
+use App\Http\Traits\Message_Trait;
+use App\Models\admin\AboutContent;
+use App\Models\admin\Advertisment;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use App\Models\website\ContactMessage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
-use App\Models\admin\Company;
 
 class FrontController extends Controller
 {
@@ -25,9 +26,10 @@ class FrontController extends Controller
 
     public function index()
     {
-        $employesfaqs = Faq::where('type','موظف')->get();
+        $employesfaqs = Faq::all();
         $specialists = Specialist::all();
-        return view('website.index',compact('employesfaqs','specialists'));
+        $content = AboutContent::first();
+        return view('website.index',compact('employesfaqs','specialists','content'));
     }
 
 
@@ -170,7 +172,7 @@ class FrontController extends Controller
         $citizen = City::all();
 
         // تنفيذ الاستعلام مع التصفية حسب الحقول المطلوبة
-        $users = $query->where('job_name', '!=', '')->where('profession_specialist', '!=', '')->where('city', '!=', '')->paginate(5);
+        $users = $query->where('job_name', '!=', '')->where('profession_specialist', '!=', '')->where('city', '!=', '')->latest()->paginate(10);
 
         // عرض النتيجة في صفحة المواهب
         return view('website.talents', compact('users', 'jobs', 'specialists', 'citizen'));

@@ -5,19 +5,6 @@
 @section('content')
     <!-- CONTENT START -->
     <div class="page-content">
-        {{--        @if (Session::has('Success_message')) --}}
-        {{--            @php --}}
-        {{--                emotify('success', \Illuminate\Support\Facades\Session::get('Success_message')); --}}
-        {{--            @endphp --}}
-        {{--        @endif --}}
-        {{--        @if ($errors->any()) --}}
-        {{--            @foreach ($errors->all() as $error) --}}
-        {{--                @php --}}
-        {{--                    emotify('error', $error); --}}
-        {{--                @endphp --}}
-        {{--            @endforeach --}}
-        {{--        @endif --}}
-
 
 
         @if (Session::has('Success_message'))
@@ -54,22 +41,6 @@
                             <div class="twm-log-reg-inner">
                                 <div class="twm-tabs-style-2">
 
-                                    <ul class="nav nav-tabs" id="myTab2" role="tablist">
-
-                                        <!--Login Candidate-->
-                                        <li class="nav-item">
-                                            <a href="{{ url('login') }}" class="nav-link active"   type="button"><i
-                                                    class="fas fa-user-tie"></i> موظف
-                                            </a>
-                                        </li>
-                                        <!--Login Employer-->
-                                        <li class="nav-item">
-                                            <a href="{{ url('company/login') }}" class="nav-link" type="button"><i
-                                                    class="fas fa-building"></i>صاحب العمل
-                                        </a>
-                                        </li>
-
-                                    </ul>
 
                                     <div class="twm-log-reg-head">
                                         <div class="twm-log-reg-logo">
@@ -90,7 +61,6 @@
                                                                 placeholder=" البريد الالكتروني  *">
                                                         </div>
                                                     </div>
-
                                                     <div class="col-lg-12">
                                                         <div class="form-group mb-3">
                                                             <input name="password" type="password" class="form-control"
@@ -105,7 +75,6 @@
                                                                         id="Password4">
                                                                     <label class="form-check-label rem-forgot"
                                                                         for="Password4">تذكرنى
-
                                                                         <a href="{{ url('forget-password') }}"
                                                                             class="site-text-primary">
                                                                             هل نسيت كلمة السر</a></label>
@@ -121,13 +90,18 @@
                                                     </div>
                                                 </div>
                                             </form>
+
                                             <div class="col-lg-12">
                                                 <div>
                                                     <div class="google_login">
+                                                         <p style="color: #6c6969;margin-bottom: 10px;"> ليس لديك حساب ؟ <a style="color: #2980b9" href="{{ url('register') }}"> حساب جديد  </a> </p>
                                                         <h6> او سجل عبر </h6>
                                                         <a
-                                                            href="{{ route('auth.google.redirect', ['type' => 'company']) }}">
+                                                            href="{{ route('auth.google.redirect', ['type' => 'user']) }}">
                                                             <i class="fab fa-google"></i> </a>
+
+
+
 
                                                     </div>
                                                 </div>

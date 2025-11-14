@@ -277,15 +277,16 @@
                                         </a>
                                     </div>
                                 @else
-                                    <!---------------------------- Not Login Users ---------------------------->
+
+ <!---------------------------- Not Login Users ---------------------------->
                                     <div class="twm-nav-btn-left">
                                         <a class="twm-nav-sign-up" href="{{ url('login') }}" role="button">
-                                            <i class="feather-log-in"></i> تسجيل دخول
+                                            <i class="feather-user"></i> تسجيل الافراد
                                         </a>
                                     </div>
                                     <div class="twm-nav-btn-right">
-                                        <a href="{{ url('register') }}" class="twm-nav-post-a-job">
-                                            <i class="feather-user"></i> حساب جديد
+                                        <a href="{{ url('company/login') }}" class="twm-nav-post-a-job">
+                                            <i class="feather-build"></i> تسجيل الشركات
                                         </a>
                                     </div>
                                 @endif

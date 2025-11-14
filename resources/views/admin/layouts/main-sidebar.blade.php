@@ -200,6 +200,19 @@
                     </li>
                 </ul>
             </li>
+            <li class="side-item side-item-category"> اعدادات الموقع</li>
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="">
+                    <i style="font-size: 22px;margin-left: 10px" class="bx bx-home"></i>
+                    <span class="side-menu__label"> اعدادات الموقع </span><i class="angle fe fe-chevron-down"></i></a>
+                <ul class="slide-menu">
+                    <li><a class="slide-item" href="{{ url('admin/main-setting') }}"> الاعدادت العامة للموقع </a>
+                    </li>
+                     <li><a class="slide-item" href="{{ url('admin/website-content') }}">  محتوي الموقع  </a>
+                    </li>
+                </ul>
+            </li>
+
             <li class="side-item side-item-category"> حسابي</li>
             <li class="slide">
                 <a class="side-menu__item" data-toggle="slide" href="">

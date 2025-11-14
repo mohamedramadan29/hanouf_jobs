@@ -1,6 +1,6 @@
 @extends('website.layouts.master_login')
 @section('title')
-    حساب جديد
+    حساب جديد للافراد
 @endsection
 @section('content')
     <!-- CONTENT START -->
@@ -38,23 +38,6 @@
 
                             <div class="twm-log-reg-inner">
                                 <div class="twm-tabs-style-2">
-
-                                    <ul class="nav nav-tabs" id="myTab2" role="tablist">
-
-                                        <!--Login Candidate-->
-                                        <li class="nav-item">
-                                            <a href="{{ url('register') }}" class="nav-link active" type="button"><i
-                                                    class="fas fa-user-tie"></i> موظف
-                                            </a>
-                                        </li>
-                                        <!--Login Employer-->
-                                        <li class="nav-item">
-                                            <a href="{{ url('company/register') }}" class="nav-link" type="button"><i
-                                                    class="fas fa-building"></i>صاحب العمل
-                                            </a>
-                                        </li>
-
-                                    </ul>
 
                                     <div class="twm-log-reg-head">
                                         <div class="twm-log-reg-logo">
@@ -205,6 +188,7 @@
 
                                                 </div>
                                             </form>
+                                            <p style="color: #6c6969;margin-bottom: 10px;"> لديك حساب ؟ <a style="color: #2980b9" href="{{ url('login') }}"> تسجيل الدخول  </a> </p>
 
                                         </div>
 

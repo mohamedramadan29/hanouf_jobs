@@ -1,18 +1,22 @@
 <?php
 
+use App\Models\User;
+use App\Models\admin\Company;
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\admin\AdminController;
-use \App\Http\Controllers\admin\PlanController;
-use \App\Http\Controllers\admin\CompanyController;
-use \App\Http\Controllers\admin\AdvertesmentController;
-use App\Http\Controllers\admin\BlogController;
-use \App\Http\Controllers\admin\UserController;
 use \App\Http\Controllers\admin\FaqController;
+use App\Http\Controllers\admin\BlogController;
+use \App\Http\Controllers\admin\PlanController;
+use \App\Http\Controllers\admin\UserController;
+use \App\Http\Controllers\admin\AdminController;
 use \App\Http\Controllers\admin\TermsController;
+use App\Http\Controllers\admin\SettingController;
+use \App\Http\Controllers\admin\CompanyController;
 use \App\Http\Controllers\admin\JobsNameController;
 use \App\Http\Controllers\admin\SpecialistController;
 use \App\Http\Controllers\admin\JobCategoryController;
+use \App\Http\Controllers\admin\AdvertesmentController;
 use \App\Http\Controllers\admin\SpecialCategoryController;
+
 Route::group(['prefix' => 'admin'], function () {
     // Admin Login
     Route::match(['post', 'get'], '/', [AdminController::class, 'login'])->name('admin_login');
@@ -54,7 +58,7 @@ Route::group(['prefix' => 'admin'], function () {
             Route::match(['post', 'get'], 'advertisement/store', 'store');
             Route::match(['post', 'get'], 'advertisement/update/{id}', 'update');
             Route::post('advertisement/delete/{id}', 'delete');
-            Route::get('send_notification_new_job/{id}','send_notification_new_job');
+            Route::get('send_notification_new_job/{id}', 'send_notification_new_job');
         });
         /////////////////////////////// Start Users ////////////////
         ///
@@ -118,5 +122,26 @@ Route::group(['prefix' => 'admin'], function () {
             Route::match(['post', 'get'], 'blog/update/{id}', 'update');
             Route::post('blog/delete/{id}', 'delete');
         });
+
+        Route::get('users/delete', function () {
+            $users = User::where('email_confirm', 0)->get();
+            foreach ($users as $user) {
+                $user->delete();
+            }
+        });
+        Route::get('companies/delete', function () {
+            $companies = Company::where('email_confirm', 0)->where('wherelisting', 'من الاصدقاء')
+                ->get();
+            foreach ($companies as $company) {
+                $company->delete();
+            }
+        });
+
+        ############ Start MainSetting
+        Route::controller(SettingController::class)->group(function () {
+            Route::match(['post', 'get'], 'main-setting', 'update')->name('update_main_setting');
+            Route::match(['post', 'get'], 'website-content', 'updateContent')->name('update_content');
+        });
+        ############ End MainSetting
     });
 });
